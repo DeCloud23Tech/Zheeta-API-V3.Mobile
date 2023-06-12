@@ -1,0 +1,86 @@
+name: zheeta
+description: Zheeta... The Social Affiliate Networking Platform
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  cupertino_icons: ^1.0.2
+  qr_flutter: ^4.0.0
+  intl: any
+  otp: ^3.1.3
+  bip39: ^1.0.6
+  shared_preferences: ^2.0.13
+  flutter_svg: any
+  animations: ^2.0.3
+  page_transition: "^2.0.5"
+  intl_phone_field: ^3.1.0
+  flutter_2fa: ^1.0.0
+  image_picker: ^0.8.7
+  appinio_swiper: ^2.0.0
+  carousel_slider: ^4.2.1
+  shimmer: ^2.0.0
+  dio: ^5.1.1
+  json_annotation: ^4.8.0
+  flutter_session_manager: ^1.0.3
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.11.0
+  json_serializable: ^6.6.1
+  build_runner: ^2.3.3
+
+flutter_icons:
+  ios: true
+  android: true
+  remove_alpha_ios: true
+  image_path_ios: "assets/images/icons/icon.png"
+  image_path_android: "assets/images/icons/icon.png"
+  
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/images/icons/
+
+
+  fonts:
+    - family: MuseoModerno
+      fonts:
+        - asset: assets/fonts/MuseoModerno-Black.ttf
+        - asset: assets/fonts/MuseoModerno-Bold.ttf
+        - asset: assets/fonts/MuseoModerno-ExtraBold.ttf
+        - asset: assets/fonts/MuseoModerno-ExtraLight.ttf
+        - asset: assets/fonts/MuseoModerno-Light.ttf
+        - asset: assets/fonts/MuseoModerno-Medium.ttf
+        - asset: assets/fonts/MuseoModerno-Regular.ttf
+        - asset: assets/fonts/MuseoModerno-SemiBold.ttf
+        - asset: assets/fonts/MuseoModerno-Thin.ttf
+
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit/static/Outfit-Black.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-Bold.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-ExtraBold.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-ExtraLight.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-Light.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-Medium.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-Regular.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-SemiBold.ttf
+        - asset: assets/fonts/Outfit/static/Outfit-Thin.ttf
