@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/screens/splashscreen/pages/intro.dart';
+import 'package:zheeta/config/router.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: NavigationService.navigatorKey,
+      navigatorKey: navigatorKey,
+      onGenerateRoute: _appRouter.onGenerateRoute,
       title: 'Zheeta',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -22,11 +26,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Outfit',
         unselectedWidgetColor: Colors.white,
       ),
-      home: const Scaffold(body: Intro()),
+      initialRoute: '/',
+      // home: const Scaffold(body: Intro()),
     );
   }
-}
-
-class NavigationService {
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
