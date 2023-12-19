@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/screens/splashscreen/pages/intro.dart';
+import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/splash_screen/presentation/views/intro.dart';
 
 void main() {
+  injectDependency(Environment.prod);
   runApp(const MyApp());
 }
 
@@ -17,8 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
         highlightColor: Colors.white,
-        textSelectionTheme: TextSelectionThemeData(
-            selectionColor: Colors.white.withOpacity(0.3)),
+        textSelectionTheme: TextSelectionThemeData(selectionColor: Colors.white.withOpacity(0.3)),
         fontFamily: 'Outfit',
         unselectedWidgetColor: Colors.white,
       ),

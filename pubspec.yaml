@@ -28,17 +28,22 @@ dependencies:
   appinio_swiper: ^2.0.0
   carousel_slider: ^4.2.1
   shimmer: ^2.0.0
-  dio: ^5.1.1
-  json_annotation: ^4.8.0
+  dio: ^5.4.0
+  json_annotation: ^4.8.1
   flutter_session_manager: ^1.0.3
+  dio_cache_interceptor: ^3.5.0
+  dartz: ^0.10.1
+  get_it: ^7.6.4
+  injectable: ^2.3.2
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.11.0
-  json_serializable: ^6.6.1
-  build_runner: ^2.3.3
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.7
+  injectable_generator: ^2.4.1
 
 flutter_icons:
   ios: true
