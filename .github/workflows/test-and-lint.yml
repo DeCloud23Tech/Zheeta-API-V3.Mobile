@@ -2,9 +2,17 @@ name: Test and Lint
 
 on:
 
-  pull_request:
+  push:
     branches:
-      - staging
+      - master
+
+  pull_request:
+    types: 
+      - opened
+      - synchronize
+      - reopened
+    
+  workflow_dispatch:
 
 jobs:
   test:
