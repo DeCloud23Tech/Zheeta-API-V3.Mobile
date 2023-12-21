@@ -2,18 +2,22 @@ import 'dart:developer' as logger;
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/api/api_manager.dart';
 import 'package:zheeta/app/api/custom_exception.dart';
 import 'package:zheeta/app/api/dio_props.dart';
 import 'package:zheeta/app/api/formatted_response.dart';
+import 'package:zheeta/app/notify/notify_user.dart';
 
 @prod
 @Injectable(as: ApiManager)
 class ApiManagerImpl implements ApiManager {
   final Dio _dio;
-  ApiManagerImpl(this._dio);
+  ApiManagerImpl(this._dio) {
+    _dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
+  }
 
   //GET
   @override
@@ -30,6 +34,7 @@ class ApiManagerImpl implements ApiManager {
   //POST
   @override
   Future<FormattedResponse> postHttp(String route, dynamic body, {Map<String, dynamic>? params, bool formdata = false, bool formEncoded = false, String? token, void Function({int count, int total})? onSendProgress, void Function({int count, int total})? onRecieveProgress}) async {
+    logger.log('Request Path: $route, Request Data: $body');
     setHeader(formdata: formdata, formEncoded: formEncoded, token: token);
     params?.removeWhere((key, value) => value == null);
     final fullRoute = '$baseURL$route';
@@ -90,6 +95,7 @@ class ApiManagerImpl implements ApiManager {
     Response? response;
     try {
       response = await future;
+      logger.log('Success Path: ${response.realUri.path}, Data Response: ${response.data}');
     } on SocketException {
       return FormattedResponse(
         success: false,
@@ -149,12 +155,34 @@ class ApiManagerImpl implements ApiManager {
         throw const CustomException('Something went wrong');
       }
     }
-    return FormattedResponse(
-      success: response?.data['success'],
-      message: response?.data['message'],
-      data: response?.data,
-      statusCode: response?.statusCode,
-    );
+    if (!response?.data['success']) {
+      String message = '';
+      if (response?.data['data'] is Map) {
+        message = response?.data['data']['message'];
+      } else if (response?.data['data'] is String) {
+        message = response?.data['data'];
+      } else if (response?.data['data'] is List) {
+        for (var error in response?.data['data']) {
+          message += error + '\n';
+        }
+      } else {
+        message = response?.data['message'];
+      }
+      NotifyUser.showToast(message, true);
+      return FormattedResponse(
+        success: response?.data['success'],
+        message: message,
+        data: response?.data,
+        statusCode: response?.statusCode,
+      );
+    } else {
+      return FormattedResponse(
+        success: response?.data['success'],
+        message: response?.data['message'],
+        data: response?.data,
+        statusCode: response?.statusCode,
+      );
+    }
   }
 
   @override

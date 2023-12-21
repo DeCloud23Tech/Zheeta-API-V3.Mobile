@@ -20,14 +20,14 @@ class TransparentButton extends StatelessWidget {
           onPressed: (action),
           child: Text(
             title,
-            style: TextStyle(color: invert ? white : primaryDark, fontSize: 14, fontWeight: FontWeight.w400),
+            style: TextStyle(color: invert ? AppColors.white : AppColors.primaryDark, fontSize: 14, fontWeight: FontWeight.w400),
           ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
             shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
             overlayColor: MaterialStateProperty.resolveWith(
               (states) {
-                return states.contains(MaterialState.pressed) ? primaryDark.withOpacity(0.2) : null;
+                return states.contains(MaterialState.pressed) ? AppColors.primaryDark.withOpacity(0.2) : null;
               },
             ),
           ),

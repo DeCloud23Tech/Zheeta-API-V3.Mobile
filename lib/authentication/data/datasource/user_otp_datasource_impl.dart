@@ -7,9 +7,9 @@ import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
 @prod
-@Injectable(as: UserOtpDatasource)
+@LazySingleton(as: UserOtpDatasource)
 class UserOtpDatasourceImpl implements UserOtpDatasource {
-  ApiManager _apiManager;
+  final ApiManager _apiManager;
 
   UserOtpDatasourceImpl(this._apiManager);
 

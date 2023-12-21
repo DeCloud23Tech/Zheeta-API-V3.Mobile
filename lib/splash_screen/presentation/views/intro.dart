@@ -1,21 +1,21 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/app/text_style.dart';
-import 'package:zheeta/authentication/presentation/views/signin.dart';
-import 'package:zheeta/authentication/presentation/views/signup.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/widgets/transparent_button.dart';
 
-class Intro extends StatefulWidget {
-  const Intro({super.key});
+@RoutePage()
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
 
   @override
-  State<Intro> createState() => _IntroState();
+  State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntroState extends State<Intro> with TickerProviderStateMixin {
+class _IntroScreenState extends State<IntroScreen> with TickerProviderStateMixin {
   late AnimationController animationController;
 
   @override
@@ -59,7 +59,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
         ),
         Center(
           child: Container(
-            color: primaryDark.withOpacity(0.4),
+            color: AppColors.primaryDark.withOpacity(0.4),
             padding: EdgeInsets.all(20),
             width: double.infinity,
             child: Column(mainAxisAlignment: MainAxisAlignment.end, crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -75,7 +75,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                         child: PrimaryButton(
                           title: 'Login',
                           action: () {
-                            Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: SignIn()));
+                            context.router.push(SignInRoute());
                           },
                         )),
                     SizedBox(height: 20),
@@ -84,7 +84,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                         child: TransparentButton(
                           title: 'Don’t have an account? Sign up',
                           action: () {
-                            Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: SignUp()));
+                            context.router.push(SignUpRoute());
                           },
                           invert: true,
                         )),

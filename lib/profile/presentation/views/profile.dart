@@ -18,7 +18,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: secondaryLight,
+        backgroundColor: AppColors.secondaryLight,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -77,7 +77,7 @@ class _ProfileState extends State<Profile> {
                               child: Container(
                                 height: 10,
                                 width: 10,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: _current == i ? white : white.withOpacity(0.2)),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: _current == i ? AppColors.white : AppColors.white.withOpacity(0.2)),
                               ),
                             )
                         ])),
@@ -97,14 +97,14 @@ class _ProfileState extends State<Profile> {
                           children: [
                             Text('Christine Doe',
                                 style: const TextStyle(
-                                  color: darkText,
+                                  color: AppColors.darkText,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 24,
                                 )),
                             SizedBox(height: 5),
                             Text('Ikeja, Nigeria (2 miles away)',
                                 style: const TextStyle(
-                                  color: grey,
+                                  color: AppColors.grey,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
                                 )),
@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
                                   padding: EdgeInsets.all(10),
                                   height: 40,
                                   width: 40,
-                                  decoration: BoxDecoration(color: white, borderRadius: BorderRadius.circular(100)),
+                                  decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(100)),
                                   child: SvgPicture.asset(
                                     'assets/images/icons/dots.svg',
                                     width: 30,
@@ -137,26 +137,26 @@ class _ProfileState extends State<Profile> {
                     Container(
                       height: 85,
                       padding: EdgeInsets.all(22),
-                      decoration: BoxDecoration(color: white, borderRadius: BorderRadius.circular(8)),
+                      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(8)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
                             onTap: () {},
                             child: Column(
-                              children: [Text("12k", style: TextStyle(color: grayscale, fontSize: 18, fontWeight: FontWeight.w500)), Text("Friends", style: TextStyle(color: grey, fontSize: 12, fontWeight: FontWeight.w400))],
+                              children: [Text("12k", style: TextStyle(color: AppColors.grayscale, fontSize: 18, fontWeight: FontWeight.w500)), Text("Friends", style: TextStyle(color: AppColors.grey, fontSize: 12, fontWeight: FontWeight.w400))],
                             ),
                           ),
                           GestureDetector(
                             onTap: () {},
                             child: Column(
-                              children: [Text("20", style: TextStyle(color: grayscale, fontSize: 18, fontWeight: FontWeight.w500)), Text("Referees", style: TextStyle(color: grey, fontSize: 12, fontWeight: FontWeight.w400))],
+                              children: [Text("20", style: TextStyle(color: AppColors.grayscale, fontSize: 18, fontWeight: FontWeight.w500)), Text("Referees", style: TextStyle(color: AppColors.grey, fontSize: 12, fontWeight: FontWeight.w400))],
                             ),
                           ),
                           GestureDetector(
                             onTap: () {},
                             child: Column(
-                              children: [Text("300", style: TextStyle(color: grayscale, fontSize: 18, fontWeight: FontWeight.w500)), Text("Posts", style: TextStyle(color: grey, fontSize: 12, fontWeight: FontWeight.w400))],
+                              children: [Text("300", style: TextStyle(color: AppColors.grayscale, fontSize: 18, fontWeight: FontWeight.w500)), Text("Posts", style: TextStyle(color: AppColors.grey, fontSize: 12, fontWeight: FontWeight.w400))],
                             ),
                           )
                         ],
@@ -166,7 +166,7 @@ class _ProfileState extends State<Profile> {
                     Container(
                       height: 40,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(color: white, border: Border(), borderRadius: BorderRadius.circular(8)),
+                      decoration: BoxDecoration(color: AppColors.white, border: Border(), borderRadius: BorderRadius.circular(8)),
                       child: Row(
                         children: [
                           GestureDetector(
@@ -180,10 +180,10 @@ class _ProfileState extends State<Profile> {
                                 Container(
                                   height: 3,
                                   width: MediaQuery.of(context).size.width * 0.295,
-                                  decoration: BoxDecoration(color: activeTab == 1 ? primaryDark : Colors.transparent, border: Border(), borderRadius: BorderRadius.circular(8)),
+                                  decoration: BoxDecoration(color: activeTab == 1 ? AppColors.primaryDark : Colors.transparent, border: Border(), borderRadius: BorderRadius.circular(8)),
                                 ),
                                 SizedBox(height: 5),
-                                Text("Bio", style: TextStyle(color: activeTab == 1 ? grayscale : grey, fontSize: 16, fontWeight: FontWeight.w600))
+                                Text("Bio", style: TextStyle(color: activeTab == 1 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600))
                               ],
                             ),
                           ),
@@ -198,10 +198,10 @@ class _ProfileState extends State<Profile> {
                                   Container(
                                     height: 3,
                                     width: MediaQuery.of(context).size.width * 0.295,
-                                    decoration: BoxDecoration(color: activeTab == 2 ? primaryDark : Colors.transparent, border: Border(), borderRadius: BorderRadius.circular(8)),
+                                    decoration: BoxDecoration(color: activeTab == 2 ? AppColors.primaryDark : Colors.transparent, border: Border(), borderRadius: BorderRadius.circular(8)),
                                   ),
                                   SizedBox(height: 5),
-                                  Text("Post", style: TextStyle(color: activeTab == 2 ? grayscale : grey, fontSize: 16, fontWeight: FontWeight.w600))
+                                  Text("Post", style: TextStyle(color: activeTab == 2 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600))
                                 ],
                               )),
                           GestureDetector(
@@ -215,10 +215,10 @@ class _ProfileState extends State<Profile> {
                                   Container(
                                     height: 3,
                                     width: MediaQuery.of(context).size.width * 0.295,
-                                    decoration: BoxDecoration(color: activeTab == 3 ? primaryDark : Colors.transparent, border: Border(), borderRadius: BorderRadius.circular(8)),
+                                    decoration: BoxDecoration(color: activeTab == 3 ? AppColors.primaryDark : Colors.transparent, border: Border(), borderRadius: BorderRadius.circular(8)),
                                   ),
                                   SizedBox(height: 5),
-                                  Text("Product", style: TextStyle(color: activeTab == 3 ? grayscale : grey, fontSize: 16, fontWeight: FontWeight.w600))
+                                  Text("Product", style: TextStyle(color: activeTab == 3 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600))
                                 ],
                               ))
                         ],
@@ -229,19 +229,19 @@ class _ProfileState extends State<Profile> {
                         ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Text('Christine Doe',
                                 style: const TextStyle(
-                                  color: primaryDark,
+                                  color: AppColors.primaryDark,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
                                 )),
                             SizedBox(height: 5),
                             Text('My name is Christine Doe and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading, and the knowledge ...',
                                 style: const TextStyle(
-                                  color: grayscale,
+                                  color: AppColors.grayscale,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
                                 )),
                             SizedBox(height: 20),
-                            Text("M Recent Referees", style: TextStyle(color: grayscale, fontSize: 16, fontWeight: FontWeight.w600)),
+                            Text("M Recent Referees", style: TextStyle(color: AppColors.grayscale, fontSize: 16, fontWeight: FontWeight.w600)),
                             SizedBox(height: 10),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
@@ -267,12 +267,21 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                             SizedBox(height: 20),
-                            Text("Interest", style: TextStyle(color: grayscale, fontSize: 16, fontWeight: FontWeight.w600)),
+                            Text("Interest", style: TextStyle(color: AppColors.grayscale, fontSize: 16, fontWeight: FontWeight.w600)),
                             SizedBox(height: 10),
                             Wrap(
                               runSpacing: 10,
                               spacing: 10,
-                              children: [interest('Friend WB'), interest('Hangout'), interest('Dating'), interest('Body Massage'), interest('Friends'), interest('Serious Relationships'), interest('Massage Plus'), interest('Networking')],
+                              children: [
+                                interest('Friend WB'),
+                                interest('Hangout'),
+                                interest('Dating'),
+                                interest('Body Massage'),
+                                interest('Friends'),
+                                interest('Serious Relationships'),
+                                interest('Massage Plus'),
+                                interest('Networking'),
+                              ],
                             )
                           ])
                         : activeTab == 2
@@ -297,7 +306,7 @@ class _ProfileState extends State<Profile> {
                             padding: EdgeInsets.all(10),
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(color: white.withOpacity(0.3), borderRadius: BorderRadius.circular(100)),
+                            decoration: BoxDecoration(color: AppColors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(100)),
                             child: SvgPicture.asset(
                               'assets/images/icons/menu.svg',
                               width: 30,
@@ -311,7 +320,7 @@ class _ProfileState extends State<Profile> {
                             padding: EdgeInsets.all(10),
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(color: white.withOpacity(0.3), borderRadius: BorderRadius.circular(100)),
+                            decoration: BoxDecoration(color: AppColors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(100)),
                             child: SvgPicture.asset(
                               'assets/images/icons/bell.svg',
                               width: 30,
@@ -323,6 +332,14 @@ class _ProfileState extends State<Profile> {
   }
 
   Container interest(title) {
-    return Container(height: 28, padding: EdgeInsets.fromLTRB(10, 5, 10, 5), decoration: BoxDecoration(color: white, borderRadius: BorderRadius.circular(4)), child: Text(title, style: TextStyle(color: grayscale, fontSize: 12, fontWeight: FontWeight.w400)));
+    return Container(
+      height: 28,
+      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(4)),
+      child: Text(
+        title,
+        style: TextStyle(color: AppColors.grayscale, fontSize: 12, fontWeight: FontWeight.w400),
+      ),
+    );
   }
 }

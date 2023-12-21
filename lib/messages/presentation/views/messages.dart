@@ -15,7 +15,7 @@ class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondaryLight,
+      backgroundColor: AppColors.secondaryLight,
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: Platform.isIOS ? 60.0 : 120.0),
         child: SizedBox(
@@ -24,9 +24,9 @@ class _MessagesState extends State<Messages> {
           child: ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all<Color>(black.withOpacity(0.7)),
+                  shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
                   elevation: MaterialStateProperty.all(10),
-                  backgroundColor: MaterialStateProperty.all<Color>(primaryDark),
+                  backgroundColor: MaterialStateProperty.all<Color>(AppColors.primaryDark),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100),
                   ))),

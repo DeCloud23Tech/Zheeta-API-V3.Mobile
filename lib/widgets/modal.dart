@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:zheeta/app/color.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -22,35 +23,40 @@ class Modal extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15.0)),
               padding: EdgeInsets.all(25),
               child: SingleChildScrollView(
-                  child: Column(children: [
-                if (title != null) Text(title, style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.bold, color: primaryDark)),
-                SizedBox(height: title != null ? 30 : 10),
-                Text(content, textAlign: TextAlign.center, style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', height: 1.5, fontSize: 13, fontWeight: FontWeight.normal, color: grayscale)),
-                SizedBox(height: 27),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  child: btn2Title == null
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: MediaQuery.of(context).size.width * 0.6, child: PrimaryButton(title: btn1Title, action: action)),
-                          ],
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () => Navigator.of(context).pop(),
-                              child: Text(btn1Title != null ? btn1Title : "NO, CANCEL", style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 14, fontWeight: FontWeight.w600, color: grayscale)),
-                            ),
-                            GestureDetector(
-                              onTap: action,
-                              child: Text(btn2Title, style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 14, fontWeight: FontWeight.w600, color: primaryDark)),
-                            )
-                          ],
-                        ),
-                )
-              ])))),
+                  child: Column(
+                children: [
+                  if (title != null) Text(title, style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primaryDark)),
+                  SizedBox(height: title != null ? 30 : 10),
+                  Text(content, textAlign: TextAlign.center, style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', height: 1.5, fontSize: 13, fontWeight: FontWeight.normal, color: AppColors.grayscale)),
+                  SizedBox(height: 27),
+                  SizedBox(
+                    width: double.infinity,
+                    child: btn2Title == null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.6, child: PrimaryButton(title: btn1Title, action: action)),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () => context.router.pop(),
+                                child: Text(
+                                  btn1Title != null ? btn1Title : "NO, CANCEL",
+                                  style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.grayscale),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: action,
+                                child: Text(btn2Title, style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primaryDark)),
+                              )
+                            ],
+                          ),
+                  )
+                ],
+              )))),
     );
   }
 }

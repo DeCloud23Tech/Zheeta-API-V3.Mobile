@@ -4,16 +4,16 @@ import 'package:zheeta/app/api/api_manager.dart';
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
 import 'package:zheeta/authentication/data/request/change_password_request.dart';
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart';
+import 'package:zheeta/authentication/data/request/login_request.dart';
 import 'package:zheeta/authentication/data/request/register_staff_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
-import 'package:zheeta/models/login_model.dart';
 
 @prod
-@Injectable(as: UserAuthDatasource)
+@LazySingleton(as: UserAuthDatasource)
 class UserAuthDatasourceImpl implements UserAuthDatasource {
-  ApiManager _apiManager;
+  final ApiManager _apiManager;
 
   UserAuthDatasourceImpl(this._apiManager);
 

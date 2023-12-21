@@ -9,7 +9,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: primaryDark,
+        backgroundColor: AppColors.primaryDark,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

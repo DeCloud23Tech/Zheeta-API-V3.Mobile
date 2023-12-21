@@ -17,7 +17,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryDark,
+      backgroundColor: AppColors.primaryDark,
       body: SingleChildScrollView(
         child: Column(children: [
           SizedBox(
