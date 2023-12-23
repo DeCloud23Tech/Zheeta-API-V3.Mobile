@@ -17,10 +17,10 @@ class UserAuthState with _$UserAuthState {
 
   UserAuthState._();
 
-  setRegisterUser(State<RegisterUserModel> state) => copyWith(registerUser: state);
-  setLoginUser(State state) => copyWith(loginUser: state);
-  setRegisterStaff(State state) => copyWith(registerStaff: state);
-  setChangePassword(State state) => copyWith(changePassword: state);
-  setResetPassword(State state) => copyWith(resetPassword: state);
-  setLoginOAuth(State state) => copyWith(loginOAuth: state);
+  UserAuthState setRegisterUser(State<RegisterUserModel> state) => copyWith(registerUser: state);
+  UserAuthState setLoginUser(State state) => copyWith(loginUser: state);
+  UserAuthState setRegisterStaff(State state) => copyWith(registerStaff: state);
+  UserAuthState setChangePassword(State state) => copyWith(changePassword: state);
+  UserAuthState setResetPassword(State state) => copyWith(resetPassword: state);
+  UserAuthState setLoginOAuth(State state) => copyWith(loginOAuth: state);
 }

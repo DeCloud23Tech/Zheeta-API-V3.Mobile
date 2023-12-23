@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/app/text_style.dart';
@@ -22,10 +23,16 @@ class SignInScreen extends ConsumerStatefulWidget {
 class _SignInScreenState extends ConsumerState<SignInScreen> {
   bool _isPasswordObscure = true;
   final formKey = GlobalKey<FormState>();
+  late UserAuthViewModel userAuthViewModel;
+
+  @override
+  void initState() {
+    userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
     final watchUserAuthViewModel = ref.watch(userAuthViewModelProvider);
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
@@ -45,7 +52,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 SizedBox(height: 5),
                 GestureDetector(
                     onTap: () {
-                      context.router.push(SignUpRoute());
+                      router.push(SignUpRoute());
                     },
                     child: Text(signinSubtitle, style: authSubtitleStyle)),
                 SizedBox(height: 32),
@@ -68,8 +75,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     state: watchUserAuthViewModel.loginUser.isLoading,
                     action: () async {
                       if (formKey.currentState!.validate()) {
-                        final res = await userAuthViewModel.loginUser();
-                        // if (res) context.router.pushAndPopUntil(SignInRoute(), e);
+                        await userAuthViewModel.loginUser();
                       }
                     },
                   ),
@@ -80,7 +86,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   child: TransparentButton(
                     title: 'Forgot Password?',
                     action: () {
-                      context.router.push(ForgotPasswordRoute());
+                      router.push(ForgotPasswordRoute());
                     },
                   ),
                 ),

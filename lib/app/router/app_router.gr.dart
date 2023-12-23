@@ -147,9 +147,9 @@ abstract class $AppRouter extends _i17.RootStackRouter {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i16.VerificationScreen(
-          identifier: args.identifier,
-          isPhoneNumber: args.isPhoneNumber,
           key: args.key,
+          isPhoneNumber: args.isPhoneNumber,
+          identifier: args.identifier,
         ),
       );
     },
@@ -418,16 +418,16 @@ class SignUpRoute extends _i17.PageRouteInfo<void> {
 /// [_i16.VerificationScreen]
 class VerificationRoute extends _i17.PageRouteInfo<VerificationRouteArgs> {
   VerificationRoute({
-    required String identifier,
-    required bool isPhoneNumber,
     _i19.Key? key,
+    required bool isPhoneNumber,
+    required String identifier,
     List<_i17.PageRouteInfo>? children,
   }) : super(
           VerificationRoute.name,
           args: VerificationRouteArgs(
-            identifier: identifier,
-            isPhoneNumber: isPhoneNumber,
             key: key,
+            isPhoneNumber: isPhoneNumber,
+            identifier: identifier,
           ),
           initialChildren: children,
         );
@@ -440,19 +440,19 @@ class VerificationRoute extends _i17.PageRouteInfo<VerificationRouteArgs> {
 
 class VerificationRouteArgs {
   const VerificationRouteArgs({
-    required this.identifier,
-    required this.isPhoneNumber,
     this.key,
+    required this.isPhoneNumber,
+    required this.identifier,
   });
-
-  final String identifier;
-
-  final bool isPhoneNumber;
 
   final _i19.Key? key;
 
+  final bool isPhoneNumber;
+
+  final String identifier;
+
   @override
   String toString() {
-    return 'VerificationRouteArgs{identifier: $identifier, isPhoneNumber: $isPhoneNumber, key: $key}';
+    return 'VerificationRouteArgs{key: $key, isPhoneNumber: $isPhoneNumber, identifier: $identifier}';
   }
 }

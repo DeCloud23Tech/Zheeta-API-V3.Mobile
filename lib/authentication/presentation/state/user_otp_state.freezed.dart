@@ -22,6 +22,7 @@ mixin _$UserOtpState {
   State<dynamic> get sendResetPasswordOtp => throw _privateConstructorUsedError;
   State<dynamic> get verifyEmailOtp => throw _privateConstructorUsedError;
   State<dynamic> get verifyPhoneOtp => throw _privateConstructorUsedError;
+  int get counter => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserOtpStateCopyWith<UserOtpState> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $UserOtpStateCopyWith<$Res> {
       State<dynamic> sendPhoneVerifyOtp,
       State<dynamic> sendResetPasswordOtp,
       State<dynamic> verifyEmailOtp,
-      State<dynamic> verifyPhoneOtp});
+      State<dynamic> verifyPhoneOtp,
+      int counter});
 
   $StateCopyWith<dynamic, $Res> get resetPassword;
   $StateCopyWith<dynamic, $Res> get sendEmailVerifyOtp;
@@ -69,6 +71,7 @@ class _$UserOtpStateCopyWithImpl<$Res, $Val extends UserOtpState>
     Object? sendResetPasswordOtp = null,
     Object? verifyEmailOtp = null,
     Object? verifyPhoneOtp = null,
+    Object? counter = null,
   }) {
     return _then(_value.copyWith(
       resetPassword: null == resetPassword
@@ -95,6 +98,10 @@ class _$UserOtpStateCopyWithImpl<$Res, $Val extends UserOtpState>
           ? _value.verifyPhoneOtp
           : verifyPhoneOtp // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
+      counter: null == counter
+          ? _value.counter
+          : counter // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -161,7 +168,8 @@ abstract class _$$UserOtpStateImplCopyWith<$Res>
       State<dynamic> sendPhoneVerifyOtp,
       State<dynamic> sendResetPasswordOtp,
       State<dynamic> verifyEmailOtp,
-      State<dynamic> verifyPhoneOtp});
+      State<dynamic> verifyPhoneOtp,
+      int counter});
 
   @override
   $StateCopyWith<dynamic, $Res> get resetPassword;
@@ -194,6 +202,7 @@ class __$$UserOtpStateImplCopyWithImpl<$Res>
     Object? sendResetPasswordOtp = null,
     Object? verifyEmailOtp = null,
     Object? verifyPhoneOtp = null,
+    Object? counter = null,
   }) {
     return _then(_$UserOtpStateImpl(
       resetPassword: null == resetPassword
@@ -220,6 +229,10 @@ class __$$UserOtpStateImplCopyWithImpl<$Res>
           ? _value.verifyPhoneOtp
           : verifyPhoneOtp // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
+      counter: null == counter
+          ? _value.counter
+          : counter // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -233,7 +246,8 @@ class _$UserOtpStateImpl extends _UserOtpState {
       required this.sendPhoneVerifyOtp,
       required this.sendResetPasswordOtp,
       required this.verifyEmailOtp,
-      required this.verifyPhoneOtp})
+      required this.verifyPhoneOtp,
+      required this.counter})
       : super._();
 
   @override
@@ -248,10 +262,12 @@ class _$UserOtpStateImpl extends _UserOtpState {
   final State<dynamic> verifyEmailOtp;
   @override
   final State<dynamic> verifyPhoneOtp;
+  @override
+  final int counter;
 
   @override
   String toString() {
-    return 'UserOtpState(resetPassword: $resetPassword, sendEmailVerifyOtp: $sendEmailVerifyOtp, sendPhoneVerifyOtp: $sendPhoneVerifyOtp, sendResetPasswordOtp: $sendResetPasswordOtp, verifyEmailOtp: $verifyEmailOtp, verifyPhoneOtp: $verifyPhoneOtp)';
+    return 'UserOtpState(resetPassword: $resetPassword, sendEmailVerifyOtp: $sendEmailVerifyOtp, sendPhoneVerifyOtp: $sendPhoneVerifyOtp, sendResetPasswordOtp: $sendResetPasswordOtp, verifyEmailOtp: $verifyEmailOtp, verifyPhoneOtp: $verifyPhoneOtp, counter: $counter)';
   }
 
   @override
@@ -270,7 +286,8 @@ class _$UserOtpStateImpl extends _UserOtpState {
             (identical(other.verifyEmailOtp, verifyEmailOtp) ||
                 other.verifyEmailOtp == verifyEmailOtp) &&
             (identical(other.verifyPhoneOtp, verifyPhoneOtp) ||
-                other.verifyPhoneOtp == verifyPhoneOtp));
+                other.verifyPhoneOtp == verifyPhoneOtp) &&
+            (identical(other.counter, counter) || other.counter == counter));
   }
 
   @override
@@ -281,7 +298,8 @@ class _$UserOtpStateImpl extends _UserOtpState {
       sendPhoneVerifyOtp,
       sendResetPasswordOtp,
       verifyEmailOtp,
-      verifyPhoneOtp);
+      verifyPhoneOtp,
+      counter);
 
   @JsonKey(ignore: true)
   @override
@@ -297,7 +315,8 @@ abstract class _UserOtpState extends UserOtpState {
       required final State<dynamic> sendPhoneVerifyOtp,
       required final State<dynamic> sendResetPasswordOtp,
       required final State<dynamic> verifyEmailOtp,
-      required final State<dynamic> verifyPhoneOtp}) = _$UserOtpStateImpl;
+      required final State<dynamic> verifyPhoneOtp,
+      required final int counter}) = _$UserOtpStateImpl;
   _UserOtpState._() : super._();
 
   @override
@@ -312,6 +331,8 @@ abstract class _UserOtpState extends UserOtpState {
   State<dynamic> get verifyEmailOtp;
   @override
   State<dynamic> get verifyPhoneOtp;
+  @override
+  int get counter;
   @override
   @JsonKey(ignore: true)
   _$$UserOtpStateImplCopyWith<_$UserOtpStateImpl> get copyWith =>

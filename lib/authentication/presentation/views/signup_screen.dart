@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/app/text_style.dart';
@@ -22,10 +23,16 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   bool _isPasswordObscure = true;
   bool agree = false;
   final formKey = GlobalKey<FormState>();
+  late UserAuthViewModel userAuthViewModel;
+
+  @override
+  void initState() {
+    userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
       body: Padding(
@@ -44,7 +51,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 SizedBox(height: 5),
                 GestureDetector(
                     onTap: () {
-                      context.router.push(SignInRoute());
+                      router.push(SignInRoute());
                     },
                     child: Text(signupSubtitle, style: authSubtitleStyle)),
                 SizedBox(height: 32),
@@ -73,26 +80,28 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 ),
                 SizedBox(height: 10),
                 SizedBox(
-                    height: 53,
-                    child: IntlPhoneField(
-                      disableLengthCheck: true,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.white,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.grey.withOpacity(0.5), width: 1.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColors.primaryDark, width: 1.0),
-                          ),
-                          border: const OutlineInputBorder(),
-                          hintText: "Phone number",
-                          hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
-                          errorStyle: const TextStyle(color: Colors.red)),
-                      initialCountryCode: userAuthViewModel.getPhoneNumber.countryCode,
-                      validator: (phone) => userAuthViewModel.validatePhoneNumber(),
-                      onChanged: (phone) => userAuthViewModel.setPhoneNumber(phone),
-                    )),
+                  height: 53,
+                  child: IntlPhoneField(
+                    disableLengthCheck: true,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.grey.withOpacity(0.5), width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.primaryDark, width: 1.0),
+                        ),
+                        border: const OutlineInputBorder(),
+                        hintText: "Phone number",
+                        hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
+                        errorStyle: const TextStyle(color: Colors.red)),
+                    initialCountryCode: userAuthViewModel.getPhoneNumber.countryCode,
+                    validator: (phone) => userAuthViewModel.validatePhoneNumber(),
+                    onChanged: (phone) => userAuthViewModel.setPhoneNumber(phone),
+                    autovalidateMode: AutovalidateMode.disabled,
+                  ),
+                ),
                 SizedBox(height: 10),
                 InputField(
                   label: 'Referral (Optional)',
@@ -144,11 +153,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     action: () async {
                       final isValid = formKey.currentState?.validate();
                       if (isValid ?? false) {
-                        final response = await userAuthViewModel.registerUser();
-                        if (response) {
-                          final String phoneNumber = userAuthViewModel.getPhoneNumber.completeNumber;
-                          context.router.push(VerificationRoute(identifier: phoneNumber, isPhoneNumber: true));
-                        }
+                        userAuthViewModel.registerUser();
                       }
                     },
                   ),

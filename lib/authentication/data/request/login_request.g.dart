@@ -10,6 +10,7 @@ LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) => LoginRequest(
       json['email'] as String,
       json['password'] as String,
       json['userDeviceToken'] as String,
+      json['platform'] as String,
     );
 
 Map<String, dynamic> _$LoginRequestToJson(LoginRequest instance) =>
@@ -17,4 +18,5 @@ Map<String, dynamic> _$LoginRequestToJson(LoginRequest instance) =>
       'email': instance.email,
       'password': instance.password,
       'userDeviceToken': instance.userDeviceToken,
+      'platform': instance.platform,
     };

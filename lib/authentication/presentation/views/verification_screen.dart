@@ -1,13 +1,9 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/color.dart';
-import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/app/text_style.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_auth_viewmodel.dart';
 import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
@@ -16,9 +12,9 @@ import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
 class VerificationScreen extends ConsumerStatefulWidget {
-  final String identifier;
   final bool isPhoneNumber;
-  const VerificationScreen({required this.identifier, required this.isPhoneNumber, super.key});
+  final String identifier;
+  const VerificationScreen({super.key, required this.isPhoneNumber, required this.identifier});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _VerificationScreenState();
@@ -28,51 +24,18 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
   late UserOtpViewModel _userOtpViewModel;
 
   final formKey = GlobalKey<FormState>();
-
-  late Timer _timer;
-  late int _counter;
-
-  void startTimer() {
-    _counter = 59;
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_counter == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _counter--;
-          });
-        }
-      },
-    );
-  }
-
   @override
   void initState() {
     super.initState();
-    _counter = 59;
     _userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
-    if (widget.isPhoneNumber) {
-      _userOtpViewModel.setPhoneNumber = widget.identifier;
-    } else {
-      _userOtpViewModel.setEmail = widget.identifier;
-    }
-
-    startTimer();
-  }
-
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
+    _userOtpViewModel.setPhoneNumberOrEmail(widget.isPhoneNumber, widget.identifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _userOtpViewModel.startTimer();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final _userAuthViewModel = ref.watch(userAuthViewModelProvider);
     final watchUserOtpViewModel = ref.watch(userOtpViewModelProvider);
     return Stack(
       children: [
@@ -126,18 +89,10 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                   ),
                   SizedBox(height: 22),
                   Center(
-                    child: _counter == 0
+                    child: watchUserOtpViewModel.counter == 0
                         ? GestureDetector(
                             onTap: () async {
-                              late bool haveResentOtp;
-                              if (widget.isPhoneNumber) {
-                                haveResentOtp = await _userOtpViewModel.sendPhoneVerifyOtp();
-                              } else {
-                                haveResentOtp = await _userOtpViewModel.sendEmailVerifyOtp();
-                              }
-                              if (haveResentOtp) {
-                                startTimer();
-                              }
+                              _userOtpViewModel.reSendPhoneOrEmailOtp();
                             },
                             child: Text(
                               'Resend OTP',
@@ -145,7 +100,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                             ),
                           )
                         : Text(
-                            'Send Again OTP ($_counter\s)',
+                            'Send Again OTP (${watchUserOtpViewModel.counter}\s)',
                             style: TextStyle(
                               color: Colors.blue.withOpacity(0.5),
                             ),
@@ -169,17 +124,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                     action: () async {
                       final isValid = formKey.currentState?.validate();
                       if (isValid ?? false) {
-                        late bool canGoNext;
-                        if (widget.isPhoneNumber) {
-                          canGoNext = await _userOtpViewModel.verifyPhoneNumber();
-                          if (canGoNext)
-                            context.router.push(
-                              VerificationRoute(identifier: _userAuthViewModel.registerUser.data?.email, isPhoneNumber: false),
-                            );
-                        } else {
-                          canGoNext = await _userOtpViewModel.verifyEmail();
-                          if (canGoNext) context.router.push(BioDataRoute());
-                        }
+                        _userOtpViewModel.verifyPhoneOrEmail();
                       }
                     },
                   ),

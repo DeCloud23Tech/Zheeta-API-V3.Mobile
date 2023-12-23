@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/app/validation_helper.dart';
 import 'package:zheeta/authentication/data/request/verify_email_otp_request.dart';
 import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart';
@@ -22,10 +26,10 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
           sendResetPasswordOtp: State.init(),
           verifyEmailOtp: State.init(),
           verifyPhoneOtp: State.init(),
-        ));
+          counter: 0,
+        )) {}
 
   String _phoneNumber = '';
-  set setPhoneNumber(String value) => _phoneNumber = value;
 
   String _email = '';
   set setEmail(String value) => _email = value;
@@ -33,8 +37,58 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
   String _otp = '';
   set setOtp(String value) => _otp = value;
 
-  String? validatePhoneNumber() => this.isValidPhoneNumber(_phoneNumber);
   String? validateOtp() => this.isValidInput(_otp);
+
+  // Timer for countdown..
+  late Timer _timer;
+
+  void startTimer() {
+    state = state.setCounter(59);
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (state.counter == 0) {
+          timer.cancel();
+        } else {
+          state = state.setCounter(state.counter - 1);
+        }
+      },
+    );
+  }
+
+  setPhoneNumberOrEmail(bool isPhoneNumber, String identifier) {
+    if (isPhoneNumber) {
+      _phoneNumber = identifier;
+    } else {
+      _email = identifier;
+    }
+  }
+
+  reSendPhoneOrEmailOtp() async {
+    late bool haveResentOtp;
+    if (_phoneNumber.isNotEmpty) {
+      haveResentOtp = await sendPhoneVerifyOtp();
+    } else {
+      haveResentOtp = await sendEmailVerifyOtp();
+    }
+    if (haveResentOtp) {
+      startTimer();
+    }
+  }
+
+  verifyPhoneOrEmail() async {
+    late bool canGoNext;
+    if (_phoneNumber.isNotEmpty) {
+      canGoNext = await verifyPhoneNumber();
+      if (canGoNext) {
+        router.popAndPush(VerificationRoute(isPhoneNumber: false, identifier: _email));
+      }
+    } else {
+      canGoNext = await verifyEmail();
+      if (canGoNext) router.popAndPush(BioDataRoute());
+    }
+  }
 
   Future<bool> sendPhoneVerifyOtp() async {
     state = state.setSendPhoneVerifyOtp(State.loading());
@@ -91,6 +145,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
     _phoneNumber = '';
     _email = '';
     _otp = '';
+    _timer.cancel();
     super.dispose();
   }
 }

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/app/text_style.dart';
 import 'package:zheeta/widgets/back_button.dart';
@@ -59,7 +60,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     builder: (context) => Modal(
                       content: "We sent an email to christinedoe@company.com with link to reset your password",
                       btn1Title: "Done",
-                      action: () => context.router.pop(),
+                      action: () => router.pop(),
                     ),
                   ),
                 ),

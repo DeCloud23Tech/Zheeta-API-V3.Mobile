@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/app/text_style.dart';
@@ -75,7 +76,7 @@ class _IntroScreenState extends State<IntroScreen> with TickerProviderStateMixin
                         child: PrimaryButton(
                           title: 'Login',
                           action: () {
-                            context.router.push(SignInRoute());
+                            router.push(SignInRoute());
                           },
                         )),
                     SizedBox(height: 20),
@@ -84,7 +85,7 @@ class _IntroScreenState extends State<IntroScreen> with TickerProviderStateMixin
                         child: TransparentButton(
                           title: 'Don’t have an account? Sign up',
                           action: () {
-                            context.router.push(SignUpRoute());
+                            router.push(SignUpRoute());
                           },
                           invert: true,
                         )),

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
@@ -194,7 +195,7 @@ class _SideDrawerState extends State<SideDrawer> {
                         title: 'Logout',
                         action: () {
                           Scaffold.of(context).closeDrawer();
-                          context.router.replace(SignInRoute());
+                          router.replace(SignInRoute());
                         }),
                   ),
                 ],
@@ -206,7 +207,7 @@ class _SideDrawerState extends State<SideDrawer> {
     return GestureDetector(
       onTap: () {
         Scaffold.of(context).closeDrawer();
-        context.router.push(page);
+        router.push(page);
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.44,
@@ -225,7 +226,7 @@ class _SideDrawerState extends State<SideDrawer> {
     return GestureDetector(
       onTap: () {
         Scaffold.of(context).closeDrawer();
-        context.router.push(page);
+        router.push(page);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 6.0, right: 6.0),

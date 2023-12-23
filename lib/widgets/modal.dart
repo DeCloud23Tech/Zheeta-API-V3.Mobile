@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 class Modal extends StatelessWidget {
@@ -42,7 +42,7 @@ class Modal extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                onTap: () => context.router.pop(),
+                                onTap: () => router.pop(),
                                 child: Text(
                                   btn1Title != null ? btn1Title : "NO, CANCEL",
                                   style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.grayscale),

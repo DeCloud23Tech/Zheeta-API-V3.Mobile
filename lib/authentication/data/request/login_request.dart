@@ -7,8 +7,9 @@ class LoginRequest {
   String email;
   String password;
   String userDeviceToken;
+  String platform;
 
-  LoginRequest(this.email, this.password, this.userDeviceToken);
+  LoginRequest(this.email, this.password, this.userDeviceToken, this.platform);
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) => _$LoginRequestFromJson(json);
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);

@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 
 class CustomBackButton extends StatelessWidget {
@@ -11,7 +11,7 @@ class CustomBackButton extends StatelessWidget {
     return GestureDetector(
       // onTap: () => Navigator.pop(context),
       onTap: () {
-        context.router.push(SignInRoute());
+        router.push(SignInRoute());
       },
       child: Container(
         height: 40,

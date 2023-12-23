@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
@@ -29,7 +29,7 @@ Future<dynamic> locationBottomSheet(BuildContext context) {
               child: PrimaryButton(
                 title: 'Enable location services',
                 action: () {
-                  context.router.push(AuthWelcomeRoute());
+                  router.push(AuthWelcomeRoute());
                 },
               ),
             ),
@@ -41,7 +41,7 @@ Future<dynamic> locationBottomSheet(BuildContext context) {
                 color: AppColors.secondaryLight,
                 title: 'Skip',
                 action: () {
-                  context.router.pop();
+                  router.pop();
                 },
               ),
             ),

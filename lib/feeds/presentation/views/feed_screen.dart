@@ -1,7 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 
 class Feeds extends StatefulWidget {
@@ -367,7 +367,7 @@ class _FeedsState extends State<Feeds> {
                             for (var i = 0; i < 6; i++)
                               GestureDetector(
                                 onTap: () {
-                                  context.router.push(ProductDetailsRoute(product: 'Plain black t-shirt'));
+                                  router.push(ProductDetailsRoute(product: 'Plain black t-shirt'));
                                 },
                                 child: Container(
                                   height: MediaQuery.of(context).size.width * 0.56,

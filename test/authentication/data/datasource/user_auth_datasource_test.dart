@@ -104,7 +104,7 @@ void main() {
     group('login', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final request = LoginRequest('email@example.com', 'password', 'deviceToken');
+        final request = LoginRequest('email@example.com', 'password', 'deviceToken', 'platform');
         final response = FormattedResponse(success: true, data: {'key': 'value'});
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
@@ -119,7 +119,7 @@ void main() {
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final request = LoginRequest('email@example.com', 'password', 'deviceToken');
+        final request = LoginRequest('email@example.com', 'password', 'deviceToken', 'platform');
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
