@@ -11,7 +11,6 @@ import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 

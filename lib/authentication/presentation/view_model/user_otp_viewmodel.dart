@@ -37,51 +37,51 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
   String? validateOtp() => this.isValidInput(_otp);
 
   Future<bool> sendPhoneVerifyOtp() async {
-    state = state.copyWith(sendPhoneVerifyOtp: State.loading());
+    state = state.setSendPhoneVerifyOtp(State.loading());
     try {
       final result = await _otpUsecase.sendPhoneVerifyOtpUsecase(_phoneNumber);
-      state = state.copyWith(sendPhoneVerifyOtp: State.success(result));
+      state = state.setSendPhoneVerifyOtp(State.success(result));
       return true;
     } on Exception catch (e) {
-      state = state.copyWith(sendPhoneVerifyOtp: State.error(e));
+      state = state.setSendPhoneVerifyOtp(State.error(e));
       return false;
     }
   }
 
   Future<bool> sendEmailVerifyOtp() async {
-    state = state.copyWith(sendEmailVerifyOtp: State.loading());
+    state = state.setSendEmailVerifyOtp(State.loading());
     try {
       final result = await _otpUsecase.sendEmailVerifyOtpUsecase(_email);
-      state = state.copyWith(sendEmailVerifyOtp: State.success(result));
+      state = state.setSendEmailVerifyOtp(State.success(result));
       return true;
     } on Exception catch (e) {
-      state = state.copyWith(sendEmailVerifyOtp: State.error(e));
+      state = state.setSendEmailVerifyOtp(State.error(e));
       return false;
     }
   }
 
   Future<bool> verifyPhoneNumber() async {
-    state = state.copyWith(verifyPhoneOtp: State.loading());
+    state = state.setVerifyPhoneOtp(State.loading());
     try {
       final data = VerifyPhoneOtpRequest(_phoneNumber, _otp);
       final result = await _otpUsecase.verifyPhoneOtpUsecase(data);
-      state = state.copyWith(verifyPhoneOtp: State.success(result));
+      state = state.setVerifyPhoneOtp(State.success(result));
       return true;
     } on Exception catch (e) {
-      state = state.copyWith(verifyPhoneOtp: State.error(e));
+      state = state.setVerifyPhoneOtp(State.error(e));
       return false;
     }
   }
 
   Future<bool> verifyEmail() async {
-    state = state.copyWith(verifyEmailOtp: State.loading());
+    state = state.setVerifyEmailOtp(State.loading());
     try {
       final data = VerifyEmailOtpRequest(_email, _otp);
       final result = await _otpUsecase.verifyEmailOtpUsecase(data);
-      state = state.copyWith(verifyEmailOtp: State.success(result));
+      state = state.setVerifyEmailOtp(State.success(result));
       return true;
     } on Exception catch (e) {
-      state = state.copyWith(verifyEmailOtp: State.error(e));
+      state = state.setVerifyEmailOtp(State.error(e));
       return false;
     }
   }

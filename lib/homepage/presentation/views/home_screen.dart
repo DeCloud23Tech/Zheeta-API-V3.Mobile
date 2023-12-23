@@ -12,7 +12,6 @@ import 'package:zheeta/profile/presentation/views/profile.dart';
 import 'package:zheeta/widgets/drawer.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class HomeScreen extends StatefulWidget {
   final index;
   const HomeScreen({

@@ -28,6 +28,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
         );
 
   String _username = '';
+  String _identity = '';
   String _password = '';
   String _retypePassword = '';
   String _email = '';
@@ -36,6 +37,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   bool _agree = false;
 
   setUsername(String value) => _username = value;
+  setIdentity(String value) => _identity = value;
   setPassword(String value) => _password = value;
   setRetypePassword(String value) => _retypePassword = value;
   setEmail(String value) => _email = value;
@@ -47,6 +49,8 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
 
   String? validateUsername() => this.isValidInput(_username);
 
+  String? validateIdentity() => this.isValidInput(_identity);
+
   String? validatePassword() => this.isValidPassword(_password);
 
   String? validateRetypePassword() => _password == _retypePassword ? null : 'Password does not match';
@@ -56,6 +60,38 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   String? validatePhoneNumber() => this.isValidPhoneNumber(_phoneNumber.completeNumber);
 
   Future<bool> registerUser() async {
+    state = state.setRegisterUser(State.loading());
+
+    if (_agree) {
+      try {
+        final data = RegisterUserRequest(
+          userName: _username,
+          password: _password,
+          email: _email,
+          phoneNumber: _phoneNumber.completeNumber,
+          phoneCountryCode: _phoneNumber.countryISOCode,
+          referralCode: _referral,
+        );
+
+        final result = await _authUsecase.registerUserUsecase(data);
+
+        state = state.setRegisterUser(State.success(result));
+        return true;
+      } on Exception catch (e) {
+        NotifyUser.showToast(e.toString(), true);
+
+        state = state.setRegisterUser(State.error(e));
+        return false;
+      }
+    } else {
+      NotifyUser.showToast('Please agree to the terms and conditions', true);
+
+      state = state.setRegisterUser(State.init());
+      return false;
+    }
+  }
+
+  Future<bool> loginUser() async {
     state = state.copyWith(registerUser: State.loading());
 
     if (_agree) {

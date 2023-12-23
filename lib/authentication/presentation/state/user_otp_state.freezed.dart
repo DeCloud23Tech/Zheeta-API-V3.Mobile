@@ -226,14 +226,15 @@ class __$$UserOtpStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UserOtpStateImpl implements _UserOtpState {
+class _$UserOtpStateImpl extends _UserOtpState {
   _$UserOtpStateImpl(
       {required this.resetPassword,
       required this.sendEmailVerifyOtp,
       required this.sendPhoneVerifyOtp,
       required this.sendResetPasswordOtp,
       required this.verifyEmailOtp,
-      required this.verifyPhoneOtp});
+      required this.verifyPhoneOtp})
+      : super._();
 
   @override
   final State<dynamic> resetPassword;
@@ -289,7 +290,7 @@ class _$UserOtpStateImpl implements _UserOtpState {
       __$$UserOtpStateImplCopyWithImpl<_$UserOtpStateImpl>(this, _$identity);
 }
 
-abstract class _UserOtpState implements UserOtpState {
+abstract class _UserOtpState extends UserOtpState {
   factory _UserOtpState(
       {required final State<dynamic> resetPassword,
       required final State<dynamic> sendEmailVerifyOtp,
@@ -297,6 +298,7 @@ abstract class _UserOtpState implements UserOtpState {
       required final State<dynamic> sendResetPasswordOtp,
       required final State<dynamic> verifyEmailOtp,
       required final State<dynamic> verifyPhoneOtp}) = _$UserOtpStateImpl;
+  _UserOtpState._() : super._();
 
   @override
   State<dynamic> get resetPassword;

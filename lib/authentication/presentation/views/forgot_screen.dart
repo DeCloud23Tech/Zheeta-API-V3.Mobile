@@ -10,7 +10,6 @@ import 'package:zheeta/widgets/modal.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 

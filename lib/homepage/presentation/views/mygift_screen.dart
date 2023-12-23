@@ -4,7 +4,6 @@ import 'package:zheeta/app/color.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class MyGiftScreen extends StatefulWidget {
   const MyGiftScreen({super.key});
 

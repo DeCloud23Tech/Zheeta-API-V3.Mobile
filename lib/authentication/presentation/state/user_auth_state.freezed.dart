@@ -228,14 +228,15 @@ class __$$UserAuthStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UserAuthStateImpl implements _UserAuthState {
+class _$UserAuthStateImpl extends _UserAuthState {
   _$UserAuthStateImpl(
       {required this.registerUser,
       required this.loginUser,
       required this.registerStaff,
       required this.changePassword,
       required this.resetPassword,
-      required this.loginOAuth});
+      required this.loginOAuth})
+      : super._();
 
   @override
   final State<RegisterUserModel> registerUser;
@@ -285,7 +286,7 @@ class _$UserAuthStateImpl implements _UserAuthState {
       __$$UserAuthStateImplCopyWithImpl<_$UserAuthStateImpl>(this, _$identity);
 }
 
-abstract class _UserAuthState implements UserAuthState {
+abstract class _UserAuthState extends UserAuthState {
   factory _UserAuthState(
       {required final State<RegisterUserModel> registerUser,
       required final State<dynamic> loginUser,
@@ -293,6 +294,7 @@ abstract class _UserAuthState implements UserAuthState {
       required final State<dynamic> changePassword,
       required final State<dynamic> resetPassword,
       required final State<dynamic> loginOAuth}) = _$UserAuthStateImpl;
+  _UserAuthState._() : super._();
 
   @override
   State<RegisterUserModel> get registerUser;

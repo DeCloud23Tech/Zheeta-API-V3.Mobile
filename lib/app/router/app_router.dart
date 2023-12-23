@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_guard.dart';
 
 import 'app_router.gr.dart';
+
+final router = locator.get<AppRouter>();
 
 @injectable
 @AutoRouterConfig()

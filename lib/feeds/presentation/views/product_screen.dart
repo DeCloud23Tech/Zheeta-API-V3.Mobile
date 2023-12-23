@@ -4,7 +4,6 @@ import 'package:zheeta/app/color.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class ProductDetailsScreen extends StatefulWidget {
   final product;
   const ProductDetailsScreen({super.key, this.product});

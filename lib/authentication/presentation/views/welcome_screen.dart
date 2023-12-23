@@ -6,7 +6,6 @@ import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class AuthWelcomeScreen extends StatelessWidget {
   const AuthWelcomeScreen({super.key});
 

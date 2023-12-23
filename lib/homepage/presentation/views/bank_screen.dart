@@ -5,7 +5,6 @@ import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class BankAccountScreen extends StatefulWidget {
   const BankAccountScreen({super.key});
 

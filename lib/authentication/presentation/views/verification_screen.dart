@@ -15,7 +15,6 @@ import 'package:zheeta/widgets/loading_screen.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class VerificationScreen extends ConsumerStatefulWidget {
   final String identifier;
   final bool isPhoneNumber;
@@ -74,6 +73,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     final _userAuthViewModel = ref.watch(userAuthViewModelProvider);
+    final watchUserOtpViewModel = ref.watch(userOtpViewModelProvider);
     return Stack(
       children: [
         Scaffold(
@@ -164,7 +164,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: PrimaryButton(
-                    state: ref.watch(userOtpViewModelProvider).verifyPhoneOtp.isLoading || ref.watch(userOtpViewModelProvider).verifyEmailOtp.isLoading,
+                    state: watchUserOtpViewModel.verifyPhoneOtp.isLoading || watchUserOtpViewModel.verifyEmailOtp.isLoading,
                     title: 'Continue',
                     action: () async {
                       final isValid = formKey.currentState?.validate();
@@ -199,7 +199,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
             ),
           ),
         ),
-        ref.watch(userOtpViewModelProvider).sendPhoneVerifyOtp.isLoading || ref.watch(userOtpViewModelProvider).sendEmailVerifyOtp.isLoading ? LoadingScreen() : SizedBox(),
+        watchUserOtpViewModel.sendPhoneVerifyOtp.isLoading || watchUserOtpViewModel.sendEmailVerifyOtp.isLoading ? LoadingScreen() : SizedBox(),
       ],
     );
   }

@@ -6,7 +6,6 @@ import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/widgets/drawer.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class GiftShopScreen extends StatefulWidget {
   const GiftShopScreen({super.key});
 

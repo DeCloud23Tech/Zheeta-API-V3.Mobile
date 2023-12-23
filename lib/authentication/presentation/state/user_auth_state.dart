@@ -14,4 +14,13 @@ class UserAuthState with _$UserAuthState {
     required State resetPassword,
     required State loginOAuth,
   }) = _UserAuthState;
+
+  UserAuthState._();
+
+  setRegisterUser(State<RegisterUserModel> state) => copyWith(registerUser: state);
+  setLoginUser(State state) => copyWith(loginUser: state);
+  setRegisterStaff(State state) => copyWith(registerStaff: state);
+  setChangePassword(State state) => copyWith(changePassword: state);
+  setResetPassword(State state) => copyWith(resetPassword: state);
+  setLoginOAuth(State state) => copyWith(loginOAuth: state);
 }

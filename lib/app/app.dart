@@ -15,8 +15,6 @@ initializeApp() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final router = locator.get<AppRouter>();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
@@ -24,6 +22,12 @@ class MyApp extends StatelessWidget {
       title: 'Zheeta',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+          },
+        ),
         primarySwatch: Colors.pink,
         highlightColor: Colors.white,
         textSelectionTheme: TextSelectionThemeData(selectionColor: Colors.white.withOpacity(0.3)),

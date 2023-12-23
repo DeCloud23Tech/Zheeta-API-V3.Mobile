@@ -7,7 +7,6 @@ import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class BioDataScreen extends StatefulWidget {
   const BioDataScreen({super.key});
 

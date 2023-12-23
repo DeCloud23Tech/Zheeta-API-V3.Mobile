@@ -10,7 +10,6 @@ import 'package:zheeta/widgets/location_bottomsheet.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
 
