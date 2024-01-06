@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -68,7 +70,12 @@ class _BioDataScreenState extends State<BioDataScreen> {
                       prefixIcon: Icon(Icons.calendar_today)),
                   readOnly: true,
                   onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2101));
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2101),
+                    );
                     if (pickedDate != null) {
                       print(pickedDate);
                       String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
@@ -90,6 +97,7 @@ class _BioDataScreenState extends State<BioDataScreen> {
                         setState(() {
                           _isLoading == !_isLoading;
                         });
+                        router.push(LocationRoute());
                       }))
             ],
           ),

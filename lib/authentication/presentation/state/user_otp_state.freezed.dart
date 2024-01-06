@@ -16,13 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserOtpState {
-  State<dynamic> get resetPassword => throw _privateConstructorUsedError;
-  State<dynamic> get sendEmailVerifyOtp => throw _privateConstructorUsedError;
-  State<dynamic> get sendPhoneVerifyOtp => throw _privateConstructorUsedError;
-  State<dynamic> get sendResetPasswordOtp => throw _privateConstructorUsedError;
-  State<dynamic> get verifyEmailOtp => throw _privateConstructorUsedError;
-  State<dynamic> get verifyPhoneOtp => throw _privateConstructorUsedError;
-  int get counter => throw _privateConstructorUsedError;
+  State<dynamic> get resetPasswordState => throw _privateConstructorUsedError;
+  State<dynamic> get sendEmailVerifyOtpState =>
+      throw _privateConstructorUsedError;
+  State<dynamic> get sendPhoneVerifyOtpState =>
+      throw _privateConstructorUsedError;
+  State<dynamic> get sendResetPasswordOtpState =>
+      throw _privateConstructorUsedError;
+  State<dynamic> get verifyEmailOtpState => throw _privateConstructorUsedError;
+  State<dynamic> get verifyPhoneOtpState => throw _privateConstructorUsedError;
+  int get counterState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserOtpStateCopyWith<UserOtpState> get copyWith =>
@@ -36,20 +39,20 @@ abstract class $UserOtpStateCopyWith<$Res> {
       _$UserOtpStateCopyWithImpl<$Res, UserOtpState>;
   @useResult
   $Res call(
-      {State<dynamic> resetPassword,
-      State<dynamic> sendEmailVerifyOtp,
-      State<dynamic> sendPhoneVerifyOtp,
-      State<dynamic> sendResetPasswordOtp,
-      State<dynamic> verifyEmailOtp,
-      State<dynamic> verifyPhoneOtp,
-      int counter});
+      {State<dynamic> resetPasswordState,
+      State<dynamic> sendEmailVerifyOtpState,
+      State<dynamic> sendPhoneVerifyOtpState,
+      State<dynamic> sendResetPasswordOtpState,
+      State<dynamic> verifyEmailOtpState,
+      State<dynamic> verifyPhoneOtpState,
+      int counterState});
 
-  $StateCopyWith<dynamic, $Res> get resetPassword;
-  $StateCopyWith<dynamic, $Res> get sendEmailVerifyOtp;
-  $StateCopyWith<dynamic, $Res> get sendPhoneVerifyOtp;
-  $StateCopyWith<dynamic, $Res> get sendResetPasswordOtp;
-  $StateCopyWith<dynamic, $Res> get verifyEmailOtp;
-  $StateCopyWith<dynamic, $Res> get verifyPhoneOtp;
+  $StateCopyWith<dynamic, $Res> get resetPasswordState;
+  $StateCopyWith<dynamic, $Res> get sendEmailVerifyOtpState;
+  $StateCopyWith<dynamic, $Res> get sendPhoneVerifyOtpState;
+  $StateCopyWith<dynamic, $Res> get sendResetPasswordOtpState;
+  $StateCopyWith<dynamic, $Res> get verifyEmailOtpState;
+  $StateCopyWith<dynamic, $Res> get verifyPhoneOtpState;
 }
 
 /// @nodoc
@@ -65,91 +68,94 @@ class _$UserOtpStateCopyWithImpl<$Res, $Val extends UserOtpState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? resetPassword = null,
-    Object? sendEmailVerifyOtp = null,
-    Object? sendPhoneVerifyOtp = null,
-    Object? sendResetPasswordOtp = null,
-    Object? verifyEmailOtp = null,
-    Object? verifyPhoneOtp = null,
-    Object? counter = null,
+    Object? resetPasswordState = null,
+    Object? sendEmailVerifyOtpState = null,
+    Object? sendPhoneVerifyOtpState = null,
+    Object? sendResetPasswordOtpState = null,
+    Object? verifyEmailOtpState = null,
+    Object? verifyPhoneOtpState = null,
+    Object? counterState = null,
   }) {
     return _then(_value.copyWith(
-      resetPassword: null == resetPassword
-          ? _value.resetPassword
-          : resetPassword // ignore: cast_nullable_to_non_nullable
+      resetPasswordState: null == resetPasswordState
+          ? _value.resetPasswordState
+          : resetPasswordState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      sendEmailVerifyOtp: null == sendEmailVerifyOtp
-          ? _value.sendEmailVerifyOtp
-          : sendEmailVerifyOtp // ignore: cast_nullable_to_non_nullable
+      sendEmailVerifyOtpState: null == sendEmailVerifyOtpState
+          ? _value.sendEmailVerifyOtpState
+          : sendEmailVerifyOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      sendPhoneVerifyOtp: null == sendPhoneVerifyOtp
-          ? _value.sendPhoneVerifyOtp
-          : sendPhoneVerifyOtp // ignore: cast_nullable_to_non_nullable
+      sendPhoneVerifyOtpState: null == sendPhoneVerifyOtpState
+          ? _value.sendPhoneVerifyOtpState
+          : sendPhoneVerifyOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      sendResetPasswordOtp: null == sendResetPasswordOtp
-          ? _value.sendResetPasswordOtp
-          : sendResetPasswordOtp // ignore: cast_nullable_to_non_nullable
+      sendResetPasswordOtpState: null == sendResetPasswordOtpState
+          ? _value.sendResetPasswordOtpState
+          : sendResetPasswordOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      verifyEmailOtp: null == verifyEmailOtp
-          ? _value.verifyEmailOtp
-          : verifyEmailOtp // ignore: cast_nullable_to_non_nullable
+      verifyEmailOtpState: null == verifyEmailOtpState
+          ? _value.verifyEmailOtpState
+          : verifyEmailOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      verifyPhoneOtp: null == verifyPhoneOtp
-          ? _value.verifyPhoneOtp
-          : verifyPhoneOtp // ignore: cast_nullable_to_non_nullable
+      verifyPhoneOtpState: null == verifyPhoneOtpState
+          ? _value.verifyPhoneOtpState
+          : verifyPhoneOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      counter: null == counter
-          ? _value.counter
-          : counter // ignore: cast_nullable_to_non_nullable
+      counterState: null == counterState
+          ? _value.counterState
+          : counterState // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get resetPassword {
-    return $StateCopyWith<dynamic, $Res>(_value.resetPassword, (value) {
-      return _then(_value.copyWith(resetPassword: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get resetPasswordState {
+    return $StateCopyWith<dynamic, $Res>(_value.resetPasswordState, (value) {
+      return _then(_value.copyWith(resetPasswordState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get sendEmailVerifyOtp {
-    return $StateCopyWith<dynamic, $Res>(_value.sendEmailVerifyOtp, (value) {
-      return _then(_value.copyWith(sendEmailVerifyOtp: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get sendEmailVerifyOtpState {
+    return $StateCopyWith<dynamic, $Res>(_value.sendEmailVerifyOtpState,
+        (value) {
+      return _then(_value.copyWith(sendEmailVerifyOtpState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get sendPhoneVerifyOtp {
-    return $StateCopyWith<dynamic, $Res>(_value.sendPhoneVerifyOtp, (value) {
-      return _then(_value.copyWith(sendPhoneVerifyOtp: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get sendPhoneVerifyOtpState {
+    return $StateCopyWith<dynamic, $Res>(_value.sendPhoneVerifyOtpState,
+        (value) {
+      return _then(_value.copyWith(sendPhoneVerifyOtpState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get sendResetPasswordOtp {
-    return $StateCopyWith<dynamic, $Res>(_value.sendResetPasswordOtp, (value) {
-      return _then(_value.copyWith(sendResetPasswordOtp: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get sendResetPasswordOtpState {
+    return $StateCopyWith<dynamic, $Res>(_value.sendResetPasswordOtpState,
+        (value) {
+      return _then(_value.copyWith(sendResetPasswordOtpState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get verifyEmailOtp {
-    return $StateCopyWith<dynamic, $Res>(_value.verifyEmailOtp, (value) {
-      return _then(_value.copyWith(verifyEmailOtp: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get verifyEmailOtpState {
+    return $StateCopyWith<dynamic, $Res>(_value.verifyEmailOtpState, (value) {
+      return _then(_value.copyWith(verifyEmailOtpState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get verifyPhoneOtp {
-    return $StateCopyWith<dynamic, $Res>(_value.verifyPhoneOtp, (value) {
-      return _then(_value.copyWith(verifyPhoneOtp: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get verifyPhoneOtpState {
+    return $StateCopyWith<dynamic, $Res>(_value.verifyPhoneOtpState, (value) {
+      return _then(_value.copyWith(verifyPhoneOtpState: value) as $Val);
     });
   }
 }
@@ -163,26 +169,26 @@ abstract class _$$UserOtpStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {State<dynamic> resetPassword,
-      State<dynamic> sendEmailVerifyOtp,
-      State<dynamic> sendPhoneVerifyOtp,
-      State<dynamic> sendResetPasswordOtp,
-      State<dynamic> verifyEmailOtp,
-      State<dynamic> verifyPhoneOtp,
-      int counter});
+      {State<dynamic> resetPasswordState,
+      State<dynamic> sendEmailVerifyOtpState,
+      State<dynamic> sendPhoneVerifyOtpState,
+      State<dynamic> sendResetPasswordOtpState,
+      State<dynamic> verifyEmailOtpState,
+      State<dynamic> verifyPhoneOtpState,
+      int counterState});
 
   @override
-  $StateCopyWith<dynamic, $Res> get resetPassword;
+  $StateCopyWith<dynamic, $Res> get resetPasswordState;
   @override
-  $StateCopyWith<dynamic, $Res> get sendEmailVerifyOtp;
+  $StateCopyWith<dynamic, $Res> get sendEmailVerifyOtpState;
   @override
-  $StateCopyWith<dynamic, $Res> get sendPhoneVerifyOtp;
+  $StateCopyWith<dynamic, $Res> get sendPhoneVerifyOtpState;
   @override
-  $StateCopyWith<dynamic, $Res> get sendResetPasswordOtp;
+  $StateCopyWith<dynamic, $Res> get sendResetPasswordOtpState;
   @override
-  $StateCopyWith<dynamic, $Res> get verifyEmailOtp;
+  $StateCopyWith<dynamic, $Res> get verifyEmailOtpState;
   @override
-  $StateCopyWith<dynamic, $Res> get verifyPhoneOtp;
+  $StateCopyWith<dynamic, $Res> get verifyPhoneOtpState;
 }
 
 /// @nodoc
@@ -196,42 +202,42 @@ class __$$UserOtpStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? resetPassword = null,
-    Object? sendEmailVerifyOtp = null,
-    Object? sendPhoneVerifyOtp = null,
-    Object? sendResetPasswordOtp = null,
-    Object? verifyEmailOtp = null,
-    Object? verifyPhoneOtp = null,
-    Object? counter = null,
+    Object? resetPasswordState = null,
+    Object? sendEmailVerifyOtpState = null,
+    Object? sendPhoneVerifyOtpState = null,
+    Object? sendResetPasswordOtpState = null,
+    Object? verifyEmailOtpState = null,
+    Object? verifyPhoneOtpState = null,
+    Object? counterState = null,
   }) {
     return _then(_$UserOtpStateImpl(
-      resetPassword: null == resetPassword
-          ? _value.resetPassword
-          : resetPassword // ignore: cast_nullable_to_non_nullable
+      resetPasswordState: null == resetPasswordState
+          ? _value.resetPasswordState
+          : resetPasswordState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      sendEmailVerifyOtp: null == sendEmailVerifyOtp
-          ? _value.sendEmailVerifyOtp
-          : sendEmailVerifyOtp // ignore: cast_nullable_to_non_nullable
+      sendEmailVerifyOtpState: null == sendEmailVerifyOtpState
+          ? _value.sendEmailVerifyOtpState
+          : sendEmailVerifyOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      sendPhoneVerifyOtp: null == sendPhoneVerifyOtp
-          ? _value.sendPhoneVerifyOtp
-          : sendPhoneVerifyOtp // ignore: cast_nullable_to_non_nullable
+      sendPhoneVerifyOtpState: null == sendPhoneVerifyOtpState
+          ? _value.sendPhoneVerifyOtpState
+          : sendPhoneVerifyOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      sendResetPasswordOtp: null == sendResetPasswordOtp
-          ? _value.sendResetPasswordOtp
-          : sendResetPasswordOtp // ignore: cast_nullable_to_non_nullable
+      sendResetPasswordOtpState: null == sendResetPasswordOtpState
+          ? _value.sendResetPasswordOtpState
+          : sendResetPasswordOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      verifyEmailOtp: null == verifyEmailOtp
-          ? _value.verifyEmailOtp
-          : verifyEmailOtp // ignore: cast_nullable_to_non_nullable
+      verifyEmailOtpState: null == verifyEmailOtpState
+          ? _value.verifyEmailOtpState
+          : verifyEmailOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      verifyPhoneOtp: null == verifyPhoneOtp
-          ? _value.verifyPhoneOtp
-          : verifyPhoneOtp // ignore: cast_nullable_to_non_nullable
+      verifyPhoneOtpState: null == verifyPhoneOtpState
+          ? _value.verifyPhoneOtpState
+          : verifyPhoneOtpState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      counter: null == counter
-          ? _value.counter
-          : counter // ignore: cast_nullable_to_non_nullable
+      counterState: null == counterState
+          ? _value.counterState
+          : counterState // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -241,33 +247,33 @@ class __$$UserOtpStateImplCopyWithImpl<$Res>
 
 class _$UserOtpStateImpl extends _UserOtpState {
   _$UserOtpStateImpl(
-      {required this.resetPassword,
-      required this.sendEmailVerifyOtp,
-      required this.sendPhoneVerifyOtp,
-      required this.sendResetPasswordOtp,
-      required this.verifyEmailOtp,
-      required this.verifyPhoneOtp,
-      required this.counter})
+      {required this.resetPasswordState,
+      required this.sendEmailVerifyOtpState,
+      required this.sendPhoneVerifyOtpState,
+      required this.sendResetPasswordOtpState,
+      required this.verifyEmailOtpState,
+      required this.verifyPhoneOtpState,
+      required this.counterState})
       : super._();
 
   @override
-  final State<dynamic> resetPassword;
+  final State<dynamic> resetPasswordState;
   @override
-  final State<dynamic> sendEmailVerifyOtp;
+  final State<dynamic> sendEmailVerifyOtpState;
   @override
-  final State<dynamic> sendPhoneVerifyOtp;
+  final State<dynamic> sendPhoneVerifyOtpState;
   @override
-  final State<dynamic> sendResetPasswordOtp;
+  final State<dynamic> sendResetPasswordOtpState;
   @override
-  final State<dynamic> verifyEmailOtp;
+  final State<dynamic> verifyEmailOtpState;
   @override
-  final State<dynamic> verifyPhoneOtp;
+  final State<dynamic> verifyPhoneOtpState;
   @override
-  final int counter;
+  final int counterState;
 
   @override
   String toString() {
-    return 'UserOtpState(resetPassword: $resetPassword, sendEmailVerifyOtp: $sendEmailVerifyOtp, sendPhoneVerifyOtp: $sendPhoneVerifyOtp, sendResetPasswordOtp: $sendResetPasswordOtp, verifyEmailOtp: $verifyEmailOtp, verifyPhoneOtp: $verifyPhoneOtp, counter: $counter)';
+    return 'UserOtpState(resetPasswordState: $resetPasswordState, sendEmailVerifyOtpState: $sendEmailVerifyOtpState, sendPhoneVerifyOtpState: $sendPhoneVerifyOtpState, sendResetPasswordOtpState: $sendResetPasswordOtpState, verifyEmailOtpState: $verifyEmailOtpState, verifyPhoneOtpState: $verifyPhoneOtpState, counterState: $counterState)';
   }
 
   @override
@@ -275,31 +281,35 @@ class _$UserOtpStateImpl extends _UserOtpState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserOtpStateImpl &&
-            (identical(other.resetPassword, resetPassword) ||
-                other.resetPassword == resetPassword) &&
-            (identical(other.sendEmailVerifyOtp, sendEmailVerifyOtp) ||
-                other.sendEmailVerifyOtp == sendEmailVerifyOtp) &&
-            (identical(other.sendPhoneVerifyOtp, sendPhoneVerifyOtp) ||
-                other.sendPhoneVerifyOtp == sendPhoneVerifyOtp) &&
-            (identical(other.sendResetPasswordOtp, sendResetPasswordOtp) ||
-                other.sendResetPasswordOtp == sendResetPasswordOtp) &&
-            (identical(other.verifyEmailOtp, verifyEmailOtp) ||
-                other.verifyEmailOtp == verifyEmailOtp) &&
-            (identical(other.verifyPhoneOtp, verifyPhoneOtp) ||
-                other.verifyPhoneOtp == verifyPhoneOtp) &&
-            (identical(other.counter, counter) || other.counter == counter));
+            (identical(other.resetPasswordState, resetPasswordState) ||
+                other.resetPasswordState == resetPasswordState) &&
+            (identical(
+                    other.sendEmailVerifyOtpState, sendEmailVerifyOtpState) ||
+                other.sendEmailVerifyOtpState == sendEmailVerifyOtpState) &&
+            (identical(
+                    other.sendPhoneVerifyOtpState, sendPhoneVerifyOtpState) ||
+                other.sendPhoneVerifyOtpState == sendPhoneVerifyOtpState) &&
+            (identical(other.sendResetPasswordOtpState,
+                    sendResetPasswordOtpState) ||
+                other.sendResetPasswordOtpState == sendResetPasswordOtpState) &&
+            (identical(other.verifyEmailOtpState, verifyEmailOtpState) ||
+                other.verifyEmailOtpState == verifyEmailOtpState) &&
+            (identical(other.verifyPhoneOtpState, verifyPhoneOtpState) ||
+                other.verifyPhoneOtpState == verifyPhoneOtpState) &&
+            (identical(other.counterState, counterState) ||
+                other.counterState == counterState));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      resetPassword,
-      sendEmailVerifyOtp,
-      sendPhoneVerifyOtp,
-      sendResetPasswordOtp,
-      verifyEmailOtp,
-      verifyPhoneOtp,
-      counter);
+      resetPasswordState,
+      sendEmailVerifyOtpState,
+      sendPhoneVerifyOtpState,
+      sendResetPasswordOtpState,
+      verifyEmailOtpState,
+      verifyPhoneOtpState,
+      counterState);
 
   @JsonKey(ignore: true)
   @override
@@ -310,29 +320,29 @@ class _$UserOtpStateImpl extends _UserOtpState {
 
 abstract class _UserOtpState extends UserOtpState {
   factory _UserOtpState(
-      {required final State<dynamic> resetPassword,
-      required final State<dynamic> sendEmailVerifyOtp,
-      required final State<dynamic> sendPhoneVerifyOtp,
-      required final State<dynamic> sendResetPasswordOtp,
-      required final State<dynamic> verifyEmailOtp,
-      required final State<dynamic> verifyPhoneOtp,
-      required final int counter}) = _$UserOtpStateImpl;
+      {required final State<dynamic> resetPasswordState,
+      required final State<dynamic> sendEmailVerifyOtpState,
+      required final State<dynamic> sendPhoneVerifyOtpState,
+      required final State<dynamic> sendResetPasswordOtpState,
+      required final State<dynamic> verifyEmailOtpState,
+      required final State<dynamic> verifyPhoneOtpState,
+      required final int counterState}) = _$UserOtpStateImpl;
   _UserOtpState._() : super._();
 
   @override
-  State<dynamic> get resetPassword;
+  State<dynamic> get resetPasswordState;
   @override
-  State<dynamic> get sendEmailVerifyOtp;
+  State<dynamic> get sendEmailVerifyOtpState;
   @override
-  State<dynamic> get sendPhoneVerifyOtp;
+  State<dynamic> get sendPhoneVerifyOtpState;
   @override
-  State<dynamic> get sendResetPasswordOtp;
+  State<dynamic> get sendResetPasswordOtpState;
   @override
-  State<dynamic> get verifyEmailOtp;
+  State<dynamic> get verifyEmailOtpState;
   @override
-  State<dynamic> get verifyPhoneOtp;
+  State<dynamic> get verifyPhoneOtpState;
   @override
-  int get counter;
+  int get counterState;
   @override
   @JsonKey(ignore: true)
   _$$UserOtpStateImplCopyWith<_$UserOtpStateImpl> get copyWith =>

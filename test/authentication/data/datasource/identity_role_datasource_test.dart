@@ -22,7 +22,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final request = UserRoleRequest('userId', ['role1', 'role2']);
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.deleteHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -55,7 +55,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final request = UserRoleRequest('userId', ['role1', 'role2']);
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.putHttp(any, any)).thenAnswer((_) async => response);
 
         // Act

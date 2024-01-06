@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
 
 class LoadingScreen extends StatelessWidget {
   final Color? backgroundColor;

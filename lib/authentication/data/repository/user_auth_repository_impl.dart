@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
+import 'package:zheeta/authentication/data/model/login_user_model.dart';
 import 'package:zheeta/authentication/data/model/register_user_model.dart';
 import 'package:zheeta/authentication/data/request/change_password_request.dart';
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart';
@@ -34,11 +35,11 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   }
 
   @override
-  loginRepo(LoginRequest data) async {
+  Future<LoginUserModel> loginRepo(LoginRequest data) async {
     final result = await _datasource.login(data);
-    result.fold(
-      (error) => throw Exception(error),
-      (value) => value,
+    return result.fold(
+      (error) => throw new Exception(error),
+      (value) => LoginUserModel.fromJson(value['data']),
     );
   }
 

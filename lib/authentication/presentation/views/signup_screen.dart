@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/strings.dart';
+import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/app/strings.dart';
-import 'package:zheeta/app/text_style.dart';
 import 'package:zheeta/authentication/presentation/view_model/user_auth_viewmodel.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -33,6 +33,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userAuthState = ref.watch(userAuthViewModelProvider);
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
       body: Padding(
@@ -99,6 +100,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     initialCountryCode: userAuthViewModel.getPhoneNumber.countryCode,
                     validator: (phone) => userAuthViewModel.validatePhoneNumber(),
                     onChanged: (phone) => userAuthViewModel.setPhoneNumber(phone),
+                    onCountryChanged: (value) => userAuthViewModel.setCountryCode(value),
                     autovalidateMode: AutovalidateMode.disabled,
                   ),
                 ),
@@ -111,6 +113,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Checkbox(
+                      activeColor: AppColors.primaryDark,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100.0),
                       ),
@@ -149,7 +152,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   width: double.infinity,
                   child: PrimaryButton(
                     title: 'Sign Up',
-                    state: ref.watch(userAuthViewModelProvider).registerUser.isLoading,
+                    state: userAuthState.registerUserState.isLoading,
                     action: () async {
                       final isValid = formKey.currentState?.validate();
                       if (isValid ?? false) {

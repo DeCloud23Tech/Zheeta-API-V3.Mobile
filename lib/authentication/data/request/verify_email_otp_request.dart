@@ -4,13 +4,13 @@ part 'verify_email_otp_request.g.dart';
 
 @JsonSerializable()
 class VerifyEmailOtpRequest {
-  String phoneNumber;
+  String email;
   String otp;
 
-  VerifyEmailOtpRequest(
-    this.phoneNumber,
-    this.otp,
-  );
+  VerifyEmailOtpRequest({
+    required this.email,
+    required this.otp,
+  });
 
   factory VerifyEmailOtpRequest.fromJson(Map<String, dynamic> json) => _$VerifyEmailOtpRequestFromJson(json);
 

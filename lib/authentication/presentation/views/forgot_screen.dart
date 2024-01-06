@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/strings.dart';
+import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/app/router/app_router.dart';
-import 'package:zheeta/app/strings.dart';
-import 'package:zheeta/app/text_style.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/modal.dart';

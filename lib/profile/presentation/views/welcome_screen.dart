@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/app/strings.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-class AuthWelcomeScreen extends StatelessWidget {
-  const AuthWelcomeScreen({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class AuthWelcomeScreen extends StatelessWidget {
           invert: true,
           title: 'Proceed',
           action: () {
-            router.push(ProfilePhotoRoute());
+            router.push(BioDataRoute());
           },
         ),
       ),

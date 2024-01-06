@@ -11,65 +11,56 @@
 import 'package:auto_route/auto_route.dart' as _i17;
 import 'package:flutter/cupertino.dart' as _i18;
 import 'package:flutter/material.dart' as _i19;
-import 'package:zheeta/authentication/presentation/views/bio_screen.dart'
-    as _i3;
 import 'package:zheeta/authentication/presentation/views/forgot_screen.dart'
-    as _i4;
-import 'package:zheeta/authentication/presentation/views/location_screen.dart'
-    as _i8;
-import 'package:zheeta/authentication/presentation/views/profilephoto_screen.dart'
-    as _i12;
+    as _i3;
 import 'package:zheeta/authentication/presentation/views/signin_screen.dart'
-    as _i14;
-import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
-    as _i15;
-import 'package:zheeta/authentication/presentation/views/verification_screen.dart'
-    as _i16;
-import 'package:zheeta/authentication/presentation/views/welcome_screen.dart'
-    as _i1;
-import 'package:zheeta/feeds/presentation/views/product_screen.dart' as _i11;
-import 'package:zheeta/homepage/presentation/views/bank_screen.dart' as _i2;
-import 'package:zheeta/homepage/presentation/views/giftshop_screen.dart' as _i5;
-import 'package:zheeta/homepage/presentation/views/home_screen.dart' as _i6;
-import 'package:zheeta/homepage/presentation/views/mygift_screen.dart' as _i9;
-import 'package:zheeta/homepage/presentation/views/pending_screen.dart' as _i10;
-import 'package:zheeta/homepage/presentation/views/referees_screen.dart'
     as _i13;
-import 'package:zheeta/splash_screen/presentation/views/intro.dart' as _i7;
+import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
+    as _i14;
+import 'package:zheeta/authentication/presentation/views/verification_screen.dart'
+    as _i15;
+import 'package:zheeta/feeds/presentation/views/product_screen.dart' as _i10;
+import 'package:zheeta/homepage/presentation/views/bank_screen.dart' as _i1;
+import 'package:zheeta/homepage/presentation/views/giftshop_screen.dart' as _i4;
+import 'package:zheeta/homepage/presentation/views/home_screen.dart' as _i5;
+import 'package:zheeta/homepage/presentation/views/mygift_screen.dart' as _i8;
+import 'package:zheeta/homepage/presentation/views/pending_screen.dart' as _i9;
+import 'package:zheeta/homepage/presentation/views/referees_screen.dart'
+    as _i12;
+import 'package:zheeta/profile/presentation/views/bio_screen.dart' as _i2;
+import 'package:zheeta/profile/presentation/views/location_screen.dart' as _i7;
+import 'package:zheeta/profile/presentation/views/profilephoto_screen.dart'
+    as _i11;
+import 'package:zheeta/profile/presentation/views/welcome_screen.dart' as _i16;
+import 'package:zheeta/splash_screen/presentation/views/intro.dart' as _i6;
 
 abstract class $AppRouter extends _i17.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
   final Map<String, _i17.PageFactory> pagesMap = {
-    AuthWelcomeRoute.name: (routeData) {
-      return _i17.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i1.AuthWelcomeScreen(),
-      );
-    },
     BankAccountRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.BankAccountScreen(),
+        child: const _i1.BankAccountScreen(),
       );
     },
     BioDataRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.BioDataScreen(),
+        child: const _i2.BioDataScreen(),
       );
     },
     ForgotPasswordRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.ForgotPasswordScreen(),
+        child: const _i3.ForgotPasswordScreen(),
       );
     },
     GiftShopRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.GiftShopScreen(),
+        child: const _i4.GiftShopScreen(),
       );
     },
     HomeRoute.name: (routeData) {
@@ -77,7 +68,7 @@ abstract class $AppRouter extends _i17.RootStackRouter {
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.HomeScreen(
+        child: _i5.HomeScreen(
           index: args.index,
           key: args.key,
         ),
@@ -86,25 +77,25 @@ abstract class $AppRouter extends _i17.RootStackRouter {
     IntroRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.IntroScreen(),
+        child: const _i6.IntroScreen(),
       );
     },
     LocationRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.LocationScreen(),
+        child: const _i7.LocationScreen(),
       );
     },
     MyGiftRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.MyGiftScreen(),
+        child: const _i8.MyGiftScreen(),
       );
     },
     PendingRequestRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.PendingRequestScreen(),
+        child: const _i9.PendingRequestScreen(),
       );
     },
     ProductDetailsRoute.name: (routeData) {
@@ -112,7 +103,7 @@ abstract class $AppRouter extends _i17.RootStackRouter {
           orElse: () => const ProductDetailsRouteArgs());
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.ProductDetailsScreen(
+        child: _i10.ProductDetailsScreen(
           key: args.key,
           product: args.product,
         ),
@@ -121,57 +112,49 @@ abstract class $AppRouter extends _i17.RootStackRouter {
     ProfilePhotoRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.ProfilePhotoScreen(),
+        child: const _i11.ProfilePhotoScreen(),
       );
     },
     RefereeRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i13.RefereeScreen(),
+        child: const _i12.RefereeScreen(),
       );
     },
     SignInRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.SignInScreen(),
+        child: const _i13.SignInScreen(),
       );
     },
     SignUpRoute.name: (routeData) {
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i15.SignUpScreen(),
+        child: const _i14.SignUpScreen(),
       );
     },
     VerificationRoute.name: (routeData) {
       final args = routeData.argsAs<VerificationRouteArgs>();
       return _i17.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i16.VerificationScreen(
+        child: _i15.VerificationScreen(
           key: args.key,
           isPhoneNumber: args.isPhoneNumber,
           identifier: args.identifier,
         ),
       );
     },
+    WelcomeRoute.name: (routeData) {
+      return _i17.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i16.WelcomeScreen(),
+      );
+    },
   };
 }
 
 /// generated route for
-/// [_i1.AuthWelcomeScreen]
-class AuthWelcomeRoute extends _i17.PageRouteInfo<void> {
-  const AuthWelcomeRoute({List<_i17.PageRouteInfo>? children})
-      : super(
-          AuthWelcomeRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AuthWelcomeRoute';
-
-  static const _i17.PageInfo<void> page = _i17.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i2.BankAccountScreen]
+/// [_i1.BankAccountScreen]
 class BankAccountRoute extends _i17.PageRouteInfo<void> {
   const BankAccountRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -185,7 +168,7 @@ class BankAccountRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.BioDataScreen]
+/// [_i2.BioDataScreen]
 class BioDataRoute extends _i17.PageRouteInfo<void> {
   const BioDataRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -199,7 +182,7 @@ class BioDataRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ForgotPasswordScreen]
+/// [_i3.ForgotPasswordScreen]
 class ForgotPasswordRoute extends _i17.PageRouteInfo<void> {
   const ForgotPasswordRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -213,7 +196,7 @@ class ForgotPasswordRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.GiftShopScreen]
+/// [_i4.GiftShopScreen]
 class GiftShopRoute extends _i17.PageRouteInfo<void> {
   const GiftShopRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -227,7 +210,7 @@ class GiftShopRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.HomeScreen]
+/// [_i5.HomeScreen]
 class HomeRoute extends _i17.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
     dynamic index,
@@ -265,7 +248,7 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i7.IntroScreen]
+/// [_i6.IntroScreen]
 class IntroRoute extends _i17.PageRouteInfo<void> {
   const IntroRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -279,7 +262,7 @@ class IntroRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.LocationScreen]
+/// [_i7.LocationScreen]
 class LocationRoute extends _i17.PageRouteInfo<void> {
   const LocationRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -293,7 +276,7 @@ class LocationRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.MyGiftScreen]
+/// [_i8.MyGiftScreen]
 class MyGiftRoute extends _i17.PageRouteInfo<void> {
   const MyGiftRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -307,7 +290,7 @@ class MyGiftRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.PendingRequestScreen]
+/// [_i9.PendingRequestScreen]
 class PendingRequestRoute extends _i17.PageRouteInfo<void> {
   const PendingRequestRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -321,7 +304,7 @@ class PendingRequestRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.ProductDetailsScreen]
+/// [_i10.ProductDetailsScreen]
 class ProductDetailsRoute extends _i17.PageRouteInfo<ProductDetailsRouteArgs> {
   ProductDetailsRoute({
     _i19.Key? key,
@@ -359,7 +342,7 @@ class ProductDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i12.ProfilePhotoScreen]
+/// [_i11.ProfilePhotoScreen]
 class ProfilePhotoRoute extends _i17.PageRouteInfo<void> {
   const ProfilePhotoRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -373,7 +356,7 @@ class ProfilePhotoRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.RefereeScreen]
+/// [_i12.RefereeScreen]
 class RefereeRoute extends _i17.PageRouteInfo<void> {
   const RefereeRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -387,7 +370,7 @@ class RefereeRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.SignInScreen]
+/// [_i13.SignInScreen]
 class SignInRoute extends _i17.PageRouteInfo<void> {
   const SignInRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -401,7 +384,7 @@ class SignInRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.SignUpScreen]
+/// [_i14.SignUpScreen]
 class SignUpRoute extends _i17.PageRouteInfo<void> {
   const SignUpRoute({List<_i17.PageRouteInfo>? children})
       : super(
@@ -415,7 +398,7 @@ class SignUpRoute extends _i17.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i16.VerificationScreen]
+/// [_i15.VerificationScreen]
 class VerificationRoute extends _i17.PageRouteInfo<VerificationRouteArgs> {
   VerificationRoute({
     _i19.Key? key,
@@ -455,4 +438,18 @@ class VerificationRouteArgs {
   String toString() {
     return 'VerificationRouteArgs{key: $key, isPhoneNumber: $isPhoneNumber, identifier: $identifier}';
   }
+}
+
+/// generated route for
+/// [_i16.WelcomeScreen]
+class WelcomeRoute extends _i17.PageRouteInfo<void> {
+  const WelcomeRoute({List<_i17.PageRouteInfo>? children})
+      : super(
+          WelcomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WelcomeRoute';
+
+  static const _i17.PageInfo<void> page = _i17.PageInfo<void>(name);
 }

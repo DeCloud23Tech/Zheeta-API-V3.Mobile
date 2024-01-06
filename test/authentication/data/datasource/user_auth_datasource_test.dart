@@ -27,7 +27,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final request = ChangePasswordRequest('newPassword', 'oldPassword');
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -66,7 +66,7 @@ void main() {
           phoneNumber: '1234567890',
           phoneCountryCode: '+1',
         );
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -105,7 +105,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final request = LoginRequest('email@example.com', 'password', 'deviceToken', 'platform');
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -144,7 +144,7 @@ void main() {
           phoneNumber: '1234567890',
           phoneCountryCode: '+1',
         );
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -187,7 +187,7 @@ void main() {
           otp: '123456',
           newPassword: 'newPassword',
         );
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.putHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -231,7 +231,7 @@ void main() {
           phoneNumber: '1234567890',
           authType: 'google',
         );
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act

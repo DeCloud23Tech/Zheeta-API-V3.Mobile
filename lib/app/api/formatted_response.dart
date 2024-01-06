@@ -1,7 +1,7 @@
 class FormattedResponse {
   final bool? deviceRegistered;
   final bool success;
-  final String? message;
+  final String message;
   final dynamic data;
   final String? responseCodeError;
   final int? statusCode;
@@ -12,6 +12,6 @@ class FormattedResponse {
     this.responseCodeError,
     this.statusCode,
     required this.success,
-    this.message,
+    required this.message,
   });
 }

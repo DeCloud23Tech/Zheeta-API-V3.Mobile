@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:zheeta/app/common/storage/local_storage_impl.dart';
+import 'package:zheeta/app/common/storage/storage_keys.dart';
+import 'package:zheeta/app/common/validation_helper.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/app/validation_helper.dart';
 import 'package:zheeta/authentication/data/request/verify_email_otp_request.dart';
 import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart';
 import 'package:zheeta/authentication/domain/usecase/user_otp_usecase.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_otp_state.dart';
 
-final userOtpViewModelProvider = StateNotifierProvider.autoDispose<UserOtpViewModel, UserOtpState>((ref) {
+final userOtpViewModelProvider = StateNotifierProvider<UserOtpViewModel, UserOtpState>((ref) {
   final otpUsecase = locator<UserOtpUsecase>();
   return UserOtpViewModel(otpUsecase);
 });
@@ -20,16 +22,18 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
   final UserOtpUsecase _otpUsecase;
   UserOtpViewModel(this._otpUsecase)
       : super(UserOtpState(
-          resetPassword: State.init(),
-          sendEmailVerifyOtp: State.init(),
-          sendPhoneVerifyOtp: State.init(),
-          sendResetPasswordOtp: State.init(),
-          verifyEmailOtp: State.init(),
-          verifyPhoneOtp: State.init(),
-          counter: 0,
-        )) {}
+          resetPasswordState: State.init(),
+          sendEmailVerifyOtpState: State.init(),
+          sendPhoneVerifyOtpState: State.init(),
+          sendResetPasswordOtpState: State.init(),
+          verifyEmailOtpState: State.init(),
+          verifyPhoneOtpState: State.init(),
+          counterState: 0,
+        ));
 
   String _phoneNumber = '';
+
+  bool _isPhoneNumberVerification = true;
 
   String _email = '';
   set setEmail(String value) => _email = value;
@@ -48,16 +52,17 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
     _timer = new Timer.periodic(
       oneSec,
       (Timer timer) {
-        if (state.counter == 0) {
+        if (state.counterState == 0) {
           timer.cancel();
         } else {
-          state = state.setCounter(state.counter - 1);
+          state = state.setCounter(state.counterState - 1);
         }
       },
     );
   }
 
   setPhoneNumberOrEmail(bool isPhoneNumber, String identifier) {
+    _isPhoneNumberVerification = isPhoneNumber;
     if (isPhoneNumber) {
       _phoneNumber = identifier;
     } else {
@@ -67,7 +72,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
 
   reSendPhoneOrEmailOtp() async {
     late bool haveResentOtp;
-    if (_phoneNumber.isNotEmpty) {
+    if (_isPhoneNumberVerification) {
       haveResentOtp = await sendPhoneVerifyOtp();
     } else {
       haveResentOtp = await sendEmailVerifyOtp();
@@ -79,14 +84,16 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
 
   verifyPhoneOrEmail() async {
     late bool canGoNext;
-    if (_phoneNumber.isNotEmpty) {
+    if (_isPhoneNumberVerification) {
       canGoNext = await verifyPhoneNumber();
       if (canGoNext) {
-        router.popAndPush(VerificationRoute(isPhoneNumber: false, identifier: _email));
+        router.popAndPush(
+          VerificationRoute(isPhoneNumber: false, identifier: '${sessionManager.get(SessionManagerKeys.userEmail)}'),
+        );
       }
     } else {
       canGoNext = await verifyEmail();
-      if (canGoNext) router.popAndPush(BioDataRoute());
+      if (canGoNext) router.pushAndPopUntil(SignInRoute(), predicate: (route) => false);
     }
   }
 
@@ -117,7 +124,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
   Future<bool> verifyPhoneNumber() async {
     state = state.setVerifyPhoneOtp(State.loading());
     try {
-      final data = VerifyPhoneOtpRequest(_phoneNumber, _otp);
+      final data = VerifyPhoneOtpRequest(phoneNumber: _phoneNumber, otp: _otp);
       final result = await _otpUsecase.verifyPhoneOtpUsecase(data);
       state = state.setVerifyPhoneOtp(State.success(result));
       return true;
@@ -130,7 +137,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
   Future<bool> verifyEmail() async {
     state = state.setVerifyEmailOtp(State.loading());
     try {
-      final data = VerifyEmailOtpRequest(_email, _otp);
+      final data = VerifyEmailOtpRequest(email: _email, otp: _otp);
       final result = await _otpUsecase.verifyEmailOtpUsecase(data);
       state = state.setVerifyEmailOtp(State.success(result));
       return true;

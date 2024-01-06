@@ -1,5 +1,4 @@
 import 'dart:developer' as logger;
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -9,7 +8,7 @@ import 'package:zheeta/app/api/api_manager.dart';
 import 'package:zheeta/app/api/custom_exception.dart';
 import 'package:zheeta/app/api/dio_props.dart';
 import 'package:zheeta/app/api/formatted_response.dart';
-import 'package:zheeta/app/notify/notify_user.dart';
+import 'package:zheeta/app/common/notify/notify_user.dart';
 
 @prod
 @Injectable(as: ApiManager)
@@ -95,58 +94,61 @@ class ApiManagerImpl implements ApiManager {
     Response? response;
     try {
       response = await future;
-      logger.log('Success Path: ${response.realUri.path}, Data Response: ${response.data}');
-    } on SocketException {
-      return FormattedResponse(
-        success: false,
-        message: 'Oops! An error occured. Please check your internet and try again.',
-        responseCodeError: "Oops! An error occured. Please check your internet and try again.",
-      );
+      logger.log('Response Path: ${response.realUri.path}, Data Response: ${response.data} \n\n');
+      logger.log('\n');
     } on DioException catch (e) {
       if (kDebugMode) {
         logger.log('Error Path: ${e.response?.realUri.path}, Error Response: ${e.message}, Error Data: ${e.response?.data}');
+        logger.log('\n');
       }
       if (e.message.toString().contains('The connection errored')) {
+        NotifyUser.showSnackbar('No internet connection');
+        return FormattedResponse(
+          success: false,
+          message: 'No internet connection',
+          responseCodeError: "No internet connection",
+          statusCode: e.response?.statusCode,
+        );
       } else if (e.type == DioExceptionType.connectionTimeout || e.type == DioExceptionType.receiveTimeout || e.type == DioExceptionType.sendTimeout) {
         return FormattedResponse(
-          success: e.response?.data['success'],
-          message: e.response?.data['message'],
-          responseCodeError: "Connection Timeout",
+          success: false,
+          message: 'Connection timeout',
+          responseCodeError: "Connection timeout",
           statusCode: e.response?.statusCode,
         );
       } else if (e.response?.statusCode == 401) {
         return FormattedResponse(
-          success: e.response?.data['success'],
-          message: e.response?.data['message'],
+          success: false,
+          message: 'Unauthorized action',
           responseCodeError: "Unauthorized action",
           statusCode: e.response?.statusCode,
         );
       } else if (e.response?.statusCode == 404) {
         return FormattedResponse(
-          success: e.response?.data['success'],
-          message: e.response?.data['message'],
+          success: false,
+          message: 'Resource not found',
           responseCodeError: "Oops! Resource not found",
           statusCode: e.response?.statusCode,
         );
       } else if (e.response?.statusCode == 500 || e.response?.statusCode == 403) {
         return FormattedResponse(
-          success: e.response?.data['success'],
-          message: e.response?.data['message'],
+          success: false,
+          message: 'Internal server error',
           responseCodeError: "Oops! It's not you, it's us. Give us a minute and then try again.",
           statusCode: e.response!.statusCode,
         );
       } else if (e.response?.statusCode == 400) {
         return FormattedResponse(
-          success: e.response?.data['success'],
-          message: e.response?.data['message'],
-          responseCodeError: e.response?.data['message'],
+          success: false,
+          message: 'Bad request',
+          responseCodeError: 'Couldn\'t understand the request',
           statusCode: e.response?.statusCode,
         );
       } else if (e.type == DioExceptionType.badResponse || e.type == DioExceptionType.unknown) {
         return FormattedResponse(
-          success: e.response?.data['success'],
-          message: e.response?.data['message'],
-          responseCodeError: "${e.error} - ${e.message}",
+          success: false,
+          message: 'Bad response',
+          responseCodeError: 'Bad response',
           statusCode: e.response?.statusCode,
         );
       }
@@ -155,29 +157,19 @@ class ApiManagerImpl implements ApiManager {
         throw const CustomException('Something went wrong');
       }
     }
-    if (!response?.data['success']) {
-      String message = '';
-      if (response?.data['data'] is Map) {
-        message = response?.data['data']['message'];
-      } else if (response?.data['data'] is String) {
-        message = response?.data['data'];
-      } else if (response?.data['data'] is List) {
-        for (var error in response?.data['data']) {
-          message += error + '\n';
-        }
-      } else {
-        message = response?.data['message'];
-      }
-      NotifyUser.showToast(message, true);
+    if (!"${response?.data['statusCode']}".startsWith('2')) {
+      String message = (response?.data['message'] ?? response?.data['data']).toString();
+
+      NotifyUser.showSnackbar(message);
       return FormattedResponse(
-        success: response?.data['success'],
+        success: false,
         message: message,
         data: response?.data,
         statusCode: response?.statusCode,
       );
     } else {
       return FormattedResponse(
-        success: response?.data['success'],
+        success: true,
         message: response?.data['message'],
         data: response?.data,
         statusCode: response?.statusCode,

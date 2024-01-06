@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -29,7 +29,7 @@ Future<dynamic> locationBottomSheet(BuildContext context) {
               child: PrimaryButton(
                 title: 'Enable location services',
                 action: () {
-                  router.push(AuthWelcomeRoute());
+                  router.push(WelcomeRoute());
                 },
               ),
             ),

@@ -19,7 +19,7 @@ class UserOtpDatasourceImpl implements UserOtpDatasource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message!);
+      return Left(response.message);
     }
   }
 
@@ -29,7 +29,7 @@ class UserOtpDatasourceImpl implements UserOtpDatasource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message!);
+      return Left(response.message);
     }
   }
 
@@ -39,7 +39,7 @@ class UserOtpDatasourceImpl implements UserOtpDatasource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message!);
+      return Left(response.message);
     }
   }
 
@@ -49,7 +49,7 @@ class UserOtpDatasourceImpl implements UserOtpDatasource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message!);
+      return Left(response.message);
     }
   }
 
@@ -59,7 +59,7 @@ class UserOtpDatasourceImpl implements UserOtpDatasource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message!);
+      return Left(response.message);
     }
   }
 
@@ -69,7 +69,7 @@ class UserOtpDatasourceImpl implements UserOtpDatasource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message!);
+      return Left(response.message);
     }
   }
 }

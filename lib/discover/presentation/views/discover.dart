@@ -1,6 +1,6 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/discover/presentation/widgets/card_model.dart';
 import 'package:zheeta/discover/presentation/widgets/card_ui.dart';
 

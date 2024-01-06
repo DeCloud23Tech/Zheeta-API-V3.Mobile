@@ -1,18 +1,17 @@
 name: zheeta
 description: Zheeta... The Social Affiliate Networking Platform
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
-
+  sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-    
+
   cupertino_icons: ^1.0.2
   qr_flutter: ^4.0.0
   intl: any
@@ -40,7 +39,7 @@ dependencies:
   auto_route: ^7.8.4
   fluttertoast: ^8.2.4
   flutter_riverpod: ^2.4.9
-  
+  pin_code_fields: ^8.0.1
 
 dev_dependencies:
   flutter_test:
@@ -59,19 +58,16 @@ flutter_icons:
   remove_alpha_ios: true
   image_path_ios: "assets/images/icons/icon.png"
   image_path_android: "assets/images/icons/icon.png"
-  
+
   flutter_lints: ^2.0.0
 
 flutter:
-
   uses-material-design: true
-
 
   assets:
     - assets/
     - assets/images/
     - assets/images/icons/
-
 
   fonts:
     - family: MuseoModerno

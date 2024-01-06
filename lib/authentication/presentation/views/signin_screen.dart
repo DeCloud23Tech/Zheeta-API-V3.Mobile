@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/strings.dart';
+import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/app/strings.dart';
-import 'package:zheeta/app/text_style.dart';
 import 'package:zheeta/authentication/presentation/view_model/user_auth_viewmodel.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -33,7 +33,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final watchUserAuthViewModel = ref.watch(userAuthViewModelProvider);
+    final userAuthState = ref.watch(userAuthViewModelProvider);
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
       body: Padding(
@@ -57,9 +57,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     child: Text(signinSubtitle, style: authSubtitleStyle)),
                 SizedBox(height: 32),
                 InputField(
-                  validator: (data) => userAuthViewModel.validateIdentity(),
-                  onChanged: (value) => userAuthViewModel.setIdentity(value),
-                  label: 'Username / Email',
+                  validator: (data) => userAuthViewModel.validateEmail(),
+                  onChanged: (value) => userAuthViewModel.setEmail(value),
+                  label: 'Email',
                 ),
                 InputField(
                   label: 'Password',
@@ -72,7 +72,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   width: double.infinity,
                   child: PrimaryButton(
                     title: 'Login',
-                    state: watchUserAuthViewModel.loginUser.isLoading,
+                    state: userAuthState.loginUserState.isLoading,
                     action: () async {
                       if (formKey.currentState!.validate()) {
                         await userAuthViewModel.loginUser();

@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:zheeta/app/color.dart';
-import 'package:zheeta/app/strings.dart';
-import 'package:zheeta/app/text_style.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/storage/local_storage_impl.dart';
+import 'package:zheeta/app/common/storage/storage_keys.dart';
+import 'package:zheeta/app/common/strings.dart';
+import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
-import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/loading_screen.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
@@ -21,22 +23,22 @@ class VerificationScreen extends ConsumerStatefulWidget {
 }
 
 class _VerificationScreenState extends ConsumerState<VerificationScreen> {
-  late UserOtpViewModel _userOtpViewModel;
+  late UserOtpViewModel userOtpViewModel;
 
   final formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
-    _userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
-    _userOtpViewModel.setPhoneNumberOrEmail(widget.isPhoneNumber, widget.identifier);
+    userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
+    userOtpViewModel.setPhoneNumberOrEmail(widget.isPhoneNumber, widget.identifier);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _userOtpViewModel.startTimer();
+      userOtpViewModel.startTimer();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final watchUserOtpViewModel = ref.watch(userOtpViewModelProvider);
+    final userOtpState = ref.watch(userOtpViewModelProvider);
     return Stack(
       children: [
         Scaffold(
@@ -62,18 +64,41 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 15),
-                          Text.rich(
-                              TextSpan(
-                                text: verificationSubtitle,
-                                style: forgotSubtitleStyle,
-                                children: [
-                                  TextSpan(
-                                    text: widget.identifier,
-                                    style: TextStyle(color: AppColors.primaryDark),
-                                  )
-                                ],
-                              ),
-                              textAlign: TextAlign.center)
+                          if (widget.isPhoneNumber)
+                            FutureBuilder(
+                                future: sessionManager.get(SessionManagerKeys.userPhoneNumber),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text.rich(
+                                      TextSpan(
+                                        text: verificationSubtitle,
+                                        style: forgotSubtitleStyle,
+                                        children: [
+                                          TextSpan(
+                                            text: snapshot.data,
+                                            style: TextStyle(color: AppColors.primaryDark),
+                                          )
+                                        ],
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    );
+                                  } else {
+                                    return SizedBox();
+                                  }
+                                })
+                          else
+                            Text.rich(
+                                TextSpan(
+                                  text: verificationSubtitle,
+                                  style: forgotSubtitleStyle,
+                                  children: [
+                                    TextSpan(
+                                      text: widget.identifier,
+                                      style: TextStyle(color: AppColors.primaryDark),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center)
                         ],
                       ),
                     ],
@@ -81,18 +106,44 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                   SizedBox(height: 32),
                   Form(
                     key: formKey,
-                    child: InputField(
-                      onChanged: (value) => _userOtpViewModel.setOtp = value,
-                      validator: (value) => _userOtpViewModel.validateOtp(),
-                      label: 'OTP',
+                    child: PinCodeTextField(
+                      validator: (data) => userOtpViewModel.validateOtp(),
+                      autovalidateMode: AutovalidateMode.disabled,
+                      autoDismissKeyboard: true,
+                      appContext: context,
+                      pastedTextStyle: TextStyle(
+                        color: AppColors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                      length: 6,
+                      animationType: AnimationType.fade,
+                      pinTheme: PinTheme(
+                        selectedFillColor: Colors.white,
+                        selectedColor: AppColors.black,
+                        inactiveFillColor: AppColors.white,
+                        inactiveColor: AppColors.grey,
+                        shape: PinCodeFieldShape.box,
+                        borderWidth: 1,
+                        activeColor: AppColors.primaryLight,
+                        borderRadius: BorderRadius.circular(4),
+                        fieldHeight: 50,
+                        fieldWidth: 50,
+                        activeFillColor: AppColors.white,
+                      ),
+                      cursorColor: AppColors.black,
+                      animationDuration: const Duration(milliseconds: 300),
+                      enableActiveFill: true,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) => userOtpViewModel.setOtp = value,
                     ),
                   ),
                   SizedBox(height: 22),
                   Center(
-                    child: watchUserOtpViewModel.counter == 0
+                    child: userOtpState.counterState == 0
                         ? GestureDetector(
                             onTap: () async {
-                              _userOtpViewModel.reSendPhoneOrEmailOtp();
+                              userOtpViewModel.reSendPhoneOrEmailOtp();
                             },
                             child: Text(
                               'Resend OTP',
@@ -100,7 +151,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                             ),
                           )
                         : Text(
-                            'Send Again OTP (${watchUserOtpViewModel.counter}\s)',
+                            'Send Again OTP (${userOtpState.counterState}\s)',
                             style: TextStyle(
                               color: Colors.blue.withOpacity(0.5),
                             ),
@@ -119,12 +170,12 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: PrimaryButton(
-                    state: watchUserOtpViewModel.verifyPhoneOtp.isLoading || watchUserOtpViewModel.verifyEmailOtp.isLoading,
+                    state: userOtpState.verifyPhoneOtpState.isLoading || userOtpState.verifyEmailOtpState.isLoading,
                     title: 'Continue',
                     action: () async {
                       final isValid = formKey.currentState?.validate();
                       if (isValid ?? false) {
-                        _userOtpViewModel.verifyPhoneOrEmail();
+                        userOtpViewModel.verifyPhoneOrEmail();
                       }
                     },
                   ),
@@ -144,7 +195,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
             ),
           ),
         ),
-        watchUserOtpViewModel.sendPhoneVerifyOtp.isLoading || watchUserOtpViewModel.sendEmailVerifyOtp.isLoading ? LoadingScreen() : SizedBox(),
+        userOtpState.sendPhoneVerifyOtpState.isLoading || userOtpState.sendEmailVerifyOtpState.isLoading ? LoadingScreen() : SizedBox(),
       ],
     );
   }

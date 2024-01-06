@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:zheeta/app/storage/local_storage.dart';
+import 'package:zheeta/app/common/storage/local_storage.dart';
 
-final LocalStorage storage = LocalStorageImpl(Hive.box('app-local-storage'));
+final LocalStorage localStorage = LocalStorageImpl(Hive.box('app-local-storage'));
+final sessionManager = SessionManager();
 
 class LocalStorageImpl implements LocalStorage {
   final Box appLocalStorage;

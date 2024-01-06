@@ -6,23 +6,23 @@ part 'user_otp_state.freezed.dart';
 @freezed
 class UserOtpState with _$UserOtpState {
   factory UserOtpState({
-    required State resetPassword,
-    required State sendEmailVerifyOtp,
-    required State sendPhoneVerifyOtp,
-    required State sendResetPasswordOtp,
-    required State verifyEmailOtp,
-    required State verifyPhoneOtp,
-    required int counter,
+    required State resetPasswordState,
+    required State sendEmailVerifyOtpState,
+    required State sendPhoneVerifyOtpState,
+    required State sendResetPasswordOtpState,
+    required State verifyEmailOtpState,
+    required State verifyPhoneOtpState,
+    required int counterState,
   }) = _UserOtpState;
 
   UserOtpState._();
 
-  UserOtpState setResetPassword(State state) => copyWith(resetPassword: state);
-  UserOtpState setSendEmailVerifyOtp(State state) => copyWith(sendEmailVerifyOtp: state);
-  UserOtpState setSendPhoneVerifyOtp(State state) => copyWith(sendPhoneVerifyOtp: state);
-  UserOtpState setSendResetPasswordOtp(State state) => copyWith(sendResetPasswordOtp: state);
-  UserOtpState setVerifyEmailOtp(State state) => copyWith(verifyEmailOtp: state);
-  UserOtpState setVerifyPhoneOtp(State state) => copyWith(verifyPhoneOtp: state);
+  UserOtpState setResetPassword(State state) => copyWith(resetPasswordState: state);
+  UserOtpState setSendEmailVerifyOtp(State state) => copyWith(sendEmailVerifyOtpState: state);
+  UserOtpState setSendPhoneVerifyOtp(State state) => copyWith(sendPhoneVerifyOtpState: state);
+  UserOtpState setSendResetPasswordOtp(State state) => copyWith(sendResetPasswordOtpState: state);
+  UserOtpState setVerifyEmailOtp(State state) => copyWith(verifyEmailOtpState: state);
+  UserOtpState setVerifyPhoneOtp(State state) => copyWith(verifyPhoneOtpState: state);
 
-  UserOtpState setCounter(int value) => copyWith(counter: value);
+  UserOtpState setCounter(int value) => copyWith(counterState: value);
 }

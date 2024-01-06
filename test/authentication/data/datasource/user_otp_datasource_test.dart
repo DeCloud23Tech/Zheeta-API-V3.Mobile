@@ -23,7 +23,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final email = 'email@example.com';
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -56,7 +56,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final phoneNumber = '1234567890';
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -89,7 +89,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final request = VerifyPhoneOtpRequest('1234567890', '123456');
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -122,7 +122,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final request = VerifyEmailOtpRequest('test@example.com', '123456');
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -155,7 +155,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final phoneNumber = '1234567890';
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
@@ -188,7 +188,7 @@ void main() {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
         final phoneNumber = '1234567890';
-        final response = FormattedResponse(success: true, data: {'key': 'value'});
+        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
