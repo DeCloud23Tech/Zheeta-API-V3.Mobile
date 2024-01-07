@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:zheeta/app/api/formatted_response.dart';
-import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
+import 'package:zheeta/authentication/data/dataSource/user_auth_dataSource.dart';
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource_impl.dart';
 import 'package:zheeta/authentication/data/request/change_password_request.dart';
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart';
@@ -15,18 +15,18 @@ import '../../../mock/app/api/api_manager.mocks.dart';
 
 void main() {
   group('UserAuthDatasourceImpl', () {
-    late UserAuthDatasource datasource;
+    late UserAuthDataSource datasource;
     late MockApiManager mockApiManager;
 
     setUp(() {
       mockApiManager = MockApiManager();
-      datasource = UserAuthDatasourceImpl(mockApiManager);
+      datasource = UserAuthDataSourceImpl(mockApiManager);
     });
 
     group('changePassword', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final request = ChangePasswordRequest('newPassword', 'oldPassword');
+        final request = ChangePasswordRequest(newPassword: 'newPassword', oldPassword: 'oldPassword');
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
@@ -41,7 +41,7 @@ void main() {
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final request = ChangePasswordRequest('newPassword', 'oldPassword');
+        final request = ChangePasswordRequest(newPassword: 'newPassword', oldPassword: 'oldPassword');
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
@@ -104,7 +104,7 @@ void main() {
     group('login', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final request = LoginRequest('email@example.com', 'password', 'deviceToken', 'platform');
+        final request = LoginRequest(email: 'email@example.com', password: 'password', userDeviceToken: 'deviceToken', platform: 'platform');
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
@@ -119,7 +119,7 @@ void main() {
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final request = LoginRequest('email@example.com', 'password', 'deviceToken', 'platform');
+        final request = LoginRequest(email: 'email@example.com', password: 'password', userDeviceToken: 'deviceToken', platform: 'platform');
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);

@@ -10,38 +10,38 @@ import 'package:zheeta/authentication/domain/repository/user_auth_repository.dar
 import 'package:zheeta/authentication/domain/usecase/user_auth_usecase.dart';
 
 @prod
-@LazySingleton(as: UserAuthUsecase)
-class UserAuthUsecaseImpl implements UserAuthUsecase {
+@LazySingleton(as: UserAuthUseCase)
+class UserAuthUseCaseImpl implements UserAuthUseCase {
   final UserAuthRepository _repository;
-  UserAuthUsecaseImpl(this._repository);
+  UserAuthUseCaseImpl(this._repository);
 
   @override
-  changePasswordUsecase(ChangePasswordRequest data) async {
-    return await _repository.changePasswordRepo(data);
+  changePasswordUsecase(ChangePasswordRequest data) {
+    return _repository.changePasswordRepo(data);
   }
 
   @override
-  loginOAuthUsecase(LoginOAuthRequest data) async {
-    return await _repository.loginOAuthRepo(data);
+  loginOAuthUsecase(LoginOAuthRequest data) {
+    return _repository.loginOAuthRepo(data);
   }
 
   @override
-  loginUsecase(LoginRequest data) async {
-    return await _repository.loginRepo(data);
+  loginUsecase(LoginRequest data) {
+    return _repository.loginRepo(data);
   }
 
   @override
-  registerStaffUsecase(RegisterStaffRequest data) async {
-    return await _repository.registerStaffRepo(data);
+  registerStaffUsecase(RegisterStaffRequest data) {
+    return _repository.registerStaffRepo(data);
   }
 
   @override
-  Future<RegisterUserModel> registerUserUsecase(RegisterUserRequest data) async {
-    return await _repository.registerUserRepo(data);
+  Future<RegisterUserModel> registerUserUsecase(RegisterUserRequest data) {
+    return _repository.registerUserRepo(data);
   }
 
   @override
-  resetPasswordUsecase(ResetPasswordRequest data) async {
-    return await _repository.resetPasswordRepo(data);
+  resetPasswordUsecase(ResetPasswordRequest data) {
+    return _repository.resetPasswordRepo(data);
   }
 }

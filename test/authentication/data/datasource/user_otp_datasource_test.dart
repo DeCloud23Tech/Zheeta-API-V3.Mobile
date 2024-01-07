@@ -11,12 +11,12 @@ import '../../../mock/app/api/api_manager.mocks.dart';
 
 void main() {
   group('UserOtpDatasourceImpl', () {
-    late UserOtpDatasource datasource;
+    late UserOtpDataSource datasource;
     late MockApiManager mockApiManager;
 
     setUp(() {
       mockApiManager = MockApiManager();
-      datasource = UserOtpDatasourceImpl(mockApiManager);
+      datasource = UserOtpDataSourceImpl(mockApiManager);
     });
 
     group('sendEmailVerifyOtp', () {
@@ -88,7 +88,7 @@ void main() {
     group('verifyPhoneOtp', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final request = VerifyPhoneOtpRequest('1234567890', '123456');
+        final request = VerifyPhoneOtpRequest(phoneNumber: '1234567890', otp: '123456');
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
@@ -103,7 +103,7 @@ void main() {
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final request = VerifyPhoneOtpRequest('1234567890', '123456');
+        final request = VerifyPhoneOtpRequest(phoneNumber: '1234567890', otp: '123456');
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
@@ -121,7 +121,7 @@ void main() {
     group('verifyEmailOtp', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final request = VerifyEmailOtpRequest('test@example.com', '123456');
+        final request = VerifyEmailOtpRequest(email: 'test@example.com', otp: '123456');
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
@@ -136,7 +136,7 @@ void main() {
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final request = VerifyEmailOtpRequest('test@example.com', '123456');
+        final request = VerifyEmailOtpRequest(email: 'test@example.com', otp: '123456');
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);

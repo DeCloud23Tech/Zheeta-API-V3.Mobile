@@ -7,7 +7,7 @@ import 'package:zheeta/authentication/data/request/register_staff_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 
-abstract class UserAuthUsecase {
+abstract class UserAuthUseCase {
   Future<RegisterUserModel> registerUserUsecase(RegisterUserRequest data);
   Future<LoginUserModel> loginUsecase(LoginRequest data);
   registerStaffUsecase(RegisterStaffRequest data);

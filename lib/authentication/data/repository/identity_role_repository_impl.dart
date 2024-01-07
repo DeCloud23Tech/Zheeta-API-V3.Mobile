@@ -6,7 +6,7 @@ import 'package:zheeta/authentication/domain/repository/identity_role_repository
 @prod
 @LazySingleton(as: IdentityRoleRepository)
 class IdentityRoleRepositoryImpl implements IdentityRoleRepository {
-  final IdentityRoleDatasource _datasource;
+  final IdentityRoleDataSource _datasource;
   IdentityRoleRepositoryImpl(this._datasource);
 
   upgradeUserRoleRepo(UserRoleRequest request) async {

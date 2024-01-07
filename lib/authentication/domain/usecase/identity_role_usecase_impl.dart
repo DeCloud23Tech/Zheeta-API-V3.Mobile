@@ -4,10 +4,10 @@ import 'package:zheeta/authentication/domain/repository/identity_role_repository
 import 'package:zheeta/authentication/domain/usecase/identity_role_usecase.dart';
 
 @prod
-@LazySingleton(as: IdentityRoleUsecase)
-class IdentityRoleUsecaseImpl implements IdentityRoleUsecase {
+@LazySingleton(as: IdentityRoleUseCase)
+class IdentityRoleUseCaseImpl implements IdentityRoleUseCase {
   final IdentityRoleRepository _repository;
-  IdentityRoleUsecaseImpl(this._repository);
+  IdentityRoleUseCaseImpl(this._repository);
 
   @override
   downgradeUserRoleUsecase(UserRoleRequest request) {

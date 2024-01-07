@@ -5,38 +5,38 @@ import 'package:zheeta/authentication/domain/repository/user_otp_repository.dart
 import 'package:zheeta/authentication/domain/usecase/user_otp_usecase.dart';
 
 @prod
-@LazySingleton(as: UserOtpUsecase)
-class UserOtpUsecaseImpl implements UserOtpUsecase {
+@LazySingleton(as: UserOtpUseCase)
+class UserOtpUseCaseImpl implements UserOtpUseCase {
   final UserOtpRepository _repository;
-  UserOtpUsecaseImpl(this._repository);
+  UserOtpUseCaseImpl(this._repository);
 
   @override
-  resetPasswordUsecase(String phoneNumber) async {
-    return await _repository.resetPasswordRepo(phoneNumber);
+  resetPasswordUsecase(String phoneNumber) {
+    return _repository.resetPasswordRepo(phoneNumber);
   }
 
   @override
-  sendEmailVerifyOtpUsecase(String email) async {
-    return await _repository.sendEmailVerifyOtpRepo(email);
+  sendEmailVerifyOtpUsecase(String email) {
+    return _repository.sendEmailVerifyOtpRepo(email);
   }
 
   @override
-  sendPhoneVerifyOtpUsecase(String phoneNumber) async {
-    return await _repository.sendPhoneVerifyOtpRepo(phoneNumber);
+  sendPhoneVerifyOtpUsecase(String phoneNumber) {
+    return _repository.sendPhoneVerifyOtpRepo(phoneNumber);
   }
 
   @override
-  sendResetPasswordOtpUsecase(String phoneNumber) async {
-    return await _repository.sendResetPasswordOtpRepo(phoneNumber);
+  sendResetPasswordOtpUsecase(String phoneNumber) {
+    return _repository.sendResetPasswordOtpRepo(phoneNumber);
   }
 
   @override
-  verifyEmailOtpUsecase(VerifyEmailOtpRequest request) async {
-    return await _repository.verifyEmailOtpRepo(request);
+  verifyEmailOtpUsecase(VerifyEmailOtpRequest request) {
+    return _repository.verifyEmailOtpRepo(request);
   }
 
   @override
-  verifyPhoneOtpUsecase(VerifyPhoneOtpRequest request) async {
-    return await _repository.verifyPhoneOtpRepo(request);
+  verifyPhoneOtpUsecase(VerifyPhoneOtpRequest request) {
+    return _repository.verifyPhoneOtpRepo(request);
   }
 }

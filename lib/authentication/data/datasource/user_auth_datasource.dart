@@ -7,7 +7,7 @@ import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
-abstract class UserAuthDatasource {
+abstract class UserAuthDataSource {
   Future<Either<Error, MappedResponse>> registerUser(RegisterUserRequest request);
   Future<Either<Error, MappedResponse>> login(LoginRequest request);
   Future<Either<Error, MappedResponse>> registerStaff(RegisterStaffRequest request);

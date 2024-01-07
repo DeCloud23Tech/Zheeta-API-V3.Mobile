@@ -6,11 +6,11 @@ import 'package:zheeta/authentication/data/request/user_roles_request.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
 @prod
-@LazySingleton(as: IdentityRoleDatasource)
-class IdentityRoleDatasourceImpl implements IdentityRoleDatasource {
+@LazySingleton(as: IdentityRoleDataSource)
+class IdentityRoleDataSourceImpl implements IdentityRoleDataSource {
   final ApiManager _apiManager;
 
-  IdentityRoleDatasourceImpl(this._apiManager);
+  IdentityRoleDataSourceImpl(this._apiManager);
 
   @override
   Future<Either<Error, MappedResponse>> downgradeUserRole(UserRoleRequest request) async {

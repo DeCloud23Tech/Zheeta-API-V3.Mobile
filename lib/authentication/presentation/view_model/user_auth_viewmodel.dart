@@ -16,12 +16,12 @@ import 'package:zheeta/authentication/presentation/state/user_auth_state.dart';
 import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
 
 final userAuthViewModelProvider = StateNotifierProvider<UserAuthViewModel, UserAuthState>((ref) {
-  final authUsecase = locator<UserAuthUsecase>();
+  final authUsecase = locator<UserAuthUseCase>();
   return UserAuthViewModel(authUsecase, ref);
 });
 
 class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelperMixin {
-  final UserAuthUsecase _authUsecase;
+  final UserAuthUseCase _authUsecase;
   final Ref ref;
   UserAuthViewModel(this._authUsecase, this.ref)
       : super(

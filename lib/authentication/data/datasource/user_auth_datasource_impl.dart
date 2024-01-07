@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/api/api_manager.dart';
-import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
+import 'package:zheeta/authentication/data/dataSource/user_auth_dataSource.dart';
 import 'package:zheeta/authentication/data/request/change_password_request.dart';
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart';
 import 'package:zheeta/authentication/data/request/login_request.dart';
@@ -11,11 +11,11 @@ import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
 @prod
-@LazySingleton(as: UserAuthDatasource)
-class UserAuthDatasourceImpl implements UserAuthDatasource {
+@LazySingleton(as: UserAuthDataSource)
+class UserAuthDataSourceImpl implements UserAuthDataSource {
   final ApiManager _apiManager;
 
-  UserAuthDatasourceImpl(this._apiManager);
+  UserAuthDataSourceImpl(this._apiManager);
 
   @override
   Future<Either<Error, MappedResponse>> changePassword(ChangePasswordRequest request) async {

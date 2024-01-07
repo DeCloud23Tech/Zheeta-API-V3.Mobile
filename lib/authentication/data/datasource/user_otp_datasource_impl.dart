@@ -7,11 +7,11 @@ import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
 @prod
-@LazySingleton(as: UserOtpDatasource)
-class UserOtpDatasourceImpl implements UserOtpDatasource {
+@LazySingleton(as: UserOtpDataSource)
+class UserOtpDataSourceImpl implements UserOtpDataSource {
   final ApiManager _apiManager;
 
-  UserOtpDatasourceImpl(this._apiManager);
+  UserOtpDataSourceImpl(this._apiManager);
 
   @override
   Future<Either<Error, MappedResponse>> resetPassword(String phoneNumber) async {

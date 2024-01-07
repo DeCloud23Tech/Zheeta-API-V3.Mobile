@@ -3,7 +3,7 @@ import 'package:zheeta/authentication/data/request/verify_email_otp_request.dart
 import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
-abstract class UserOtpDatasource {
+abstract class UserOtpDataSource {
   Future<Either<Error, MappedResponse>> sendEmailVerifyOtp(String email);
   Future<Either<Error, MappedResponse>> sendPhoneVerifyOtp(String phoneNumber);
   Future<Either<Error, MappedResponse>> verifyPhoneOtp(VerifyPhoneOtpRequest request);

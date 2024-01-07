@@ -10,18 +10,18 @@ import '../../../mock/app/api/api_manager.mocks.dart';
 
 void main() {
   group('IdentityRoleDatasourceImpl', () {
-    late IdentityRoleDatasource datasource;
+    late IdentityRoleDataSource datasource;
     late MockApiManager mockApiManager;
 
     setUp(() {
       mockApiManager = MockApiManager();
-      datasource = IdentityRoleDatasourceImpl(mockApiManager);
+      datasource = IdentityRoleDataSourceImpl(mockApiManager);
     });
 
     group('downgradeUserRole', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final request = UserRoleRequest('userId', ['role1', 'role2']);
+        final request = UserRoleRequest(userId: 'userId', roles: ['role1', 'role2']);
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.deleteHttp(any, any)).thenAnswer((_) async => response);
 
@@ -36,7 +36,7 @@ void main() {
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final request = UserRoleRequest('userId', ['role1', 'role2']);
+        final request = UserRoleRequest(userId: 'userId', roles: ['role1', 'role2']);
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.deleteHttp(any, any)).thenAnswer((_) async => response);
@@ -54,7 +54,7 @@ void main() {
     group('upgradeUserRole', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final request = UserRoleRequest('userId', ['role1', 'role2']);
+        final request = UserRoleRequest(userId: 'userId', roles: ['role1', 'role2']);
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.putHttp(any, any)).thenAnswer((_) async => response);
 
@@ -69,7 +69,7 @@ void main() {
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final request = UserRoleRequest('userId', ['role1', 'role2']);
+        final request = UserRoleRequest(userId: 'userId', roles: ['role1', 'role2']);
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.putHttp(any, any)).thenAnswer((_) async => response);

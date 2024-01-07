@@ -14,12 +14,12 @@ import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_otp_state.dart';
 
 final userOtpViewModelProvider = StateNotifierProvider<UserOtpViewModel, UserOtpState>((ref) {
-  final otpUsecase = locator<UserOtpUsecase>();
+  final otpUsecase = locator<UserOtpUseCase>();
   return UserOtpViewModel(otpUsecase);
 });
 
 class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelperMixin {
-  final UserOtpUsecase _otpUsecase;
+  final UserOtpUseCase _otpUsecase;
   UserOtpViewModel(this._otpUsecase)
       : super(UserOtpState(
           resetPasswordState: State.init(),

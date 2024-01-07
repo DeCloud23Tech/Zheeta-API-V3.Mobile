@@ -13,7 +13,7 @@ import 'package:zheeta/authentication/domain/repository/user_auth_repository.dar
 @prod
 @LazySingleton(as: UserAuthRepository)
 class UserAuthRepositoryImpl implements UserAuthRepository {
-  final UserAuthDatasource _datasource;
+  final UserAuthDataSource _datasource;
   UserAuthRepositoryImpl(this._datasource);
 
   @override

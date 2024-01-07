@@ -58,11 +58,11 @@ class _FakeLoginUserModel_1 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [UserAuthUsecase].
+/// A class which mocks [UserAuthUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserAuthUsecase extends _i1.Mock implements _i4.UserAuthUsecase {
-  MockUserAuthUsecase() {
+class MockUserAuthUseCase extends _i1.Mock implements _i4.UserAuthUseCase {
+  MockUserAuthUseCase() {
     _i1.throwOnMissingStub(this);
   }
 

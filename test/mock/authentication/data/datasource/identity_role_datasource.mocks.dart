@@ -35,12 +35,12 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-/// A class which mocks [IdentityRoleDatasource].
+/// A class which mocks [IdentityRoleDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIdentityRoleDatasource extends _i1.Mock
-    implements _i3.IdentityRoleDatasource {
-  MockIdentityRoleDatasource() {
+class MockIdentityRoleDataSource extends _i1.Mock
+    implements _i3.IdentityRoleDataSource {
+  MockIdentityRoleDataSource() {
     _i1.throwOnMissingStub(this);
   }
 

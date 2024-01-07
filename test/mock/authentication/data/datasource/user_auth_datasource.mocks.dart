@@ -44,12 +44,12 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-/// A class which mocks [UserAuthDatasource].
+/// A class which mocks [UserAuthDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserAuthDatasource extends _i1.Mock
-    implements _i3.UserAuthDatasource {
-  MockUserAuthDatasource() {
+class MockUserAuthDataSource extends _i1.Mock
+    implements _i3.UserAuthDataSource {
+  MockUserAuthDataSource() {
     _i1.throwOnMissingStub(this);
   }
 

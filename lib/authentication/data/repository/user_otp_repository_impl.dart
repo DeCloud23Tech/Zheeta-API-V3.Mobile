@@ -7,7 +7,7 @@ import 'package:zheeta/authentication/domain/repository/user_otp_repository.dart
 @prod
 @LazySingleton(as: UserOtpRepository)
 class UserOtpRepositoryImpl implements UserOtpRepository {
-  final UserOtpDatasource _datasource;
+  final UserOtpDataSource _datasource;
   UserOtpRepositoryImpl(this._datasource);
 
   sendEmailVerifyOtpRepo(String email) async {

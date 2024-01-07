@@ -24,11 +24,11 @@ import 'package:zheeta/authentication/domain/usecase/user_otp_usecase.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [UserOtpUsecase].
+/// A class which mocks [UserOtpUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserOtpUsecase extends _i1.Mock implements _i2.UserOtpUsecase {
-  MockUserOtpUsecase() {
+class MockUserOtpUseCase extends _i1.Mock implements _i2.UserOtpUseCase {
+  MockUserOtpUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
