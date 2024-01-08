@@ -6,7 +6,7 @@ part 'login_user_model.g.dart';
 
 @freezed
 class LoginUserModel with _$LoginUserModel {
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable()
   const factory LoginUserModel({
     required dynamic token,
     required dynamic username,

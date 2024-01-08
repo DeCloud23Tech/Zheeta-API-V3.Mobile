@@ -6,7 +6,7 @@ part 'register_user_model.g.dart';
 
 @freezed
 class RegisterUserModel with _$RegisterUserModel {
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable()
   const factory RegisterUserModel({
     required dynamic phoneCountryCode,
     required dynamic rolesCSV,

@@ -107,7 +107,7 @@ class __$$LoginUserModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$LoginUserModelImpl implements _LoginUserModel {
   const _$LoginUserModelImpl({required this.token, required this.username});
 

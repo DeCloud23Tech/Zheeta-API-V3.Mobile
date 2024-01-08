@@ -113,7 +113,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       state = state.setLoginUser(State.success(result));
 
       await sessionManager.set(SessionManagerKeys.isLoggedIn, true);
-      await sessionManager.set(SessionManagerKeys.token, result.token);
+      await sessionManager.set(SessionManagerKeys.authToken, result.token);
       // Navigate to dashboard screen
       router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
       return true;
