@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
@@ -12,6 +13,11 @@ class AppGuard extends AutoRouteGuard {
       NotifyUser.showSnackbar('You must be logged in to access this page!');
       router.push(const SignInRoute());
     } else {
+      final isTokeExpired = Jwt.isExpired(await sessionManager.get(SessionManagerKeys.authToken));
+      if (isTokeExpired) {
+        NotifyUser.showSnackbar('Your session has expired, please login again!');
+        router.push(const SignInRoute());
+      }
       resolver.next(true);
     }
   }

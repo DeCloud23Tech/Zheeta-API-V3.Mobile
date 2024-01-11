@@ -8,8 +8,8 @@ part 'login_user_model.g.dart';
 class LoginUserModel with _$LoginUserModel {
   @JsonSerializable()
   const factory LoginUserModel({
-    required dynamic token,
-    required dynamic username,
+    dynamic token,
+    dynamic username,
   }) = _LoginUserModel;
 
   factory LoginUserModel.fromJson(MappedResponse json) => _$LoginUserModelFromJson(json);

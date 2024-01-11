@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_boost_datasource.dart';
+import 'package:zheeta/profile/data/model/boosted_profile_by_admin_model.dart';
+import 'package:zheeta/profile/data/model/matched_profile_boost_model.dart';
 import 'package:zheeta/profile/data/request/create_profile_boost_request.dart';
 import 'package:zheeta/profile/domain/entity/type.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_boost_repository.dart';
@@ -20,20 +22,20 @@ class UserProfileBoostRepositoryImpl implements UserProfileBoostRepository {
   }
 
   @override
-  getBoostedProfileByAdminRepo(GetBoostedProfileByAdminRequest request) async {
+  Future<BoostedProfileByAdminListModel> getBoostedProfileByAdminRepo(GetBoostedProfileByAdminRequest request) async {
     final result = await _datasource.getBoostedProfileByAdmin(request);
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => BoostedProfileByAdminListModel.fromJson(value),
     );
   }
 
   @override
-  getMatchedProfileBoostRepo() async {
+  Future<MatchedProfileBoostListModel> getMatchedProfileBoostRepo() async {
     final result = await _datasource.getMatchedProfileBoost();
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => MatchedProfileBoostListModel.fromJson(value),
     );
   }
 }

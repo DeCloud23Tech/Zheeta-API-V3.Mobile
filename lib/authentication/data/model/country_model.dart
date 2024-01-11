@@ -6,12 +6,12 @@ part 'country_model.g.dart';
 @freezed
 class CountryModel with _$CountryModel {
   @JsonSerializable()
-  factory CountryModel({
-    required String code,
-    required String code2Iso,
-    required String name,
-    required String phoneCode,
-    required String currency,
+  const factory CountryModel({
+    String? code,
+    String? code2Iso,
+    String? name,
+    String? phoneCode,
+    String? currency,
   }) = _CountryModel;
 
   factory CountryModel.fromJson(Map<String, dynamic> json) => _$CountryModelFromJson(json);
@@ -21,7 +21,7 @@ class CountryModel with _$CountryModel {
 class CountryListModel with _$CountryListModel {
   @JsonSerializable(explicitToJson: true)
   factory CountryListModel({
-    required List<CountryModel> data,
+    List<CountryModel>? data,
   }) = _CountryListModel;
 
   factory CountryListModel.fromJson(Map<String, dynamic> json) => _$CountryListModelFromJson(json);

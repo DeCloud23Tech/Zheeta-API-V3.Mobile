@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_datasource.dart';
+import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
+import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_repository.dart';
@@ -21,7 +23,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  getAllUsersProfileRepo({required int roleType, required int pageNumber, required int pageSize}) async {
+  Future<AllUserProfileListModel> getAllUsersProfileRepo({required int roleType, required int pageNumber, required int pageSize}) async {
     final result = await _datasource.getAllUsersProfile(
       roleType: roleType,
       pageNumber: pageNumber,
@@ -29,16 +31,27 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     );
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => AllUserProfileListModel.fromJson(value),
     );
   }
 
   @override
-  getSingleUserProfileRepo() async {
+  Future<UserProfileData> getSingleUserProfileRepo() async {
     final result = await _datasource.getSingleUserProfile();
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => UserProfileData(
+        user: value['user'],
+        profile: value['profile'],
+        residentialAddress: value['residentialAddress'],
+        originAddress: value['originAddress'],
+        location: value['location'],
+        profileCounters: value['profileCounters'],
+        subscription: value['subscription'],
+        wallet: value['wallet'],
+        interests: value['interests'],
+        bankAccountDetails: value['bankAccountDetails'],
+      ),
     );
   }
 

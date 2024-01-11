@@ -19,8 +19,9 @@ CreateProfileBoostRequest _$CreateProfileBoostRequestFromJson(
       targetNumber: json['TargetNumber'] as int,
       duration: json['Duration'] as int,
       adsCost: (json['AdsCost'] as num).toDouble(),
-      profileUrlForAds: CreateProfileBoostRequest.profileUrlForAdsFromJson(
-          json['ProfileUrlForAds'] as MultipartFile),
+      profileUrlForAds: (json['ProfileUrlForAds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$CreateProfileBoostRequestToJson(
@@ -36,6 +37,5 @@ Map<String, dynamic> _$CreateProfileBoostRequestToJson(
       'TargetNumber': instance.targetNumber,
       'Duration': instance.duration,
       'AdsCost': instance.adsCost,
-      'ProfileUrlForAds': CreateProfileBoostRequest.profileUrlForAdsToJson(
-          instance.profileUrlForAds),
+      'ProfileUrlForAds': instance.profileUrlForAds,
     };

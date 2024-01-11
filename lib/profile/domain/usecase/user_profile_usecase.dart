@@ -1,14 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
+import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 
 abstract class UserProfileUseCase {
-  getSingleUserProfileUseCase();
+  Future<UserProfileData> getSingleUserProfileUseCase();
   updateUserProfilePictureUseCase({
     required String userId,
     required MultipartFile file,
   });
-  getAllUsersProfileUseCase({
+  Future<AllUserProfileListModel> getAllUsersProfileUseCase({
     required int roleType,
     required int pageNumber,
     required int pageSize,

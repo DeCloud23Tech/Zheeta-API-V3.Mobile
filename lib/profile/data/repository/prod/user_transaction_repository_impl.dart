@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/profile/data/datasource/user_transaction_datasource.dart';
+import 'package:zheeta/profile/data/model/user_transaction_model.dart';
 import 'package:zheeta/profile/domain/repository/user_transaction_repository.dart';
 
 @prod
@@ -9,7 +10,7 @@ class UserTransactionRepositoryImpl implements UserTransactionRepository {
   UserTransactionRepositoryImpl(this._datasource);
 
   @override
-  getUserTransactionsRepo({required String userId, required int pageNumber, required int pageSize}) async {
+  Future<UserTransactionListModel> getUserTransactionsRepo({required String userId, required int pageNumber, required int pageSize}) async {
     final result = await _datasource.getUserTransactions(
       userId: userId,
       pageNumber: pageNumber,
@@ -17,7 +18,7 @@ class UserTransactionRepositoryImpl implements UserTransactionRepository {
     );
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => UserTransactionListModel.fromJson(value),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/profile/data/model/user_transaction_model.dart';
 import 'package:zheeta/profile/domain/repository/user_transaction_repository.dart';
 import 'package:zheeta/profile/domain/usecase/user_transaction_usecase.dart';
 
@@ -9,7 +10,7 @@ class UserTransactionUseCaseImpl implements UserTransactionUseCase {
   UserTransactionUseCaseImpl(this._repository);
 
   @override
-  getUserTransactionsUseCase({required String userId, required int pageNumber, required int pageSize}) {
+  Future<UserTransactionListModel> getUserTransactionsUseCase({required String userId, required int pageNumber, required int pageSize}) {
     return _repository.getUserTransactionsRepo(
       userId: userId,
       pageNumber: pageNumber,

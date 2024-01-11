@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/profile/data/datasource/user_search_datasource.dart';
+import 'package:zheeta/profile/data/model/search_user_by_admin_model.dart';
+import 'package:zheeta/profile/data/model/search_user_by_customer_model.dart';
 import 'package:zheeta/profile/domain/repository/user_search_repository.dart';
 
 @prod
@@ -9,7 +11,7 @@ class UserSearchRepositorImpl implements UserSearchRepository {
   UserSearchRepositorImpl(this._datasource);
 
   @override
-  findUserByAdminEmailRepo({required String email, required int pageNumber, required int pageSize}) async {
+  Future<SearchUserByAdminListModel> findUserByAdminEmailRepo({required String email, required int pageNumber, required int pageSize}) async {
     final result = await _datasource.findUserByAdminEmail(
       email: email,
       pageNumber: pageNumber,
@@ -17,12 +19,12 @@ class UserSearchRepositorImpl implements UserSearchRepository {
     );
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => SearchUserByAdminListModel.fromJson(value),
     );
   }
 
   @override
-  findUserByAdminUsernameRepo({required String username, required int pageNumber, required int pageSize}) async {
+  Future<SearchUserByAdminListModel> findUserByAdminUsernameRepo({required String username, required int pageNumber, required int pageSize}) async {
     final result = await _datasource.findUserByAdminUsername(
       username: username,
       pageNumber: pageNumber,
@@ -30,12 +32,12 @@ class UserSearchRepositorImpl implements UserSearchRepository {
     );
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => SearchUserByAdminListModel.fromJson(value),
     );
   }
 
   @override
-  searchUserByCustomerRepo({required String username, required int pageNumber, required int pageSize}) async {
+  Future<SearchUserByCustomerListModel> searchUserByCustomerRepo({required String username, required int pageNumber, required int pageSize}) async {
     final result = await _datasource.searchUserByCustomer(
       username: username,
       pageNumber: pageNumber,
@@ -43,7 +45,7 @@ class UserSearchRepositorImpl implements UserSearchRepository {
     );
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => value,
+      (value) => SearchUserByCustomerListModel.fromJson(value),
     );
   }
 }

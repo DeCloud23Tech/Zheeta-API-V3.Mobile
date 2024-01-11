@@ -9,13 +9,13 @@ part of 'country_detail_model.dart';
 _$CountryDetailModelImpl _$$CountryDetailModelImplFromJson(
         Map<String, dynamic> json) =>
     _$CountryDetailModelImpl(
-      code: json['code'] as String,
-      code2Iso: json['code2Iso'] as String,
-      name: json['name'] as String,
-      phoneCode: json['phoneCode'] as String,
-      currency: json['currency'] as String,
+      code: json['code'] as String?,
+      code2Iso: json['code2Iso'] as String?,
+      name: json['name'] as String?,
+      phoneCode: json['phoneCode'] as String?,
+      currency: json['currency'] as String?,
       cities:
-          (json['cities'] as List<dynamic>).map((e) => e as String).toList(),
+          (json['cities'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$CountryDetailModelImplToJson(

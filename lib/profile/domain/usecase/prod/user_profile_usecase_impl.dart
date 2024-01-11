@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
+import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_repository.dart';
@@ -17,7 +19,7 @@ class UserProfileUseCaseImpl implements UserProfileUseCase {
   }
 
   @override
-  getAllUsersProfileUseCase({required int roleType, required int pageNumber, required int pageSize}) {
+  Future<AllUserProfileListModel> getAllUsersProfileUseCase({required int roleType, required int pageNumber, required int pageSize}) {
     return _repository.getAllUsersProfileRepo(
       roleType: roleType,
       pageNumber: pageNumber,
@@ -26,7 +28,7 @@ class UserProfileUseCaseImpl implements UserProfileUseCase {
   }
 
   @override
-  getSingleUserProfileUseCase() {
+  Future<UserProfileData> getSingleUserProfileUseCase() {
     return _repository.getSingleUserProfileRepo();
   }
 

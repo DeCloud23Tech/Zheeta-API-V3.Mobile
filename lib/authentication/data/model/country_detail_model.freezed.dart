@@ -20,12 +20,12 @@ CountryDetailModel _$CountryDetailModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CountryDetailModel {
-  String get code => throw _privateConstructorUsedError;
-  String get code2Iso => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get phoneCode => throw _privateConstructorUsedError;
-  String get currency => throw _privateConstructorUsedError;
-  List<String> get cities => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
+  String? get code2Iso => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get phoneCode => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
+  List<String>? get cities => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,12 +40,12 @@ abstract class $CountryDetailModelCopyWith<$Res> {
       _$CountryDetailModelCopyWithImpl<$Res, CountryDetailModel>;
   @useResult
   $Res call(
-      {String code,
-      String code2Iso,
-      String name,
-      String phoneCode,
-      String currency,
-      List<String> cities});
+      {String? code,
+      String? code2Iso,
+      String? name,
+      String? phoneCode,
+      String? currency,
+      List<String>? cities});
 }
 
 /// @nodoc
@@ -61,38 +61,38 @@ class _$CountryDetailModelCopyWithImpl<$Res, $Val extends CountryDetailModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = null,
-    Object? code2Iso = null,
-    Object? name = null,
-    Object? phoneCode = null,
-    Object? currency = null,
-    Object? cities = null,
+    Object? code = freezed,
+    Object? code2Iso = freezed,
+    Object? name = freezed,
+    Object? phoneCode = freezed,
+    Object? currency = freezed,
+    Object? cities = freezed,
   }) {
     return _then(_value.copyWith(
-      code: null == code
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      code2Iso: null == code2Iso
+              as String?,
+      code2Iso: freezed == code2Iso
           ? _value.code2Iso
           : code2Iso // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      phoneCode: null == phoneCode
+              as String?,
+      phoneCode: freezed == phoneCode
           ? _value.phoneCode
           : phoneCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      currency: null == currency
+              as String?,
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      cities: null == cities
+              as String?,
+      cities: freezed == cities
           ? _value.cities
           : cities // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -106,12 +106,12 @@ abstract class _$$CountryDetailModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String code,
-      String code2Iso,
-      String name,
-      String phoneCode,
-      String currency,
-      List<String> cities});
+      {String? code,
+      String? code2Iso,
+      String? name,
+      String? phoneCode,
+      String? currency,
+      List<String>? cities});
 }
 
 /// @nodoc
@@ -125,38 +125,38 @@ class __$$CountryDetailModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = null,
-    Object? code2Iso = null,
-    Object? name = null,
-    Object? phoneCode = null,
-    Object? currency = null,
-    Object? cities = null,
+    Object? code = freezed,
+    Object? code2Iso = freezed,
+    Object? name = freezed,
+    Object? phoneCode = freezed,
+    Object? currency = freezed,
+    Object? cities = freezed,
   }) {
     return _then(_$CountryDetailModelImpl(
-      code: null == code
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      code2Iso: null == code2Iso
+              as String?,
+      code2Iso: freezed == code2Iso
           ? _value.code2Iso
           : code2Iso // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      phoneCode: null == phoneCode
+              as String?,
+      phoneCode: freezed == phoneCode
           ? _value.phoneCode
           : phoneCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      currency: null == currency
+              as String?,
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      cities: null == cities
+              as String?,
+      cities: freezed == cities
           ? _value._cities
           : cities // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
     ));
   }
 }
@@ -165,34 +165,36 @@ class __$$CountryDetailModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$CountryDetailModelImpl implements _CountryDetailModel {
-  _$CountryDetailModelImpl(
-      {required this.code,
-      required this.code2Iso,
-      required this.name,
-      required this.phoneCode,
-      required this.currency,
-      required final List<String> cities})
+  const _$CountryDetailModelImpl(
+      {this.code,
+      this.code2Iso,
+      this.name,
+      this.phoneCode,
+      this.currency,
+      final List<String>? cities})
       : _cities = cities;
 
   factory _$CountryDetailModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CountryDetailModelImplFromJson(json);
 
   @override
-  final String code;
+  final String? code;
   @override
-  final String code2Iso;
+  final String? code2Iso;
   @override
-  final String name;
+  final String? name;
   @override
-  final String phoneCode;
+  final String? phoneCode;
   @override
-  final String currency;
-  final List<String> _cities;
+  final String? currency;
+  final List<String>? _cities;
   @override
-  List<String> get cities {
+  List<String>? get cities {
+    final value = _cities;
+    if (value == null) return null;
     if (_cities is EqualUnmodifiableListView) return _cities;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_cities);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -237,29 +239,29 @@ class _$CountryDetailModelImpl implements _CountryDetailModel {
 }
 
 abstract class _CountryDetailModel implements CountryDetailModel {
-  factory _CountryDetailModel(
-      {required final String code,
-      required final String code2Iso,
-      required final String name,
-      required final String phoneCode,
-      required final String currency,
-      required final List<String> cities}) = _$CountryDetailModelImpl;
+  const factory _CountryDetailModel(
+      {final String? code,
+      final String? code2Iso,
+      final String? name,
+      final String? phoneCode,
+      final String? currency,
+      final List<String>? cities}) = _$CountryDetailModelImpl;
 
   factory _CountryDetailModel.fromJson(Map<String, dynamic> json) =
       _$CountryDetailModelImpl.fromJson;
 
   @override
-  String get code;
+  String? get code;
   @override
-  String get code2Iso;
+  String? get code2Iso;
   @override
-  String get name;
+  String? get name;
   @override
-  String get phoneCode;
+  String? get phoneCode;
   @override
-  String get currency;
+  String? get currency;
   @override
-  List<String> get cities;
+  List<String>? get cities;
   @override
   @JsonKey(ignore: true)
   _$$CountryDetailModelImplCopyWith<_$CountryDetailModelImpl> get copyWith =>

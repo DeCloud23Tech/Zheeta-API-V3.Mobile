@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_update_bank_account_request.dart';
 import 'package:zheeta/profile/domain/repository/user_bank_account_repository.dart';
 import 'package:zheeta/profile/domain/usecase/user_bank_account_usecase.dart';
@@ -15,7 +16,7 @@ class UserBankAccountUseCaseImpl implements UserBankAccountUseCase {
   }
 
   @override
-  getUserBankAccountUseCase() {
+  Future<BankAccountDetailData> getUserBankAccountUseCase() {
     return _repository.getUserBankAccountRepo();
   }
 }

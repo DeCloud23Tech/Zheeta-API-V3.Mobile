@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
@@ -112,8 +113,14 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       final result = await _authUsecase.loginUsecase(data);
       state = state.setLoginUser(State.success(result));
 
+      final Map<String, dynamic> jwtToken = Jwt.parseJwt(result.token);
+
       await sessionManager.set(SessionManagerKeys.isLoggedIn, true);
       await sessionManager.set(SessionManagerKeys.authToken, result.token);
+
+      await sessionManager.set(SessionManagerKeys.authUserId, jwtToken['nameid']);
+      await sessionManager.set(SessionManagerKeys.authUserEmail, jwtToken['email']);
+
       // Navigate to dashboard screen
       router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
       return true;

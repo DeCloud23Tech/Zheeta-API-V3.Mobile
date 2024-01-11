@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:zheeta/profile/domain/entity/type.dart';
 
 part 'create_profile_boost_request.g.dart';
 
@@ -15,8 +14,7 @@ class CreateProfileBoostRequest {
   int targetNumber;
   int duration;
   double adsCost;
-  @JsonKey(fromJson: profileUrlForAdsFromJson, toJson: profileUrlForAdsToJson)
-  ProfileUrlForAds profileUrlForAds;
+  List<String> profileUrlForAds;
 
   CreateProfileBoostRequest({
     required this.userId,
@@ -34,7 +32,4 @@ class CreateProfileBoostRequest {
 
   factory CreateProfileBoostRequest.fromJson(Map<String, dynamic> json) => _$CreateProfileBoostRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CreateProfileBoostRequestToJson(this);
-
-  static ProfileUrlForAds profileUrlForAdsFromJson(ProfileUrlForAds value) => value;
-  static ProfileUrlForAds profileUrlForAdsToJson(ProfileUrlForAds value) => value;
 }
