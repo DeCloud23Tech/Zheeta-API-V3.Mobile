@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/profile/data/model/user_interest_model.dart';
 import 'package:zheeta/profile/data/request/update_user_interest_request.dart';
 import 'package:zheeta/profile/domain/repository/user_interest_repository.dart';
 import 'package:zheeta/profile/domain/usecase/user_interest_usecase.dart';
@@ -12,5 +13,10 @@ class UserInterestUseCaseImpl implements UserInterestUseCase {
   @override
   updateUserInterestUseCase(UpdateUserUnterestRequest request) {
     return _repository.updateUserInterestRepo(request);
+  }
+
+  @override
+  Future<UserInterestListModel> getInterestsUseCase() {
+    return _repository.getInterestsRepo();
   }
 }

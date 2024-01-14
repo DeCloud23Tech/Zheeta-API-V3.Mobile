@@ -15,7 +15,7 @@ class AllUserProfileModel with _$AllUserProfileModel {
     dynamic lastName,
     dynamic rolesCSV,
     dynamic createdDate,
-    ResidentialAddressData? residentialAddress,
+    ResidentialAddressModel? residentialAddress,
     dynamic phoneNumber,
     dynamic email,
     dynamic isBlocked,

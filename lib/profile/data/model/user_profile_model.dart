@@ -4,28 +4,28 @@ part 'user_profile_model.freezed.dart';
 part 'user_profile_model.g.dart';
 
 @freezed
-class UserProfileData with _$UserProfileData {
+class UserProfileModel with _$UserProfileModel {
   @JsonSerializable(explicitToJson: true)
-  const factory UserProfileData({
-    UserData? user,
-    ProfileData? profile,
-    ResidentialAddressData? residentialAddress,
-    OriginAddressData? originAddress,
-    LocationData? location,
-    ProfileCounterData? profileCounters,
-    SubscriptionData? subscription,
-    WalletData? wallet,
-    List<InterestData>? interests,
-    BankAccountDetailData? bankAccountDetails,
-  }) = _UserProfileData;
+  const factory UserProfileModel({
+    UserModel? user,
+    ProfileModel? profile,
+    ResidentialAddressModel? residentialAddress,
+    OriginAddressModel? originAddress,
+    LocationModel? location,
+    ProfileCounterModel? profileCounters,
+    SubscriptionModel? subscription,
+    WalletModel? wallet,
+    List<InterestModel>? interests,
+    BankAccountDetailModel? bankAccountDetails,
+  }) = _UserProfileModel;
 
-  factory UserProfileData.fromJson(Map<String, dynamic> json) => _$UserProfileDataFromJson(json);
+  factory UserProfileModel.fromJson(Map<String, dynamic> json) => _$UserProfileModelFromJson(json);
 }
 
 @freezed
-class UserData with _$UserData {
+class UserModel with _$UserModel {
   @JsonSerializable()
-  const factory UserData({
+  const factory UserModel({
     dynamic userId,
     dynamic isFullyVerified,
     dynamic userName,
@@ -37,15 +37,15 @@ class UserData with _$UserData {
     dynamic phoneCountryCode,
     dynamic phoneNumber,
     dynamic phoneNumberConfirmed,
-  }) = _UserData;
+  }) = _UserModel;
 
-  factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 }
 
 @freezed
-class ProfileData with _$ProfileData {
+class ProfileModel with _$ProfileModel {
   @JsonSerializable()
-  const factory ProfileData({
+  const factory ProfileModel({
     dynamic firstName,
     dynamic lastName,
     dynamic dateOfBirth,
@@ -61,64 +61,64 @@ class ProfileData with _$ProfileData {
     dynamic occupation,
     dynamic profilePhotoURL,
     dynamic profileStatus,
-  }) = _ProfileData;
+  }) = _ProfileModel;
 
-  factory ProfileData.fromJson(Map<String, dynamic> json) => _$ProfileDataFromJson(json);
+  factory ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);
 }
 
 @freezed
-class ResidentialAddressData with _$ResidentialAddressData {
+class ResidentialAddressModel with _$ResidentialAddressModel {
   @JsonSerializable()
-  const factory ResidentialAddressData({
+  const factory ResidentialAddressModel({
     dynamic city,
     dynamic state,
     dynamic country,
     dynamic zipCode,
-  }) = _ResidentialAddressData;
+  }) = _ResidentialAddressModel;
 
-  factory ResidentialAddressData.fromJson(Map<String, dynamic> json) => _$ResidentialAddressDataFromJson(json);
+  factory ResidentialAddressModel.fromJson(Map<String, dynamic> json) => _$ResidentialAddressModelFromJson(json);
 }
 
 @freezed
-class OriginAddressData with _$OriginAddressData {
+class OriginAddressModel with _$OriginAddressModel {
   @JsonSerializable()
-  const factory OriginAddressData({
+  const factory OriginAddressModel({
     dynamic city,
     dynamic state,
     dynamic country,
     dynamic zipCode,
-  }) = _OriginAddressData;
+  }) = _OriginAddressModel;
 
-  factory OriginAddressData.fromJson(Map<String, dynamic> json) => _$OriginAddressDataFromJson(json);
+  factory OriginAddressModel.fromJson(Map<String, dynamic> json) => _$OriginAddressModelFromJson(json);
 }
 
 @freezed
-class LocationData with _$LocationData {
+class LocationModel with _$LocationModel {
   @JsonSerializable()
-  const factory LocationData({
+  const factory LocationModel({
     dynamic latitude,
     dynamic longitude,
-  }) = _LocationData;
+  }) = _LocationModel;
 
-  factory LocationData.fromJson(Map<String, dynamic> json) => _$LocationDataFromJson(json);
+  factory LocationModel.fromJson(Map<String, dynamic> json) => _$LocationModelFromJson(json);
 }
 
 @freezed
-class ProfileCounterData with _$ProfileCounterData {
+class ProfileCounterModel with _$ProfileCounterModel {
   @JsonSerializable()
-  const factory ProfileCounterData({
+  const factory ProfileCounterModel({
     dynamic friendsCount,
     dynamic refereesCount,
     dynamic postCount,
-  }) = _ProfileCounterData;
+  }) = _ProfileCounterModel;
 
-  factory ProfileCounterData.fromJson(Map<String, dynamic> json) => _$ProfileCounterDataFromJson(json);
+  factory ProfileCounterModel.fromJson(Map<String, dynamic> json) => _$ProfileCounterModelFromJson(json);
 }
 
 @freezed
-class SubscriptionData with _$SubscriptionData {
+class SubscriptionModel with _$SubscriptionModel {
   @JsonSerializable()
-  const factory SubscriptionData({
+  const factory SubscriptionModel({
     dynamic subscriptionId,
     dynamic name,
     dynamic amount,
@@ -126,37 +126,37 @@ class SubscriptionData with _$SubscriptionData {
     dynamic enddate,
     dynamic status,
     dynamic paymentmethod,
-  }) = _SubscriptionData;
+  }) = _SubscriptionModel;
 
-  factory SubscriptionData.fromJson(Map<String, dynamic> json) => _$SubscriptionDataFromJson(json);
+  factory SubscriptionModel.fromJson(Map<String, dynamic> json) => _$SubscriptionModelFromJson(json);
 }
 
 @freezed
-class WalletData with _$WalletData {
+class WalletModel with _$WalletModel {
   @JsonSerializable()
-  const factory WalletData({
+  const factory WalletModel({
     dynamic availableBalance,
     dynamic lastTransactionDate,
-  }) = _WalletData;
+  }) = _WalletModel;
 
-  factory WalletData.fromJson(Map<String, dynamic> json) => _$WalletDataFromJson(json);
+  factory WalletModel.fromJson(Map<String, dynamic> json) => _$WalletModelFromJson(json);
 }
 
 @freezed
-class InterestData with _$InterestData {
+class InterestModel with _$InterestModel {
   @JsonSerializable()
-  const factory InterestData({
+  const factory InterestModel({
     dynamic id,
     dynamic title,
-  }) = _InterestData;
+  }) = _InterestModel;
 
-  factory InterestData.fromJson(Map<String, dynamic> json) => _$InterestDataFromJson(json);
+  factory InterestModel.fromJson(Map<String, dynamic> json) => _$InterestModelFromJson(json);
 }
 
 @freezed
-class BankAccountDetailData with _$BankAccountDetailData {
+class BankAccountDetailModel with _$BankAccountDetailModel {
   @JsonSerializable()
-  const factory BankAccountDetailData({
+  const factory BankAccountDetailModel({
     dynamic userId,
     dynamic firstName,
     dynamic lastName,
@@ -170,7 +170,7 @@ class BankAccountDetailData with _$BankAccountDetailData {
     dynamic accountCurrency,
     dynamic routingNumber,
     dynamic swiftCode,
-  }) = _BankAccountDetailData;
+  }) = _BankAccountDetailModel;
 
-  factory BankAccountDetailData.fromJson(Map<String, dynamic> json) => _$BankAccountDetailDataFromJson(json);
+  factory BankAccountDetailModel.fromJson(Map<String, dynamic> json) => _$BankAccountDetailModelFromJson(json);
 }

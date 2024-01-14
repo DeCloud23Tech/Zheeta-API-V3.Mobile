@@ -17,12 +17,12 @@ class UserOtpState with _$UserOtpState {
 
   UserOtpState._();
 
-  UserOtpState setResetPassword(State state) => copyWith(resetPasswordState: state);
-  UserOtpState setSendEmailVerifyOtp(State state) => copyWith(sendEmailVerifyOtpState: state);
-  UserOtpState setSendPhoneVerifyOtp(State state) => copyWith(sendPhoneVerifyOtpState: state);
-  UserOtpState setSendResetPasswordOtp(State state) => copyWith(sendResetPasswordOtpState: state);
-  UserOtpState setVerifyEmailOtp(State state) => copyWith(verifyEmailOtpState: state);
-  UserOtpState setVerifyPhoneOtp(State state) => copyWith(verifyPhoneOtpState: state);
+  UserOtpState setResetPasswordState(State state) => copyWith(resetPasswordState: state);
+  UserOtpState setSendEmailVerifyOtpState(State state) => copyWith(sendEmailVerifyOtpState: state);
+  UserOtpState setSendPhoneVerifyOtpState(State state) => copyWith(sendPhoneVerifyOtpState: state);
+  UserOtpState setSendResetPasswordOtpState(State state) => copyWith(sendResetPasswordOtpState: state);
+  UserOtpState setVerifyEmailOtpState(State state) => copyWith(verifyEmailOtpState: state);
+  UserOtpState setVerifyPhoneOtpState(State state) => copyWith(verifyPhoneOtpState: state);
 
   UserOtpState setCounter(int value) => copyWith(counterState: value);
 }

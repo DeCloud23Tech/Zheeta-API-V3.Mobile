@@ -10,4 +10,7 @@ class SessionManagerKeys {
   static const String authToken = 'authToken';
   static const String authUserId = 'authUserId';
   static const String authUserEmail = 'authUserEmail';
+
+  static const String longitude = 'longitude';
+  static const String latitude = 'latitude';
 }

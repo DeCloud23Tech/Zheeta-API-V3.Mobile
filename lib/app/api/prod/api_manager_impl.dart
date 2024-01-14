@@ -1,6 +1,7 @@
 import 'dart:developer' as logger;
 
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/api/api_manager.dart';
@@ -13,15 +14,32 @@ import 'package:zheeta/app/common/notify/notify_user.dart';
 @Injectable(as: ApiManager)
 class ApiManagerImpl implements ApiManager {
   final DioModule _dioModule;
-  ApiManagerImpl(this._dioModule);
+  late Dio _dio;
+  ApiManagerImpl(this._dioModule) {
+    _dio = _dioModule.dio();
+    _dio
+      ..interceptors.add(
+        DioCacheInterceptor(
+          options: CacheOptions(
+            store: MemCacheStore(maxEntrySize: 1000000, maxSize: 5000000),
+            policy: CachePolicy.request,
+            maxStale: const Duration(days: 30),
+            priority: CachePriority.high,
+            cipher: null,
+            keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+            allowPostMethod: false,
+          ),
+        ),
+      );
+  }
 
   //GET
   @override
   Future<FormattedResponse> getHttp(String route, {Map<String, dynamic>? body, Map<String, dynamic>? params, bool formdata = false, String? token}) async {
     setHeader(formdata: formdata, token: token);
     params?.removeWhere((key, value) => value == null);
-    final fullRoute = '${_dioModule.dio.options.baseUrl}$route';
-    return makeRequest(_dioModule.dio.get(
+    final fullRoute = '${_dio.options.baseUrl}$route';
+    return makeRequest(_dio.get(
       fullRoute,
       data: body,
       queryParameters: params,
@@ -34,12 +52,12 @@ class ApiManagerImpl implements ApiManager {
     logger.log('Request Path: $route, Request Data: $body');
     setHeader(formdata: formdata, formEncoded: formEncoded, token: token);
     params?.removeWhere((key, value) => value == null);
-    final fullRoute = '${_dioModule.dio.options.baseUrl}$route';
+    final fullRoute = '${_dio.options.baseUrl}$route';
     if (formdata) {
       body = FormData.fromMap(body as Map<String, dynamic>);
     }
 
-    return makeRequest(_dioModule.dio.post(
+    return makeRequest(_dio.post(
       fullRoute,
       data: body,
       onSendProgress: (count, total) {
@@ -61,12 +79,12 @@ class ApiManagerImpl implements ApiManager {
   Future<FormattedResponse> putHttp(String route, dynamic body, {Map<String, dynamic>? params, bool formdata = false, bool formEncoded = false, String? token}) async {
     setHeader(formdata: formdata, formEncoded: formEncoded, token: token);
     params?.removeWhere((key, value) => value == null);
-    final fullRoute = '${_dioModule.dio.options.baseUrl}$route';
+    final fullRoute = '${_dio.options.baseUrl}$route';
     if (formdata) {
       body = FormData.fromMap(body as Map<String, dynamic>);
     }
 
-    return makeRequest(_dioModule.dio.put(
+    return makeRequest(_dio.put(
       fullRoute,
       data: body,
       queryParameters: params,
@@ -78,9 +96,9 @@ class ApiManagerImpl implements ApiManager {
   Future<FormattedResponse> deleteHttp(String route, dynamic body, {Map<String, dynamic>? params, String? token}) async {
     setHeader(token: token);
     params?.removeWhere((key, value) => value == null);
-    final fullRoute = '${_dioModule.dio.options.baseUrl}$route';
+    final fullRoute = '${_dio.options.baseUrl}$route';
 
-    return makeRequest(_dioModule.dio.delete(
+    return makeRequest(_dio.delete(
       fullRoute,
       data: body,
       queryParameters: params,
@@ -96,6 +114,9 @@ class ApiManagerImpl implements ApiManager {
       logger.log('\n');
     } on DioException catch (e) {
       if (kDebugMode) {
+        for (var item in e.response!.headers.map.entries) {
+          logger.log('${item.key} : ${item.value}');
+        }
         logger.log('Error Path: ${e.response?.realUri.path}, Error Response: ${e.message}, Error Data: ${e.response?.data}');
         logger.log('\n');
       }
@@ -184,19 +205,19 @@ class ApiManagerImpl implements ApiManager {
               ? 'application/x-www-form-urlencoded'
               : 'application/json',
       'Accept': 'application/json',
-      'Authorization': token,
+      'Authorization': 'Bearer $token',
     };
 
-    _dioModule.dio.options.headers.addAll(header);
+    _dio.options.headers.addAll(header);
   }
 
   @override
   void dispose() {
-    _dioModule.dio.close(force: true);
+    _dio.close(force: true);
   }
 
   @override
   clearHeaders() {
-    _dioModule.dio.options.headers.clear();
+    _dio.options.headers.clear();
   }
 }

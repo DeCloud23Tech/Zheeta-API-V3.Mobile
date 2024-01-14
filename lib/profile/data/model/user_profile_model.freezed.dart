@@ -14,64 +14,65 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-UserProfileData _$UserProfileDataFromJson(Map<String, dynamic> json) {
-  return _UserProfileData.fromJson(json);
+UserProfileModel _$UserProfileModelFromJson(Map<String, dynamic> json) {
+  return _UserProfileModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$UserProfileData {
-  UserData? get user => throw _privateConstructorUsedError;
-  ProfileData? get profile => throw _privateConstructorUsedError;
-  ResidentialAddressData? get residentialAddress =>
+mixin _$UserProfileModel {
+  UserModel? get user => throw _privateConstructorUsedError;
+  ProfileModel? get profile => throw _privateConstructorUsedError;
+  ResidentialAddressModel? get residentialAddress =>
       throw _privateConstructorUsedError;
-  OriginAddressData? get originAddress => throw _privateConstructorUsedError;
-  LocationData? get location => throw _privateConstructorUsedError;
-  ProfileCounterData? get profileCounters => throw _privateConstructorUsedError;
-  SubscriptionData? get subscription => throw _privateConstructorUsedError;
-  WalletData? get wallet => throw _privateConstructorUsedError;
-  List<InterestData>? get interests => throw _privateConstructorUsedError;
-  BankAccountDetailData? get bankAccountDetails =>
+  OriginAddressModel? get originAddress => throw _privateConstructorUsedError;
+  LocationModel? get location => throw _privateConstructorUsedError;
+  ProfileCounterModel? get profileCounters =>
+      throw _privateConstructorUsedError;
+  SubscriptionModel? get subscription => throw _privateConstructorUsedError;
+  WalletModel? get wallet => throw _privateConstructorUsedError;
+  List<InterestModel>? get interests => throw _privateConstructorUsedError;
+  BankAccountDetailModel? get bankAccountDetails =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserProfileDataCopyWith<UserProfileData> get copyWith =>
+  $UserProfileModelCopyWith<UserProfileModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserProfileDataCopyWith<$Res> {
-  factory $UserProfileDataCopyWith(
-          UserProfileData value, $Res Function(UserProfileData) then) =
-      _$UserProfileDataCopyWithImpl<$Res, UserProfileData>;
+abstract class $UserProfileModelCopyWith<$Res> {
+  factory $UserProfileModelCopyWith(
+          UserProfileModel value, $Res Function(UserProfileModel) then) =
+      _$UserProfileModelCopyWithImpl<$Res, UserProfileModel>;
   @useResult
   $Res call(
-      {UserData? user,
-      ProfileData? profile,
-      ResidentialAddressData? residentialAddress,
-      OriginAddressData? originAddress,
-      LocationData? location,
-      ProfileCounterData? profileCounters,
-      SubscriptionData? subscription,
-      WalletData? wallet,
-      List<InterestData>? interests,
-      BankAccountDetailData? bankAccountDetails});
+      {UserModel? user,
+      ProfileModel? profile,
+      ResidentialAddressModel? residentialAddress,
+      OriginAddressModel? originAddress,
+      LocationModel? location,
+      ProfileCounterModel? profileCounters,
+      SubscriptionModel? subscription,
+      WalletModel? wallet,
+      List<InterestModel>? interests,
+      BankAccountDetailModel? bankAccountDetails});
 
-  $UserDataCopyWith<$Res>? get user;
-  $ProfileDataCopyWith<$Res>? get profile;
-  $ResidentialAddressDataCopyWith<$Res>? get residentialAddress;
-  $OriginAddressDataCopyWith<$Res>? get originAddress;
-  $LocationDataCopyWith<$Res>? get location;
-  $ProfileCounterDataCopyWith<$Res>? get profileCounters;
-  $SubscriptionDataCopyWith<$Res>? get subscription;
-  $WalletDataCopyWith<$Res>? get wallet;
-  $BankAccountDetailDataCopyWith<$Res>? get bankAccountDetails;
+  $UserModelCopyWith<$Res>? get user;
+  $ProfileModelCopyWith<$Res>? get profile;
+  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
+  $OriginAddressModelCopyWith<$Res>? get originAddress;
+  $LocationModelCopyWith<$Res>? get location;
+  $ProfileCounterModelCopyWith<$Res>? get profileCounters;
+  $SubscriptionModelCopyWith<$Res>? get subscription;
+  $WalletModelCopyWith<$Res>? get wallet;
+  $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails;
 }
 
 /// @nodoc
-class _$UserProfileDataCopyWithImpl<$Res, $Val extends UserProfileData>
-    implements $UserProfileDataCopyWith<$Res> {
-  _$UserProfileDataCopyWithImpl(this._value, this._then);
+class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
+    implements $UserProfileModelCopyWith<$Res> {
+  _$UserProfileModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -96,78 +97,78 @@ class _$UserProfileDataCopyWithImpl<$Res, $Val extends UserProfileData>
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserData?,
+              as UserModel?,
       profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
-              as ProfileData?,
+              as ProfileModel?,
       residentialAddress: freezed == residentialAddress
           ? _value.residentialAddress
           : residentialAddress // ignore: cast_nullable_to_non_nullable
-              as ResidentialAddressData?,
+              as ResidentialAddressModel?,
       originAddress: freezed == originAddress
           ? _value.originAddress
           : originAddress // ignore: cast_nullable_to_non_nullable
-              as OriginAddressData?,
+              as OriginAddressModel?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as LocationData?,
+              as LocationModel?,
       profileCounters: freezed == profileCounters
           ? _value.profileCounters
           : profileCounters // ignore: cast_nullable_to_non_nullable
-              as ProfileCounterData?,
+              as ProfileCounterModel?,
       subscription: freezed == subscription
           ? _value.subscription
           : subscription // ignore: cast_nullable_to_non_nullable
-              as SubscriptionData?,
+              as SubscriptionModel?,
       wallet: freezed == wallet
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
-              as WalletData?,
+              as WalletModel?,
       interests: freezed == interests
           ? _value.interests
           : interests // ignore: cast_nullable_to_non_nullable
-              as List<InterestData>?,
+              as List<InterestModel>?,
       bankAccountDetails: freezed == bankAccountDetails
           ? _value.bankAccountDetails
           : bankAccountDetails // ignore: cast_nullable_to_non_nullable
-              as BankAccountDetailData?,
+              as BankAccountDetailModel?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $UserDataCopyWith<$Res>? get user {
+  $UserModelCopyWith<$Res>? get user {
     if (_value.user == null) {
       return null;
     }
 
-    return $UserDataCopyWith<$Res>(_value.user!, (value) {
+    return $UserModelCopyWith<$Res>(_value.user!, (value) {
       return _then(_value.copyWith(user: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ProfileDataCopyWith<$Res>? get profile {
+  $ProfileModelCopyWith<$Res>? get profile {
     if (_value.profile == null) {
       return null;
     }
 
-    return $ProfileDataCopyWith<$Res>(_value.profile!, (value) {
+    return $ProfileModelCopyWith<$Res>(_value.profile!, (value) {
       return _then(_value.copyWith(profile: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ResidentialAddressDataCopyWith<$Res>? get residentialAddress {
+  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress {
     if (_value.residentialAddress == null) {
       return null;
     }
 
-    return $ResidentialAddressDataCopyWith<$Res>(_value.residentialAddress!,
+    return $ResidentialAddressModelCopyWith<$Res>(_value.residentialAddress!,
         (value) {
       return _then(_value.copyWith(residentialAddress: value) as $Val);
     });
@@ -175,72 +176,72 @@ class _$UserProfileDataCopyWithImpl<$Res, $Val extends UserProfileData>
 
   @override
   @pragma('vm:prefer-inline')
-  $OriginAddressDataCopyWith<$Res>? get originAddress {
+  $OriginAddressModelCopyWith<$Res>? get originAddress {
     if (_value.originAddress == null) {
       return null;
     }
 
-    return $OriginAddressDataCopyWith<$Res>(_value.originAddress!, (value) {
+    return $OriginAddressModelCopyWith<$Res>(_value.originAddress!, (value) {
       return _then(_value.copyWith(originAddress: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $LocationDataCopyWith<$Res>? get location {
+  $LocationModelCopyWith<$Res>? get location {
     if (_value.location == null) {
       return null;
     }
 
-    return $LocationDataCopyWith<$Res>(_value.location!, (value) {
+    return $LocationModelCopyWith<$Res>(_value.location!, (value) {
       return _then(_value.copyWith(location: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ProfileCounterDataCopyWith<$Res>? get profileCounters {
+  $ProfileCounterModelCopyWith<$Res>? get profileCounters {
     if (_value.profileCounters == null) {
       return null;
     }
 
-    return $ProfileCounterDataCopyWith<$Res>(_value.profileCounters!, (value) {
+    return $ProfileCounterModelCopyWith<$Res>(_value.profileCounters!, (value) {
       return _then(_value.copyWith(profileCounters: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $SubscriptionDataCopyWith<$Res>? get subscription {
+  $SubscriptionModelCopyWith<$Res>? get subscription {
     if (_value.subscription == null) {
       return null;
     }
 
-    return $SubscriptionDataCopyWith<$Res>(_value.subscription!, (value) {
+    return $SubscriptionModelCopyWith<$Res>(_value.subscription!, (value) {
       return _then(_value.copyWith(subscription: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $WalletDataCopyWith<$Res>? get wallet {
+  $WalletModelCopyWith<$Res>? get wallet {
     if (_value.wallet == null) {
       return null;
     }
 
-    return $WalletDataCopyWith<$Res>(_value.wallet!, (value) {
+    return $WalletModelCopyWith<$Res>(_value.wallet!, (value) {
       return _then(_value.copyWith(wallet: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $BankAccountDetailDataCopyWith<$Res>? get bankAccountDetails {
+  $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails {
     if (_value.bankAccountDetails == null) {
       return null;
     }
 
-    return $BankAccountDetailDataCopyWith<$Res>(_value.bankAccountDetails!,
+    return $BankAccountDetailModelCopyWith<$Res>(_value.bankAccountDetails!,
         (value) {
       return _then(_value.copyWith(bankAccountDetails: value) as $Val);
     });
@@ -248,51 +249,51 @@ class _$UserProfileDataCopyWithImpl<$Res, $Val extends UserProfileData>
 }
 
 /// @nodoc
-abstract class _$$UserProfileDataImplCopyWith<$Res>
-    implements $UserProfileDataCopyWith<$Res> {
-  factory _$$UserProfileDataImplCopyWith(_$UserProfileDataImpl value,
-          $Res Function(_$UserProfileDataImpl) then) =
-      __$$UserProfileDataImplCopyWithImpl<$Res>;
+abstract class _$$UserProfileModelImplCopyWith<$Res>
+    implements $UserProfileModelCopyWith<$Res> {
+  factory _$$UserProfileModelImplCopyWith(_$UserProfileModelImpl value,
+          $Res Function(_$UserProfileModelImpl) then) =
+      __$$UserProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {UserData? user,
-      ProfileData? profile,
-      ResidentialAddressData? residentialAddress,
-      OriginAddressData? originAddress,
-      LocationData? location,
-      ProfileCounterData? profileCounters,
-      SubscriptionData? subscription,
-      WalletData? wallet,
-      List<InterestData>? interests,
-      BankAccountDetailData? bankAccountDetails});
+      {UserModel? user,
+      ProfileModel? profile,
+      ResidentialAddressModel? residentialAddress,
+      OriginAddressModel? originAddress,
+      LocationModel? location,
+      ProfileCounterModel? profileCounters,
+      SubscriptionModel? subscription,
+      WalletModel? wallet,
+      List<InterestModel>? interests,
+      BankAccountDetailModel? bankAccountDetails});
 
   @override
-  $UserDataCopyWith<$Res>? get user;
+  $UserModelCopyWith<$Res>? get user;
   @override
-  $ProfileDataCopyWith<$Res>? get profile;
+  $ProfileModelCopyWith<$Res>? get profile;
   @override
-  $ResidentialAddressDataCopyWith<$Res>? get residentialAddress;
+  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
   @override
-  $OriginAddressDataCopyWith<$Res>? get originAddress;
+  $OriginAddressModelCopyWith<$Res>? get originAddress;
   @override
-  $LocationDataCopyWith<$Res>? get location;
+  $LocationModelCopyWith<$Res>? get location;
   @override
-  $ProfileCounterDataCopyWith<$Res>? get profileCounters;
+  $ProfileCounterModelCopyWith<$Res>? get profileCounters;
   @override
-  $SubscriptionDataCopyWith<$Res>? get subscription;
+  $SubscriptionModelCopyWith<$Res>? get subscription;
   @override
-  $WalletDataCopyWith<$Res>? get wallet;
+  $WalletModelCopyWith<$Res>? get wallet;
   @override
-  $BankAccountDetailDataCopyWith<$Res>? get bankAccountDetails;
+  $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails;
 }
 
 /// @nodoc
-class __$$UserProfileDataImplCopyWithImpl<$Res>
-    extends _$UserProfileDataCopyWithImpl<$Res, _$UserProfileDataImpl>
-    implements _$$UserProfileDataImplCopyWith<$Res> {
-  __$$UserProfileDataImplCopyWithImpl(
-      _$UserProfileDataImpl _value, $Res Function(_$UserProfileDataImpl) _then)
+class __$$UserProfileModelImplCopyWithImpl<$Res>
+    extends _$UserProfileModelCopyWithImpl<$Res, _$UserProfileModelImpl>
+    implements _$$UserProfileModelImplCopyWith<$Res> {
+  __$$UserProfileModelImplCopyWithImpl(_$UserProfileModelImpl _value,
+      $Res Function(_$UserProfileModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -309,47 +310,47 @@ class __$$UserProfileDataImplCopyWithImpl<$Res>
     Object? interests = freezed,
     Object? bankAccountDetails = freezed,
   }) {
-    return _then(_$UserProfileDataImpl(
+    return _then(_$UserProfileModelImpl(
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserData?,
+              as UserModel?,
       profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
-              as ProfileData?,
+              as ProfileModel?,
       residentialAddress: freezed == residentialAddress
           ? _value.residentialAddress
           : residentialAddress // ignore: cast_nullable_to_non_nullable
-              as ResidentialAddressData?,
+              as ResidentialAddressModel?,
       originAddress: freezed == originAddress
           ? _value.originAddress
           : originAddress // ignore: cast_nullable_to_non_nullable
-              as OriginAddressData?,
+              as OriginAddressModel?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as LocationData?,
+              as LocationModel?,
       profileCounters: freezed == profileCounters
           ? _value.profileCounters
           : profileCounters // ignore: cast_nullable_to_non_nullable
-              as ProfileCounterData?,
+              as ProfileCounterModel?,
       subscription: freezed == subscription
           ? _value.subscription
           : subscription // ignore: cast_nullable_to_non_nullable
-              as SubscriptionData?,
+              as SubscriptionModel?,
       wallet: freezed == wallet
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
-              as WalletData?,
+              as WalletModel?,
       interests: freezed == interests
           ? _value._interests
           : interests // ignore: cast_nullable_to_non_nullable
-              as List<InterestData>?,
+              as List<InterestModel>?,
       bankAccountDetails: freezed == bankAccountDetails
           ? _value.bankAccountDetails
           : bankAccountDetails // ignore: cast_nullable_to_non_nullable
-              as BankAccountDetailData?,
+              as BankAccountDetailModel?,
     ));
   }
 }
@@ -357,8 +358,8 @@ class __$$UserProfileDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$UserProfileDataImpl implements _UserProfileData {
-  const _$UserProfileDataImpl(
+class _$UserProfileModelImpl implements _UserProfileModel {
+  const _$UserProfileModelImpl(
       {this.user,
       this.profile,
       this.residentialAddress,
@@ -367,32 +368,32 @@ class _$UserProfileDataImpl implements _UserProfileData {
       this.profileCounters,
       this.subscription,
       this.wallet,
-      final List<InterestData>? interests,
+      final List<InterestModel>? interests,
       this.bankAccountDetails})
       : _interests = interests;
 
-  factory _$UserProfileDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserProfileDataImplFromJson(json);
+  factory _$UserProfileModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileModelImplFromJson(json);
 
   @override
-  final UserData? user;
+  final UserModel? user;
   @override
-  final ProfileData? profile;
+  final ProfileModel? profile;
   @override
-  final ResidentialAddressData? residentialAddress;
+  final ResidentialAddressModel? residentialAddress;
   @override
-  final OriginAddressData? originAddress;
+  final OriginAddressModel? originAddress;
   @override
-  final LocationData? location;
+  final LocationModel? location;
   @override
-  final ProfileCounterData? profileCounters;
+  final ProfileCounterModel? profileCounters;
   @override
-  final SubscriptionData? subscription;
+  final SubscriptionModel? subscription;
   @override
-  final WalletData? wallet;
-  final List<InterestData>? _interests;
+  final WalletModel? wallet;
+  final List<InterestModel>? _interests;
   @override
-  List<InterestData>? get interests {
+  List<InterestModel>? get interests {
     final value = _interests;
     if (value == null) return null;
     if (_interests is EqualUnmodifiableListView) return _interests;
@@ -401,18 +402,18 @@ class _$UserProfileDataImpl implements _UserProfileData {
   }
 
   @override
-  final BankAccountDetailData? bankAccountDetails;
+  final BankAccountDetailModel? bankAccountDetails;
 
   @override
   String toString() {
-    return 'UserProfileData(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, interests: $interests, bankAccountDetails: $bankAccountDetails)';
+    return 'UserProfileModel(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, interests: $interests, bankAccountDetails: $bankAccountDetails)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserProfileDataImpl &&
+            other is _$UserProfileModelImpl &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.residentialAddress, residentialAddress) ||
@@ -450,66 +451,67 @@ class _$UserProfileDataImpl implements _UserProfileData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserProfileDataImplCopyWith<_$UserProfileDataImpl> get copyWith =>
-      __$$UserProfileDataImplCopyWithImpl<_$UserProfileDataImpl>(
+  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
+      __$$UserProfileModelImplCopyWithImpl<_$UserProfileModelImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserProfileDataImplToJson(
+    return _$$UserProfileModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserProfileData implements UserProfileData {
-  const factory _UserProfileData(
-      {final UserData? user,
-      final ProfileData? profile,
-      final ResidentialAddressData? residentialAddress,
-      final OriginAddressData? originAddress,
-      final LocationData? location,
-      final ProfileCounterData? profileCounters,
-      final SubscriptionData? subscription,
-      final WalletData? wallet,
-      final List<InterestData>? interests,
-      final BankAccountDetailData? bankAccountDetails}) = _$UserProfileDataImpl;
+abstract class _UserProfileModel implements UserProfileModel {
+  const factory _UserProfileModel(
+          {final UserModel? user,
+          final ProfileModel? profile,
+          final ResidentialAddressModel? residentialAddress,
+          final OriginAddressModel? originAddress,
+          final LocationModel? location,
+          final ProfileCounterModel? profileCounters,
+          final SubscriptionModel? subscription,
+          final WalletModel? wallet,
+          final List<InterestModel>? interests,
+          final BankAccountDetailModel? bankAccountDetails}) =
+      _$UserProfileModelImpl;
 
-  factory _UserProfileData.fromJson(Map<String, dynamic> json) =
-      _$UserProfileDataImpl.fromJson;
+  factory _UserProfileModel.fromJson(Map<String, dynamic> json) =
+      _$UserProfileModelImpl.fromJson;
 
   @override
-  UserData? get user;
+  UserModel? get user;
   @override
-  ProfileData? get profile;
+  ProfileModel? get profile;
   @override
-  ResidentialAddressData? get residentialAddress;
+  ResidentialAddressModel? get residentialAddress;
   @override
-  OriginAddressData? get originAddress;
+  OriginAddressModel? get originAddress;
   @override
-  LocationData? get location;
+  LocationModel? get location;
   @override
-  ProfileCounterData? get profileCounters;
+  ProfileCounterModel? get profileCounters;
   @override
-  SubscriptionData? get subscription;
+  SubscriptionModel? get subscription;
   @override
-  WalletData? get wallet;
+  WalletModel? get wallet;
   @override
-  List<InterestData>? get interests;
+  List<InterestModel>? get interests;
   @override
-  BankAccountDetailData? get bankAccountDetails;
+  BankAccountDetailModel? get bankAccountDetails;
   @override
   @JsonKey(ignore: true)
-  _$$UserProfileDataImplCopyWith<_$UserProfileDataImpl> get copyWith =>
+  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-UserData _$UserDataFromJson(Map<String, dynamic> json) {
-  return _UserData.fromJson(json);
+UserModel _$UserModelFromJson(Map<String, dynamic> json) {
+  return _UserModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$UserData {
+mixin _$UserModel {
   dynamic get userId => throw _privateConstructorUsedError;
   dynamic get isFullyVerified => throw _privateConstructorUsedError;
   dynamic get userName => throw _privateConstructorUsedError;
@@ -524,14 +526,14 @@ mixin _$UserData {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserDataCopyWith<UserData> get copyWith =>
+  $UserModelCopyWith<UserModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserDataCopyWith<$Res> {
-  factory $UserDataCopyWith(UserData value, $Res Function(UserData) then) =
-      _$UserDataCopyWithImpl<$Res, UserData>;
+abstract class $UserModelCopyWith<$Res> {
+  factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
+      _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
       {dynamic userId,
@@ -548,9 +550,9 @@ abstract class $UserDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
-    implements $UserDataCopyWith<$Res> {
-  _$UserDataCopyWithImpl(this._value, this._then);
+class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
+    implements $UserModelCopyWith<$Res> {
+  _$UserModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -622,11 +624,11 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
 }
 
 /// @nodoc
-abstract class _$$UserDataImplCopyWith<$Res>
-    implements $UserDataCopyWith<$Res> {
-  factory _$$UserDataImplCopyWith(
-          _$UserDataImpl value, $Res Function(_$UserDataImpl) then) =
-      __$$UserDataImplCopyWithImpl<$Res>;
+abstract class _$$UserModelImplCopyWith<$Res>
+    implements $UserModelCopyWith<$Res> {
+  factory _$$UserModelImplCopyWith(
+          _$UserModelImpl value, $Res Function(_$UserModelImpl) then) =
+      __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -644,11 +646,11 @@ abstract class _$$UserDataImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$UserDataImplCopyWithImpl<$Res>
-    extends _$UserDataCopyWithImpl<$Res, _$UserDataImpl>
-    implements _$$UserDataImplCopyWith<$Res> {
-  __$$UserDataImplCopyWithImpl(
-      _$UserDataImpl _value, $Res Function(_$UserDataImpl) _then)
+class __$$UserModelImplCopyWithImpl<$Res>
+    extends _$UserModelCopyWithImpl<$Res, _$UserModelImpl>
+    implements _$$UserModelImplCopyWith<$Res> {
+  __$$UserModelImplCopyWithImpl(
+      _$UserModelImpl _value, $Res Function(_$UserModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -666,7 +668,7 @@ class __$$UserDataImplCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? phoneNumberConfirmed = freezed,
   }) {
-    return _then(_$UserDataImpl(
+    return _then(_$UserModelImpl(
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -718,8 +720,8 @@ class __$$UserDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$UserDataImpl implements _UserData {
-  const _$UserDataImpl(
+class _$UserModelImpl implements _UserModel {
+  const _$UserModelImpl(
       {this.userId,
       this.isFullyVerified,
       this.userName,
@@ -732,8 +734,8 @@ class _$UserDataImpl implements _UserData {
       this.phoneNumber,
       this.phoneNumberConfirmed});
 
-  factory _$UserDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserDataImplFromJson(json);
+  factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserModelImplFromJson(json);
 
   @override
   final dynamic userId;
@@ -760,14 +762,14 @@ class _$UserDataImpl implements _UserData {
 
   @override
   String toString() {
-    return 'UserData(userId: $userId, isFullyVerified: $isFullyVerified, userName: $userName, rolesCSV: $rolesCSV, createdDate: $createdDate, lastSeenDate: $lastSeenDate, normalizedEmail: $normalizedEmail, emailConfirmed: $emailConfirmed, phoneCountryCode: $phoneCountryCode, phoneNumber: $phoneNumber, phoneNumberConfirmed: $phoneNumberConfirmed)';
+    return 'UserModel(userId: $userId, isFullyVerified: $isFullyVerified, userName: $userName, rolesCSV: $rolesCSV, createdDate: $createdDate, lastSeenDate: $lastSeenDate, normalizedEmail: $normalizedEmail, emailConfirmed: $emailConfirmed, phoneCountryCode: $phoneCountryCode, phoneNumber: $phoneNumber, phoneNumberConfirmed: $phoneNumberConfirmed)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserDataImpl &&
+            other is _$UserModelImpl &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
             const DeepCollectionEquality()
                 .equals(other.isFullyVerified, isFullyVerified) &&
@@ -808,19 +810,19 @@ class _$UserDataImpl implements _UserData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserDataImplCopyWith<_$UserDataImpl> get copyWith =>
-      __$$UserDataImplCopyWithImpl<_$UserDataImpl>(this, _$identity);
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
+      __$$UserModelImplCopyWithImpl<_$UserModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserDataImplToJson(
+    return _$$UserModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserData implements UserData {
-  const factory _UserData(
+abstract class _UserModel implements UserModel {
+  const factory _UserModel(
       {final dynamic userId,
       final dynamic isFullyVerified,
       final dynamic userName,
@@ -831,10 +833,10 @@ abstract class _UserData implements UserData {
       final dynamic emailConfirmed,
       final dynamic phoneCountryCode,
       final dynamic phoneNumber,
-      final dynamic phoneNumberConfirmed}) = _$UserDataImpl;
+      final dynamic phoneNumberConfirmed}) = _$UserModelImpl;
 
-  factory _UserData.fromJson(Map<String, dynamic> json) =
-      _$UserDataImpl.fromJson;
+  factory _UserModel.fromJson(Map<String, dynamic> json) =
+      _$UserModelImpl.fromJson;
 
   @override
   dynamic get userId;
@@ -860,16 +862,16 @@ abstract class _UserData implements UserData {
   dynamic get phoneNumberConfirmed;
   @override
   @JsonKey(ignore: true)
-  _$$UserDataImplCopyWith<_$UserDataImpl> get copyWith =>
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) {
-  return _ProfileData.fromJson(json);
+ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
+  return _ProfileModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProfileData {
+mixin _$ProfileModel {
   dynamic get firstName => throw _privateConstructorUsedError;
   dynamic get lastName => throw _privateConstructorUsedError;
   dynamic get dateOfBirth => throw _privateConstructorUsedError;
@@ -888,15 +890,15 @@ mixin _$ProfileData {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ProfileDataCopyWith<ProfileData> get copyWith =>
+  $ProfileModelCopyWith<ProfileModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProfileDataCopyWith<$Res> {
-  factory $ProfileDataCopyWith(
-          ProfileData value, $Res Function(ProfileData) then) =
-      _$ProfileDataCopyWithImpl<$Res, ProfileData>;
+abstract class $ProfileModelCopyWith<$Res> {
+  factory $ProfileModelCopyWith(
+          ProfileModel value, $Res Function(ProfileModel) then) =
+      _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
   @useResult
   $Res call(
       {dynamic firstName,
@@ -917,9 +919,9 @@ abstract class $ProfileDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProfileDataCopyWithImpl<$Res, $Val extends ProfileData>
-    implements $ProfileDataCopyWith<$Res> {
-  _$ProfileDataCopyWithImpl(this._value, this._then);
+class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
+    implements $ProfileModelCopyWith<$Res> {
+  _$ProfileModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1011,11 +1013,11 @@ class _$ProfileDataCopyWithImpl<$Res, $Val extends ProfileData>
 }
 
 /// @nodoc
-abstract class _$$ProfileDataImplCopyWith<$Res>
-    implements $ProfileDataCopyWith<$Res> {
-  factory _$$ProfileDataImplCopyWith(
-          _$ProfileDataImpl value, $Res Function(_$ProfileDataImpl) then) =
-      __$$ProfileDataImplCopyWithImpl<$Res>;
+abstract class _$$ProfileModelImplCopyWith<$Res>
+    implements $ProfileModelCopyWith<$Res> {
+  factory _$$ProfileModelImplCopyWith(
+          _$ProfileModelImpl value, $Res Function(_$ProfileModelImpl) then) =
+      __$$ProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1037,11 +1039,11 @@ abstract class _$$ProfileDataImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ProfileDataImplCopyWithImpl<$Res>
-    extends _$ProfileDataCopyWithImpl<$Res, _$ProfileDataImpl>
-    implements _$$ProfileDataImplCopyWith<$Res> {
-  __$$ProfileDataImplCopyWithImpl(
-      _$ProfileDataImpl _value, $Res Function(_$ProfileDataImpl) _then)
+class __$$ProfileModelImplCopyWithImpl<$Res>
+    extends _$ProfileModelCopyWithImpl<$Res, _$ProfileModelImpl>
+    implements _$$ProfileModelImplCopyWith<$Res> {
+  __$$ProfileModelImplCopyWithImpl(
+      _$ProfileModelImpl _value, $Res Function(_$ProfileModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1063,7 +1065,7 @@ class __$$ProfileDataImplCopyWithImpl<$Res>
     Object? profilePhotoURL = freezed,
     Object? profileStatus = freezed,
   }) {
-    return _then(_$ProfileDataImpl(
+    return _then(_$ProfileModelImpl(
       firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -1131,8 +1133,8 @@ class __$$ProfileDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$ProfileDataImpl implements _ProfileData {
-  const _$ProfileDataImpl(
+class _$ProfileModelImpl implements _ProfileModel {
+  const _$ProfileModelImpl(
       {this.firstName,
       this.lastName,
       this.dateOfBirth,
@@ -1149,8 +1151,8 @@ class _$ProfileDataImpl implements _ProfileData {
       this.profilePhotoURL,
       this.profileStatus});
 
-  factory _$ProfileDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProfileDataImplFromJson(json);
+  factory _$ProfileModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProfileModelImplFromJson(json);
 
   @override
   final dynamic firstName;
@@ -1185,14 +1187,14 @@ class _$ProfileDataImpl implements _ProfileData {
 
   @override
   String toString() {
-    return 'ProfileData(firstName: $firstName, lastName: $lastName, dateOfBirth: $dateOfBirth, gender: $gender, languageCSV: $languageCSV, aboutMe: $aboutMe, height: $height, weight: $weight, bodyType: $bodyType, complexion: $complexion, religion: $religion, tagline: $tagline, occupation: $occupation, profilePhotoURL: $profilePhotoURL, profileStatus: $profileStatus)';
+    return 'ProfileModel(firstName: $firstName, lastName: $lastName, dateOfBirth: $dateOfBirth, gender: $gender, languageCSV: $languageCSV, aboutMe: $aboutMe, height: $height, weight: $weight, bodyType: $bodyType, complexion: $complexion, religion: $religion, tagline: $tagline, occupation: $occupation, profilePhotoURL: $profilePhotoURL, profileStatus: $profileStatus)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProfileDataImpl &&
+            other is _$ProfileModelImpl &&
             const DeepCollectionEquality().equals(other.firstName, firstName) &&
             const DeepCollectionEquality().equals(other.lastName, lastName) &&
             const DeepCollectionEquality()
@@ -1239,19 +1241,19 @@ class _$ProfileDataImpl implements _ProfileData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ProfileDataImplCopyWith<_$ProfileDataImpl> get copyWith =>
-      __$$ProfileDataImplCopyWithImpl<_$ProfileDataImpl>(this, _$identity);
+  _$$ProfileModelImplCopyWith<_$ProfileModelImpl> get copyWith =>
+      __$$ProfileModelImplCopyWithImpl<_$ProfileModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ProfileDataImplToJson(
+    return _$$ProfileModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _ProfileData implements ProfileData {
-  const factory _ProfileData(
+abstract class _ProfileModel implements ProfileModel {
+  const factory _ProfileModel(
       {final dynamic firstName,
       final dynamic lastName,
       final dynamic dateOfBirth,
@@ -1266,10 +1268,10 @@ abstract class _ProfileData implements ProfileData {
       final dynamic tagline,
       final dynamic occupation,
       final dynamic profilePhotoURL,
-      final dynamic profileStatus}) = _$ProfileDataImpl;
+      final dynamic profileStatus}) = _$ProfileModelImpl;
 
-  factory _ProfileData.fromJson(Map<String, dynamic> json) =
-      _$ProfileDataImpl.fromJson;
+  factory _ProfileModel.fromJson(Map<String, dynamic> json) =
+      _$ProfileModelImpl.fromJson;
 
   @override
   dynamic get firstName;
@@ -1303,17 +1305,17 @@ abstract class _ProfileData implements ProfileData {
   dynamic get profileStatus;
   @override
   @JsonKey(ignore: true)
-  _$$ProfileDataImplCopyWith<_$ProfileDataImpl> get copyWith =>
+  _$$ProfileModelImplCopyWith<_$ProfileModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-ResidentialAddressData _$ResidentialAddressDataFromJson(
+ResidentialAddressModel _$ResidentialAddressModelFromJson(
     Map<String, dynamic> json) {
-  return _ResidentialAddressData.fromJson(json);
+  return _ResidentialAddressModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ResidentialAddressData {
+mixin _$ResidentialAddressModel {
   dynamic get city => throw _privateConstructorUsedError;
   dynamic get state => throw _privateConstructorUsedError;
   dynamic get country => throw _privateConstructorUsedError;
@@ -1321,24 +1323,24 @@ mixin _$ResidentialAddressData {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ResidentialAddressDataCopyWith<ResidentialAddressData> get copyWith =>
+  $ResidentialAddressModelCopyWith<ResidentialAddressModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ResidentialAddressDataCopyWith<$Res> {
-  factory $ResidentialAddressDataCopyWith(ResidentialAddressData value,
-          $Res Function(ResidentialAddressData) then) =
-      _$ResidentialAddressDataCopyWithImpl<$Res, ResidentialAddressData>;
+abstract class $ResidentialAddressModelCopyWith<$Res> {
+  factory $ResidentialAddressModelCopyWith(ResidentialAddressModel value,
+          $Res Function(ResidentialAddressModel) then) =
+      _$ResidentialAddressModelCopyWithImpl<$Res, ResidentialAddressModel>;
   @useResult
   $Res call({dynamic city, dynamic state, dynamic country, dynamic zipCode});
 }
 
 /// @nodoc
-class _$ResidentialAddressDataCopyWithImpl<$Res,
-        $Val extends ResidentialAddressData>
-    implements $ResidentialAddressDataCopyWith<$Res> {
-  _$ResidentialAddressDataCopyWithImpl(this._value, this._then);
+class _$ResidentialAddressModelCopyWithImpl<$Res,
+        $Val extends ResidentialAddressModel>
+    implements $ResidentialAddressModelCopyWith<$Res> {
+  _$ResidentialAddressModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1375,25 +1377,25 @@ class _$ResidentialAddressDataCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$ResidentialAddressDataImplCopyWith<$Res>
-    implements $ResidentialAddressDataCopyWith<$Res> {
-  factory _$$ResidentialAddressDataImplCopyWith(
-          _$ResidentialAddressDataImpl value,
-          $Res Function(_$ResidentialAddressDataImpl) then) =
-      __$$ResidentialAddressDataImplCopyWithImpl<$Res>;
+abstract class _$$ResidentialAddressModelImplCopyWith<$Res>
+    implements $ResidentialAddressModelCopyWith<$Res> {
+  factory _$$ResidentialAddressModelImplCopyWith(
+          _$ResidentialAddressModelImpl value,
+          $Res Function(_$ResidentialAddressModelImpl) then) =
+      __$$ResidentialAddressModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({dynamic city, dynamic state, dynamic country, dynamic zipCode});
 }
 
 /// @nodoc
-class __$$ResidentialAddressDataImplCopyWithImpl<$Res>
-    extends _$ResidentialAddressDataCopyWithImpl<$Res,
-        _$ResidentialAddressDataImpl>
-    implements _$$ResidentialAddressDataImplCopyWith<$Res> {
-  __$$ResidentialAddressDataImplCopyWithImpl(
-      _$ResidentialAddressDataImpl _value,
-      $Res Function(_$ResidentialAddressDataImpl) _then)
+class __$$ResidentialAddressModelImplCopyWithImpl<$Res>
+    extends _$ResidentialAddressModelCopyWithImpl<$Res,
+        _$ResidentialAddressModelImpl>
+    implements _$$ResidentialAddressModelImplCopyWith<$Res> {
+  __$$ResidentialAddressModelImplCopyWithImpl(
+      _$ResidentialAddressModelImpl _value,
+      $Res Function(_$ResidentialAddressModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1404,7 +1406,7 @@ class __$$ResidentialAddressDataImplCopyWithImpl<$Res>
     Object? country = freezed,
     Object? zipCode = freezed,
   }) {
-    return _then(_$ResidentialAddressDataImpl(
+    return _then(_$ResidentialAddressModelImpl(
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -1428,12 +1430,12 @@ class __$$ResidentialAddressDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$ResidentialAddressDataImpl implements _ResidentialAddressData {
-  const _$ResidentialAddressDataImpl(
+class _$ResidentialAddressModelImpl implements _ResidentialAddressModel {
+  const _$ResidentialAddressModelImpl(
       {this.city, this.state, this.country, this.zipCode});
 
-  factory _$ResidentialAddressDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ResidentialAddressDataImplFromJson(json);
+  factory _$ResidentialAddressModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ResidentialAddressModelImplFromJson(json);
 
   @override
   final dynamic city;
@@ -1446,14 +1448,14 @@ class _$ResidentialAddressDataImpl implements _ResidentialAddressData {
 
   @override
   String toString() {
-    return 'ResidentialAddressData(city: $city, state: $state, country: $country, zipCode: $zipCode)';
+    return 'ResidentialAddressModel(city: $city, state: $state, country: $country, zipCode: $zipCode)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ResidentialAddressDataImpl &&
+            other is _$ResidentialAddressModelImpl &&
             const DeepCollectionEquality().equals(other.city, city) &&
             const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(other.country, country) &&
@@ -1472,27 +1474,27 @@ class _$ResidentialAddressDataImpl implements _ResidentialAddressData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ResidentialAddressDataImplCopyWith<_$ResidentialAddressDataImpl>
-      get copyWith => __$$ResidentialAddressDataImplCopyWithImpl<
-          _$ResidentialAddressDataImpl>(this, _$identity);
+  _$$ResidentialAddressModelImplCopyWith<_$ResidentialAddressModelImpl>
+      get copyWith => __$$ResidentialAddressModelImplCopyWithImpl<
+          _$ResidentialAddressModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ResidentialAddressDataImplToJson(
+    return _$$ResidentialAddressModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _ResidentialAddressData implements ResidentialAddressData {
-  const factory _ResidentialAddressData(
+abstract class _ResidentialAddressModel implements ResidentialAddressModel {
+  const factory _ResidentialAddressModel(
       {final dynamic city,
       final dynamic state,
       final dynamic country,
-      final dynamic zipCode}) = _$ResidentialAddressDataImpl;
+      final dynamic zipCode}) = _$ResidentialAddressModelImpl;
 
-  factory _ResidentialAddressData.fromJson(Map<String, dynamic> json) =
-      _$ResidentialAddressDataImpl.fromJson;
+  factory _ResidentialAddressModel.fromJson(Map<String, dynamic> json) =
+      _$ResidentialAddressModelImpl.fromJson;
 
   @override
   dynamic get city;
@@ -1504,16 +1506,16 @@ abstract class _ResidentialAddressData implements ResidentialAddressData {
   dynamic get zipCode;
   @override
   @JsonKey(ignore: true)
-  _$$ResidentialAddressDataImplCopyWith<_$ResidentialAddressDataImpl>
+  _$$ResidentialAddressModelImplCopyWith<_$ResidentialAddressModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
-OriginAddressData _$OriginAddressDataFromJson(Map<String, dynamic> json) {
-  return _OriginAddressData.fromJson(json);
+OriginAddressModel _$OriginAddressModelFromJson(Map<String, dynamic> json) {
+  return _OriginAddressModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$OriginAddressData {
+mixin _$OriginAddressModel {
   dynamic get city => throw _privateConstructorUsedError;
   dynamic get state => throw _privateConstructorUsedError;
   dynamic get country => throw _privateConstructorUsedError;
@@ -1521,23 +1523,23 @@ mixin _$OriginAddressData {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $OriginAddressDataCopyWith<OriginAddressData> get copyWith =>
+  $OriginAddressModelCopyWith<OriginAddressModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $OriginAddressDataCopyWith<$Res> {
-  factory $OriginAddressDataCopyWith(
-          OriginAddressData value, $Res Function(OriginAddressData) then) =
-      _$OriginAddressDataCopyWithImpl<$Res, OriginAddressData>;
+abstract class $OriginAddressModelCopyWith<$Res> {
+  factory $OriginAddressModelCopyWith(
+          OriginAddressModel value, $Res Function(OriginAddressModel) then) =
+      _$OriginAddressModelCopyWithImpl<$Res, OriginAddressModel>;
   @useResult
   $Res call({dynamic city, dynamic state, dynamic country, dynamic zipCode});
 }
 
 /// @nodoc
-class _$OriginAddressDataCopyWithImpl<$Res, $Val extends OriginAddressData>
-    implements $OriginAddressDataCopyWith<$Res> {
-  _$OriginAddressDataCopyWithImpl(this._value, this._then);
+class _$OriginAddressModelCopyWithImpl<$Res, $Val extends OriginAddressModel>
+    implements $OriginAddressModelCopyWith<$Res> {
+  _$OriginAddressModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1574,22 +1576,22 @@ class _$OriginAddressDataCopyWithImpl<$Res, $Val extends OriginAddressData>
 }
 
 /// @nodoc
-abstract class _$$OriginAddressDataImplCopyWith<$Res>
-    implements $OriginAddressDataCopyWith<$Res> {
-  factory _$$OriginAddressDataImplCopyWith(_$OriginAddressDataImpl value,
-          $Res Function(_$OriginAddressDataImpl) then) =
-      __$$OriginAddressDataImplCopyWithImpl<$Res>;
+abstract class _$$OriginAddressModelImplCopyWith<$Res>
+    implements $OriginAddressModelCopyWith<$Res> {
+  factory _$$OriginAddressModelImplCopyWith(_$OriginAddressModelImpl value,
+          $Res Function(_$OriginAddressModelImpl) then) =
+      __$$OriginAddressModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({dynamic city, dynamic state, dynamic country, dynamic zipCode});
 }
 
 /// @nodoc
-class __$$OriginAddressDataImplCopyWithImpl<$Res>
-    extends _$OriginAddressDataCopyWithImpl<$Res, _$OriginAddressDataImpl>
-    implements _$$OriginAddressDataImplCopyWith<$Res> {
-  __$$OriginAddressDataImplCopyWithImpl(_$OriginAddressDataImpl _value,
-      $Res Function(_$OriginAddressDataImpl) _then)
+class __$$OriginAddressModelImplCopyWithImpl<$Res>
+    extends _$OriginAddressModelCopyWithImpl<$Res, _$OriginAddressModelImpl>
+    implements _$$OriginAddressModelImplCopyWith<$Res> {
+  __$$OriginAddressModelImplCopyWithImpl(_$OriginAddressModelImpl _value,
+      $Res Function(_$OriginAddressModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1600,7 +1602,7 @@ class __$$OriginAddressDataImplCopyWithImpl<$Res>
     Object? country = freezed,
     Object? zipCode = freezed,
   }) {
-    return _then(_$OriginAddressDataImpl(
+    return _then(_$OriginAddressModelImpl(
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -1624,12 +1626,12 @@ class __$$OriginAddressDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$OriginAddressDataImpl implements _OriginAddressData {
-  const _$OriginAddressDataImpl(
+class _$OriginAddressModelImpl implements _OriginAddressModel {
+  const _$OriginAddressModelImpl(
       {this.city, this.state, this.country, this.zipCode});
 
-  factory _$OriginAddressDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$OriginAddressDataImplFromJson(json);
+  factory _$OriginAddressModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OriginAddressModelImplFromJson(json);
 
   @override
   final dynamic city;
@@ -1642,14 +1644,14 @@ class _$OriginAddressDataImpl implements _OriginAddressData {
 
   @override
   String toString() {
-    return 'OriginAddressData(city: $city, state: $state, country: $country, zipCode: $zipCode)';
+    return 'OriginAddressModel(city: $city, state: $state, country: $country, zipCode: $zipCode)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OriginAddressDataImpl &&
+            other is _$OriginAddressModelImpl &&
             const DeepCollectionEquality().equals(other.city, city) &&
             const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(other.country, country) &&
@@ -1668,27 +1670,27 @@ class _$OriginAddressDataImpl implements _OriginAddressData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OriginAddressDataImplCopyWith<_$OriginAddressDataImpl> get copyWith =>
-      __$$OriginAddressDataImplCopyWithImpl<_$OriginAddressDataImpl>(
+  _$$OriginAddressModelImplCopyWith<_$OriginAddressModelImpl> get copyWith =>
+      __$$OriginAddressModelImplCopyWithImpl<_$OriginAddressModelImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OriginAddressDataImplToJson(
+    return _$$OriginAddressModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _OriginAddressData implements OriginAddressData {
-  const factory _OriginAddressData(
+abstract class _OriginAddressModel implements OriginAddressModel {
+  const factory _OriginAddressModel(
       {final dynamic city,
       final dynamic state,
       final dynamic country,
-      final dynamic zipCode}) = _$OriginAddressDataImpl;
+      final dynamic zipCode}) = _$OriginAddressModelImpl;
 
-  factory _OriginAddressData.fromJson(Map<String, dynamic> json) =
-      _$OriginAddressDataImpl.fromJson;
+  factory _OriginAddressModel.fromJson(Map<String, dynamic> json) =
+      _$OriginAddressModelImpl.fromJson;
 
   @override
   dynamic get city;
@@ -1700,38 +1702,38 @@ abstract class _OriginAddressData implements OriginAddressData {
   dynamic get zipCode;
   @override
   @JsonKey(ignore: true)
-  _$$OriginAddressDataImplCopyWith<_$OriginAddressDataImpl> get copyWith =>
+  _$$OriginAddressModelImplCopyWith<_$OriginAddressModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-LocationData _$LocationDataFromJson(Map<String, dynamic> json) {
-  return _LocationData.fromJson(json);
+LocationModel _$LocationModelFromJson(Map<String, dynamic> json) {
+  return _LocationModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$LocationData {
+mixin _$LocationModel {
   dynamic get latitude => throw _privateConstructorUsedError;
   dynamic get longitude => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocationDataCopyWith<LocationData> get copyWith =>
+  $LocationModelCopyWith<LocationModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocationDataCopyWith<$Res> {
-  factory $LocationDataCopyWith(
-          LocationData value, $Res Function(LocationData) then) =
-      _$LocationDataCopyWithImpl<$Res, LocationData>;
+abstract class $LocationModelCopyWith<$Res> {
+  factory $LocationModelCopyWith(
+          LocationModel value, $Res Function(LocationModel) then) =
+      _$LocationModelCopyWithImpl<$Res, LocationModel>;
   @useResult
   $Res call({dynamic latitude, dynamic longitude});
 }
 
 /// @nodoc
-class _$LocationDataCopyWithImpl<$Res, $Val extends LocationData>
-    implements $LocationDataCopyWith<$Res> {
-  _$LocationDataCopyWithImpl(this._value, this._then);
+class _$LocationModelCopyWithImpl<$Res, $Val extends LocationModel>
+    implements $LocationModelCopyWith<$Res> {
+  _$LocationModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1758,22 +1760,22 @@ class _$LocationDataCopyWithImpl<$Res, $Val extends LocationData>
 }
 
 /// @nodoc
-abstract class _$$LocationDataImplCopyWith<$Res>
-    implements $LocationDataCopyWith<$Res> {
-  factory _$$LocationDataImplCopyWith(
-          _$LocationDataImpl value, $Res Function(_$LocationDataImpl) then) =
-      __$$LocationDataImplCopyWithImpl<$Res>;
+abstract class _$$LocationModelImplCopyWith<$Res>
+    implements $LocationModelCopyWith<$Res> {
+  factory _$$LocationModelImplCopyWith(
+          _$LocationModelImpl value, $Res Function(_$LocationModelImpl) then) =
+      __$$LocationModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({dynamic latitude, dynamic longitude});
 }
 
 /// @nodoc
-class __$$LocationDataImplCopyWithImpl<$Res>
-    extends _$LocationDataCopyWithImpl<$Res, _$LocationDataImpl>
-    implements _$$LocationDataImplCopyWith<$Res> {
-  __$$LocationDataImplCopyWithImpl(
-      _$LocationDataImpl _value, $Res Function(_$LocationDataImpl) _then)
+class __$$LocationModelImplCopyWithImpl<$Res>
+    extends _$LocationModelCopyWithImpl<$Res, _$LocationModelImpl>
+    implements _$$LocationModelImplCopyWith<$Res> {
+  __$$LocationModelImplCopyWithImpl(
+      _$LocationModelImpl _value, $Res Function(_$LocationModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1782,7 +1784,7 @@ class __$$LocationDataImplCopyWithImpl<$Res>
     Object? latitude = freezed,
     Object? longitude = freezed,
   }) {
-    return _then(_$LocationDataImpl(
+    return _then(_$LocationModelImpl(
       latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -1798,11 +1800,11 @@ class __$$LocationDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$LocationDataImpl implements _LocationData {
-  const _$LocationDataImpl({this.latitude, this.longitude});
+class _$LocationModelImpl implements _LocationModel {
+  const _$LocationModelImpl({this.latitude, this.longitude});
 
-  factory _$LocationDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LocationDataImplFromJson(json);
+  factory _$LocationModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocationModelImplFromJson(json);
 
   @override
   final dynamic latitude;
@@ -1811,14 +1813,14 @@ class _$LocationDataImpl implements _LocationData {
 
   @override
   String toString() {
-    return 'LocationData(latitude: $latitude, longitude: $longitude)';
+    return 'LocationModel(latitude: $latitude, longitude: $longitude)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocationDataImpl &&
+            other is _$LocationModelImpl &&
             const DeepCollectionEquality().equals(other.latitude, latitude) &&
             const DeepCollectionEquality().equals(other.longitude, longitude));
   }
@@ -1833,23 +1835,23 @@ class _$LocationDataImpl implements _LocationData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocationDataImplCopyWith<_$LocationDataImpl> get copyWith =>
-      __$$LocationDataImplCopyWithImpl<_$LocationDataImpl>(this, _$identity);
+  _$$LocationModelImplCopyWith<_$LocationModelImpl> get copyWith =>
+      __$$LocationModelImplCopyWithImpl<_$LocationModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocationDataImplToJson(
+    return _$$LocationModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _LocationData implements LocationData {
-  const factory _LocationData(
-      {final dynamic latitude, final dynamic longitude}) = _$LocationDataImpl;
+abstract class _LocationModel implements LocationModel {
+  const factory _LocationModel(
+      {final dynamic latitude, final dynamic longitude}) = _$LocationModelImpl;
 
-  factory _LocationData.fromJson(Map<String, dynamic> json) =
-      _$LocationDataImpl.fromJson;
+  factory _LocationModel.fromJson(Map<String, dynamic> json) =
+      _$LocationModelImpl.fromJson;
 
   @override
   dynamic get latitude;
@@ -1857,39 +1859,39 @@ abstract class _LocationData implements LocationData {
   dynamic get longitude;
   @override
   @JsonKey(ignore: true)
-  _$$LocationDataImplCopyWith<_$LocationDataImpl> get copyWith =>
+  _$$LocationModelImplCopyWith<_$LocationModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-ProfileCounterData _$ProfileCounterDataFromJson(Map<String, dynamic> json) {
-  return _ProfileCounterData.fromJson(json);
+ProfileCounterModel _$ProfileCounterModelFromJson(Map<String, dynamic> json) {
+  return _ProfileCounterModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProfileCounterData {
+mixin _$ProfileCounterModel {
   dynamic get friendsCount => throw _privateConstructorUsedError;
   dynamic get refereesCount => throw _privateConstructorUsedError;
   dynamic get postCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ProfileCounterDataCopyWith<ProfileCounterData> get copyWith =>
+  $ProfileCounterModelCopyWith<ProfileCounterModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProfileCounterDataCopyWith<$Res> {
-  factory $ProfileCounterDataCopyWith(
-          ProfileCounterData value, $Res Function(ProfileCounterData) then) =
-      _$ProfileCounterDataCopyWithImpl<$Res, ProfileCounterData>;
+abstract class $ProfileCounterModelCopyWith<$Res> {
+  factory $ProfileCounterModelCopyWith(
+          ProfileCounterModel value, $Res Function(ProfileCounterModel) then) =
+      _$ProfileCounterModelCopyWithImpl<$Res, ProfileCounterModel>;
   @useResult
   $Res call({dynamic friendsCount, dynamic refereesCount, dynamic postCount});
 }
 
 /// @nodoc
-class _$ProfileCounterDataCopyWithImpl<$Res, $Val extends ProfileCounterData>
-    implements $ProfileCounterDataCopyWith<$Res> {
-  _$ProfileCounterDataCopyWithImpl(this._value, this._then);
+class _$ProfileCounterModelCopyWithImpl<$Res, $Val extends ProfileCounterModel>
+    implements $ProfileCounterModelCopyWith<$Res> {
+  _$ProfileCounterModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1921,22 +1923,22 @@ class _$ProfileCounterDataCopyWithImpl<$Res, $Val extends ProfileCounterData>
 }
 
 /// @nodoc
-abstract class _$$ProfileCounterDataImplCopyWith<$Res>
-    implements $ProfileCounterDataCopyWith<$Res> {
-  factory _$$ProfileCounterDataImplCopyWith(_$ProfileCounterDataImpl value,
-          $Res Function(_$ProfileCounterDataImpl) then) =
-      __$$ProfileCounterDataImplCopyWithImpl<$Res>;
+abstract class _$$ProfileCounterModelImplCopyWith<$Res>
+    implements $ProfileCounterModelCopyWith<$Res> {
+  factory _$$ProfileCounterModelImplCopyWith(_$ProfileCounterModelImpl value,
+          $Res Function(_$ProfileCounterModelImpl) then) =
+      __$$ProfileCounterModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({dynamic friendsCount, dynamic refereesCount, dynamic postCount});
 }
 
 /// @nodoc
-class __$$ProfileCounterDataImplCopyWithImpl<$Res>
-    extends _$ProfileCounterDataCopyWithImpl<$Res, _$ProfileCounterDataImpl>
-    implements _$$ProfileCounterDataImplCopyWith<$Res> {
-  __$$ProfileCounterDataImplCopyWithImpl(_$ProfileCounterDataImpl _value,
-      $Res Function(_$ProfileCounterDataImpl) _then)
+class __$$ProfileCounterModelImplCopyWithImpl<$Res>
+    extends _$ProfileCounterModelCopyWithImpl<$Res, _$ProfileCounterModelImpl>
+    implements _$$ProfileCounterModelImplCopyWith<$Res> {
+  __$$ProfileCounterModelImplCopyWithImpl(_$ProfileCounterModelImpl _value,
+      $Res Function(_$ProfileCounterModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1946,7 +1948,7 @@ class __$$ProfileCounterDataImplCopyWithImpl<$Res>
     Object? refereesCount = freezed,
     Object? postCount = freezed,
   }) {
-    return _then(_$ProfileCounterDataImpl(
+    return _then(_$ProfileCounterModelImpl(
       friendsCount: freezed == friendsCount
           ? _value.friendsCount
           : friendsCount // ignore: cast_nullable_to_non_nullable
@@ -1966,12 +1968,12 @@ class __$$ProfileCounterDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$ProfileCounterDataImpl implements _ProfileCounterData {
-  const _$ProfileCounterDataImpl(
+class _$ProfileCounterModelImpl implements _ProfileCounterModel {
+  const _$ProfileCounterModelImpl(
       {this.friendsCount, this.refereesCount, this.postCount});
 
-  factory _$ProfileCounterDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProfileCounterDataImplFromJson(json);
+  factory _$ProfileCounterModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProfileCounterModelImplFromJson(json);
 
   @override
   final dynamic friendsCount;
@@ -1982,14 +1984,14 @@ class _$ProfileCounterDataImpl implements _ProfileCounterData {
 
   @override
   String toString() {
-    return 'ProfileCounterData(friendsCount: $friendsCount, refereesCount: $refereesCount, postCount: $postCount)';
+    return 'ProfileCounterModel(friendsCount: $friendsCount, refereesCount: $refereesCount, postCount: $postCount)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProfileCounterDataImpl &&
+            other is _$ProfileCounterModelImpl &&
             const DeepCollectionEquality()
                 .equals(other.friendsCount, friendsCount) &&
             const DeepCollectionEquality()
@@ -2008,26 +2010,26 @@ class _$ProfileCounterDataImpl implements _ProfileCounterData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ProfileCounterDataImplCopyWith<_$ProfileCounterDataImpl> get copyWith =>
-      __$$ProfileCounterDataImplCopyWithImpl<_$ProfileCounterDataImpl>(
+  _$$ProfileCounterModelImplCopyWith<_$ProfileCounterModelImpl> get copyWith =>
+      __$$ProfileCounterModelImplCopyWithImpl<_$ProfileCounterModelImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ProfileCounterDataImplToJson(
+    return _$$ProfileCounterModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _ProfileCounterData implements ProfileCounterData {
-  const factory _ProfileCounterData(
+abstract class _ProfileCounterModel implements ProfileCounterModel {
+  const factory _ProfileCounterModel(
       {final dynamic friendsCount,
       final dynamic refereesCount,
-      final dynamic postCount}) = _$ProfileCounterDataImpl;
+      final dynamic postCount}) = _$ProfileCounterModelImpl;
 
-  factory _ProfileCounterData.fromJson(Map<String, dynamic> json) =
-      _$ProfileCounterDataImpl.fromJson;
+  factory _ProfileCounterModel.fromJson(Map<String, dynamic> json) =
+      _$ProfileCounterModelImpl.fromJson;
 
   @override
   dynamic get friendsCount;
@@ -2037,16 +2039,16 @@ abstract class _ProfileCounterData implements ProfileCounterData {
   dynamic get postCount;
   @override
   @JsonKey(ignore: true)
-  _$$ProfileCounterDataImplCopyWith<_$ProfileCounterDataImpl> get copyWith =>
+  _$$ProfileCounterModelImplCopyWith<_$ProfileCounterModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-SubscriptionData _$SubscriptionDataFromJson(Map<String, dynamic> json) {
-  return _SubscriptionData.fromJson(json);
+SubscriptionModel _$SubscriptionModelFromJson(Map<String, dynamic> json) {
+  return _SubscriptionModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SubscriptionData {
+mixin _$SubscriptionModel {
   dynamic get subscriptionId => throw _privateConstructorUsedError;
   dynamic get name => throw _privateConstructorUsedError;
   dynamic get amount => throw _privateConstructorUsedError;
@@ -2057,15 +2059,15 @@ mixin _$SubscriptionData {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SubscriptionDataCopyWith<SubscriptionData> get copyWith =>
+  $SubscriptionModelCopyWith<SubscriptionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SubscriptionDataCopyWith<$Res> {
-  factory $SubscriptionDataCopyWith(
-          SubscriptionData value, $Res Function(SubscriptionData) then) =
-      _$SubscriptionDataCopyWithImpl<$Res, SubscriptionData>;
+abstract class $SubscriptionModelCopyWith<$Res> {
+  factory $SubscriptionModelCopyWith(
+          SubscriptionModel value, $Res Function(SubscriptionModel) then) =
+      _$SubscriptionModelCopyWithImpl<$Res, SubscriptionModel>;
   @useResult
   $Res call(
       {dynamic subscriptionId,
@@ -2078,9 +2080,9 @@ abstract class $SubscriptionDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SubscriptionDataCopyWithImpl<$Res, $Val extends SubscriptionData>
-    implements $SubscriptionDataCopyWith<$Res> {
-  _$SubscriptionDataCopyWithImpl(this._value, this._then);
+class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
+    implements $SubscriptionModelCopyWith<$Res> {
+  _$SubscriptionModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -2132,11 +2134,11 @@ class _$SubscriptionDataCopyWithImpl<$Res, $Val extends SubscriptionData>
 }
 
 /// @nodoc
-abstract class _$$SubscriptionDataImplCopyWith<$Res>
-    implements $SubscriptionDataCopyWith<$Res> {
-  factory _$$SubscriptionDataImplCopyWith(_$SubscriptionDataImpl value,
-          $Res Function(_$SubscriptionDataImpl) then) =
-      __$$SubscriptionDataImplCopyWithImpl<$Res>;
+abstract class _$$SubscriptionModelImplCopyWith<$Res>
+    implements $SubscriptionModelCopyWith<$Res> {
+  factory _$$SubscriptionModelImplCopyWith(_$SubscriptionModelImpl value,
+          $Res Function(_$SubscriptionModelImpl) then) =
+      __$$SubscriptionModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2150,11 +2152,11 @@ abstract class _$$SubscriptionDataImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SubscriptionDataImplCopyWithImpl<$Res>
-    extends _$SubscriptionDataCopyWithImpl<$Res, _$SubscriptionDataImpl>
-    implements _$$SubscriptionDataImplCopyWith<$Res> {
-  __$$SubscriptionDataImplCopyWithImpl(_$SubscriptionDataImpl _value,
-      $Res Function(_$SubscriptionDataImpl) _then)
+class __$$SubscriptionModelImplCopyWithImpl<$Res>
+    extends _$SubscriptionModelCopyWithImpl<$Res, _$SubscriptionModelImpl>
+    implements _$$SubscriptionModelImplCopyWith<$Res> {
+  __$$SubscriptionModelImplCopyWithImpl(_$SubscriptionModelImpl _value,
+      $Res Function(_$SubscriptionModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2168,7 +2170,7 @@ class __$$SubscriptionDataImplCopyWithImpl<$Res>
     Object? status = freezed,
     Object? paymentmethod = freezed,
   }) {
-    return _then(_$SubscriptionDataImpl(
+    return _then(_$SubscriptionModelImpl(
       subscriptionId: freezed == subscriptionId
           ? _value.subscriptionId
           : subscriptionId // ignore: cast_nullable_to_non_nullable
@@ -2204,8 +2206,8 @@ class __$$SubscriptionDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$SubscriptionDataImpl implements _SubscriptionData {
-  const _$SubscriptionDataImpl(
+class _$SubscriptionModelImpl implements _SubscriptionModel {
+  const _$SubscriptionModelImpl(
       {this.subscriptionId,
       this.name,
       this.amount,
@@ -2214,8 +2216,8 @@ class _$SubscriptionDataImpl implements _SubscriptionData {
       this.status,
       this.paymentmethod});
 
-  factory _$SubscriptionDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SubscriptionDataImplFromJson(json);
+  factory _$SubscriptionModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubscriptionModelImplFromJson(json);
 
   @override
   final dynamic subscriptionId;
@@ -2234,14 +2236,14 @@ class _$SubscriptionDataImpl implements _SubscriptionData {
 
   @override
   String toString() {
-    return 'SubscriptionData(subscriptionId: $subscriptionId, name: $name, amount: $amount, startdate: $startdate, enddate: $enddate, status: $status, paymentmethod: $paymentmethod)';
+    return 'SubscriptionModel(subscriptionId: $subscriptionId, name: $name, amount: $amount, startdate: $startdate, enddate: $enddate, status: $status, paymentmethod: $paymentmethod)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SubscriptionDataImpl &&
+            other is _$SubscriptionModelImpl &&
             const DeepCollectionEquality()
                 .equals(other.subscriptionId, subscriptionId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -2268,30 +2270,30 @@ class _$SubscriptionDataImpl implements _SubscriptionData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SubscriptionDataImplCopyWith<_$SubscriptionDataImpl> get copyWith =>
-      __$$SubscriptionDataImplCopyWithImpl<_$SubscriptionDataImpl>(
+  _$$SubscriptionModelImplCopyWith<_$SubscriptionModelImpl> get copyWith =>
+      __$$SubscriptionModelImplCopyWithImpl<_$SubscriptionModelImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SubscriptionDataImplToJson(
+    return _$$SubscriptionModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _SubscriptionData implements SubscriptionData {
-  const factory _SubscriptionData(
+abstract class _SubscriptionModel implements SubscriptionModel {
+  const factory _SubscriptionModel(
       {final dynamic subscriptionId,
       final dynamic name,
       final dynamic amount,
       final dynamic startdate,
       final dynamic enddate,
       final dynamic status,
-      final dynamic paymentmethod}) = _$SubscriptionDataImpl;
+      final dynamic paymentmethod}) = _$SubscriptionModelImpl;
 
-  factory _SubscriptionData.fromJson(Map<String, dynamic> json) =
-      _$SubscriptionDataImpl.fromJson;
+  factory _SubscriptionModel.fromJson(Map<String, dynamic> json) =
+      _$SubscriptionModelImpl.fromJson;
 
   @override
   dynamic get subscriptionId;
@@ -2309,38 +2311,38 @@ abstract class _SubscriptionData implements SubscriptionData {
   dynamic get paymentmethod;
   @override
   @JsonKey(ignore: true)
-  _$$SubscriptionDataImplCopyWith<_$SubscriptionDataImpl> get copyWith =>
+  _$$SubscriptionModelImplCopyWith<_$SubscriptionModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-WalletData _$WalletDataFromJson(Map<String, dynamic> json) {
-  return _WalletData.fromJson(json);
+WalletModel _$WalletModelFromJson(Map<String, dynamic> json) {
+  return _WalletModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$WalletData {
+mixin _$WalletModel {
   dynamic get availableBalance => throw _privateConstructorUsedError;
   dynamic get lastTransactionDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $WalletDataCopyWith<WalletData> get copyWith =>
+  $WalletModelCopyWith<WalletModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $WalletDataCopyWith<$Res> {
-  factory $WalletDataCopyWith(
-          WalletData value, $Res Function(WalletData) then) =
-      _$WalletDataCopyWithImpl<$Res, WalletData>;
+abstract class $WalletModelCopyWith<$Res> {
+  factory $WalletModelCopyWith(
+          WalletModel value, $Res Function(WalletModel) then) =
+      _$WalletModelCopyWithImpl<$Res, WalletModel>;
   @useResult
   $Res call({dynamic availableBalance, dynamic lastTransactionDate});
 }
 
 /// @nodoc
-class _$WalletDataCopyWithImpl<$Res, $Val extends WalletData>
-    implements $WalletDataCopyWith<$Res> {
-  _$WalletDataCopyWithImpl(this._value, this._then);
+class _$WalletModelCopyWithImpl<$Res, $Val extends WalletModel>
+    implements $WalletModelCopyWith<$Res> {
+  _$WalletModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -2367,22 +2369,22 @@ class _$WalletDataCopyWithImpl<$Res, $Val extends WalletData>
 }
 
 /// @nodoc
-abstract class _$$WalletDataImplCopyWith<$Res>
-    implements $WalletDataCopyWith<$Res> {
-  factory _$$WalletDataImplCopyWith(
-          _$WalletDataImpl value, $Res Function(_$WalletDataImpl) then) =
-      __$$WalletDataImplCopyWithImpl<$Res>;
+abstract class _$$WalletModelImplCopyWith<$Res>
+    implements $WalletModelCopyWith<$Res> {
+  factory _$$WalletModelImplCopyWith(
+          _$WalletModelImpl value, $Res Function(_$WalletModelImpl) then) =
+      __$$WalletModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({dynamic availableBalance, dynamic lastTransactionDate});
 }
 
 /// @nodoc
-class __$$WalletDataImplCopyWithImpl<$Res>
-    extends _$WalletDataCopyWithImpl<$Res, _$WalletDataImpl>
-    implements _$$WalletDataImplCopyWith<$Res> {
-  __$$WalletDataImplCopyWithImpl(
-      _$WalletDataImpl _value, $Res Function(_$WalletDataImpl) _then)
+class __$$WalletModelImplCopyWithImpl<$Res>
+    extends _$WalletModelCopyWithImpl<$Res, _$WalletModelImpl>
+    implements _$$WalletModelImplCopyWith<$Res> {
+  __$$WalletModelImplCopyWithImpl(
+      _$WalletModelImpl _value, $Res Function(_$WalletModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2391,7 +2393,7 @@ class __$$WalletDataImplCopyWithImpl<$Res>
     Object? availableBalance = freezed,
     Object? lastTransactionDate = freezed,
   }) {
-    return _then(_$WalletDataImpl(
+    return _then(_$WalletModelImpl(
       availableBalance: freezed == availableBalance
           ? _value.availableBalance
           : availableBalance // ignore: cast_nullable_to_non_nullable
@@ -2407,11 +2409,11 @@ class __$$WalletDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$WalletDataImpl implements _WalletData {
-  const _$WalletDataImpl({this.availableBalance, this.lastTransactionDate});
+class _$WalletModelImpl implements _WalletModel {
+  const _$WalletModelImpl({this.availableBalance, this.lastTransactionDate});
 
-  factory _$WalletDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WalletDataImplFromJson(json);
+  factory _$WalletModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WalletModelImplFromJson(json);
 
   @override
   final dynamic availableBalance;
@@ -2420,14 +2422,14 @@ class _$WalletDataImpl implements _WalletData {
 
   @override
   String toString() {
-    return 'WalletData(availableBalance: $availableBalance, lastTransactionDate: $lastTransactionDate)';
+    return 'WalletModel(availableBalance: $availableBalance, lastTransactionDate: $lastTransactionDate)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WalletDataImpl &&
+            other is _$WalletModelImpl &&
             const DeepCollectionEquality()
                 .equals(other.availableBalance, availableBalance) &&
             const DeepCollectionEquality()
@@ -2444,24 +2446,24 @@ class _$WalletDataImpl implements _WalletData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WalletDataImplCopyWith<_$WalletDataImpl> get copyWith =>
-      __$$WalletDataImplCopyWithImpl<_$WalletDataImpl>(this, _$identity);
+  _$$WalletModelImplCopyWith<_$WalletModelImpl> get copyWith =>
+      __$$WalletModelImplCopyWithImpl<_$WalletModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$WalletDataImplToJson(
+    return _$$WalletModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _WalletData implements WalletData {
-  const factory _WalletData(
+abstract class _WalletModel implements WalletModel {
+  const factory _WalletModel(
       {final dynamic availableBalance,
-      final dynamic lastTransactionDate}) = _$WalletDataImpl;
+      final dynamic lastTransactionDate}) = _$WalletModelImpl;
 
-  factory _WalletData.fromJson(Map<String, dynamic> json) =
-      _$WalletDataImpl.fromJson;
+  factory _WalletModel.fromJson(Map<String, dynamic> json) =
+      _$WalletModelImpl.fromJson;
 
   @override
   dynamic get availableBalance;
@@ -2469,38 +2471,38 @@ abstract class _WalletData implements WalletData {
   dynamic get lastTransactionDate;
   @override
   @JsonKey(ignore: true)
-  _$$WalletDataImplCopyWith<_$WalletDataImpl> get copyWith =>
+  _$$WalletModelImplCopyWith<_$WalletModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-InterestData _$InterestDataFromJson(Map<String, dynamic> json) {
-  return _InterestData.fromJson(json);
+InterestModel _$InterestModelFromJson(Map<String, dynamic> json) {
+  return _InterestModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$InterestData {
+mixin _$InterestModel {
   dynamic get id => throw _privateConstructorUsedError;
   dynamic get title => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $InterestDataCopyWith<InterestData> get copyWith =>
+  $InterestModelCopyWith<InterestModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $InterestDataCopyWith<$Res> {
-  factory $InterestDataCopyWith(
-          InterestData value, $Res Function(InterestData) then) =
-      _$InterestDataCopyWithImpl<$Res, InterestData>;
+abstract class $InterestModelCopyWith<$Res> {
+  factory $InterestModelCopyWith(
+          InterestModel value, $Res Function(InterestModel) then) =
+      _$InterestModelCopyWithImpl<$Res, InterestModel>;
   @useResult
   $Res call({dynamic id, dynamic title});
 }
 
 /// @nodoc
-class _$InterestDataCopyWithImpl<$Res, $Val extends InterestData>
-    implements $InterestDataCopyWith<$Res> {
-  _$InterestDataCopyWithImpl(this._value, this._then);
+class _$InterestModelCopyWithImpl<$Res, $Val extends InterestModel>
+    implements $InterestModelCopyWith<$Res> {
+  _$InterestModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -2527,22 +2529,22 @@ class _$InterestDataCopyWithImpl<$Res, $Val extends InterestData>
 }
 
 /// @nodoc
-abstract class _$$InterestDataImplCopyWith<$Res>
-    implements $InterestDataCopyWith<$Res> {
-  factory _$$InterestDataImplCopyWith(
-          _$InterestDataImpl value, $Res Function(_$InterestDataImpl) then) =
-      __$$InterestDataImplCopyWithImpl<$Res>;
+abstract class _$$InterestModelImplCopyWith<$Res>
+    implements $InterestModelCopyWith<$Res> {
+  factory _$$InterestModelImplCopyWith(
+          _$InterestModelImpl value, $Res Function(_$InterestModelImpl) then) =
+      __$$InterestModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({dynamic id, dynamic title});
 }
 
 /// @nodoc
-class __$$InterestDataImplCopyWithImpl<$Res>
-    extends _$InterestDataCopyWithImpl<$Res, _$InterestDataImpl>
-    implements _$$InterestDataImplCopyWith<$Res> {
-  __$$InterestDataImplCopyWithImpl(
-      _$InterestDataImpl _value, $Res Function(_$InterestDataImpl) _then)
+class __$$InterestModelImplCopyWithImpl<$Res>
+    extends _$InterestModelCopyWithImpl<$Res, _$InterestModelImpl>
+    implements _$$InterestModelImplCopyWith<$Res> {
+  __$$InterestModelImplCopyWithImpl(
+      _$InterestModelImpl _value, $Res Function(_$InterestModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2551,7 +2553,7 @@ class __$$InterestDataImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
   }) {
-    return _then(_$InterestDataImpl(
+    return _then(_$InterestModelImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -2567,11 +2569,11 @@ class __$$InterestDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$InterestDataImpl implements _InterestData {
-  const _$InterestDataImpl({this.id, this.title});
+class _$InterestModelImpl implements _InterestModel {
+  const _$InterestModelImpl({this.id, this.title});
 
-  factory _$InterestDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$InterestDataImplFromJson(json);
+  factory _$InterestModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$InterestModelImplFromJson(json);
 
   @override
   final dynamic id;
@@ -2580,14 +2582,14 @@ class _$InterestDataImpl implements _InterestData {
 
   @override
   String toString() {
-    return 'InterestData(id: $id, title: $title)';
+    return 'InterestModel(id: $id, title: $title)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InterestDataImpl &&
+            other is _$InterestModelImpl &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.title, title));
   }
@@ -2602,23 +2604,23 @@ class _$InterestDataImpl implements _InterestData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$InterestDataImplCopyWith<_$InterestDataImpl> get copyWith =>
-      __$$InterestDataImplCopyWithImpl<_$InterestDataImpl>(this, _$identity);
+  _$$InterestModelImplCopyWith<_$InterestModelImpl> get copyWith =>
+      __$$InterestModelImplCopyWithImpl<_$InterestModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$InterestDataImplToJson(
+    return _$$InterestModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _InterestData implements InterestData {
-  const factory _InterestData({final dynamic id, final dynamic title}) =
-      _$InterestDataImpl;
+abstract class _InterestModel implements InterestModel {
+  const factory _InterestModel({final dynamic id, final dynamic title}) =
+      _$InterestModelImpl;
 
-  factory _InterestData.fromJson(Map<String, dynamic> json) =
-      _$InterestDataImpl.fromJson;
+  factory _InterestModel.fromJson(Map<String, dynamic> json) =
+      _$InterestModelImpl.fromJson;
 
   @override
   dynamic get id;
@@ -2626,17 +2628,17 @@ abstract class _InterestData implements InterestData {
   dynamic get title;
   @override
   @JsonKey(ignore: true)
-  _$$InterestDataImplCopyWith<_$InterestDataImpl> get copyWith =>
+  _$$InterestModelImplCopyWith<_$InterestModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-BankAccountDetailData _$BankAccountDetailDataFromJson(
+BankAccountDetailModel _$BankAccountDetailModelFromJson(
     Map<String, dynamic> json) {
-  return _BankAccountDetailData.fromJson(json);
+  return _BankAccountDetailModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$BankAccountDetailData {
+mixin _$BankAccountDetailModel {
   dynamic get userId => throw _privateConstructorUsedError;
   dynamic get firstName => throw _privateConstructorUsedError;
   dynamic get lastName => throw _privateConstructorUsedError;
@@ -2653,15 +2655,15 @@ mixin _$BankAccountDetailData {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BankAccountDetailDataCopyWith<BankAccountDetailData> get copyWith =>
+  $BankAccountDetailModelCopyWith<BankAccountDetailModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BankAccountDetailDataCopyWith<$Res> {
-  factory $BankAccountDetailDataCopyWith(BankAccountDetailData value,
-          $Res Function(BankAccountDetailData) then) =
-      _$BankAccountDetailDataCopyWithImpl<$Res, BankAccountDetailData>;
+abstract class $BankAccountDetailModelCopyWith<$Res> {
+  factory $BankAccountDetailModelCopyWith(BankAccountDetailModel value,
+          $Res Function(BankAccountDetailModel) then) =
+      _$BankAccountDetailModelCopyWithImpl<$Res, BankAccountDetailModel>;
   @useResult
   $Res call(
       {dynamic userId,
@@ -2680,10 +2682,10 @@ abstract class $BankAccountDetailDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BankAccountDetailDataCopyWithImpl<$Res,
-        $Val extends BankAccountDetailData>
-    implements $BankAccountDetailDataCopyWith<$Res> {
-  _$BankAccountDetailDataCopyWithImpl(this._value, this._then);
+class _$BankAccountDetailModelCopyWithImpl<$Res,
+        $Val extends BankAccountDetailModel>
+    implements $BankAccountDetailModelCopyWith<$Res> {
+  _$BankAccountDetailModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -2765,12 +2767,12 @@ class _$BankAccountDetailDataCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$BankAccountDetailDataImplCopyWith<$Res>
-    implements $BankAccountDetailDataCopyWith<$Res> {
-  factory _$$BankAccountDetailDataImplCopyWith(
-          _$BankAccountDetailDataImpl value,
-          $Res Function(_$BankAccountDetailDataImpl) then) =
-      __$$BankAccountDetailDataImplCopyWithImpl<$Res>;
+abstract class _$$BankAccountDetailModelImplCopyWith<$Res>
+    implements $BankAccountDetailModelCopyWith<$Res> {
+  factory _$$BankAccountDetailModelImplCopyWith(
+          _$BankAccountDetailModelImpl value,
+          $Res Function(_$BankAccountDetailModelImpl) then) =
+      __$$BankAccountDetailModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2790,12 +2792,13 @@ abstract class _$$BankAccountDetailDataImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$BankAccountDetailDataImplCopyWithImpl<$Res>
-    extends _$BankAccountDetailDataCopyWithImpl<$Res,
-        _$BankAccountDetailDataImpl>
-    implements _$$BankAccountDetailDataImplCopyWith<$Res> {
-  __$$BankAccountDetailDataImplCopyWithImpl(_$BankAccountDetailDataImpl _value,
-      $Res Function(_$BankAccountDetailDataImpl) _then)
+class __$$BankAccountDetailModelImplCopyWithImpl<$Res>
+    extends _$BankAccountDetailModelCopyWithImpl<$Res,
+        _$BankAccountDetailModelImpl>
+    implements _$$BankAccountDetailModelImplCopyWith<$Res> {
+  __$$BankAccountDetailModelImplCopyWithImpl(
+      _$BankAccountDetailModelImpl _value,
+      $Res Function(_$BankAccountDetailModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2815,7 +2818,7 @@ class __$$BankAccountDetailDataImplCopyWithImpl<$Res>
     Object? routingNumber = freezed,
     Object? swiftCode = freezed,
   }) {
-    return _then(_$BankAccountDetailDataImpl(
+    return _then(_$BankAccountDetailModelImpl(
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -2875,8 +2878,8 @@ class __$$BankAccountDetailDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable()
-class _$BankAccountDetailDataImpl implements _BankAccountDetailData {
-  const _$BankAccountDetailDataImpl(
+class _$BankAccountDetailModelImpl implements _BankAccountDetailModel {
+  const _$BankAccountDetailModelImpl(
       {this.userId,
       this.firstName,
       this.lastName,
@@ -2891,8 +2894,8 @@ class _$BankAccountDetailDataImpl implements _BankAccountDetailData {
       this.routingNumber,
       this.swiftCode});
 
-  factory _$BankAccountDetailDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BankAccountDetailDataImplFromJson(json);
+  factory _$BankAccountDetailModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BankAccountDetailModelImplFromJson(json);
 
   @override
   final dynamic userId;
@@ -2923,14 +2926,14 @@ class _$BankAccountDetailDataImpl implements _BankAccountDetailData {
 
   @override
   String toString() {
-    return 'BankAccountDetailData(userId: $userId, firstName: $firstName, lastName: $lastName, country: $country, payOutType: $payOutType, bankId: $bankId, bankName: $bankName, bankCode: $bankCode, branchCode: $branchCode, accountNumber: $accountNumber, accountCurrency: $accountCurrency, routingNumber: $routingNumber, swiftCode: $swiftCode)';
+    return 'BankAccountDetailModel(userId: $userId, firstName: $firstName, lastName: $lastName, country: $country, payOutType: $payOutType, bankId: $bankId, bankName: $bankName, bankCode: $bankCode, branchCode: $branchCode, accountNumber: $accountNumber, accountCurrency: $accountCurrency, routingNumber: $routingNumber, swiftCode: $swiftCode)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BankAccountDetailDataImpl &&
+            other is _$BankAccountDetailModelImpl &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
             const DeepCollectionEquality().equals(other.firstName, firstName) &&
             const DeepCollectionEquality().equals(other.lastName, lastName) &&
@@ -2972,20 +2975,20 @@ class _$BankAccountDetailDataImpl implements _BankAccountDetailData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BankAccountDetailDataImplCopyWith<_$BankAccountDetailDataImpl>
-      get copyWith => __$$BankAccountDetailDataImplCopyWithImpl<
-          _$BankAccountDetailDataImpl>(this, _$identity);
+  _$$BankAccountDetailModelImplCopyWith<_$BankAccountDetailModelImpl>
+      get copyWith => __$$BankAccountDetailModelImplCopyWithImpl<
+          _$BankAccountDetailModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BankAccountDetailDataImplToJson(
+    return _$$BankAccountDetailModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _BankAccountDetailData implements BankAccountDetailData {
-  const factory _BankAccountDetailData(
+abstract class _BankAccountDetailModel implements BankAccountDetailModel {
+  const factory _BankAccountDetailModel(
       {final dynamic userId,
       final dynamic firstName,
       final dynamic lastName,
@@ -2998,10 +3001,10 @@ abstract class _BankAccountDetailData implements BankAccountDetailData {
       final dynamic accountNumber,
       final dynamic accountCurrency,
       final dynamic routingNumber,
-      final dynamic swiftCode}) = _$BankAccountDetailDataImpl;
+      final dynamic swiftCode}) = _$BankAccountDetailModelImpl;
 
-  factory _BankAccountDetailData.fromJson(Map<String, dynamic> json) =
-      _$BankAccountDetailDataImpl.fromJson;
+  factory _BankAccountDetailModel.fromJson(Map<String, dynamic> json) =
+      _$BankAccountDetailModelImpl.fromJson;
 
   @override
   dynamic get userId;
@@ -3031,6 +3034,6 @@ abstract class _BankAccountDetailData implements BankAccountDetailData {
   dynamic get swiftCode;
   @override
   @JsonKey(ignore: true)
-  _$$BankAccountDetailDataImplCopyWith<_$BankAccountDetailDataImpl>
+  _$$BankAccountDetailModelImplCopyWith<_$BankAccountDetailModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

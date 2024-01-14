@@ -48,7 +48,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ],
               ),
               SizedBox(height: 32),
-              InputField(controller: _email, label: 'E-mail Address'),
+              InputField(controller: _email, hintText: 'E-mail Address'),
               SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,

@@ -29,4 +29,14 @@ class UserInterestDataSourceImpl implements UserInterestDataSource {
       return Left(response.message);
     }
   }
+
+  @override
+  Future<Either<Error, MappedResponse>> getInterests() async {
+    final response = await _apiManager.getHttp('/admin-settings/interests', token: _authToken);
+    if (response.success) {
+      return Right(response.data);
+    } else {
+      return Left(response.message);
+    }
+  }
 }

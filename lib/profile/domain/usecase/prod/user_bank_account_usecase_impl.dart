@@ -16,7 +16,7 @@ class UserBankAccountUseCaseImpl implements UserBankAccountUseCase {
   }
 
   @override
-  Future<BankAccountDetailData> getUserBankAccountUseCase() {
+  Future<BankAccountDetailModel> getUserBankAccountUseCase() {
     return _repository.getUserBankAccountRepo();
   }
 }

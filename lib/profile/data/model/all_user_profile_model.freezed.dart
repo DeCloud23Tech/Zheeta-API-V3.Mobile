@@ -27,7 +27,7 @@ mixin _$AllUserProfileModel {
   dynamic get lastName => throw _privateConstructorUsedError;
   dynamic get rolesCSV => throw _privateConstructorUsedError;
   dynamic get createdDate => throw _privateConstructorUsedError;
-  ResidentialAddressData? get residentialAddress =>
+  ResidentialAddressModel? get residentialAddress =>
       throw _privateConstructorUsedError;
   dynamic get phoneNumber => throw _privateConstructorUsedError;
   dynamic get email => throw _privateConstructorUsedError;
@@ -54,13 +54,13 @@ abstract class $AllUserProfileModelCopyWith<$Res> {
       dynamic lastName,
       dynamic rolesCSV,
       dynamic createdDate,
-      ResidentialAddressData? residentialAddress,
+      ResidentialAddressModel? residentialAddress,
       dynamic phoneNumber,
       dynamic email,
       dynamic isBlocked,
       dynamic subscriptionPlan});
 
-  $ResidentialAddressDataCopyWith<$Res>? get residentialAddress;
+  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
 }
 
 /// @nodoc
@@ -121,7 +121,7 @@ class _$AllUserProfileModelCopyWithImpl<$Res, $Val extends AllUserProfileModel>
       residentialAddress: freezed == residentialAddress
           ? _value.residentialAddress
           : residentialAddress // ignore: cast_nullable_to_non_nullable
-              as ResidentialAddressData?,
+              as ResidentialAddressModel?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -143,12 +143,12 @@ class _$AllUserProfileModelCopyWithImpl<$Res, $Val extends AllUserProfileModel>
 
   @override
   @pragma('vm:prefer-inline')
-  $ResidentialAddressDataCopyWith<$Res>? get residentialAddress {
+  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress {
     if (_value.residentialAddress == null) {
       return null;
     }
 
-    return $ResidentialAddressDataCopyWith<$Res>(_value.residentialAddress!,
+    return $ResidentialAddressModelCopyWith<$Res>(_value.residentialAddress!,
         (value) {
       return _then(_value.copyWith(residentialAddress: value) as $Val);
     });
@@ -171,14 +171,14 @@ abstract class _$$AllUserProfileModelImplCopyWith<$Res>
       dynamic lastName,
       dynamic rolesCSV,
       dynamic createdDate,
-      ResidentialAddressData? residentialAddress,
+      ResidentialAddressModel? residentialAddress,
       dynamic phoneNumber,
       dynamic email,
       dynamic isBlocked,
       dynamic subscriptionPlan});
 
   @override
-  $ResidentialAddressDataCopyWith<$Res>? get residentialAddress;
+  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
 }
 
 /// @nodoc
@@ -237,7 +237,7 @@ class __$$AllUserProfileModelImplCopyWithImpl<$Res>
       residentialAddress: freezed == residentialAddress
           ? _value.residentialAddress
           : residentialAddress // ignore: cast_nullable_to_non_nullable
-              as ResidentialAddressData?,
+              as ResidentialAddressModel?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -294,7 +294,7 @@ class _$AllUserProfileModelImpl implements _AllUserProfileModel {
   @override
   final dynamic createdDate;
   @override
-  final ResidentialAddressData? residentialAddress;
+  final ResidentialAddressModel? residentialAddress;
   @override
   final dynamic phoneNumber;
   @override
@@ -374,7 +374,7 @@ abstract class _AllUserProfileModel implements AllUserProfileModel {
       final dynamic lastName,
       final dynamic rolesCSV,
       final dynamic createdDate,
-      final ResidentialAddressData? residentialAddress,
+      final ResidentialAddressModel? residentialAddress,
       final dynamic phoneNumber,
       final dynamic email,
       final dynamic isBlocked,
@@ -398,7 +398,7 @@ abstract class _AllUserProfileModel implements AllUserProfileModel {
   @override
   dynamic get createdDate;
   @override
-  ResidentialAddressData? get residentialAddress;
+  ResidentialAddressModel? get residentialAddress;
   @override
   dynamic get phoneNumber;
   @override

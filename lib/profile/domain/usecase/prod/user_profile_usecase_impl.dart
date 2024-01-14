@@ -28,7 +28,7 @@ class UserProfileUseCaseImpl implements UserProfileUseCase {
   }
 
   @override
-  Future<UserProfileData> getSingleUserProfileUseCase() {
+  Future<UserProfileModel> getSingleUserProfileUseCase() {
     return _repository.getSingleUserProfileRepo();
   }
 

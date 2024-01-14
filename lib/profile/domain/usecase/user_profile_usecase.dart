@@ -5,7 +5,7 @@ import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 
 abstract class UserProfileUseCase {
-  Future<UserProfileData> getSingleUserProfileUseCase();
+  Future<UserProfileModel> getSingleUserProfileUseCase();
   updateUserProfilePictureUseCase({
     required String userId,
     required MultipartFile file,

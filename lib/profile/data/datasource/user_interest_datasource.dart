@@ -4,4 +4,5 @@ import 'package:zheeta/profile/data/request/update_user_interest_request.dart';
 
 abstract class UserInterestDataSource {
   Future<Either<Error, MappedResponse>> updateUserInterest(UpdateUserUnterestRequest request);
+  Future<Either<Error, MappedResponse>> getInterests();
 }

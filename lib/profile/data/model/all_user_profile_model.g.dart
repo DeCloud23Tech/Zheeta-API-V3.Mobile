@@ -18,7 +18,7 @@ _$AllUserProfileModelImpl _$$AllUserProfileModelImplFromJson(
       createdDate: json['createdDate'],
       residentialAddress: json['residentialAddress'] == null
           ? null
-          : ResidentialAddressData.fromJson(
+          : ResidentialAddressModel.fromJson(
               json['residentialAddress'] as Map<String, dynamic>),
       phoneNumber: json['phoneNumber'],
       email: json['email'],

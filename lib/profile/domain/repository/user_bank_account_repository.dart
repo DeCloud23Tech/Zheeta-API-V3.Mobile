@@ -3,5 +3,5 @@ import 'package:zheeta/profile/data/request/create_update_bank_account_request.d
 
 abstract class UserBankAccountRepository {
   createUpdateBankAccountRepo(CreateUpdateBankAccountRequest request);
-  Future<BankAccountDetailData> getUserBankAccountRepo();
+  Future<BankAccountDetailModel> getUserBankAccountRepo();
 }

@@ -6,10 +6,10 @@ part 'state.freezed.dart';
 class State<T> with _$State<T> {
   const State._();
 
-  const factory State.init() = _init<T>;
+  const factory State.init() = _init;
   const factory State.loading() = _loading;
-  const factory State.success(final T data) = _success<T>;
-  factory State.error(final Exception exception) = _error;
+  const factory State.success(T data) = _success<T>;
+  factory State.error(Exception exception) = _error;
 
   bool get isInit => maybeWhen(init: () => true, orElse: () => false);
 

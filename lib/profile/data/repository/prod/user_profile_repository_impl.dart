@@ -36,11 +36,11 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<UserProfileData> getSingleUserProfileRepo() async {
+  Future<UserProfileModel> getSingleUserProfileRepo() async {
     final result = await _datasource.getSingleUserProfile();
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => UserProfileData(
+      (value) => UserProfileModel(
         user: value['user'],
         profile: value['profile'],
         residentialAddress: value['residentialAddress'],

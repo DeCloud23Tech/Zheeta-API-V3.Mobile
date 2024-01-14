@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
-import 'package:zheeta/app/common/validation_helper.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
@@ -16,7 +16,7 @@ import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_auth_state.dart';
 import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
 
-final userAuthViewModelProvider = StateNotifierProvider<UserAuthViewModel, UserAuthState>((ref) {
+final userAuthViewModelProvider = StateNotifierProvider.autoDispose<UserAuthViewModel, UserAuthState>((ref) {
   final authUsecase = locator<UserAuthUseCase>();
   return UserAuthViewModel(authUsecase, ref);
 });
@@ -71,7 +71,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   String? validateNewPassword() => this.isValidPassword(_newPassword);
 
   Future<bool> registerUser() async {
-    state = state.setRegisterUser(State.loading());
+    setLocalState = localState?.setRegisterUserState(State.loading());
 
     await sessionManager.set(SessionManagerKeys.userEmail, _email);
     await sessionManager.set(SessionManagerKeys.userPassword, _password);
@@ -88,30 +88,30 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
           referralCode: _referral,
         );
         final result = await _authUsecase.registerUserUsecase(data);
-        state = state.setRegisterUser(State.success(result));
+        setLocalState = localState?.setRegisterUserState(State.success(result));
 
         // Navigate to verification screen
         router.popAndPush(VerificationRoute(identifier: _phoneNumber.number, isPhoneNumber: true));
         return true;
       } on Exception catch (e) {
-        state = state.setRegisterUser(State.error(e));
+        setLocalState = localState?.setRegisterUserState(State.error(e));
         return false;
       }
     } else {
       NotifyUser.showSnackbar('Please agree to the terms and conditions');
-      state = state.setRegisterUser(State.init());
+      setLocalState = localState?.setRegisterUserState(State.init());
       return false;
     }
   }
 
   Future<bool> loginUser() async {
-    state = state.setLoginUser(State.loading());
+    setLocalState = localState?.setLoginUserState(State.loading());
     await sessionManager.set(SessionManagerKeys.userEmail, _email);
     await sessionManager.set(SessionManagerKeys.userPassword, _password);
     try {
       final data = LoginRequest(email: _email, password: _password, userDeviceToken: _userDeviceToken, platform: 'APNS');
       final result = await _authUsecase.loginUsecase(data);
-      state = state.setLoginUser(State.success(result));
+      setLocalState = localState?.setLoginUserState(State.success(result));
 
       final Map<String, dynamic> jwtToken = Jwt.parseJwt(result.token);
 
@@ -125,7 +125,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
       return true;
     } on Exception catch (e) {
-      state = state.setLoginUser(State.error(e));
+      setLocalState = localState?.setLoginUserState(State.error(e));
       if (e.toString().contains('Email is not verified')) {
         final _userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
         _userOtpViewModel.setPhoneNumberOrEmail(false, _email);
@@ -136,6 +136,13 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       return false;
     }
   }
+
+  UserAuthState? get localState => mounted ? state : null;
+  void set setLocalState(UserAuthState? value) => mounted
+      ? value != null
+          ? state = value
+          : null
+      : null;
 
   @override
   void dispose() {

@@ -23,7 +23,7 @@ class LocationDataSourceImpl implements LocationDataSource {
 
   @override
   Future<Either<Error, MappedResponse>> getAddressFromLocationCoordinate({required double latitude, required double longitude}) async {
-    final response = await _apiManager.getHttp('/userauth/update-location/$latitude/$longitude', token: _authToken);
+    final response = await _apiManager.getHttp('/user/update-location/$latitude/$longitude', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
@@ -33,7 +33,7 @@ class LocationDataSourceImpl implements LocationDataSource {
 
   @override
   Future<Either<Error, MappedResponse>> getLocationCoordinateFromAddress(LocationCoordinateFromAddressRequest request) async {
-    final response = await _apiManager.getHttp('/userauth/update-address-location', body: request.toJson(), token: _authToken);
+    final response = await _apiManager.getHttp('/user/update-address-location', body: request.toJson(), token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {

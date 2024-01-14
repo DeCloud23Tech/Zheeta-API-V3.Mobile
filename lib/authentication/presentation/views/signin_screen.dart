@@ -59,10 +59,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 InputField(
                   validator: (data) => userAuthViewModel.validateEmail(),
                   onChanged: (value) => userAuthViewModel.setEmail(value),
-                  label: 'Email',
+                  hintText: 'Email',
                 ),
                 InputField(
-                  label: 'Password',
+                  hintText: 'Password',
                   password: _isPasswordObscure,
                   validator: (data) => userAuthViewModel.validatePassword(),
                   onChanged: (value) => userAuthViewModel.setPassword(value),

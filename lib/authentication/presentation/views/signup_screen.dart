@@ -57,25 +57,25 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     child: Text(signupSubtitle, style: authSubtitleStyle)),
                 SizedBox(height: 32),
                 InputField(
-                  label: 'Username',
+                  hintText: 'Username',
                   validator: (data) => userAuthViewModel.validateUsername(),
                   onChanged: (value) => userAuthViewModel.setUsername(value),
                 ),
                 InputField(
-                  label: 'Password',
+                  hintText: 'Password',
                   password: _isPasswordObscure,
                   validator: (data) => userAuthViewModel.validatePassword(),
                   onChanged: (value) => userAuthViewModel.setPassword(value),
                 ),
                 InputField(
-                  label: 'Retype Password',
+                  hintText: 'Retype Password',
                   password: _isPasswordObscure,
                   validator: (data) => userAuthViewModel.validateRetypePassword(),
                   onChanged: (value) => userAuthViewModel.setRetypePassword(value),
                 ),
                 SizedBox(height: 10),
                 InputField(
-                  label: 'Email Address',
+                  hintText: 'Email Address',
                   validator: (data) => userAuthViewModel.validateEmail(),
                   onChanged: (value) => userAuthViewModel.setEmail(value),
                 ),
@@ -106,7 +106,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 ),
                 SizedBox(height: 10),
                 InputField(
-                  label: 'Referral (Optional)',
+                  hintText: 'Referral (Optional)',
                   onChanged: (value) => userAuthViewModel.setReferral(value),
                 ),
                 Row(

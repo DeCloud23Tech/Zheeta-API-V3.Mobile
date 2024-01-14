@@ -43,10 +43,10 @@ class _BankAccountScreenState extends State<BankAccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InputField(controller: _countryController, label: 'Bank Country'),
-              InputField(controller: _bankController, label: 'Select Bank'),
-              InputField(controller: _accNoController, label: 'Account Number'),
-              InputField(controller: _recipientController, label: 'Recipient (autofill)'),
+              InputField(controller: _countryController, hintText: 'Bank Country'),
+              InputField(controller: _bankController, hintText: 'Select Bank'),
+              InputField(controller: _accNoController, hintText: 'Account Number'),
+              InputField(controller: _recipientController, hintText: 'Recipient (autofill)'),
               SizedBox(height: 20),
               SizedBox(width: MediaQuery.of(context).size.width, child: PrimaryButton(title: "Update", action: () {})),
               SizedBox(height: 100),
