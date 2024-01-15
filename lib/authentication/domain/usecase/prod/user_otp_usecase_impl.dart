@@ -26,8 +26,8 @@ class UserOtpUseCaseImpl implements UserOtpUseCase {
   }
 
   @override
-  sendResetPasswordOtpUsecase(String phoneNumber) {
-    return _repository.sendResetPasswordOtpRepo(phoneNumber);
+  sendPasswordResetOtpUsecase(String email) {
+    return _repository.sendPasswordResetOtpRepo(email);
   }
 
   @override

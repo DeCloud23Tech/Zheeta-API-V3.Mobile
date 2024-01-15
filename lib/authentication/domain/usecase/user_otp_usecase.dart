@@ -6,6 +6,6 @@ abstract class UserOtpUseCase {
   sendPhoneVerifyOtpUsecase(String phoneNumber);
   verifyPhoneOtpUsecase(VerifyPhoneOtpRequest request);
   verifyEmailOtpUsecase(VerifyEmailOtpRequest request);
-  sendResetPasswordOtpUsecase(String phoneNumber);
+  sendPasswordResetOtpUsecase(String email);
   resetPasswordUsecase(String phoneNumber);
 }

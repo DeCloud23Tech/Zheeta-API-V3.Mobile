@@ -44,8 +44,8 @@ class UserOtpDataSourceImpl implements UserOtpDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> sendResetPasswordOtp(String phoneNumber) async {
-    final response = await _apiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null);
+  Future<Either<Error, MappedResponse>> sendPasswordResetOtp(String email) async {
+    final response = await _apiManager.postHttp('/userauth/send-password-reset-otp-to-email/$email', null);
     if (response.success) {
       return Right(response.data);
     } else {

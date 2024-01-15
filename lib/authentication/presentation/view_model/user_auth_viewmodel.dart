@@ -12,6 +12,7 @@ import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/data/request/login_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
+import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/domain/usecase/user_auth_usecase.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_auth_state.dart';
@@ -68,7 +69,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   String? validateRetypePassword() => _password == _retypePassword ? null : 'Password does not match';
   String? validateEmail() => this.isValidEmail(_email);
   String? validatePhoneNumber() => this.isValidPhoneNumber(_phoneNumber.completeNumber);
-  String? validOtp() => this.isValidNumber(_otp, minLength: 6);
+  String? validateOtp() => this.isValidNumber(_otp, minLength: 6);
   String? validateNewPassword() => this.isValidPassword(_newPassword);
 
   Future<bool> registerUser() async {
@@ -78,7 +79,14 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
     await sessionManager.set(SessionManagerKeys.userPasswordString, _password);
     await sessionManager.set(SessionManagerKeys.userPhoneNumberString, _phoneNumber.completeNumber);
 
-    if (_agree) {
+    final retypePasswordIsMatchOrMessage = validateRetypePassword();
+    if (retypePasswordIsMatchOrMessage != null) {
+      NotifyUser.showSnackbar(retypePasswordIsMatchOrMessage);
+      state = state.setRegisterUserState(State.error(Exception(retypePasswordIsMatchOrMessage)));
+      return false;
+    }
+
+    if (_agree && retypePasswordIsMatchOrMessage == null) {
       try {
         final data = RegisterUserRequest(
           userName: _username,
@@ -141,6 +149,32 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       return false;
     } on Exception catch (e) {
       state = state.setLoginUserState(State.error(e));
+
+      return false;
+    }
+  }
+
+  Future<bool> resetPassword() async {
+    state = state.setResetPasswordState(State.loading());
+    try {
+      final retypePasswordIsMatchOrMessage = validateRetypePassword();
+      if (retypePasswordIsMatchOrMessage != null) {
+        NotifyUser.showSnackbar(retypePasswordIsMatchOrMessage);
+        state = state.setResetPasswordState(State.error(Exception(retypePasswordIsMatchOrMessage)));
+        return false;
+      } else {
+        final userEmail = await sessionManager.get(SessionManagerKeys.userEmailString);
+
+        final data = ResetPasswordRequest(email: userEmail, otp: _otp, newPassword: _password);
+        final result = await _authUsecase.resetPasswordUsecase(data);
+        state = state.setResetPasswordState(State.success(result));
+
+        // Navigate to dashboard screen
+        router.pushAndPopUntil(SignInRoute(), predicate: (route) => false);
+      }
+      return true;
+    } on Exception catch (e) {
+      state = state.setResetPasswordState(State.error(e));
 
       return false;
     }

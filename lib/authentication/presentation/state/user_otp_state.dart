@@ -9,7 +9,7 @@ class UserOtpState with _$UserOtpState {
     required State resetPasswordState,
     required State sendEmailVerifyOtpState,
     required State sendPhoneVerifyOtpState,
-    required State sendResetPasswordOtpState,
+    required State sendPasswordResetOtpState,
     required State verifyEmailOtpState,
     required State verifyPhoneOtpState,
     required int counterState,
@@ -20,7 +20,7 @@ class UserOtpState with _$UserOtpState {
   UserOtpState setResetPasswordState(State state) => copyWith(resetPasswordState: state);
   UserOtpState setSendEmailVerifyOtpState(State state) => copyWith(sendEmailVerifyOtpState: state);
   UserOtpState setSendPhoneVerifyOtpState(State state) => copyWith(sendPhoneVerifyOtpState: state);
-  UserOtpState setSendResetPasswordOtpState(State state) => copyWith(sendResetPasswordOtpState: state);
+  UserOtpState setSendPasswordResetOtpState(State state) => copyWith(sendPasswordResetOtpState: state);
   UserOtpState setVerifyEmailOtpState(State state) => copyWith(verifyEmailOtpState: state);
   UserOtpState setVerifyPhoneOtpState(State state) => copyWith(verifyPhoneOtpState: state);
 

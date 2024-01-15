@@ -118,19 +118,19 @@ class MockUserOtpDataSource extends _i1.Mock implements _i3.UserOtpDataSource {
       ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> sendResetPasswordOtp(
-          String? phoneNumber) =>
+  _i4.Future<_i2.Either<String, Map<String, dynamic>>> sendPasswordResetOtp(
+          String? email) =>
       (super.noSuchMethod(
         Invocation.method(
-          #sendResetPasswordOtp,
-          [phoneNumber],
+          #sendPasswordResetOtp,
+          [email],
         ),
         returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
             _FakeEither_0<String, Map<String, dynamic>>(
           this,
           Invocation.method(
-            #sendResetPasswordOtp,
-            [phoneNumber],
+            #sendPasswordResetOtp,
+            [email],
           ),
         )),
       ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);

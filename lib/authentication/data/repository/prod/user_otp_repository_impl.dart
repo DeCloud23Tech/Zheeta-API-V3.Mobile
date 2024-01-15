@@ -42,8 +42,8 @@ class UserOtpRepositoryImpl implements UserOtpRepository {
     );
   }
 
-  sendResetPasswordOtpRepo(String phoneNumber) async {
-    final result = await _datasource.sendResetPasswordOtp(phoneNumber);
+  sendPasswordResetOtpRepo(String email) async {
+    final result = await _datasource.sendPasswordResetOtp(email);
     result.fold(
       (error) => throw Exception(error),
       (value) => value,

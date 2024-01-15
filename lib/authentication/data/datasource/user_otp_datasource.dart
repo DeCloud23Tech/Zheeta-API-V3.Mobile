@@ -8,6 +8,6 @@ abstract class UserOtpDataSource {
   Future<Either<Error, MappedResponse>> sendPhoneVerifyOtp(String phoneNumber);
   Future<Either<Error, MappedResponse>> verifyPhoneOtp(VerifyPhoneOtpRequest request);
   Future<Either<Error, MappedResponse>> verifyEmailOtp(VerifyEmailOtpRequest request);
-  Future<Either<Error, MappedResponse>> sendResetPasswordOtp(String phoneNumber);
+  Future<Either<Error, MappedResponse>> sendPasswordResetOtp(String email);
   Future<Either<Error, MappedResponse>> resetPassword(String phoneNumber);
 }

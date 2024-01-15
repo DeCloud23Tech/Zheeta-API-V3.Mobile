@@ -6,6 +6,6 @@ abstract class UserOtpRepository {
   sendPhoneVerifyOtpRepo(String phoneNumber);
   verifyPhoneOtpRepo(VerifyPhoneOtpRequest request);
   verifyEmailOtpRepo(VerifyEmailOtpRequest request);
-  sendResetPasswordOtpRepo(String phoneNumber);
+  sendPasswordResetOtpRepo(String email);
   resetPasswordRepo(String phoneNumber);
 }

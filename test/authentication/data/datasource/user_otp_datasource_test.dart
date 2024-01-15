@@ -159,7 +159,7 @@ void main() {
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
-        final result = await datasource.sendResetPasswordOtp(phoneNumber);
+        final result = await datasource.sendPasswordResetOtp(phoneNumber);
 
         // Assert
         expect(result, equals(Right(response.data)));
@@ -175,7 +175,7 @@ void main() {
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
-        final result = await datasource.sendResetPasswordOtp(phoneNumber);
+        final result = await datasource.sendPasswordResetOtp(phoneNumber);
 
         // Assert
         expect(result, equals(Left(errorMessage)));

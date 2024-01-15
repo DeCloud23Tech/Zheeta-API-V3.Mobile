@@ -2,33 +2,32 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/view_model/user_auth_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-class ForgotPasswordScreen extends ConsumerStatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class ResetPasswordScreen extends ConsumerStatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ResetPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
-  late UserOtpViewModel userOtpViewModel;
+class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
+  late UserAuthViewModel userAuthViewModel;
 
   @override
   void initState() {
-    userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
     super.initState();
+    userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
   }
 
   @override
   Widget build(BuildContext context) {
-    final userOtpState = ref.watch(userOtpViewModelProvider);
+    final userAuthState = ref.watch(userAuthViewModelProvider);
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
       body: Padding(
@@ -46,27 +45,34 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 children: [
                   Column(
                     children: [
-                      Text(forgotTitle, style: forgotTitleStyle, textAlign: TextAlign.center),
+                      Text('Reset Password', style: forgotTitleStyle, textAlign: TextAlign.center),
                       SizedBox(height: 15),
-                      Text(forgotSubtitle, style: forgotSubtitleStyle, textAlign: TextAlign.center),
+                      Text('Create a new password', style: forgotSubtitleStyle, textAlign: TextAlign.center),
                     ],
                   ),
                 ],
               ),
               SizedBox(height: 32),
               InputField(
-                validator: (data) => userOtpViewModel.validateEmail(),
-                onChanged: (value) => userOtpViewModel.setEmail = value,
-                hintText: 'E-mail Address',
+                validator: (data) => userAuthViewModel.validatePassword(),
+                onChanged: (value) => userAuthViewModel.setPassword(value),
+                hintText: 'New password',
+                password: true,
+              ),
+              InputField(
+                validator: (data) => userAuthViewModel.validateRetypePassword(),
+                onChanged: (value) => userAuthViewModel.setRetypePassword(value),
+                hintText: 'Retype password',
+                password: true,
               ),
               SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,
                 child: PrimaryButton(
                   title: 'Reset Password',
-                  state: userOtpState.sendPasswordResetOtpState.isLoading,
+                  state: userAuthState.resetPasswordState.isLoading,
                   action: () {
-                    userOtpViewModel.sendPasswordResetOtp();
+                    userAuthViewModel.resetPassword();
                   },
                 ),
               )

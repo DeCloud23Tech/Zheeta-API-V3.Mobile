@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
+import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/injection/di.dart';
@@ -25,7 +26,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
           resetPasswordState: State.init(),
           sendEmailVerifyOtpState: State.init(),
           sendPhoneVerifyOtpState: State.init(),
-          sendResetPasswordOtpState: State.init(),
+          sendPasswordResetOtpState: State.init(),
           verifyEmailOtpState: State.init(),
           verifyPhoneOtpState: State.init(),
           counterState: 0,
@@ -37,6 +38,8 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
 
   String _email = '';
   set setEmail(String value) => _email = value;
+
+  String? validateEmail() => this.isValidEmail(_email);
 
   String _otp = '';
   set setOtp(String value) => _otp = value;
@@ -143,6 +146,28 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setVerifyEmailOtpState(State.error(e));
+      return false;
+    }
+  }
+
+  Future<bool> sendPasswordResetOtp() async {
+    state = state.setSendPasswordResetOtpState(State.loading());
+    try {
+      final isValidEmailOrMessage = validateEmail();
+      if (isValidEmailOrMessage == null) {
+        await sessionManager.set(SessionManagerKeys.userEmailString, _email);
+
+        final result = await _otpUsecase.sendPasswordResetOtpUsecase(_email);
+        state = state.setSendPasswordResetOtpState(State.success(result));
+        router.popAndPush(ResetPasswordOtpRoute());
+        return true;
+      } else {
+        NotifyUser.showSnackbar(isValidEmailOrMessage);
+        state = state.setSendPasswordResetOtpState(State.error(Exception(isValidEmailOrMessage)));
+        return false;
+      }
+    } on Exception catch (e) {
+      state = state.setSendPasswordResetOtpState(State.error(e));
       return false;
     }
   }
