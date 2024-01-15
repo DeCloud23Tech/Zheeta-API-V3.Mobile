@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/common/exceptions/custom_exception.dart';
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
 import 'package:zheeta/authentication/data/model/login_user_model.dart';
 import 'package:zheeta/authentication/data/model/register_user_model.dart';
@@ -38,7 +39,16 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   Future<LoginUserModel> loginRepo(LoginRequest data) async {
     final result = await _datasource.login(data);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) {
+        if (error.toString().contains('Data Not Found')) {
+          throw new UserNotFoundException('User not found');
+        }
+        if (error.toString().contains('Email is not verified')) {
+          throw new EmailNotVerifiedException('Email is not verified');
+        } else {
+          throw new Exception(error);
+        }
+      },
       (value) => LoginUserModel.fromJson(value['data']),
     );
   }

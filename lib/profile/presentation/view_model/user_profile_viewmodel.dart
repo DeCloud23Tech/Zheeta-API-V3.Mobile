@@ -1,17 +1,25 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart' show MultipartFile;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:intl/intl.dart';
+import 'package:zheeta/app/common/exceptions/custom_exception.dart';
 import 'package:zheeta/app/common/lists.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart';
 import 'package:zheeta/profile/presentation/state/user_profile_state.dart';
+import 'package:zheeta/profile/presentation/view_model/location_viewmodel.dart';
 
-final userProfileViewModelProvider = StateNotifierProvider.autoDispose<UserProfileViewModel, UserProfileState>((ref) {
+final userProfileViewModelProvider = StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
   final _userProfileUseCase = locator<UserProfileUseCase>();
   return UserProfileViewModel(_userProfileUseCase, ref);
 });
@@ -60,6 +68,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   String _occupation = '';
   String _tagline = '';
 
+  File? _profilePicture;
+
   setFirstName(String value) => _firstName = value;
   setLastName(String value) => _lastName = value;
   setGender(String value) {
@@ -102,6 +112,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   setLanguage(String value) => _language = value;
   setOccupation(String value) => _occupation = value;
   setTagline(String value) => _tagline = value;
+
+  setProfilePicture(File file) => _profilePicture = file;
 
   String? validateFirstName() => this.isValidInput(_firstName);
   String? validateLastName() => this.isValidInput(_lastName);
@@ -150,15 +162,77 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     }
   }
 
+  String? validateProfilePicture() {
+    if (_profilePicture == null) {
+      return 'Please select your profile picture';
+    } else {
+      return null;
+    }
+  }
+
+  Future<bool> getSingleUserProfile() async {
+    state = state.setGetSingleUserProfileState(State.loading());
+    try {
+      final result = await _userProfileUseCase.getSingleUserProfileUseCase();
+      state = state.setGetSingleUserProfileState(State.success(result));
+      if (result.data.profile?.profilePhotoURL == null) {
+        router.push(ProfilePhotoRoute());
+      } else {
+        router.push(HomeRoute());
+      }
+      return true;
+    } on UserProfileNotCreatedException catch (e) {
+      NotifyUser.showSnackbar(e.toString());
+      state = state.setGetSingleUserProfileState(State.error(e));
+      router.push(BioDataRoute());
+      return false;
+    } on Exception catch (e) {
+      state = state.setGetSingleUserProfileState(State.error(e));
+      return false;
+    }
+  }
+
+  Future<bool> updateUserProfilePicture() async {
+    state = state.setUpdateUserProfilePictureState(State.loading());
+    try {
+      final profilePictureIsValidOrMessage = validateProfilePicture();
+      if (profilePictureIsValidOrMessage == null) {
+        final userId = await sessionManager.get(SessionManagerKeys.authUserIdString);
+        final result = await _userProfileUseCase.updateUserProfilePictureUseCase(
+          userId: userId,
+          file: await MultipartFile.fromFile(_profilePicture!.path, contentType: MediaType('image', 'jpg')),
+        );
+
+        state = state.setUpdateUserProfilePictureState(State.success(result));
+
+        router.push(HomeRoute());
+
+        return true;
+      } else {
+        NotifyUser.showSnackbar(profilePictureIsValidOrMessage);
+        state = state.setUpdateUserProfilePictureState(
+          State.error(Exception(profilePictureIsValidOrMessage)),
+        );
+        return false;
+      }
+    } on Exception catch (e) {
+      NotifyUser.showSnackbar(e.toString());
+      state = state.setUpdateUserProfilePictureState(State.error(e));
+      return false;
+    }
+  }
+
   Future<bool> createUserProfile() async {
-    setLocalState = localState?.setCreateUserProfileState(State.loading());
+    state = state.setCreateUserProfileState(State.loading());
     try {
       String? isValidFormOrErrorMessage = validateLetsKnowYouForm();
       if (isValidFormOrErrorMessage == null) {
-        final userId = await sessionManager.get(SessionManagerKeys.authUserId);
+        final userId = await sessionManager.get(SessionManagerKeys.authUserIdString);
 
-        final latitude = (await sessionManager.get(SessionManagerKeys.latitude)) as double;
-        final longitude = (await sessionManager.get(SessionManagerKeys.longitude)) as double;
+        final locationState = ref.watch(locationViewModelProvider);
+
+        final latitude = locationState.getCurrentLocationState.data!.latitude;
+        final longitude = locationState.getCurrentLocationState.data!.longitude;
 
         final data = CreateUserProfileRequest(
           userId: userId,
@@ -182,28 +256,21 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
           latitude: latitude,
           longitude: longitude,
         );
-        final response = await _userProfileUseCase.createUserProfileUseCase(data);
-        setLocalState = localState?.setCreateUserProfileState(State.success(response));
+        final result = await _userProfileUseCase.createUserProfileUseCase(data);
+        state = state.setCreateUserProfileState(State.success(result));
         return true;
       } else {
         NotifyUser.showSnackbar(isValidFormOrErrorMessage);
-        setLocalState = localState?.setCreateUserProfileState(
+        state = state.setCreateUserProfileState(
           State.error(Exception(isValidFormOrErrorMessage)),
         );
         return false;
       }
     } on Exception catch (e) {
-      setLocalState = localState?.setCreateUserProfileState(State.error(e));
+      state = state.setCreateUserProfileState(State.error(e));
       return false;
     }
   }
-
-  UserProfileState? get localState => mounted ? state : null;
-  void set setLocalState(UserProfileState? value) => mounted
-      ? value != null
-          ? state = value
-          : null
-      : null;
 
   @override
   void dispose() {
@@ -229,5 +296,7 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     _interest = '';
     _occupation = '';
     _tagline = '';
+
+    _profilePicture = null;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/common/exceptions/custom_exception.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_datasource.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
@@ -38,20 +39,16 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   @override
   Future<UserProfileModel> getSingleUserProfileRepo() async {
     final result = await _datasource.getSingleUserProfile();
+
     return result.fold(
       (error) => throw new Exception(error),
-      (value) => UserProfileModel(
-        user: value['user'],
-        profile: value['profile'],
-        residentialAddress: value['residentialAddress'],
-        originAddress: value['originAddress'],
-        location: value['location'],
-        profileCounters: value['profileCounters'],
-        subscription: value['subscription'],
-        wallet: value['wallet'],
-        interests: value['interests'],
-        bankAccountDetails: value['bankAccountDetails'],
-      ),
+      (value) {
+        if (value['data'] == null) {
+          throw new UserProfileNotCreatedException('User profile not created');
+        } else {
+          return UserProfileModel.fromJson(value);
+        }
+      },
     );
   }
 

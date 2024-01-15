@@ -269,7 +269,11 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
     );
   }
 
-  Widget buildRadioButton({required String value, required String groupValue, required void Function(dynamic) onChanged}) {
+  Widget buildRadioButton({
+    required String value,
+    required String groupValue,
+    required void Function(dynamic) onChanged,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5, top: 10),
       child: Row(

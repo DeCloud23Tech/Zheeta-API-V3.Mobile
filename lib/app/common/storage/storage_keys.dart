@@ -1,16 +1,13 @@
 class LocalStorageKeys {}
 
 class SessionManagerKeys {
-  static const String userEmail = 'userEmail';
-  static const String userPassword = 'userPassword';
-  static const String userPhoneNumber = 'userPhoneNumber';
-  static const String loginErrorMessage = 'loginErrorMessage';
+  static const String userEmailString = 'userEmailString';
+  static const String userPasswordString = 'userPasswordString';
+  static const String userPhoneNumberString = 'userPhoneNumberString';
+  static const String loginErrorMessageString = 'loginErrorMessageString';
 
-  static const String isLoggedIn = 'isLoggedIn';
-  static const String authToken = 'authToken';
-  static const String authUserId = 'authUserId';
-  static const String authUserEmail = 'authUserEmail';
-
-  static const String longitude = 'longitude';
-  static const String latitude = 'latitude';
+  static const String isLoggedInBool = 'isLoggedInBool';
+  static const String authTokenString = 'authTokenString';
+  static const String authUserIdString = 'authUserIdString';
+  static const String authUserEmailString = 'authUserEmailString';
 }

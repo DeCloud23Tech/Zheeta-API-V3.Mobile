@@ -7,6 +7,16 @@ part 'user_profile_model.g.dart';
 class UserProfileModel with _$UserProfileModel {
   @JsonSerializable(explicitToJson: true)
   const factory UserProfileModel({
+    required UserProfileDataModel data,
+  }) = _UserProfileModel;
+
+  factory UserProfileModel.fromJson(Map<String, dynamic> json) => _$UserProfileModelFromJson(json);
+}
+
+@freezed
+class UserProfileDataModel with _$UserProfileDataModel {
+  @JsonSerializable(explicitToJson: true)
+  const factory UserProfileDataModel({
     UserModel? user,
     ProfileModel? profile,
     ResidentialAddressModel? residentialAddress,
@@ -17,9 +27,9 @@ class UserProfileModel with _$UserProfileModel {
     WalletModel? wallet,
     List<InterestModel>? interests,
     BankAccountDetailModel? bankAccountDetails,
-  }) = _UserProfileModel;
+  }) = _UserProfileDataModel;
 
-  factory UserProfileModel.fromJson(Map<String, dynamic> json) => _$UserProfileModelFromJson(json);
+  factory UserProfileDataModel.fromJson(Map<String, dynamic> json) => _$UserProfileDataModelFromJson(json);
 }
 
 @freezed

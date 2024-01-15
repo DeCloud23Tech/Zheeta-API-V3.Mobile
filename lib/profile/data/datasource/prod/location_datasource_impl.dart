@@ -18,7 +18,7 @@ class LocationDataSourceImpl implements LocationDataSource {
   }
 
   _getAuthToken() async {
-    _authToken = (await sessionManager.get(SessionManagerKeys.authToken)) as String?;
+    _authToken = (await sessionManager.get(SessionManagerKeys.authTokenString)) as String?;
   }
 
   @override

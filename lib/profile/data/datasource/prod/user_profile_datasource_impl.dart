@@ -20,7 +20,7 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   }
 
   _getAuthToken() async {
-    _authToken = (await sessionManager.get(SessionManagerKeys.authToken)) as String?;
+    _authToken = (await sessionManager.get(SessionManagerKeys.authTokenString)) as String?;
   }
 
   @override
@@ -73,9 +73,11 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
     required MultipartFile file,
   }) async {
     Map<String, dynamic> payload = {'userId': userId, 'file': file};
-    final response = await _apiManager.putHttp('/user/picture', payload, token: _authToken);
+    final response = await _apiManager.putHttp('/user/picture', payload, token: _authToken, formdata: true);
     if (response.success) {
       return Right(response.data);
+    } else if (response.statusCode == 413) {
+      return Left('File size is too large');
     } else {
       return Left(response.message);
     }

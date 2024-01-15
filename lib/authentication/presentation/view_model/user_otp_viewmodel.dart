@@ -13,7 +13,7 @@ import 'package:zheeta/authentication/domain/usecase/user_otp_usecase.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_otp_state.dart';
 
-final userOtpViewModelProvider = StateNotifierProvider.autoDispose<UserOtpViewModel, UserOtpState>((ref) {
+final userOtpViewModelProvider = StateNotifierProvider<UserOtpViewModel, UserOtpState>((ref) {
   final otpUsecase = locator<UserOtpUseCase>();
   return UserOtpViewModel(otpUsecase);
 });
@@ -47,7 +47,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
   late Timer _timer;
 
   void startTimer() {
-    setLocalState = localState?.setCounter(59);
+    state = state.setCounter(59);
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
@@ -55,7 +55,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
         if (state.counterState == 0) {
           timer.cancel();
         } else {
-          setLocalState = localState?.setCounter(state.counterState - 1);
+          state = state.setCounter(state.counterState - 1);
         }
       },
     );
@@ -88,7 +88,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       canGoNext = await verifyPhoneNumber();
       if (canGoNext) {
         router.popAndPush(
-          VerificationRoute(isPhoneNumber: false, identifier: '${sessionManager.get(SessionManagerKeys.userEmail)}'),
+          VerificationRoute(isPhoneNumber: false, identifier: '${sessionManager.get(SessionManagerKeys.userEmailString)}'),
         );
       }
     } else {
@@ -98,61 +98,54 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
   }
 
   Future<bool> sendPhoneVerifyOtp() async {
-    setLocalState = localState?.setSendPhoneVerifyOtpState(State.loading());
+    state = state.setSendPhoneVerifyOtpState(State.loading());
     try {
       final result = await _otpUsecase.sendPhoneVerifyOtpUsecase(_phoneNumber);
-      setLocalState = localState?.setSendPhoneVerifyOtpState(State.success(result));
+      state = state.setSendPhoneVerifyOtpState(State.success(result));
       return true;
     } on Exception catch (e) {
-      setLocalState = localState?.setSendPhoneVerifyOtpState(State.error(e));
+      state = state.setSendPhoneVerifyOtpState(State.error(e));
       return false;
     }
   }
 
   Future<bool> sendEmailVerifyOtp() async {
-    setLocalState = localState?.setSendEmailVerifyOtpState(State.loading());
+    state = state.setSendEmailVerifyOtpState(State.loading());
     try {
       final result = await _otpUsecase.sendEmailVerifyOtpUsecase(_email);
-      setLocalState = localState?.setSendEmailVerifyOtpState(State.success(result));
+      state = state.setSendEmailVerifyOtpState(State.success(result));
       return true;
     } on Exception catch (e) {
-      setLocalState = localState?.setSendEmailVerifyOtpState(State.error(e));
+      state = state.setSendEmailVerifyOtpState(State.error(e));
       return false;
     }
   }
 
   Future<bool> verifyPhoneNumber() async {
-    setLocalState = localState?.setVerifyPhoneOtpState(State.loading());
+    state = state.setVerifyPhoneOtpState(State.loading());
     try {
       final data = VerifyPhoneOtpRequest(phoneNumber: _phoneNumber, otp: _otp);
       final result = await _otpUsecase.verifyPhoneOtpUsecase(data);
-      setLocalState = localState?.setVerifyPhoneOtpState(State.success(result));
+      state = state.setVerifyPhoneOtpState(State.success(result));
       return true;
     } on Exception catch (e) {
-      setLocalState = localState?.setVerifyPhoneOtpState(State.error(e));
+      state = state.setVerifyPhoneOtpState(State.error(e));
       return false;
     }
   }
 
   Future<bool> verifyEmail() async {
-    setLocalState = localState?.setVerifyEmailOtpState(State.loading());
+    state = state.setVerifyEmailOtpState(State.loading());
     try {
       final data = VerifyEmailOtpRequest(email: _email, otp: _otp);
       final result = await _otpUsecase.verifyEmailOtpUsecase(data);
-      setLocalState = localState?.setVerifyEmailOtpState(State.success(result));
+      state = state.setVerifyEmailOtpState(State.success(result));
       return true;
     } on Exception catch (e) {
-      setLocalState = localState?.setVerifyEmailOtpState(State.error(e));
+      state = state.setVerifyEmailOtpState(State.error(e));
       return false;
     }
   }
-
-  UserOtpState? get localState => mounted ? state : null;
-  void set setLocalState(UserOtpState? value) => mounted
-      ? value != null
-          ? state = value
-          : null
-      : null;
 
   @override
   void dispose() {

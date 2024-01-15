@@ -8,6 +8,7 @@ import 'package:zheeta/widgets/primary_button.dart';
 Future locationBottomSheet(BuildContext context) {
   return showModalBottomSheet(
     context: context,
+    isDismissible: false,
     backgroundColor: Colors.transparent,
     builder: (context) {
       return Consumer(

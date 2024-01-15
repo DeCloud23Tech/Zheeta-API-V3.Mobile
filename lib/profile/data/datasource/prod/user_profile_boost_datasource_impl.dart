@@ -23,7 +23,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
   }
 
   _getAuthToken() async {
-    _authToken = (await sessionManager.get(SessionManagerKeys.authToken)) as String?;
+    _authToken = (await sessionManager.get(SessionManagerKeys.authTokenString)) as String?;
   }
 
   @override
@@ -36,7 +36,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
       fileList.add(file);
     });
     payload['profileUrlForAds'] = fileList;
-    final response = await _apiManager.postHttp('/profile-boost/create', payload, token: _authToken);
+    final response = await _apiManager.postHttp('/profile-boost/create', payload, token: _authToken, formdata: true);
     if (response.success) {
       return Right(response.data);
     } else {

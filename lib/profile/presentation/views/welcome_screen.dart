@@ -1,17 +1,31 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/strings.dart';
-import 'package:zheeta/app/router/app_router.dart';
-import 'package:zheeta/app/router/app_router.gr.dart';
+import 'package:zheeta/profile/presentation/view_model/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends ConsumerStatefulWidget {
   const WelcomeScreen({super.key});
 
   @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
+  late UserProfileViewModel userProfileViewModel;
+
+  @override
+  void initState() {
+    userProfileViewModel = ref.read(userProfileViewModelProvider.notifier);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final userProfileState = ref.watch(userProfileViewModelProvider);
     return Scaffold(
       backgroundColor: AppColors.primaryDark,
       body: Container(
@@ -44,9 +58,10 @@ class WelcomeScreen extends StatelessWidget {
         padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50.0),
         child: PrimaryButton(
           invert: true,
+          state: userProfileState.getSingleUserProfileState.isLoading,
           title: 'Proceed',
           action: () {
-            router.push(BioDataRoute());
+            userProfileViewModel.getSingleUserProfile();
           },
         ),
       ),

@@ -20,6 +20,158 @@ UserProfileModel _$UserProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserProfileModel {
+  UserProfileDataModel get data => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserProfileModelCopyWith<UserProfileModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserProfileModelCopyWith<$Res> {
+  factory $UserProfileModelCopyWith(
+          UserProfileModel value, $Res Function(UserProfileModel) then) =
+      _$UserProfileModelCopyWithImpl<$Res, UserProfileModel>;
+  @useResult
+  $Res call({UserProfileDataModel data});
+
+  $UserProfileDataModelCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
+    implements $UserProfileModelCopyWith<$Res> {
+  _$UserProfileModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_value.copyWith(
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as UserProfileDataModel,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserProfileDataModelCopyWith<$Res> get data {
+    return $UserProfileDataModelCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$UserProfileModelImplCopyWith<$Res>
+    implements $UserProfileModelCopyWith<$Res> {
+  factory _$$UserProfileModelImplCopyWith(_$UserProfileModelImpl value,
+          $Res Function(_$UserProfileModelImpl) then) =
+      __$$UserProfileModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({UserProfileDataModel data});
+
+  @override
+  $UserProfileDataModelCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class __$$UserProfileModelImplCopyWithImpl<$Res>
+    extends _$UserProfileModelCopyWithImpl<$Res, _$UserProfileModelImpl>
+    implements _$$UserProfileModelImplCopyWith<$Res> {
+  __$$UserProfileModelImplCopyWithImpl(_$UserProfileModelImpl _value,
+      $Res Function(_$UserProfileModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$UserProfileModelImpl(
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as UserProfileDataModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$UserProfileModelImpl implements _UserProfileModel {
+  const _$UserProfileModelImpl({required this.data});
+
+  factory _$UserProfileModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileModelImplFromJson(json);
+
+  @override
+  final UserProfileDataModel data;
+
+  @override
+  String toString() {
+    return 'UserProfileModel(data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserProfileModelImpl &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, data);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
+      __$$UserProfileModelImplCopyWithImpl<_$UserProfileModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserProfileModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserProfileModel implements UserProfileModel {
+  const factory _UserProfileModel({required final UserProfileDataModel data}) =
+      _$UserProfileModelImpl;
+
+  factory _UserProfileModel.fromJson(Map<String, dynamic> json) =
+      _$UserProfileModelImpl.fromJson;
+
+  @override
+  UserProfileDataModel get data;
+  @override
+  @JsonKey(ignore: true)
+  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UserProfileDataModel _$UserProfileDataModelFromJson(Map<String, dynamic> json) {
+  return _UserProfileDataModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserProfileDataModel {
   UserModel? get user => throw _privateConstructorUsedError;
   ProfileModel? get profile => throw _privateConstructorUsedError;
   ResidentialAddressModel? get residentialAddress =>
@@ -36,15 +188,15 @@ mixin _$UserProfileModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserProfileModelCopyWith<UserProfileModel> get copyWith =>
+  $UserProfileDataModelCopyWith<UserProfileDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserProfileModelCopyWith<$Res> {
-  factory $UserProfileModelCopyWith(
-          UserProfileModel value, $Res Function(UserProfileModel) then) =
-      _$UserProfileModelCopyWithImpl<$Res, UserProfileModel>;
+abstract class $UserProfileDataModelCopyWith<$Res> {
+  factory $UserProfileDataModelCopyWith(UserProfileDataModel value,
+          $Res Function(UserProfileDataModel) then) =
+      _$UserProfileDataModelCopyWithImpl<$Res, UserProfileDataModel>;
   @useResult
   $Res call(
       {UserModel? user,
@@ -70,9 +222,10 @@ abstract class $UserProfileModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
-    implements $UserProfileModelCopyWith<$Res> {
-  _$UserProfileModelCopyWithImpl(this._value, this._then);
+class _$UserProfileDataModelCopyWithImpl<$Res,
+        $Val extends UserProfileDataModel>
+    implements $UserProfileDataModelCopyWith<$Res> {
+  _$UserProfileDataModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -249,11 +402,11 @@ class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
 }
 
 /// @nodoc
-abstract class _$$UserProfileModelImplCopyWith<$Res>
-    implements $UserProfileModelCopyWith<$Res> {
-  factory _$$UserProfileModelImplCopyWith(_$UserProfileModelImpl value,
-          $Res Function(_$UserProfileModelImpl) then) =
-      __$$UserProfileModelImplCopyWithImpl<$Res>;
+abstract class _$$UserProfileDataModelImplCopyWith<$Res>
+    implements $UserProfileDataModelCopyWith<$Res> {
+  factory _$$UserProfileDataModelImplCopyWith(_$UserProfileDataModelImpl value,
+          $Res Function(_$UserProfileDataModelImpl) then) =
+      __$$UserProfileDataModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -289,11 +442,11 @@ abstract class _$$UserProfileModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$UserProfileModelImplCopyWithImpl<$Res>
-    extends _$UserProfileModelCopyWithImpl<$Res, _$UserProfileModelImpl>
-    implements _$$UserProfileModelImplCopyWith<$Res> {
-  __$$UserProfileModelImplCopyWithImpl(_$UserProfileModelImpl _value,
-      $Res Function(_$UserProfileModelImpl) _then)
+class __$$UserProfileDataModelImplCopyWithImpl<$Res>
+    extends _$UserProfileDataModelCopyWithImpl<$Res, _$UserProfileDataModelImpl>
+    implements _$$UserProfileDataModelImplCopyWith<$Res> {
+  __$$UserProfileDataModelImplCopyWithImpl(_$UserProfileDataModelImpl _value,
+      $Res Function(_$UserProfileDataModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -310,7 +463,7 @@ class __$$UserProfileModelImplCopyWithImpl<$Res>
     Object? interests = freezed,
     Object? bankAccountDetails = freezed,
   }) {
-    return _then(_$UserProfileModelImpl(
+    return _then(_$UserProfileDataModelImpl(
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -358,8 +511,8 @@ class __$$UserProfileModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$UserProfileModelImpl implements _UserProfileModel {
-  const _$UserProfileModelImpl(
+class _$UserProfileDataModelImpl implements _UserProfileDataModel {
+  const _$UserProfileDataModelImpl(
       {this.user,
       this.profile,
       this.residentialAddress,
@@ -372,8 +525,8 @@ class _$UserProfileModelImpl implements _UserProfileModel {
       this.bankAccountDetails})
       : _interests = interests;
 
-  factory _$UserProfileModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserProfileModelImplFromJson(json);
+  factory _$UserProfileDataModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileDataModelImplFromJson(json);
 
   @override
   final UserModel? user;
@@ -406,14 +559,14 @@ class _$UserProfileModelImpl implements _UserProfileModel {
 
   @override
   String toString() {
-    return 'UserProfileModel(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, interests: $interests, bankAccountDetails: $bankAccountDetails)';
+    return 'UserProfileDataModel(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, interests: $interests, bankAccountDetails: $bankAccountDetails)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserProfileModelImpl &&
+            other is _$UserProfileDataModelImpl &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.profile, profile) || other.profile == profile) &&
             (identical(other.residentialAddress, residentialAddress) ||
@@ -451,20 +604,21 @@ class _$UserProfileModelImpl implements _UserProfileModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
-      __$$UserProfileModelImplCopyWithImpl<_$UserProfileModelImpl>(
-          this, _$identity);
+  _$$UserProfileDataModelImplCopyWith<_$UserProfileDataModelImpl>
+      get copyWith =>
+          __$$UserProfileDataModelImplCopyWithImpl<_$UserProfileDataModelImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserProfileModelImplToJson(
+    return _$$UserProfileDataModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserProfileModel implements UserProfileModel {
-  const factory _UserProfileModel(
+abstract class _UserProfileDataModel implements UserProfileDataModel {
+  const factory _UserProfileDataModel(
           {final UserModel? user,
           final ProfileModel? profile,
           final ResidentialAddressModel? residentialAddress,
@@ -475,10 +629,10 @@ abstract class _UserProfileModel implements UserProfileModel {
           final WalletModel? wallet,
           final List<InterestModel>? interests,
           final BankAccountDetailModel? bankAccountDetails}) =
-      _$UserProfileModelImpl;
+      _$UserProfileDataModelImpl;
 
-  factory _UserProfileModel.fromJson(Map<String, dynamic> json) =
-      _$UserProfileModelImpl.fromJson;
+  factory _UserProfileDataModel.fromJson(Map<String, dynamic> json) =
+      _$UserProfileDataModelImpl.fromJson;
 
   @override
   UserModel? get user;
@@ -502,8 +656,8 @@ abstract class _UserProfileModel implements UserProfileModel {
   BankAccountDetailModel? get bankAccountDetails;
   @override
   @JsonKey(ignore: true)
-  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$UserProfileDataModelImplCopyWith<_$UserProfileDataModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) {

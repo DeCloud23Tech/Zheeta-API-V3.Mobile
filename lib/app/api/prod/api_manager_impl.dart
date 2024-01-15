@@ -49,13 +49,14 @@ class ApiManagerImpl implements ApiManager {
   //POST
   @override
   Future<FormattedResponse> postHttp(String route, dynamic body, {Map<String, dynamic>? params, bool formdata = false, bool formEncoded = false, String? token, void Function({int count, int total})? onSendProgress, void Function({int count, int total})? onRecieveProgress}) async {
-    logger.log('Request Path: $route, Request Data: $body');
     setHeader(formdata: formdata, formEncoded: formEncoded, token: token);
     params?.removeWhere((key, value) => value == null);
     final fullRoute = '${_dio.options.baseUrl}$route';
     if (formdata) {
       body = FormData.fromMap(body as Map<String, dynamic>);
     }
+
+    logger.log('Request Path: $route, Request Data: $body');
 
     return makeRequest(_dio.post(
       fullRoute,
@@ -83,6 +84,8 @@ class ApiManagerImpl implements ApiManager {
     if (formdata) {
       body = FormData.fromMap(body as Map<String, dynamic>);
     }
+
+    logger.log('Request Path: $route, Request Data: $body');
 
     return makeRequest(_dio.put(
       fullRoute,
@@ -114,10 +117,7 @@ class ApiManagerImpl implements ApiManager {
       logger.log('\n');
     } on DioException catch (e) {
       if (kDebugMode) {
-        for (var item in e.response!.headers.map.entries) {
-          logger.log('${item.key} : ${item.value}');
-        }
-        logger.log('Error Path: ${e.response?.realUri.path}, Error Response: ${e.message}, Error Data: ${e.response?.data}');
+        logger.log('Error Path: ${e.response?.realUri.path}, Error Response: ${e.message}, Error Type: ${e.type}, Error Data: ${e.response?.data}');
         logger.log('\n');
       }
       if (e.message.toString().contains('The connection errored')) {

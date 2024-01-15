@@ -54,8 +54,6 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
       userProfileViewModel.setState(addressState.data!.state ?? '');
       _country.text = addressState.data!.country ?? '';
       userProfileViewModel.setCountry(addressState.data!.country ?? '');
-    } else {
-      router.pop();
     }
   }
 
