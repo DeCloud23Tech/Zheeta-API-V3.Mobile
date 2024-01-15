@@ -154,32 +154,32 @@ void main() {
     group('sendResetPasswordOtp', () {
       test('should return Right with MappedResponse on success', () async {
         // Arrange
-        final phoneNumber = '1234567890';
+        final email = 'joe@gmail.com';
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
-        final result = await datasource.sendPasswordResetOtp(phoneNumber);
+        final result = await datasource.sendPasswordResetOtp(email);
 
         // Assert
         expect(result, equals(Right(response.data)));
-        verify(mockApiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null));
+        verify(mockApiManager.postHttp('/userauth/send-password-reset-otp-to-email/$email', null));
         verifyNoMoreInteractions(mockApiManager);
       });
 
       test('should return Left with error message on failure', () async {
         // Arrange
-        final phoneNumber = '1234567890';
+        final email = 'joe@gmail.com';
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
         // Act
-        final result = await datasource.sendPasswordResetOtp(phoneNumber);
+        final result = await datasource.sendPasswordResetOtp(email);
 
         // Assert
         expect(result, equals(Left(errorMessage)));
-        verify(mockApiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null));
+        verify(mockApiManager.postHttp('/userauth/send-password-reset-otp-to-email/$email', null));
         verifyNoMoreInteractions(mockApiManager);
       });
     });
