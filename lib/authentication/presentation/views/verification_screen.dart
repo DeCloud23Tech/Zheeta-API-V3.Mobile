@@ -66,7 +66,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                           SizedBox(height: 15),
                           if (widget.isPhoneNumber)
                             FutureBuilder(
-                                future: sessionManager.get(SessionManagerKeys.userPhoneNumberString) as Future<String>,
+                                future: sessionManager.get(SessionManagerKeys.userPhoneNumberString),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     return Text.rich(

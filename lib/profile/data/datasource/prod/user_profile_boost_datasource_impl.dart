@@ -27,7 +27,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> createProfileBoost(CreateProfileBoostRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> createProfileBoost(CreateProfileBoostRequest request) async {
     late Map<String, dynamic> payload;
     payload = request.toJson();
     List<MultipartFile> fileList = [];
@@ -40,27 +40,33 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getBoostedProfileByAdmin(GetBoostedProfileByAdminRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> getBoostedProfileByAdmin(GetBoostedProfileByAdminRequest request) async {
     final response = await _apiManager.getHttp('/profile-boost/get-all-admin', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getMatchedProfileBoost() async {
+  Future<Either<ErrorResponse, MappedResponse>> getMatchedProfileBoost() async {
     final response = await _apiManager.getHttp('/profile-boost/get-matched', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

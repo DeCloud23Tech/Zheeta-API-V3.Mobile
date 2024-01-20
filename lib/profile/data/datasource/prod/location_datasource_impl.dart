@@ -22,22 +22,26 @@ class LocationDataSourceImpl implements LocationDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getAddressFromLocationCoordinate({required double latitude, required double longitude}) async {
+  Future<Either<ErrorResponse, MappedResponse>> getAddressFromLocationCoordinate({required double latitude, required double longitude}) async {
     final response = await _apiManager.getHttp('/user/update-location/$latitude/$longitude', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getLocationCoordinateFromAddress(LocationCoordinateFromAddressRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> getLocationCoordinateFromAddress(LocationCoordinateFromAddressRequest request) async {
     final response = await _apiManager.getHttp('/user/update-address-location', body: request.toJson(), token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

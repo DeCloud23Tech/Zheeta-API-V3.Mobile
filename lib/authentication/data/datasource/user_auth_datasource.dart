@@ -8,10 +8,10 @@ import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
 abstract class UserAuthDataSource {
-  Future<Either<Error, MappedResponse>> registerUser(RegisterUserRequest request);
-  Future<Either<Error, MappedResponse>> login(LoginRequest request);
-  Future<Either<Error, MappedResponse>> registerStaff(RegisterStaffRequest request);
-  Future<Either<Error, MappedResponse>> changePassword(ChangePasswordRequest request);
-  Future<Either<Error, MappedResponse>> resetPassword(ResetPasswordRequest request);
-  Future<Either<Error, MappedResponse>> loginOAuth(LoginOAuthRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> registerUser(RegisterUserRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> login(LoginRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> registerStaff(RegisterStaffRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> changePassword(ChangePasswordRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> resetPassword(ResetPasswordRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> loginOAuth(LoginOAuthRequest request);
 }

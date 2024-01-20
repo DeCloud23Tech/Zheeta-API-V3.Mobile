@@ -21,22 +21,26 @@ class AccessRestrictionDataSourceImpl implements AccessRestrictionDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> disableAccount({required String userId}) async {
+  Future<Either<ErrorResponse, MappedResponse>> disableAccount({required String userId}) async {
     final response = await _apiManager.putHttp('/user/disable-user-account/$userId', {}, token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> enableAccount({required String userId}) async {
+  Future<Either<ErrorResponse, MappedResponse>> enableAccount({required String userId}) async {
     final response = await _apiManager.putHttp('/user/enable-user-account/$userId', {}, token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

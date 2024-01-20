@@ -5,17 +5,17 @@ import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 
 abstract class UserProfileDataSource {
-  Future<Either<Error, MappedResponse>> getSingleUserProfile();
-  Future<Either<Error, MappedResponse>> updateUserProfilePicture({
+  Future<Either<ErrorResponse, MappedResponse>> getSingleUserProfile();
+  Future<Either<ErrorResponse, MappedResponse>> updateUserProfilePicture({
     required String userId,
     required MultipartFile file,
   });
-  Future<Either<Error, MappedResponse>> getAllUsersProfile({
+  Future<Either<ErrorResponse, MappedResponse>> getAllUsersProfile({
     required int roleType,
     required int pageNumber,
     required int pageSize,
   });
-  Future<Either<Error, MappedResponse>> createUserProfile(CreateUserProfileRequest request);
-  Future<Either<Error, MappedResponse>> updateUserProfile(UpdateUserProfileRequest request);
-  Future<Either<Error, MappedResponse>> visitUserProfile({required String userId});
+  Future<Either<ErrorResponse, MappedResponse>> createUserProfile(CreateUserProfileRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> updateUserProfile(UpdateUserProfileRequest request);
+  Future<Either<ErrorResponse, MappedResponse>> visitUserProfile({required String userId});
 }

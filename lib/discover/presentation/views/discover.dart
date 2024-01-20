@@ -19,20 +19,26 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return Scaffold(
       backgroundColor: AppColors.primaryDark,
       body: SingleChildScrollView(
-        child: Column(children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.72,
-            child: AppinioSwiper(
-              swipeOptions: SwipeOptions.symmetric(horizontal: true),
-              allowUnlimitedUnSwipe: true,
-              controller: controller,
-              cardCount: candidates.length,
-              cardBuilder: (BuildContext context, int index) {
-                return ExampleCard(candidate: candidates[index], controller: controller);
-              },
-            ),
-          )
-        ]),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.65,
+                child: AppinioSwiper(
+                  swipeOptions: SwipeOptions.only(up: true, left: true, right: true),
+                  allowUnlimitedUnSwipe: true,
+                  controller: controller,
+                  cardCount: candidates.length,
+                  cardBuilder: (BuildContext context, int index) {
+                    return ExampleCard(candidate: candidates[index], controller: controller);
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

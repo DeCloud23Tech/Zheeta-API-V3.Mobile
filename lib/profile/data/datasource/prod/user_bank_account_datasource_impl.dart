@@ -22,22 +22,26 @@ class UserBankAccountDataSourceImpl implements UserBankAccountDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> createUpdateBankAccount(CreateUpdateBankAccountRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> createUpdateBankAccount(CreateUpdateBankAccountRequest request) async {
     final response = await _apiManager.postHttp('/user/account', request.toJson(), token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getUserBankAccount() async {
+  Future<Either<ErrorResponse, MappedResponse>> getUserBankAccount() async {
     final response = await _apiManager.getHttp('/user/account', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

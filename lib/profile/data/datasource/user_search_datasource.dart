@@ -2,17 +2,17 @@ import 'package:dartz/dartz.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
 
 abstract class UserSearchDataSource {
-  Future<Either<Error, MappedResponse>> searchUserByCustomer({
+  Future<Either<ErrorResponse, MappedResponse>> searchUserByCustomer({
     required String username,
     required int pageNumber,
     required int pageSize,
   });
-  Future<Either<Error, MappedResponse>> findUserByAdminUsername({
+  Future<Either<ErrorResponse, MappedResponse>> findUserByAdminUsername({
     required String username,
     required int pageNumber,
     required int pageSize,
   });
-  Future<Either<Error, MappedResponse>> findUserByAdminEmail({
+  Future<Either<ErrorResponse, MappedResponse>> findUserByAdminEmail({
     required String email,
     required int pageNumber,
     required int pageSize,

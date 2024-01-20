@@ -13,22 +13,26 @@ class IdentityRoleDataSourceImpl implements IdentityRoleDataSource {
   IdentityRoleDataSourceImpl(this._apiManager);
 
   @override
-  Future<Either<Error, MappedResponse>> downgradeUserRole(UserRoleRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> downgradeUserRole(UserRoleRequest request) async {
     final response = await _apiManager.deleteHttp('/userauth/roles', request.toJson());
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> upgradeUserRole(UserRoleRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> upgradeUserRole(UserRoleRequest request) async {
     final response = await _apiManager.putHttp('/userauth/roles', request.toJson());
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

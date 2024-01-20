@@ -21,7 +21,7 @@ class UserSearchDataSourceImpl implements UserSearchDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> findUserByAdminEmail({
+  Future<Either<ErrorResponse, MappedResponse>> findUserByAdminEmail({
     required String email,
     required int pageNumber,
     required int pageSize,
@@ -30,12 +30,14 @@ class UserSearchDataSourceImpl implements UserSearchDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> findUserByAdminUsername({
+  Future<Either<ErrorResponse, MappedResponse>> findUserByAdminUsername({
     required String username,
     required int pageNumber,
     required int pageSize,
@@ -44,12 +46,14 @@ class UserSearchDataSourceImpl implements UserSearchDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> searchUserByCustomer({
+  Future<Either<ErrorResponse, MappedResponse>> searchUserByCustomer({
     required String username,
     required int pageNumber,
     required int pageSize,
@@ -58,7 +62,9 @@ class UserSearchDataSourceImpl implements UserSearchDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

@@ -12,7 +12,7 @@ class IdentityRoleRepositoryImpl implements IdentityRoleRepository {
   upgradeUserRoleRepo(UserRoleRequest request) async {
     final result = await _datasource.upgradeUserRole(request);
     result.fold(
-      (error) => throw Exception(error),
+      (error) => throw Exception(error.message),
       (value) => value,
     );
   }
@@ -20,7 +20,7 @@ class IdentityRoleRepositoryImpl implements IdentityRoleRepository {
   downgradeUserRoleRepo(UserRoleRequest request) async {
     final result = await _datasource.downgradeUserRole(request);
     result.fold(
-      (error) => throw Exception(error),
+      (error) => throw Exception(error.message),
       (value) => value,
     );
   }

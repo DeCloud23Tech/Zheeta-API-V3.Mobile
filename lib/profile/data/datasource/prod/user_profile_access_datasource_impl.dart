@@ -20,7 +20,7 @@ class UserProfileAccessDataSourceImpl implements UserProfileAccessDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> blockAccount({
+  Future<Either<ErrorResponse, MappedResponse>> blockAccount({
     required String userId,
     required String blockOrUnblockUserId,
   }) async {
@@ -29,12 +29,14 @@ class UserProfileAccessDataSourceImpl implements UserProfileAccessDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getBlockedUsers({
+  Future<Either<ErrorResponse, MappedResponse>> getBlockedUsers({
     required int pageNumber,
     required int pageSize,
   }) async {
@@ -42,12 +44,14 @@ class UserProfileAccessDataSourceImpl implements UserProfileAccessDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> unblockAccount({
+  Future<Either<ErrorResponse, MappedResponse>> unblockAccount({
     required String userId,
     required String blockOrUnblockUserId,
   }) async {
@@ -56,7 +60,9 @@ class UserProfileAccessDataSourceImpl implements UserProfileAccessDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

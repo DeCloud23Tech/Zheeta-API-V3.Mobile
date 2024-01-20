@@ -102,6 +102,20 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
         // Navigate to verification screen
         router.popAndPush(VerificationRoute(identifier: _phoneNumber.number, isPhoneNumber: true));
         return true;
+      } on DuplicateRegisterParamException catch (e) {
+        if (e.usernameException != null) {
+          NotifyUser.showSnackbar(e.usernameException!);
+        }
+        if (e.emailException != null) {
+          print(e.emailException);
+          NotifyUser.showSnackbar(e.emailException!);
+        }
+        if (e.phoneException != null) {
+          print(e.phoneException);
+          NotifyUser.showSnackbar(e.phoneException!);
+        }
+        state = state.setRegisterUserState(State.error(e));
+        return false;
       } on Exception catch (e) {
         state = state.setRegisterUserState(State.error(e));
         return false;

@@ -13,9 +13,7 @@ import 'package:zheeta/widgets/drawer.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
-  final index;
   const HomeScreen({
-    this.index,
     Key? key,
   }) : super(key: key);
 
@@ -50,7 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
         Padding(
           padding: const EdgeInsets.only(right: 20.0),
           child: Row(
-            children: [TopNavBtn(icon: 'assets/images/icons/menu.svg'), TopNavBtn(icon: 'assets/images/icons/filter.svg'), TopNavBtn(icon: 'assets/images/icons/bell.svg')],
+            children: [
+              TopNavBtn(icon: 'assets/images/icons/menu.svg'),
+              TopNavBtn(icon: 'assets/images/icons/filter.svg'),
+              TopNavBtn(icon: 'assets/images/icons/bell.svg'),
+            ],
           ),
         )
       ],
@@ -102,12 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final bg = [AppColors.primaryDark, AppColors.secondaryLight, AppColors.secondaryLight, AppColors.secondaryLight];
 
-  @override
-  void initState() {
-    super.initState();
-    widget.index != null ? index = widget.index : index = 0;
-  }
-
   List icons = [
     ["Discover", "assets/images/icons/card.svg"],
     ["Feed", "assets/images/icons/feed.svg"],
@@ -119,22 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bg[index],
-      // body: RepositoryProvider(
-      //   create: (context) => GameRepository(service: GameService()),
-      //   child: MultiBlocProvider(
-      //     providers: [
-      //       BlocProvider<AllGamesBloc>(
-      //         create: (context) => AllGamesBloc(
-      //           gameRepository: context.read<GameRepository>(),
-      //         )..add(GetGames()),
-      //       ),
-      //     ],
-      //     child: HomeLayout(),
-      //   ),
-      // ),
       appBar: index == 3 ? null : appbar[index],
       drawer: SideDrawer(),
-
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: Platform.isIOS ? 40.0 : 80.0),
         child: SizedBox(
@@ -156,22 +138,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
-          // PageView(
-          //   controller: _pageController,
-          //   children: pages,
-          //   onPageChanged: (value) {
-          //     setState(() {
-          //       index = value;
-          //     });
-          //   },
-          // ),
           pages[index],
           Positioned(
               child: Stack(
             children: [
               CustomPaint(size: Size(double.infinity, 78), painter: BNBCustomPainter()),
               Container(
-                // margin: EdgeInsets.fromLTRB(0, 0, 0, Platform.isIOS ? 8 : 18),
                 padding: const EdgeInsets.fromLTRB(6, 0, 6, 20),
                 decoration: BoxDecoration(
                   color: Colors.transparent,
@@ -183,7 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: List.generate(icons.length, (i) {
                       return Expanded(
-                        // key: ${i},
                         child: CupertinoButton(
                           child: AnimatedOpacity(
                             opacity: index == i ? 1 : 0.5,

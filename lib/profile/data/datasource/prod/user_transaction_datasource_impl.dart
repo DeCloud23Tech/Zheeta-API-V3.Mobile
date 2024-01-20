@@ -21,7 +21,7 @@ class UserTransactionDataSourceImpl implements UserTransactionDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getUserTransactions({
+  Future<Either<ErrorResponse, MappedResponse>> getUserTransactions({
     required String userId,
     required int pageNumber,
     required int pageSize,
@@ -30,7 +30,9 @@ class UserTransactionDataSourceImpl implements UserTransactionDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

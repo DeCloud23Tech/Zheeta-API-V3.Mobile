@@ -5,7 +5,6 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/api/api_manager.dart';
-import 'package:zheeta/app/api/custom_exception.dart';
 import 'package:zheeta/app/api/dio_module.dart';
 import 'package:zheeta/app/api/formatted_response.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
@@ -125,67 +124,69 @@ class ApiManagerImpl implements ApiManager {
         return FormattedResponse(
           success: false,
           message: 'No internet connection',
-          responseCodeError: "No internet connection",
           statusCode: e.response?.statusCode,
         );
       } else if (e.type == DioExceptionType.connectionTimeout || e.type == DioExceptionType.receiveTimeout || e.type == DioExceptionType.sendTimeout) {
         return FormattedResponse(
           success: false,
           message: 'Connection timeout',
-          responseCodeError: "Connection timeout",
           statusCode: e.response?.statusCode,
         );
       } else if (e.response?.statusCode == 401) {
         return FormattedResponse(
           success: false,
           message: 'Unauthorized action',
-          responseCodeError: "Unauthorized action",
           statusCode: e.response?.statusCode,
         );
       } else if (e.response?.statusCode == 404) {
         return FormattedResponse(
           success: false,
           message: 'Resource not found',
-          responseCodeError: "Oops! Resource not found",
           statusCode: e.response?.statusCode,
         );
       } else if (e.response?.statusCode == 500 || e.response?.statusCode == 403) {
         return FormattedResponse(
           success: false,
           message: 'Internal server error',
-          responseCodeError: "Oops! It's not you, it's us. Give us a minute and then try again.",
           statusCode: e.response!.statusCode,
         );
       } else if (e.response?.statusCode == 400) {
         return FormattedResponse(
           success: false,
           message: 'Bad request',
-          responseCodeError: 'Couldn\'t understand the request',
           statusCode: e.response?.statusCode,
         );
       } else if (e.type == DioExceptionType.badResponse || e.type == DioExceptionType.unknown) {
         return FormattedResponse(
           success: false,
           message: 'Bad response',
-          responseCodeError: 'Bad response',
           statusCode: e.response?.statusCode,
         );
       }
     } catch (err) {
       if (err is DioException) {
-        throw const CustomException('Something went wrong');
+        return FormattedResponse(
+          success: false,
+          message: 'Something went wrong',
+          statusCode: response?.statusCode,
+        );
       }
     }
     if (!"${response?.data['statusCode']}".startsWith('2')) {
-      String message = (response?.data['message'] ?? response?.data['data']).toString();
-
-      NotifyUser.showSnackbar(message);
-      return FormattedResponse(
-        success: false,
-        message: message,
-        data: response?.data,
-        statusCode: response?.statusCode,
-      );
+      if (response?.data['data'] != null) {
+        return FormattedResponse(
+          success: false,
+          message: response?.data['message'],
+          data: response?.data['data'],
+          statusCode: response?.statusCode,
+        );
+      } else {
+        return FormattedResponse(
+          success: false,
+          message: response?.data['message'],
+          statusCode: response?.statusCode,
+        );
+      }
     } else {
       return FormattedResponse(
         success: true,

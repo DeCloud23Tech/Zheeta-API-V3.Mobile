@@ -21,7 +21,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   changePasswordRepo(ChangePasswordRequest data) async {
     final result = await _datasource.changePassword(data);
     result.fold(
-      (error) => throw Exception(error),
+      (error) => throw Exception(error.message),
       (value) => value,
     );
   }
@@ -30,7 +30,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   loginOAuthRepo(LoginOAuthRequest data) async {
     final result = await _datasource.loginOAuth(data);
     result.fold(
-      (error) => throw Exception(error),
+      (error) => throw Exception(error.message),
       (value) => value,
     );
   }
@@ -40,10 +40,10 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     final result = await _datasource.login(data);
     return result.fold(
       (error) {
-        if (error.toString().contains('Data Not Found')) {
+        if (error.message.toString().contains('Data Not Found')) {
           throw new UserNotFoundException('User not found');
         }
-        if (error.toString().contains('Email is not verified')) {
+        if (error.message.toString().contains('Email is not verified')) {
           throw new EmailNotVerifiedException('Email is not verified');
         } else {
           throw new Exception(error);
@@ -57,7 +57,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   registerStaffRepo(RegisterStaffRequest data) async {
     final result = await _datasource.registerStaff(data);
     result.fold(
-      (error) => throw Exception(error),
+      (error) => throw Exception(error.message),
       (value) => value,
     );
   }
@@ -66,7 +66,31 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   Future<RegisterUserModel> registerUserRepo(RegisterUserRequest data) async {
     final result = await _datasource.registerUser(data);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) {
+        if (error.data != null) {
+          String? usernameException;
+          String? emailException;
+          String? phoneException;
+
+          final data = error.data as List;
+          for (String e in data) {
+            if (e.toString().toLowerCase().contains('username')) {
+              usernameException = e;
+            } else if (e.toString().toLowerCase().contains('email')) {
+              emailException = e;
+            } else if (e.toString().toLowerCase().contains('phone')) {
+              phoneException = e;
+            }
+          }
+          throw new DuplicateRegisterParamException(
+            usernameException: usernameException,
+            emailException: emailException,
+            phoneException: phoneException,
+          );
+        } else {
+          throw new Exception(error.message);
+        }
+      },
       (value) => RegisterUserModel.fromJson(value['data']),
     );
   }
@@ -75,7 +99,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   resetPasswordRepo(ResetPasswordRequest data) async {
     final result = await _datasource.resetPassword(data);
     result.fold(
-      (error) => throw Exception(error),
+      (error) => throw Exception(error.message),
       (value) => value,
     );
   }

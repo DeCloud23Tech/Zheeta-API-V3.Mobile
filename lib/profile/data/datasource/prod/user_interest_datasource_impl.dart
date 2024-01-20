@@ -21,22 +21,26 @@ class UserInterestDataSourceImpl implements UserInterestDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> updateUserInterest(UpdateUserUnterestRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> updateUserInterest(UpdateUserUnterestRequest request) async {
     final response = await _apiManager.putHttp('/user/add-update-user-interests', request.toJson(), token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getInterests() async {
+  Future<Either<ErrorResponse, MappedResponse>> getInterests() async {
     final response = await _apiManager.getHttp('/admin-settings/interests', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

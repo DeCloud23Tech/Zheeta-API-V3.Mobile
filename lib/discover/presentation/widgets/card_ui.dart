@@ -22,12 +22,7 @@ class ExampleCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         color: CupertinoColors.white,
         boxShadow: [
-          BoxShadow(
-            color: CupertinoColors.systemGrey.withOpacity(0.2),
-            spreadRadius: 3,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          )
+          BoxShadow(color: CupertinoColors.systemGrey.withOpacity(0.2), spreadRadius: 3, blurRadius: 7, offset: const Offset(0, 3)),
         ],
       ),
       alignment: Alignment.center,
@@ -48,13 +43,10 @@ class ExampleCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 50),
+                padding: const EdgeInsets.only(top: 60),
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
-                  ),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -67,20 +59,12 @@ class ExampleCard extends StatelessWidget {
                         Row(
                           children: [
                             SvgPicture.asset('assets/images/icons/user.svg', width: 22, colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn)),
-                            const SizedBox(
-                              width: 15,
-                            ),
+                            const SizedBox(width: 15),
                             Text(
                               candidate.name!,
-                              style: const TextStyle(
-                                color: AppColors.darkText,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 24,
-                              ),
+                              style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w500, fontSize: 24),
                             ),
-                            const SizedBox(
-                              width: 15,
-                            ),
+                            const SizedBox(width: 15),
                             Container(
                               width: 30,
                               padding: EdgeInsets.all(2),
@@ -88,16 +72,11 @@ class ExampleCard extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   candidate.city!,
-                                  style: const TextStyle(
-                                    color: AppColors.white,
-                                    fontSize: 10,
-                                  ),
+                                  style: const TextStyle(color: AppColors.white, fontSize: 10),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 15,
-                            ),
+                            const SizedBox(width: 15),
                             Container(
                               width: 25,
                               height: 25,
@@ -106,24 +85,16 @@ class ExampleCard extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   'F',
-                                  style: const TextStyle(
-                                    color: AppColors.white,
-                                    fontSize: 12,
-                                  ),
+                                  style: const TextStyle(color: AppColors.white, fontSize: 12),
                                 ),
                               ),
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
+                        const SizedBox(height: 5),
                         Text(
                           candidate.job!,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15,
-                          ),
+                          style: const TextStyle(color: Colors.grey, fontSize: 15),
                         ),
                       ],
                     ),
@@ -133,22 +104,45 @@ class ExampleCard extends StatelessWidget {
             ],
           ),
           Positioned(
-            bottom: 90,
+            bottom: 105,
             child: Row(
               children: [
                 SizedBox(
                   height: 70,
                   width: 70,
                   child: ElevatedButton(
-                      onPressed: () => controller.swipeLeft(),
-                      style: ButtonStyle(
-                          shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
-                          elevation: MaterialStateProperty.all(10),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ))),
-                      child: SvgPicture.asset('assets/images/icons/close.svg')),
+                    onPressed: () => controller.swipeLeft(),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all<Color>(AppColors.white),
+                      shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
+                      elevation: MaterialStateProperty.all(5),
+                      backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                      ),
+                    ),
+                    child: SvgPicture.asset('assets/images/icons/close.svg'),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: ElevatedButton(
+                    onPressed: () => controller.swipeUp(),
+                    style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all<Color>(AppColors.white),
+                        shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
+                        elevation: MaterialStateProperty.all(5),
+                        backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ))),
+                    child: Transform.scale(
+                      scale: 1.5,
+                      child: SvgPicture.asset('assets/images/icons/favorite.svg'),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 15,
@@ -157,32 +151,20 @@ class ExampleCard extends StatelessWidget {
                   height: 70,
                   width: 70,
                   child: ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                          shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
-                          elevation: MaterialStateProperty.all(10),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ))),
-                      child: SvgPicture.asset('assets/images/icons/favorite.svg')),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                SizedBox(
-                  height: 70,
-                  width: 70,
-                  child: ElevatedButton(
-                      onPressed: () => controller.swipeRight(),
-                      style: ButtonStyle(
-                          shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
-                          elevation: MaterialStateProperty.all(10),
-                          backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ))),
-                      child: SvgPicture.asset('assets/images/icons/heart.svg')),
+                    onPressed: () => controller.swipeRight(),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all<Color>(AppColors.white),
+                      shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
+                      elevation: MaterialStateProperty.all(5),
+                      backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ),
+                    child: SvgPicture.asset('assets/images/icons/heart.svg'),
+                  ),
                 )
               ],
             ),

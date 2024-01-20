@@ -12,6 +12,7 @@ class InputField extends StatefulWidget {
   final int maxLine;
   final VoidCallback? onTap;
   final bool readonly;
+  final String? initialValue;
   const InputField({
     Key? key,
     this.controller,
@@ -23,6 +24,7 @@ class InputField extends StatefulWidget {
     this.maxLine = 1,
     this.onTap,
     this.readonly = false,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class _InputFieldState extends State<InputField> {
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: TextFormField(
+        initialValue: widget.initialValue,
         onTap: widget.onTap,
         autocorrect: false,
         obscureText: widget.password ? obscure : false,

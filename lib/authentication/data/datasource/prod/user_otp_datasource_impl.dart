@@ -14,62 +14,74 @@ class UserOtpDataSourceImpl implements UserOtpDataSource {
   UserOtpDataSourceImpl(this._apiManager);
 
   @override
-  Future<Either<Error, MappedResponse>> resetPassword(String phoneNumber) async {
+  Future<Either<ErrorResponse, MappedResponse>> resetPassword(String phoneNumber) async {
     final response = await _apiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> sendEmailVerifyOtp(String email) async {
+  Future<Either<ErrorResponse, MappedResponse>> sendEmailVerifyOtp(String email) async {
     final response = await _apiManager.postHttp('/userauth/send-email-verifyOtp/$email', null);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> sendPhoneVerifyOtp(String phoneNumber) async {
+  Future<Either<ErrorResponse, MappedResponse>> sendPhoneVerifyOtp(String phoneNumber) async {
     final response = await _apiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> sendPasswordResetOtp(String email) async {
+  Future<Either<ErrorResponse, MappedResponse>> sendPasswordResetOtp(String email) async {
     final response = await _apiManager.postHttp('/userauth/send-password-reset-otp-to-email/$email', null);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> verifyEmailOtp(VerifyEmailOtpRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> verifyEmailOtp(VerifyEmailOtpRequest request) async {
     final response = await _apiManager.postHttp('/userauth/verify-email-otp', request.toJson());
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> verifyPhoneOtp(VerifyPhoneOtpRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> verifyPhoneOtp(VerifyPhoneOtpRequest request) async {
     final response = await _apiManager.postHttp('/userauth/verify-phone-otp', request.toJson());
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

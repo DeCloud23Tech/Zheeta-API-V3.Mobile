@@ -9,8 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i20;
-import 'package:flutter/cupertino.dart' as _i21;
-import 'package:flutter/material.dart' as _i22;
+import 'package:flutter/material.dart' as _i21;
 import 'package:zheeta/authentication/presentation/views/forgot_screen.dart'
     as _i4;
 import 'package:zheeta/authentication/presentation/views/reset_password_otp_screen.dart'
@@ -75,14 +74,9 @@ abstract class $AppRouter extends _i20.RootStackRouter {
       );
     },
     HomeRoute.name: (routeData) {
-      final args =
-          routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.HomeScreen(
-          index: args.index,
-          key: args.key,
-        ),
+        child: const _i6.HomeScreen(),
       );
     },
     IntroRoute.name: (routeData) {
@@ -248,40 +242,16 @@ class GiftShopRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.HomeScreen]
-class HomeRoute extends _i20.PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({
-    dynamic index,
-    _i21.Key? key,
-    List<_i20.PageRouteInfo>? children,
-  }) : super(
+class HomeRoute extends _i20.PageRouteInfo<void> {
+  const HomeRoute({List<_i20.PageRouteInfo>? children})
+      : super(
           HomeRoute.name,
-          args: HomeRouteArgs(
-            index: index,
-            key: key,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'HomeRoute';
 
-  static const _i20.PageInfo<HomeRouteArgs> page =
-      _i20.PageInfo<HomeRouteArgs>(name);
-}
-
-class HomeRouteArgs {
-  const HomeRouteArgs({
-    this.index,
-    this.key,
-  });
-
-  final dynamic index;
-
-  final _i21.Key? key;
-
-  @override
-  String toString() {
-    return 'HomeRouteArgs{index: $index, key: $key}';
-  }
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
@@ -344,7 +314,7 @@ class PendingRequestRoute extends _i20.PageRouteInfo<void> {
 /// [_i11.ProductDetailsScreen]
 class ProductDetailsRoute extends _i20.PageRouteInfo<ProductDetailsRouteArgs> {
   ProductDetailsRoute({
-    _i22.Key? key,
+    _i21.Key? key,
     dynamic product,
     List<_i20.PageRouteInfo>? children,
   }) : super(
@@ -368,7 +338,7 @@ class ProductDetailsRouteArgs {
     this.product,
   });
 
-  final _i22.Key? key;
+  final _i21.Key? key;
 
   final dynamic product;
 
@@ -466,7 +436,7 @@ class SignUpRoute extends _i20.PageRouteInfo<void> {
 /// [_i18.VerificationScreen]
 class VerificationRoute extends _i20.PageRouteInfo<VerificationRouteArgs> {
   VerificationRoute({
-    _i22.Key? key,
+    _i21.Key? key,
     required bool isPhoneNumber,
     required String identifier,
     List<_i20.PageRouteInfo>? children,
@@ -493,7 +463,7 @@ class VerificationRouteArgs {
     required this.identifier,
   });
 
-  final _i22.Key? key;
+  final _i21.Key? key;
 
   final bool isPhoneNumber;
 

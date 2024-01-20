@@ -24,17 +24,19 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   }
 
   @override
-  Future<Either<Error, MappedResponse>> createUserProfile(CreateUserProfileRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> createUserProfile(CreateUserProfileRequest request) async {
     final response = await _apiManager.postHttp('/user/profile', request.toJson(), token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getAllUsersProfile({
+  Future<Either<ErrorResponse, MappedResponse>> getAllUsersProfile({
     required int roleType,
     required int pageNumber,
     required int pageSize,
@@ -43,32 +45,38 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> getSingleUserProfile() async {
+  Future<Either<ErrorResponse, MappedResponse>> getSingleUserProfile() async {
     final response = await _apiManager.getHttp('/user/get-single-user-profile', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> updateUserProfile(UpdateUserProfileRequest request) async {
+  Future<Either<ErrorResponse, MappedResponse>> updateUserProfile(UpdateUserProfileRequest request) async {
     final response = await _apiManager.putHttp('/user/update-user-profile', request.toJson(), token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> updateUserProfilePicture({
+  Future<Either<ErrorResponse, MappedResponse>> updateUserProfilePicture({
     required String userId,
     required MultipartFile file,
   }) async {
@@ -77,19 +85,23 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
     if (response.success) {
       return Right(response.data);
     } else if (response.statusCode == 413) {
-      return Left('File size is too large');
+      return Left(ErrorResponse(message: 'File size is too large'));
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 
   @override
-  Future<Either<Error, MappedResponse>> visitUserProfile({required String userId}) async {
+  Future<Either<ErrorResponse, MappedResponse>> visitUserProfile({required String userId}) async {
     final response = await _apiManager.getHttp('/user/get-user-profile-full-detail/$userId', token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
-      return Left(response.message);
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
     }
   }
 }

@@ -7,10 +7,11 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:zheeta/app/api/formatted_response.dart' as _i5;
 import 'package:zheeta/authentication/data/datasource/identity_role_datasource.dart'
     as _i3;
 import 'package:zheeta/authentication/data/request/user_roles_request.dart'
-    as _i5;
+    as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -45,38 +46,42 @@ class MockIdentityRoleDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> upgradeUserRole(
-          _i5.UserRoleRequest? request) =>
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> upgradeUserRole(
+          _i6.UserRoleRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #upgradeUserRole,
           [request],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #upgradeUserRole,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> downgradeUserRole(
-          _i5.UserRoleRequest? request) =>
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> downgradeUserRole(
+          _i6.UserRoleRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #downgradeUserRole,
           [request],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #downgradeUserRole,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 }

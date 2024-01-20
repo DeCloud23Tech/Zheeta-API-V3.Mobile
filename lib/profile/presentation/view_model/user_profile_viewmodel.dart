@@ -178,7 +178,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
       if (result.data.profile?.profilePhotoURL == null) {
         router.push(ProfilePhotoRoute());
       } else {
-        router.push(HomeRoute());
+        router.popUntil((route) => route.isFirst);
+        router.replace(HomeRoute());
       }
       return true;
     } on UserProfileNotCreatedException catch (e) {
@@ -205,7 +206,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
 
         state = state.setUpdateUserProfilePictureState(State.success(result));
 
-        router.push(HomeRoute());
+        router.popUntil((route) => route.isFirst);
+        router.replace(HomeRoute());
 
         return true;
       } else {
@@ -227,15 +229,15 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     try {
       String? isValidFormOrErrorMessage = validateLetsKnowYouForm();
       if (isValidFormOrErrorMessage == null) {
-        final userId = await sessionManager.get(SessionManagerKeys.authUserIdString);
+        final _userId = await sessionManager.get(SessionManagerKeys.authUserIdString);
 
-        final locationState = ref.watch(locationViewModelProvider);
+        final _locationState = ref.watch(locationViewModelProvider);
 
-        final latitude = locationState.getCurrentLocationState.data!.latitude;
-        final longitude = locationState.getCurrentLocationState.data!.longitude;
+        final _latitude = _locationState.getCurrentLocationState.data!.latitude;
+        final _longitude = _locationState.getCurrentLocationState.data!.longitude;
 
         final data = CreateUserProfileRequest(
-          userId: userId,
+          userId: _userId,
           firstName: _firstName,
           lastName: _lastName,
           dateOfBirth: _dob,
@@ -253,8 +255,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
           state: _state,
           country: _country,
           zipCode: _postcode,
-          latitude: latitude,
-          longitude: longitude,
+          latitude: _latitude,
+          longitude: _longitude,
         );
         final result = await _userProfileUseCase.createUserProfileUseCase(data);
         state = state.setCreateUserProfileState(State.success(result));
