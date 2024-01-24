@@ -12,19 +12,29 @@ final router = locator.get<AppRouter>();
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
+        // Auth
         AutoRoute(page: IntroRoute.page, initial: true),
         AutoRoute(page: SignInRoute.page),
         AutoRoute(page: SignUpRoute.page),
-        AutoRoute(page: HomeRoute.page, guards: [AppGuard()]),
-        AutoRoute(page: BioDataRoute.page),
         AutoRoute(page: ForgotPasswordRoute.page),
         AutoRoute(page: ResetPasswordRoute.page),
         AutoRoute(page: ResetPasswordOtpRoute.page),
+        AutoRoute(page: VerificationRoute.page),
+
+        // Profile
+        AutoRoute(page: WelcomeRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: BioDataRoute.page, guards: [AppGuard()]),
         AutoRoute(page: LocationRoute.page, guards: [AppGuard()]),
         AutoRoute(page: AboutRoute.page, guards: [AppGuard()]),
         AutoRoute(page: ProfilePhotoRoute.page, guards: [AppGuard()]),
-        AutoRoute(page: VerificationRoute.page),
-        AutoRoute(page: WelcomeRoute.page, guards: [AppGuard()]),
+
+        // Explore
+        AutoRoute(page: HomeRoute.page, guards: [AppGuard()]),
+
+        // Notification
+        AutoRoute(page: NotificationRoute.page, guards: [AppGuard()]),
+
+        //
         AutoRoute(page: ProductDetailsRoute.page, guards: [AppGuard()]),
         AutoRoute(page: BankAccountRoute.page, guards: [AppGuard()]),
         AutoRoute(page: GiftShopRoute.page, guards: [AppGuard()]),

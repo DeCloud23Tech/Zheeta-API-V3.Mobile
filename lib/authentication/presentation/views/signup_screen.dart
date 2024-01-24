@@ -80,29 +80,27 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   onChanged: (value) => userAuthViewModel.setEmail(value),
                 ),
                 SizedBox(height: 10),
-                SizedBox(
-                  height: 53,
-                  child: IntlPhoneField(
-                    disableLengthCheck: true,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: AppColors.white,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.grey.withOpacity(0.5), width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.primaryDark, width: 1.0),
-                        ),
-                        border: const OutlineInputBorder(),
-                        hintText: "Phone number",
-                        hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
-                        errorStyle: const TextStyle(color: Colors.red)),
-                    initialCountryCode: userAuthViewModel.getPhoneNumber.countryCode,
-                    validator: (phone) => userAuthViewModel.validatePhoneNumber(),
-                    onChanged: (phone) => userAuthViewModel.setPhoneNumber(phone),
-                    onCountryChanged: (value) => userAuthViewModel.setCountryCode(value),
-                    autovalidateMode: AutovalidateMode.disabled,
-                  ),
+                IntlPhoneField(
+                  disableLengthCheck: true,
+                  decoration: InputDecoration(
+                      isDense: true,
+                      filled: true,
+                      fillColor: AppColors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.grey.withOpacity(0.5), width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.primaryDark, width: 1.0),
+                      ),
+                      border: const OutlineInputBorder(),
+                      hintText: "Phone number",
+                      hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
+                      errorStyle: const TextStyle(color: Colors.red)),
+                  initialCountryCode: userAuthViewModel.getPhoneNumber.countryCode,
+                  validator: (phone) => userAuthViewModel.validatePhoneNumber(),
+                  onChanged: (phone) => userAuthViewModel.setPhoneNumber(phone),
+                  onCountryChanged: (value) => userAuthViewModel.setCountryCode(value),
+                  autovalidateMode: AutovalidateMode.disabled,
                 ),
                 SizedBox(height: 10),
                 InputField(

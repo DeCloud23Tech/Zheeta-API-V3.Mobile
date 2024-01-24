@@ -49,12 +49,4 @@ class UserOtpRepositoryImpl implements UserOtpRepository {
       (value) => value,
     );
   }
-
-  resetPasswordRepo(String phoneNumber) async {
-    final result = await _datasource.resetPassword(phoneNumber);
-    result.fold(
-      (error) => throw Exception(error.message),
-      (value) => value,
-    );
-  }
 }

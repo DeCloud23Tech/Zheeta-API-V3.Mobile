@@ -183,38 +183,5 @@ void main() {
         verifyNoMoreInteractions(mockApiManager);
       });
     });
-
-    group('resetPassword', () {
-      test('should return Right with MappedResponse on success', () async {
-        // Arrange
-        final phoneNumber = '1234567890';
-        final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
-        when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
-
-        // Act
-        final result = await datasource.resetPassword(phoneNumber);
-
-        // Assert
-        expect(result, equals(Right(response.data)));
-        verify(mockApiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null));
-        verifyNoMoreInteractions(mockApiManager);
-      });
-
-      test('should return Left with error message on failure', () async {
-        // Arrange
-        final phoneNumber = '1234567890';
-        final errorMessage = 'Error message';
-        final response = FormattedResponse(success: false, message: errorMessage);
-        when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
-
-        // Act
-        final result = await datasource.resetPassword(phoneNumber);
-
-        // Assert
-        expect(result, equals(Left(errorMessage)));
-        verify(mockApiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null));
-        verifyNoMoreInteractions(mockApiManager);
-      });
-    });
   });
 }

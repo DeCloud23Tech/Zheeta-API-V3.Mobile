@@ -23,29 +23,29 @@ import 'package:zheeta/authentication/data/datasource/prod/country_datasource_im
 import 'package:zheeta/authentication/data/datasource/prod/identity_role_datasource_impl.dart'
     as _i14;
 import 'package:zheeta/authentication/data/datasource/prod/user_auth_datasource_impl.dart'
-    as _i26;
+    as _i32;
 import 'package:zheeta/authentication/data/datasource/prod/user_otp_datasource_impl.dart'
-    as _i44;
+    as _i50;
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart'
-    as _i25;
+    as _i31;
 import 'package:zheeta/authentication/data/datasource/user_otp_datasource.dart'
-    as _i43;
+    as _i49;
 import 'package:zheeta/authentication/data/repository/prod/country_repository_impl.dart'
     as _i10;
 import 'package:zheeta/authentication/data/repository/prod/identity_role_repository_impl.dart'
     as _i16;
 import 'package:zheeta/authentication/data/repository/prod/user_auth_repository_impl.dart'
-    as _i28;
+    as _i34;
 import 'package:zheeta/authentication/data/repository/prod/user_otp_repository_impl.dart'
-    as _i46;
+    as _i52;
 import 'package:zheeta/authentication/domain/repository/country_repository.dart'
     as _i9;
 import 'package:zheeta/authentication/domain/repository/identity_role_repository.dart'
     as _i15;
 import 'package:zheeta/authentication/domain/repository/user_auth_repository.dart'
-    as _i27;
+    as _i33;
 import 'package:zheeta/authentication/domain/repository/user_otp_repository.dart'
-    as _i45;
+    as _i51;
 import 'package:zheeta/authentication/domain/usecase/country_usecase.dart'
     as _i11;
 import 'package:zheeta/authentication/domain/usecase/identity_role_usecase.dart'
@@ -55,119 +55,131 @@ import 'package:zheeta/authentication/domain/usecase/prod/country_usecase_impl.d
 import 'package:zheeta/authentication/domain/usecase/prod/identity_role_usecase_impl.dart'
     as _i18;
 import 'package:zheeta/authentication/domain/usecase/prod/user_auth_usecase_impl.dart'
-    as _i30;
+    as _i36;
 import 'package:zheeta/authentication/domain/usecase/prod/user_otp_usecase_impl.dart'
-    as _i48;
+    as _i54;
 import 'package:zheeta/authentication/domain/usecase/user_auth_usecase.dart'
-    as _i29;
+    as _i35;
 import 'package:zheeta/authentication/domain/usecase/user_otp_usecase.dart'
-    as _i47;
+    as _i53;
+import 'package:zheeta/discover/data/datasource/match_criteria_datasource.dart'
+    as _i25;
+import 'package:zheeta/discover/data/datasource/prod/match_criteria_datasource_impl.dart'
+    as _i26;
+import 'package:zheeta/discover/data/repository/prod/match_criteria_repository_impl.dart'
+    as _i28;
+import 'package:zheeta/discover/domain/repository/match_criteria_repository.dart'
+    as _i27;
+import 'package:zheeta/discover/domain/usecase/match_criteria_usecase.dart'
+    as _i29;
+import 'package:zheeta/discover/domain/usecase/prod/match_criteria_usecase_impl.dart'
+    as _i30;
 import 'package:zheeta/profile/data/datasource/access_restriction_datasource.dart'
-    as _i79;
+    as _i85;
 import 'package:zheeta/profile/data/datasource/location_datasource.dart'
     as _i19;
 import 'package:zheeta/profile/data/datasource/prod/access_restriction_datasource_impl.dart'
-    as _i80;
+    as _i86;
 import 'package:zheeta/profile/data/datasource/prod/location_datasource_impl.dart'
     as _i20;
 import 'package:zheeta/profile/data/datasource/prod/user_bank_account_datasource_impl.dart'
-    as _i32;
-import 'package:zheeta/profile/data/datasource/prod/user_interest_datasource_impl.dart'
     as _i38;
+import 'package:zheeta/profile/data/datasource/prod/user_interest_datasource_impl.dart'
+    as _i44;
 import 'package:zheeta/profile/data/datasource/prod/user_profile_access_datasource_impl.dart'
-    as _i50;
-import 'package:zheeta/profile/data/datasource/prod/user_profile_boost_datasource_impl.dart'
     as _i56;
-import 'package:zheeta/profile/data/datasource/prod/user_profile_datasource_impl.dart'
+import 'package:zheeta/profile/data/datasource/prod/user_profile_boost_datasource_impl.dart'
     as _i62;
-import 'package:zheeta/profile/data/datasource/prod/user_search_datasource_impl.dart'
+import 'package:zheeta/profile/data/datasource/prod/user_profile_datasource_impl.dart'
     as _i68;
-import 'package:zheeta/profile/data/datasource/prod/user_transaction_datasource_impl.dart'
+import 'package:zheeta/profile/data/datasource/prod/user_search_datasource_impl.dart'
     as _i74;
+import 'package:zheeta/profile/data/datasource/prod/user_transaction_datasource_impl.dart'
+    as _i80;
 import 'package:zheeta/profile/data/datasource/user_bank_account_datasource.dart'
-    as _i31;
-import 'package:zheeta/profile/data/datasource/user_interest_datasource.dart'
     as _i37;
+import 'package:zheeta/profile/data/datasource/user_interest_datasource.dart'
+    as _i43;
 import 'package:zheeta/profile/data/datasource/user_profile_access_datasource.dart'
-    as _i49;
-import 'package:zheeta/profile/data/datasource/user_profile_boost_datasource.dart'
     as _i55;
-import 'package:zheeta/profile/data/datasource/user_profile_datasource.dart'
+import 'package:zheeta/profile/data/datasource/user_profile_boost_datasource.dart'
     as _i61;
-import 'package:zheeta/profile/data/datasource/user_search_datasource.dart'
+import 'package:zheeta/profile/data/datasource/user_profile_datasource.dart'
     as _i67;
-import 'package:zheeta/profile/data/datasource/user_transaction_datasource.dart'
+import 'package:zheeta/profile/data/datasource/user_search_datasource.dart'
     as _i73;
+import 'package:zheeta/profile/data/datasource/user_transaction_datasource.dart'
+    as _i79;
 import 'package:zheeta/profile/data/repository/prod/access_restriction_repository_impl.dart'
-    as _i82;
+    as _i88;
 import 'package:zheeta/profile/data/repository/prod/location_repository_impl.dart'
     as _i22;
 import 'package:zheeta/profile/data/repository/prod/user_bank_account_repository_impl.dart'
-    as _i34;
-import 'package:zheeta/profile/data/repository/prod/user_interest_repository_impl.dart'
     as _i40;
+import 'package:zheeta/profile/data/repository/prod/user_interest_repository_impl.dart'
+    as _i46;
 import 'package:zheeta/profile/data/repository/prod/user_profile_access_repository_impl.dart'
-    as _i52;
-import 'package:zheeta/profile/data/repository/prod/user_profile_boost_repository_impl.dart'
     as _i58;
-import 'package:zheeta/profile/data/repository/prod/user_profile_repository_impl.dart'
+import 'package:zheeta/profile/data/repository/prod/user_profile_boost_repository_impl.dart'
     as _i64;
-import 'package:zheeta/profile/data/repository/prod/user_search_repository_impl.dart'
+import 'package:zheeta/profile/data/repository/prod/user_profile_repository_impl.dart'
     as _i70;
-import 'package:zheeta/profile/data/repository/prod/user_transaction_repository_impl.dart'
+import 'package:zheeta/profile/data/repository/prod/user_search_repository_impl.dart'
     as _i76;
+import 'package:zheeta/profile/data/repository/prod/user_transaction_repository_impl.dart'
+    as _i82;
 import 'package:zheeta/profile/domain/repository/access_restriction_repository.dart'
-    as _i81;
+    as _i87;
 import 'package:zheeta/profile/domain/repository/location_repository.dart'
     as _i21;
 import 'package:zheeta/profile/domain/repository/user_bank_account_repository.dart'
-    as _i33;
-import 'package:zheeta/profile/domain/repository/user_interest_repository.dart'
     as _i39;
+import 'package:zheeta/profile/domain/repository/user_interest_repository.dart'
+    as _i45;
 import 'package:zheeta/profile/domain/repository/user_profile_access_repository.dart'
-    as _i51;
-import 'package:zheeta/profile/domain/repository/user_profile_boost_repository.dart'
     as _i57;
-import 'package:zheeta/profile/domain/repository/user_profile_repository.dart'
+import 'package:zheeta/profile/domain/repository/user_profile_boost_repository.dart'
     as _i63;
-import 'package:zheeta/profile/domain/repository/user_search_repository.dart'
+import 'package:zheeta/profile/domain/repository/user_profile_repository.dart'
     as _i69;
-import 'package:zheeta/profile/domain/repository/user_transaction_repository.dart'
+import 'package:zheeta/profile/domain/repository/user_search_repository.dart'
     as _i75;
+import 'package:zheeta/profile/domain/repository/user_transaction_repository.dart'
+    as _i81;
 import 'package:zheeta/profile/domain/usecase/access_restriction_usecase.dart'
-    as _i83;
+    as _i89;
 import 'package:zheeta/profile/domain/usecase/location_usecase.dart' as _i23;
 import 'package:zheeta/profile/domain/usecase/prod/access_restriction_usecase_impl.dart'
-    as _i84;
+    as _i90;
 import 'package:zheeta/profile/domain/usecase/prod/location_usecase_impl.dart'
     as _i24;
 import 'package:zheeta/profile/domain/usecase/prod/user_bank_account_usecase_impl.dart'
-    as _i36;
-import 'package:zheeta/profile/domain/usecase/prod/user_interest_usecase_impl.dart'
     as _i42;
+import 'package:zheeta/profile/domain/usecase/prod/user_interest_usecase_impl.dart'
+    as _i48;
 import 'package:zheeta/profile/domain/usecase/prod/user_profile_access_usecase_impl.dart'
-    as _i54;
-import 'package:zheeta/profile/domain/usecase/prod/user_profile_boost_usecase_impl.dart'
     as _i60;
-import 'package:zheeta/profile/domain/usecase/prod/user_profile_usecase_impl.dart'
+import 'package:zheeta/profile/domain/usecase/prod/user_profile_boost_usecase_impl.dart'
     as _i66;
-import 'package:zheeta/profile/domain/usecase/prod/user_search_usecase_impl.dart'
+import 'package:zheeta/profile/domain/usecase/prod/user_profile_usecase_impl.dart'
     as _i72;
-import 'package:zheeta/profile/domain/usecase/prod/user_transaction_usecase_impl.dart'
+import 'package:zheeta/profile/domain/usecase/prod/user_search_usecase_impl.dart'
     as _i78;
+import 'package:zheeta/profile/domain/usecase/prod/user_transaction_usecase_impl.dart'
+    as _i84;
 import 'package:zheeta/profile/domain/usecase/user_bank_account_usecase.dart'
-    as _i35;
-import 'package:zheeta/profile/domain/usecase/user_interest_usecase.dart'
     as _i41;
+import 'package:zheeta/profile/domain/usecase/user_interest_usecase.dart'
+    as _i47;
 import 'package:zheeta/profile/domain/usecase/user_profile_access_usecase.dart'
-    as _i53;
-import 'package:zheeta/profile/domain/usecase/user_profile_boost_usecase.dart'
     as _i59;
-import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart'
+import 'package:zheeta/profile/domain/usecase/user_profile_boost_usecase.dart'
     as _i65;
-import 'package:zheeta/profile/domain/usecase/user_search_usecase.dart' as _i71;
+import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart'
+    as _i71;
+import 'package:zheeta/profile/domain/usecase/user_search_usecase.dart' as _i77;
 import 'package:zheeta/profile/domain/usecase/user_transaction_usecase.dart'
-    as _i77;
+    as _i83;
 
 const String _prod = 'prod';
 
@@ -224,134 +236,147 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i24.LocationUseCaseImpl(gh<_i21.LocationRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i25.UserAuthDataSource>(
-      () => _i26.UserAuthDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.lazySingleton<_i25.MatchCriteriaDataSource>(
+      () => _i26.MatchCriteriaDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i27.UserAuthRepository>(
-      () => _i28.UserAuthRepositoryImpl(gh<_i25.UserAuthDataSource>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i29.UserAuthUseCase>(
-      () => _i30.UserAuthUseCaseImpl(gh<_i27.UserAuthRepository>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i31.UserBankAccountDataSource>(
-      () => _i32.UserBankAccountDataSourceImpl(gh<_i5.ApiManager>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i33.UserBankAccountRepository>(
-      () => _i34.UserBankAccountRepositoryImpl(
-          gh<_i31.UserBankAccountDataSource>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i35.UserBankAccountUseCase>(
+    gh.lazySingleton<_i27.MatchCriteriaRepository>(
       () =>
-          _i36.UserBankAccountUseCaseImpl(gh<_i33.UserBankAccountRepository>()),
+          _i28.MatchCriteriaRepositoryImpl(gh<_i25.MatchCriteriaDataSource>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i37.UserInterestDataSource>(
-      () => _i38.UserInterestDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.lazySingleton<_i29.MatchCriteriaUseCase>(
+      () => _i30.MatchCriteriaUseCaseImpl(gh<_i27.MatchCriteriaRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i39.UserInterestRepository>(
-      () => _i40.UserInterestRepositoryImpl(gh<_i37.UserInterestDataSource>()),
+    gh.lazySingleton<_i31.UserAuthDataSource>(
+      () => _i32.UserAuthDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i41.UserInterestUseCase>(
-      () => _i42.UserInterestUseCaseImpl(gh<_i39.UserInterestRepository>()),
+    gh.lazySingleton<_i33.UserAuthRepository>(
+      () => _i34.UserAuthRepositoryImpl(gh<_i31.UserAuthDataSource>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i43.UserOtpDataSource>(
-      () => _i44.UserOtpDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.lazySingleton<_i35.UserAuthUseCase>(
+      () => _i36.UserAuthUseCaseImpl(gh<_i33.UserAuthRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i45.UserOtpRepository>(
-      () => _i46.UserOtpRepositoryImpl(gh<_i43.UserOtpDataSource>()),
+    gh.lazySingleton<_i37.UserBankAccountDataSource>(
+      () => _i38.UserBankAccountDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i47.UserOtpUseCase>(
-      () => _i48.UserOtpUseCaseImpl(gh<_i45.UserOtpRepository>()),
+    gh.lazySingleton<_i39.UserBankAccountRepository>(
+      () => _i40.UserBankAccountRepositoryImpl(
+          gh<_i37.UserBankAccountDataSource>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i49.UserProfileAccessDataSource>(
-      () => _i50.UserProfileAccessDataSourceImpl(gh<_i5.ApiManager>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i51.UserProfileAccessRepository>(
-      () => _i52.UserProfileAccessRepositoryImpl(
-          gh<_i49.UserProfileAccessDataSource>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i53.UserProfileAccessUseCase>(
-      () => _i54.UserProfileAccessUseCaseImpl(
-          gh<_i51.UserProfileAccessRepository>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i55.UserProfileBoostDataSource>(
-      () => _i56.UserProfileBoostDataSourceImpl(gh<_i5.ApiManager>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i57.UserProfileBoostRepository>(
-      () => _i58.UserProfileBoostRepositoryImpl(
-          gh<_i55.UserProfileBoostDataSource>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i59.UserProfileBoostUseCase>(
-      () => _i60.UserProfileBoostUseCaseImpl(
-          gh<_i57.UserProfileBoostRepository>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i61.UserProfileDataSource>(
-      () => _i62.UserProfileDataSourceImpl(gh<_i5.ApiManager>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i63.UserProfileRepository>(
-      () => _i64.UserProfileRepositoryImpl(gh<_i61.UserProfileDataSource>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i65.UserProfileUseCase>(
-      () => _i66.UserProfileUseCaseImpl(gh<_i63.UserProfileRepository>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i67.UserSearchDataSource>(
-      () => _i68.UserSearchDataSourceImpl(gh<_i5.ApiManager>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i69.UserSearchRepository>(
-      () => _i70.UserSearchRepositorImpl(gh<_i67.UserSearchDataSource>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i71.UserSearchUseCase>(
-      () => _i72.UserSearchUseCaseImpl(gh<_i69.UserSearchRepository>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i73.UserTransactionDataSource>(
-      () => _i74.UserTransactionDataSourceImpl(gh<_i5.ApiManager>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i75.UserTransactionRepository>(
-      () => _i76.UserTransactionRepositoryImpl(
-          gh<_i73.UserTransactionDataSource>()),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i77.UserTransactionUseCase>(
+    gh.lazySingleton<_i41.UserBankAccountUseCase>(
       () =>
-          _i78.UserTransactionUseCaseImpl(gh<_i75.UserTransactionRepository>()),
+          _i42.UserBankAccountUseCaseImpl(gh<_i39.UserBankAccountRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i79.AccessRestrictionDataSource>(
-      () => _i80.AccessRestrictionDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.lazySingleton<_i43.UserInterestDataSource>(
+      () => _i44.UserInterestDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i81.AccessRestrictionRepository>(
-      () => _i82.AccessRestrictionRepositoryImpl(
-          gh<_i79.AccessRestrictionDataSource>()),
+    gh.lazySingleton<_i45.UserInterestRepository>(
+      () => _i46.UserInterestRepositoryImpl(gh<_i43.UserInterestDataSource>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i83.AccessRestrictionUseCase>(
-      () => _i84.AccessRestrictionUseCaseImpl(
-          gh<_i81.AccessRestrictionRepository>()),
+    gh.lazySingleton<_i47.UserInterestUseCase>(
+      () => _i48.UserInterestUseCaseImpl(gh<_i45.UserInterestRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i49.UserOtpDataSource>(
+      () => _i50.UserOtpDataSourceImpl(gh<_i5.ApiManager>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i51.UserOtpRepository>(
+      () => _i52.UserOtpRepositoryImpl(gh<_i49.UserOtpDataSource>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i53.UserOtpUseCase>(
+      () => _i54.UserOtpUseCaseImpl(gh<_i51.UserOtpRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i55.UserProfileAccessDataSource>(
+      () => _i56.UserProfileAccessDataSourceImpl(gh<_i5.ApiManager>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i57.UserProfileAccessRepository>(
+      () => _i58.UserProfileAccessRepositoryImpl(
+          gh<_i55.UserProfileAccessDataSource>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i59.UserProfileAccessUseCase>(
+      () => _i60.UserProfileAccessUseCaseImpl(
+          gh<_i57.UserProfileAccessRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i61.UserProfileBoostDataSource>(
+      () => _i62.UserProfileBoostDataSourceImpl(gh<_i5.ApiManager>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i63.UserProfileBoostRepository>(
+      () => _i64.UserProfileBoostRepositoryImpl(
+          gh<_i61.UserProfileBoostDataSource>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i65.UserProfileBoostUseCase>(
+      () => _i66.UserProfileBoostUseCaseImpl(
+          gh<_i63.UserProfileBoostRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i67.UserProfileDataSource>(
+      () => _i68.UserProfileDataSourceImpl(gh<_i5.ApiManager>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i69.UserProfileRepository>(
+      () => _i70.UserProfileRepositoryImpl(gh<_i67.UserProfileDataSource>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i71.UserProfileUseCase>(
+      () => _i72.UserProfileUseCaseImpl(gh<_i69.UserProfileRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i73.UserSearchDataSource>(
+      () => _i74.UserSearchDataSourceImpl(gh<_i5.ApiManager>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i75.UserSearchRepository>(
+      () => _i76.UserSearchRepositorImpl(gh<_i73.UserSearchDataSource>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i77.UserSearchUseCase>(
+      () => _i78.UserSearchUseCaseImpl(gh<_i75.UserSearchRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i79.UserTransactionDataSource>(
+      () => _i80.UserTransactionDataSourceImpl(gh<_i5.ApiManager>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i81.UserTransactionRepository>(
+      () => _i82.UserTransactionRepositoryImpl(
+          gh<_i79.UserTransactionDataSource>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i83.UserTransactionUseCase>(
+      () =>
+          _i84.UserTransactionUseCaseImpl(gh<_i81.UserTransactionRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i85.AccessRestrictionDataSource>(
+      () => _i86.AccessRestrictionDataSourceImpl(gh<_i5.ApiManager>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i87.AccessRestrictionRepository>(
+      () => _i88.AccessRestrictionRepositoryImpl(
+          gh<_i85.AccessRestrictionDataSource>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i89.AccessRestrictionUseCase>(
+      () => _i90.AccessRestrictionUseCaseImpl(
+          gh<_i87.AccessRestrictionRepository>()),
       registerFor: {_prod},
     );
     return this;

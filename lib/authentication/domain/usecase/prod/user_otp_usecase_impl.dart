@@ -11,11 +11,6 @@ class UserOtpUseCaseImpl implements UserOtpUseCase {
   UserOtpUseCaseImpl(this._repository);
 
   @override
-  resetPasswordUsecase(String phoneNumber) {
-    return _repository.resetPasswordRepo(phoneNumber);
-  }
-
-  @override
   sendEmailVerifyOtpUsecase(String email) {
     return _repository.sendEmailVerifyOtpRepo(email);
   }
