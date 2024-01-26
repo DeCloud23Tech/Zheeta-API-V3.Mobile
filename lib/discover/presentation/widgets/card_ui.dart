@@ -3,16 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/discover/presentation/widgets/card_model.dart';
+import 'package:zheeta/discover/data/model/match_model.dart';
 
 class ExampleCard extends StatelessWidget {
-  final ExampleCandidateModel candidate;
+  final MatchModel match;
   final AppinioSwiperController controller;
 
   const ExampleCard({
     Key? key,
     required this.controller,
-    required this.candidate,
+    required this.match,
   }) : super(key: key);
 
   @override
@@ -73,7 +73,7 @@ class ExampleCard extends StatelessWidget {
                             ),
                             const SizedBox(width: 15),
                             Text(
-                              candidate.name!,
+                              '${match.username}',
                               style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w500, fontSize: 24),
                             ),
                             const SizedBox(width: 15),
@@ -93,7 +93,7 @@ class ExampleCard extends StatelessWidget {
                                   SvgPicture.asset('assets/images/female.svg', width: 11),
                                   SizedBox(width: 3),
                                   Text(
-                                    candidate.city!,
+                                    '${match.location}',
                                     style: const TextStyle(color: AppColors.white, fontSize: 10),
                                   ),
                                 ],
@@ -119,7 +119,7 @@ class ExampleCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          candidate.job!,
+                          '${match.age}',
                           style: const TextStyle(color: Colors.grey, fontSize: 15),
                         ),
                       ],

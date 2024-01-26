@@ -224,8 +224,8 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i18.IdentityRoleUseCaseImpl(gh<_i15.IdentityRoleRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i19.LocationDataSource>(
-      () => _i20.LocationDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i19.LocationDataSource>(
+      _i20.LocationDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i21.LocationRepository>(
@@ -236,8 +236,8 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i24.LocationUseCaseImpl(gh<_i21.LocationRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i25.MatchCriteriaDataSource>(
-      () => _i26.MatchCriteriaDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i25.MatchCriteriaDataSource>(
+      _i26.MatchCriteriaDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i27.MatchCriteriaRepository>(
@@ -261,8 +261,8 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i36.UserAuthUseCaseImpl(gh<_i33.UserAuthRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i37.UserBankAccountDataSource>(
-      () => _i38.UserBankAccountDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i37.UserBankAccountDataSource>(
+      _i38.UserBankAccountDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i39.UserBankAccountRepository>(
@@ -275,8 +275,8 @@ extension GetItInjectableX on _i1.GetIt {
           _i42.UserBankAccountUseCaseImpl(gh<_i39.UserBankAccountRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i43.UserInterestDataSource>(
-      () => _i44.UserInterestDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i43.UserInterestDataSource>(
+      _i44.UserInterestDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i45.UserInterestRepository>(
@@ -299,8 +299,8 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i54.UserOtpUseCaseImpl(gh<_i51.UserOtpRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i55.UserProfileAccessDataSource>(
-      () => _i56.UserProfileAccessDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i55.UserProfileAccessDataSource>(
+      _i56.UserProfileAccessDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i57.UserProfileAccessRepository>(
@@ -313,8 +313,8 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i57.UserProfileAccessRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i61.UserProfileBoostDataSource>(
-      () => _i62.UserProfileBoostDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i61.UserProfileBoostDataSource>(
+      _i62.UserProfileBoostDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i63.UserProfileBoostRepository>(
@@ -327,8 +327,8 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i63.UserProfileBoostRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i67.UserProfileDataSource>(
-      () => _i68.UserProfileDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i67.UserProfileDataSource>(
+      _i68.UserProfileDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i69.UserProfileRepository>(
@@ -339,8 +339,8 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i72.UserProfileUseCaseImpl(gh<_i69.UserProfileRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i73.UserSearchDataSource>(
-      () => _i74.UserSearchDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i73.UserSearchDataSource>(
+      _i74.UserSearchDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i75.UserSearchRepository>(
@@ -351,8 +351,8 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i78.UserSearchUseCaseImpl(gh<_i75.UserSearchRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i79.UserTransactionDataSource>(
-      () => _i80.UserTransactionDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i79.UserTransactionDataSource>(
+      _i80.UserTransactionDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i81.UserTransactionRepository>(
@@ -365,8 +365,8 @@ extension GetItInjectableX on _i1.GetIt {
           _i84.UserTransactionUseCaseImpl(gh<_i81.UserTransactionRepository>()),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i85.AccessRestrictionDataSource>(
-      () => _i86.AccessRestrictionDataSourceImpl(gh<_i5.ApiManager>()),
+    gh.singleton<_i85.AccessRestrictionDataSource>(
+      _i86.AccessRestrictionDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i87.AccessRestrictionRepository>(

@@ -13,7 +13,7 @@ import 'package:zheeta/profile/data/request/create_profile_boost_request.dart';
 import 'package:zheeta/profile/domain/entity/type.dart';
 
 @prod
-@LazySingleton(as: UserProfileBoostDataSource)
+@Singleton(as: UserProfileBoostDataSource)
 class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

@@ -7,7 +7,7 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 import 'package:zheeta/profile/data/datasource/user_transaction_datasource.dart';
 
 @prod
-@LazySingleton(as: UserTransactionDataSource)
+@Singleton(as: UserTransactionDataSource)
 class UserTransactionDataSourceImpl implements UserTransactionDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

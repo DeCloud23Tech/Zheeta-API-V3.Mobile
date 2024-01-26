@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/extensions/num_extension.dart';
 import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/discover/presentation/view_model/match_criteria_viewmodel.dart';
 import 'package:zheeta/widgets/close_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -24,12 +25,10 @@ Future criteriaFilterBottomSheet(BuildContext context) {
 class CriteriaFilterBottomSheetView extends ConsumerWidget {
   CriteriaFilterBottomSheetView({super.key});
 
-  final gender = StateProvider<String?>((ref) => null);
-  final age = StateProvider<RangeValues>((ref) => RangeValues(22, 40));
-  final distance = StateProvider<double>((ref) => 0);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final matchCriteriaState = ref.watch(matchCriteriaViewModelProvider);
+    final matchCriteriaViewModel = ref.read(matchCriteriaViewModelProvider.notifier);
     return Container(
       padding: EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -69,23 +68,23 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
               children: [
                 AppRadioButton(
                   value: 'Man',
-                  groupValue: ref.watch(gender),
+                  groupValue: matchCriteriaState.matchCriteriaState.data?.gender,
                   onChanged: (value) {
-                    ref.read(gender.notifier).state = value;
+                    matchCriteriaViewModel.setGender(value);
                   },
                 ),
                 AppRadioButton(
                   value: 'Woman',
-                  groupValue: ref.watch(gender),
+                  groupValue: matchCriteriaState.matchCriteriaState.data?.gender,
                   onChanged: (value) {
-                    ref.read(gender.notifier).state = value;
+                    matchCriteriaViewModel.setGender(value);
                   },
                 ),
                 AppRadioButton(
                   value: 'Everyone',
-                  groupValue: ref.watch(gender),
+                  groupValue: matchCriteriaState.matchCriteriaState.data?.gender,
                   onChanged: (value) {
-                    ref.read(gender.notifier).state = value;
+                    matchCriteriaViewModel.setGender(value);
                   },
                 ),
               ],
@@ -96,9 +95,9 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
                 text: 'Age ',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 children: [
-                  if (ref.watch(age).start.roundToInt > 22 || ref.watch(age).end.roundToInt < 40)
+                  if (matchCriteriaState.matchCriteriaState.data?.minAge > 22 || matchCriteriaState.matchCriteriaState.data?.maxAge < 40)
                     TextSpan(
-                      text: '(${ref.watch(age).start.roundToInt}, ${ref.watch(age).end.roundToInt})',
+                      text: '(${matchCriteriaState.matchCriteriaState.data?.minAge}, ${matchCriteriaState.matchCriteriaState.data?.maxAge})',
                       style: TextStyle(fontSize: 12, color: AppColors.primaryDark, fontWeight: FontWeight.w400),
                     ),
                 ],
@@ -106,12 +105,12 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
             ),
             SizedBox(height: 10),
             RangeSlider(
-              values: ref.watch(age),
-              labels: RangeLabels("${ref.watch(age).start.roundToInt}", "${ref.watch(age).end.roundToInt}"),
+              values: RangeValues(matchCriteriaState.matchCriteriaState.data?.minAge, matchCriteriaState.matchCriteriaState.data?.maxAge),
+              labels: RangeLabels("${matchCriteriaState.matchCriteriaState.data?.minAge}", "${matchCriteriaState.matchCriteriaState.data?.maxAge}"),
               min: 18,
               max: 100,
               onChanged: (value) {
-                ref.read(age.notifier).state = value;
+                matchCriteriaViewModel.setMinAge(value.start.roundToInt);
               },
             ),
             SizedBox(height: 20),
@@ -120,9 +119,9 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
                 text: 'Distance ',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 children: [
-                  if (ref.watch(distance).roundToInt != 0)
+                  if (matchCriteriaState.matchCriteriaState.data?.distance != 0)
                     TextSpan(
-                      text: '(${ref.watch(distance).roundToInt} Km)',
+                      text: '(${matchCriteriaState.matchCriteriaState.data?.distance} Km)',
                       style: TextStyle(fontSize: 12, color: AppColors.primaryDark, fontWeight: FontWeight.w400),
                     ),
                 ],
@@ -130,30 +129,40 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
             ),
             SizedBox(height: 10),
             Slider(
-              label: '${ref.watch(distance).roundToInt} Km away',
-              value: ref.watch(distance),
+              label: '${matchCriteriaState.matchCriteriaState.data?.distance} Km away',
+              value: matchCriteriaState.matchCriteriaState.data?.distance,
               min: 0,
               max: 30,
               onChanged: (value) {
-                ref.read(distance.notifier).state = value;
+                matchCriteriaViewModel.setDistance(value.roundToInt);
               },
             ),
             SizedBox(height: 26),
             DropdownInputField(
               items: [''],
               hintText: 'Country',
+              value: matchCriteriaState.matchCriteriaState.data?.country ?? null,
+              onChanged: (value) {
+                matchCriteriaViewModel.setCountry(value!);
+              },
             ),
             SizedBox(height: 20),
             DropdownInputField(
               items: [''],
-              hintText: 'State',
+              value: matchCriteriaState.matchCriteriaState.data?.city ?? null,
+              hintText: 'City',
+              onChanged: (value) {
+                matchCriteriaViewModel.setCity(value!);
+              },
             ),
             SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: PrimaryButton(
                 title: 'Apply',
-                action: () {
+                state: matchCriteriaState.updateMatchCriteriaState.isLoading,
+                action: () async {
+                  await matchCriteriaViewModel.updateMatchCriteria();
                   router.pop();
                 },
               ),

@@ -10,7 +10,7 @@ import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 
 @prod
-@LazySingleton(as: UserProfileDataSource)
+@Singleton(as: UserProfileDataSource)
 class UserProfileDataSourceImpl implements UserProfileDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

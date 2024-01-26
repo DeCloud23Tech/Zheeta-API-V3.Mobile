@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
+import 'package:zheeta/discover/presentation/view_model/match_criteria_viewmodel.dart';
 import 'package:zheeta/discover/presentation/views/discover_screen.dart';
 import 'package:zheeta/discover/presentation/widgets/criteria_filter_bottomsheet.dart';
 import 'package:zheeta/feeds/presentation/views/feed_screen.dart';
@@ -13,17 +15,27 @@ import 'package:zheeta/profile/presentation/views/profile.dart';
 import 'package:zheeta/widgets/drawer.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final PageController _pageController = PageController(initialPage: 0);
+  late MatchCriteriaViewModel matchCriteriaViewModel;
+
+  @override
+  void initState() {
+    matchCriteriaViewModel = ref.read(matchCriteriaViewModelProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      matchCriteriaViewModel.getMatchCriteria();
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {

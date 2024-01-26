@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:zheeta/app/common/exceptions/custom_exception.dart';
@@ -6,6 +8,7 @@ import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
+import 'package:zheeta/discover/data/model/match_model.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/domain/usecase/match_criteria_usecase.dart';
 import 'package:zheeta/discover/presentation/state/match_criteria_state.dart';
@@ -94,6 +97,9 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
 
         final result = await _matchCriteriaUseCase.updateMatchCriteriaUseCase(requestData);
         state = state.setUpdateMatchCriteriaState(State.success(result));
+
+        await getMatches(isLoading: false);
+
         return true;
       } else {
         state = state.setUpdateMatchCriteriaState(
@@ -110,11 +116,14 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
   Future<bool> getMatchCriteria() async {
     state = state.setMatchCriteriaState(State.loading());
     try {
+      // Fetch matches while getting criteria.
+      getMatches();
       final result = await _matchCriteriaUseCase.getMatchCriteriaUseCase();
       state = state.setMatchCriteriaState(State.success(result));
       return true;
     } on NoCriteriaException {
       final userId = (await sessionManager.get(SessionManagerKeys.authUserIdString)) as String;
+      log("UserID: ${userId}");
       final userProfile = ref.watch(userProfileViewModelProvider).getSingleUserProfileState.data?.data;
       state = state.setMatchCriteriaState(
         State.success(
@@ -137,12 +146,17 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
     }
   }
 
-  Future<bool> getMatches() async {
-    state = state.setGetMatchesState(State.loading());
+  Future<bool> getMatches({bool isLoading = true}) async {
+    if (isLoading) state = state.setGetMatchesState(State.loading());
     try {
       final userId = (await sessionManager.get(SessionManagerKeys.authUserIdString)) as String;
       final result = await _matchCriteriaUseCase.getMatchesUseCase(userId: userId);
       state = state.setGetMatchesState(State.success(result));
+      return true;
+    } on NoMatchException {
+      state = state.setGetMatchesState(
+        State.success(MatchListModel(data: [])),
+      );
       return true;
     } on Exception catch (e) {
       state = state.setGetMatchesState(State.error(e));

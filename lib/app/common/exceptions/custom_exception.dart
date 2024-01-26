@@ -49,3 +49,11 @@ class NoCriteriaException implements Exception {
   @override
   String toString() => message;
 }
+
+class NoMatchException implements Exception {
+  final String message;
+  NoMatchException(this.message);
+
+  @override
+  String toString() => message;
+}

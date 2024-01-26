@@ -31,7 +31,13 @@ class MatchCriteriaRepositoryImpl implements MatchCriteriaRepository {
   Future<MatchListModel> getMatchesRepo({required String userId}) async {
     final result = await _datasource.getMatches(userId: userId);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) {
+        if (error.message == "No Data to Fetch" || error.data == null || error.data == []) {
+          throw new NoMatchException('No Match Found');
+        } else {
+          throw new Exception(error);
+        }
+      },
       (value) => MatchListModel.fromJson(value),
     );
   }

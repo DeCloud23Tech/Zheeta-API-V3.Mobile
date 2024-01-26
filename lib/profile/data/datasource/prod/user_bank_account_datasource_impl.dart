@@ -8,7 +8,7 @@ import 'package:zheeta/profile/data/datasource/user_bank_account_datasource.dart
 import 'package:zheeta/profile/data/request/create_update_bank_account_request.dart';
 
 @prod
-@LazySingleton(as: UserBankAccountDataSource)
+@Singleton(as: UserBankAccountDataSource)
 class UserBankAccountDataSourceImpl implements UserBankAccountDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

@@ -8,7 +8,7 @@ import 'package:zheeta/discover/data/datasource/match_criteria_datasource.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 
 @prod
-@LazySingleton(as: MatchCriteriaDataSource)
+@Singleton(as: MatchCriteriaDataSource)
 class MatchCriteriaDataSourceImpl implements MatchCriteriaDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

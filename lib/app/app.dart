@@ -7,6 +7,7 @@ import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 
 initializeApp() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await injectDependency(Environment.prod);
   await Hive.initFlutter();
   await Hive.openBox('app-local-storage');

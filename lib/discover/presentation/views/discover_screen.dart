@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/discover/presentation/view_model/match_criteria_viewmodel.dart';
-import 'package:zheeta/discover/presentation/widgets/card_model.dart';
 import 'package:zheeta/discover/presentation/widgets/card_ui.dart';
+import 'package:zheeta/widgets/empty_content.dart';
 import 'package:zheeta/widgets/loading_screen.dart';
 
 class DiscoverPage extends ConsumerStatefulWidget {
@@ -28,12 +28,13 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     final matchCriteriaState = ref.watch(matchCriteriaViewModelProvider);
-    return Scaffold(
-      backgroundColor: AppColors.primaryDark,
-      body: matchCriteriaState.getMatchesState.isLoading
-          ? LoadingScreen()
-          : matchCriteriaState.getMatchesState.data?.data?.isNotEmpty ?? false
-              ? Stack(
+    return matchCriteriaState.getMatchesState.isLoading
+        ? LoadingScreen()
+        : matchCriteriaState.getMatchesState.data?.data?.isEmpty ?? true
+            ? EmptyContent()
+            : Scaffold(
+                backgroundColor: AppColors.primaryDark,
+                body: Stack(
                   alignment: AlignmentDirectional.topCenter,
                   children: [
                     Center(
@@ -59,9 +60,10 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
                                 swipeOptions: SwipeOptions.only(up: true, left: true, right: true),
                                 allowUnlimitedUnSwipe: true,
                                 controller: controller,
-                                cardCount: candidates.length,
+                                cardCount: matchCriteriaState.getMatchesState.data!.data!.length,
                                 cardBuilder: (BuildContext context, int index) {
-                                  return ExampleCard(candidate: candidates[index], controller: controller);
+                                  final match = matchCriteriaState.getMatchesState.data!.data![index];
+                                  return ExampleCard(match: match, controller: controller);
                                 },
                               ),
                             )
@@ -70,8 +72,7 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
                       ),
                     ),
                   ],
-                )
-              : SizedBox.shrink(),
-    );
+                ),
+              );
   }
 }

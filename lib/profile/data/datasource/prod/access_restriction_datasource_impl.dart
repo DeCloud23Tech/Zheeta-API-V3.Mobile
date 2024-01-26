@@ -7,7 +7,7 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 import 'package:zheeta/profile/data/datasource/access_restriction_datasource.dart';
 
 @prod
-@LazySingleton(as: AccessRestrictionDataSource)
+@Singleton(as: AccessRestrictionDataSource)
 class AccessRestrictionDataSourceImpl implements AccessRestrictionDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;
