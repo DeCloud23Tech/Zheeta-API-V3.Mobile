@@ -6,14 +6,14 @@ part 'match_criteria_model.g.dart';
 @freezed
 class MatchCriteriaModel with _$MatchCriteriaModel {
   @JsonSerializable()
-  const factory MatchCriteriaModel({
-    dynamic userId,
-    dynamic gender,
-    dynamic minAge,
-    dynamic maxAge,
-    dynamic distance,
-    dynamic country,
-    dynamic city,
+  factory MatchCriteriaModel({
+    required String userId,
+    required String gender,
+    required int minAge,
+    required int maxAge,
+    required int distance,
+    required String country,
+    required String? city,
   }) = _MatchCriteriaModel;
 
   factory MatchCriteriaModel.fromJson(Map<String, dynamic> json) => _$MatchCriteriaModelFromJson(json);

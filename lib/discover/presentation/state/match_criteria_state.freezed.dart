@@ -22,6 +22,9 @@ mixin _$MatchCriteriaState {
       throw _privateConstructorUsedError;
   State<MatchListModel> get getMatchesState =>
       throw _privateConstructorUsedError;
+  State<dynamic> get populateMatchesState => throw _privateConstructorUsedError;
+  State<List<String>> get countryState => throw _privateConstructorUsedError;
+  State<List<String>> get cityState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MatchCriteriaStateCopyWith<MatchCriteriaState> get copyWith =>
@@ -37,11 +40,17 @@ abstract class $MatchCriteriaStateCopyWith<$Res> {
   $Res call(
       {State<dynamic> updateMatchCriteriaState,
       State<MatchCriteriaModel> matchCriteriaState,
-      State<MatchListModel> getMatchesState});
+      State<MatchListModel> getMatchesState,
+      State<dynamic> populateMatchesState,
+      State<List<String>> countryState,
+      State<List<String>> cityState});
 
   $StateCopyWith<dynamic, $Res> get updateMatchCriteriaState;
   $StateCopyWith<MatchCriteriaModel, $Res> get matchCriteriaState;
   $StateCopyWith<MatchListModel, $Res> get getMatchesState;
+  $StateCopyWith<dynamic, $Res> get populateMatchesState;
+  $StateCopyWith<List<String>, $Res> get countryState;
+  $StateCopyWith<List<String>, $Res> get cityState;
 }
 
 /// @nodoc
@@ -60,6 +69,9 @@ class _$MatchCriteriaStateCopyWithImpl<$Res, $Val extends MatchCriteriaState>
     Object? updateMatchCriteriaState = null,
     Object? matchCriteriaState = null,
     Object? getMatchesState = null,
+    Object? populateMatchesState = null,
+    Object? countryState = null,
+    Object? cityState = null,
   }) {
     return _then(_value.copyWith(
       updateMatchCriteriaState: null == updateMatchCriteriaState
@@ -74,6 +86,18 @@ class _$MatchCriteriaStateCopyWithImpl<$Res, $Val extends MatchCriteriaState>
           ? _value.getMatchesState
           : getMatchesState // ignore: cast_nullable_to_non_nullable
               as State<MatchListModel>,
+      populateMatchesState: null == populateMatchesState
+          ? _value.populateMatchesState
+          : populateMatchesState // ignore: cast_nullable_to_non_nullable
+              as State<dynamic>,
+      countryState: null == countryState
+          ? _value.countryState
+          : countryState // ignore: cast_nullable_to_non_nullable
+              as State<List<String>>,
+      cityState: null == cityState
+          ? _value.cityState
+          : cityState // ignore: cast_nullable_to_non_nullable
+              as State<List<String>>,
     ) as $Val);
   }
 
@@ -103,6 +127,30 @@ class _$MatchCriteriaStateCopyWithImpl<$Res, $Val extends MatchCriteriaState>
       return _then(_value.copyWith(getMatchesState: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StateCopyWith<dynamic, $Res> get populateMatchesState {
+    return $StateCopyWith<dynamic, $Res>(_value.populateMatchesState, (value) {
+      return _then(_value.copyWith(populateMatchesState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StateCopyWith<List<String>, $Res> get countryState {
+    return $StateCopyWith<List<String>, $Res>(_value.countryState, (value) {
+      return _then(_value.copyWith(countryState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StateCopyWith<List<String>, $Res> get cityState {
+    return $StateCopyWith<List<String>, $Res>(_value.cityState, (value) {
+      return _then(_value.copyWith(cityState: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -116,7 +164,10 @@ abstract class _$$MatchCriteriaStateImplCopyWith<$Res>
   $Res call(
       {State<dynamic> updateMatchCriteriaState,
       State<MatchCriteriaModel> matchCriteriaState,
-      State<MatchListModel> getMatchesState});
+      State<MatchListModel> getMatchesState,
+      State<dynamic> populateMatchesState,
+      State<List<String>> countryState,
+      State<List<String>> cityState});
 
   @override
   $StateCopyWith<dynamic, $Res> get updateMatchCriteriaState;
@@ -124,6 +175,12 @@ abstract class _$$MatchCriteriaStateImplCopyWith<$Res>
   $StateCopyWith<MatchCriteriaModel, $Res> get matchCriteriaState;
   @override
   $StateCopyWith<MatchListModel, $Res> get getMatchesState;
+  @override
+  $StateCopyWith<dynamic, $Res> get populateMatchesState;
+  @override
+  $StateCopyWith<List<String>, $Res> get countryState;
+  @override
+  $StateCopyWith<List<String>, $Res> get cityState;
 }
 
 /// @nodoc
@@ -140,6 +197,9 @@ class __$$MatchCriteriaStateImplCopyWithImpl<$Res>
     Object? updateMatchCriteriaState = null,
     Object? matchCriteriaState = null,
     Object? getMatchesState = null,
+    Object? populateMatchesState = null,
+    Object? countryState = null,
+    Object? cityState = null,
   }) {
     return _then(_$MatchCriteriaStateImpl(
       updateMatchCriteriaState: null == updateMatchCriteriaState
@@ -154,6 +214,18 @@ class __$$MatchCriteriaStateImplCopyWithImpl<$Res>
           ? _value.getMatchesState
           : getMatchesState // ignore: cast_nullable_to_non_nullable
               as State<MatchListModel>,
+      populateMatchesState: null == populateMatchesState
+          ? _value.populateMatchesState
+          : populateMatchesState // ignore: cast_nullable_to_non_nullable
+              as State<dynamic>,
+      countryState: null == countryState
+          ? _value.countryState
+          : countryState // ignore: cast_nullable_to_non_nullable
+              as State<List<String>>,
+      cityState: null == cityState
+          ? _value.cityState
+          : cityState // ignore: cast_nullable_to_non_nullable
+              as State<List<String>>,
     ));
   }
 }
@@ -164,7 +236,10 @@ class _$MatchCriteriaStateImpl extends _MatchCriteriaState {
   _$MatchCriteriaStateImpl(
       {required this.updateMatchCriteriaState,
       required this.matchCriteriaState,
-      required this.getMatchesState})
+      required this.getMatchesState,
+      required this.populateMatchesState,
+      required this.countryState,
+      required this.cityState})
       : super._();
 
   @override
@@ -173,10 +248,16 @@ class _$MatchCriteriaStateImpl extends _MatchCriteriaState {
   final State<MatchCriteriaModel> matchCriteriaState;
   @override
   final State<MatchListModel> getMatchesState;
+  @override
+  final State<dynamic> populateMatchesState;
+  @override
+  final State<List<String>> countryState;
+  @override
+  final State<List<String>> cityState;
 
   @override
   String toString() {
-    return 'MatchCriteriaState(updateMatchCriteriaState: $updateMatchCriteriaState, matchCriteriaState: $matchCriteriaState, getMatchesState: $getMatchesState)';
+    return 'MatchCriteriaState(updateMatchCriteriaState: $updateMatchCriteriaState, matchCriteriaState: $matchCriteriaState, getMatchesState: $getMatchesState, populateMatchesState: $populateMatchesState, countryState: $countryState, cityState: $cityState)';
   }
 
   @override
@@ -190,12 +271,24 @@ class _$MatchCriteriaStateImpl extends _MatchCriteriaState {
             (identical(other.matchCriteriaState, matchCriteriaState) ||
                 other.matchCriteriaState == matchCriteriaState) &&
             (identical(other.getMatchesState, getMatchesState) ||
-                other.getMatchesState == getMatchesState));
+                other.getMatchesState == getMatchesState) &&
+            (identical(other.populateMatchesState, populateMatchesState) ||
+                other.populateMatchesState == populateMatchesState) &&
+            (identical(other.countryState, countryState) ||
+                other.countryState == countryState) &&
+            (identical(other.cityState, cityState) ||
+                other.cityState == cityState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, updateMatchCriteriaState,
-      matchCriteriaState, getMatchesState);
+  int get hashCode => Object.hash(
+      runtimeType,
+      updateMatchCriteriaState,
+      matchCriteriaState,
+      getMatchesState,
+      populateMatchesState,
+      countryState,
+      cityState);
 
   @JsonKey(ignore: true)
   @override
@@ -207,10 +300,12 @@ class _$MatchCriteriaStateImpl extends _MatchCriteriaState {
 
 abstract class _MatchCriteriaState extends MatchCriteriaState {
   factory _MatchCriteriaState(
-          {required final State<dynamic> updateMatchCriteriaState,
-          required final State<MatchCriteriaModel> matchCriteriaState,
-          required final State<MatchListModel> getMatchesState}) =
-      _$MatchCriteriaStateImpl;
+      {required final State<dynamic> updateMatchCriteriaState,
+      required final State<MatchCriteriaModel> matchCriteriaState,
+      required final State<MatchListModel> getMatchesState,
+      required final State<dynamic> populateMatchesState,
+      required final State<List<String>> countryState,
+      required final State<List<String>> cityState}) = _$MatchCriteriaStateImpl;
   _MatchCriteriaState._() : super._();
 
   @override
@@ -219,6 +314,12 @@ abstract class _MatchCriteriaState extends MatchCriteriaState {
   State<MatchCriteriaModel> get matchCriteriaState;
   @override
   State<MatchListModel> get getMatchesState;
+  @override
+  State<dynamic> get populateMatchesState;
+  @override
+  State<List<String>> get countryState;
+  @override
+  State<List<String>> get cityState;
   @override
   @JsonKey(ignore: true)
   _$$MatchCriteriaStateImplCopyWith<_$MatchCriteriaStateImpl> get copyWith =>

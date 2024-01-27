@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/authentication/data/model/login_user_model.dart';
 import 'package:zheeta/authentication/data/model/register_user_model.dart';
 import 'package:zheeta/authentication/data/request/change_password_request.dart';
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart';
@@ -17,22 +18,22 @@ class UserAuthUseCaseImpl implements UserAuthUseCase {
 
   @override
   changePasswordUsecase(ChangePasswordRequest data) {
-    return _repository.changePasswordRepo(data);
+    _repository.changePasswordRepo(data);
   }
 
   @override
   loginOAuthUsecase(LoginOAuthRequest data) {
-    return _repository.loginOAuthRepo(data);
+    _repository.loginOAuthRepo(data);
   }
 
   @override
-  loginUsecase(LoginRequest data) {
+  Future<LoginUserModel> loginUsecase(LoginRequest data) {
     return _repository.loginRepo(data);
   }
 
   @override
   registerStaffUsecase(RegisterStaffRequest data) {
-    return _repository.registerStaffRepo(data);
+    _repository.registerStaffRepo(data);
   }
 
   @override
@@ -42,6 +43,6 @@ class UserAuthUseCaseImpl implements UserAuthUseCase {
 
   @override
   resetPasswordUsecase(ResetPasswordRequest data) {
-    return _repository.resetPasswordRepo(data);
+    _repository.resetPasswordRepo(data);
   }
 }

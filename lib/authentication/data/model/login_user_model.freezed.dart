@@ -109,7 +109,7 @@ class __$$LoginUserModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$LoginUserModelImpl implements _LoginUserModel {
-  const _$LoginUserModelImpl({this.token, this.username});
+  _$LoginUserModelImpl({this.token, this.username});
 
   factory _$LoginUserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoginUserModelImplFromJson(json);
@@ -156,7 +156,7 @@ class _$LoginUserModelImpl implements _LoginUserModel {
 }
 
 abstract class _LoginUserModel implements LoginUserModel {
-  const factory _LoginUserModel({final dynamic token, final dynamic username}) =
+  factory _LoginUserModel({final dynamic token, final dynamic username}) =
       _$LoginUserModelImpl;
 
   factory _LoginUserModel.fromJson(Map<String, dynamic> json) =

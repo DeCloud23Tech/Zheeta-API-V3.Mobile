@@ -6,7 +6,7 @@ part 'user_interest_model.g.dart';
 @freezed
 class UserInterestModel with _$UserInterestModel {
   @JsonSerializable()
-  const factory UserInterestModel({
+  factory UserInterestModel({
     required dynamic id,
     required dynamic title,
   }) = _UserInterestModel;
@@ -17,7 +17,7 @@ class UserInterestModel with _$UserInterestModel {
 @freezed
 class UserInterestListModel with _$UserInterestListModel {
   @JsonSerializable(explicitToJson: true)
-  const factory UserInterestListModel({required List<UserInterestModel> data}) = _UserInterestListModel;
+  factory UserInterestListModel({required List<UserInterestModel> data}) = _UserInterestListModel;
 
   factory UserInterestListModel.fromJson(Map<String, dynamic> json) => _$UserInterestListModelFromJson(json);
 }

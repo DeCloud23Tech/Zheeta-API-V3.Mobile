@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/extensions/string_extension.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
+import 'package:zheeta/widgets/network_image.dart';
 
 class ExampleCard extends StatelessWidget {
   final MatchModel match;
@@ -39,10 +41,10 @@ class ExampleCard extends StatelessWidget {
               Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                  child: Image.asset(
+                  child: CustomNetworkImage(
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width,
-                    "assets/images/User.png",
+                    imageUrl: match.profilePhotoURL,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -73,7 +75,7 @@ class ExampleCard extends StatelessWidget {
                             ),
                             const SizedBox(width: 15),
                             Text(
-                              '${match.username}',
+                              '@${match.username}',
                               style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w500, fontSize: 24),
                             ),
                             const SizedBox(width: 15),
@@ -93,7 +95,7 @@ class ExampleCard extends StatelessWidget {
                                   SvgPicture.asset('assets/images/female.svg', width: 11),
                                   SizedBox(width: 3),
                                   Text(
-                                    '${match.location}',
+                                    '${match.age}',
                                     style: const TextStyle(color: AppColors.white, fontSize: 10),
                                   ),
                                 ],
@@ -110,7 +112,7 @@ class ExampleCard extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'F',
+                                  '${match.gender.toString().getFirstLetter}',
                                   style: const TextStyle(color: AppColors.white, fontSize: 12),
                                 ),
                               ),
@@ -119,7 +121,7 @@ class ExampleCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          '${match.age}',
+                          '${match.location} (${match.distance.toString().roundToInt}km away)',
                           style: const TextStyle(color: Colors.grey, fontSize: 15),
                         ),
                       ],

@@ -6,7 +6,7 @@ part 'user_profile_model.g.dart';
 @freezed
 class UserProfileModel with _$UserProfileModel {
   @JsonSerializable(explicitToJson: true)
-  const factory UserProfileModel({
+  factory UserProfileModel({
     required UserProfileDataModel data,
   }) = _UserProfileModel;
 
@@ -16,7 +16,7 @@ class UserProfileModel with _$UserProfileModel {
 @freezed
 class UserProfileDataModel with _$UserProfileDataModel {
   @JsonSerializable(explicitToJson: true)
-  const factory UserProfileDataModel({
+  factory UserProfileDataModel({
     UserModel? user,
     ProfileModel? profile,
     ResidentialAddressModel? residentialAddress,
@@ -35,7 +35,7 @@ class UserProfileDataModel with _$UserProfileDataModel {
 @freezed
 class UserModel with _$UserModel {
   @JsonSerializable()
-  const factory UserModel({
+  factory UserModel({
     dynamic userId,
     dynamic isFullyVerified,
     dynamic userName,
@@ -55,7 +55,7 @@ class UserModel with _$UserModel {
 @freezed
 class ProfileModel with _$ProfileModel {
   @JsonSerializable()
-  const factory ProfileModel({
+  factory ProfileModel({
     dynamic firstName,
     dynamic lastName,
     dynamic dateOfBirth,
@@ -79,7 +79,7 @@ class ProfileModel with _$ProfileModel {
 @freezed
 class ResidentialAddressModel with _$ResidentialAddressModel {
   @JsonSerializable()
-  const factory ResidentialAddressModel({
+  factory ResidentialAddressModel({
     dynamic city,
     dynamic state,
     dynamic country,
@@ -92,7 +92,7 @@ class ResidentialAddressModel with _$ResidentialAddressModel {
 @freezed
 class OriginAddressModel with _$OriginAddressModel {
   @JsonSerializable()
-  const factory OriginAddressModel({
+  factory OriginAddressModel({
     dynamic city,
     dynamic state,
     dynamic country,
@@ -105,7 +105,7 @@ class OriginAddressModel with _$OriginAddressModel {
 @freezed
 class LocationModel with _$LocationModel {
   @JsonSerializable()
-  const factory LocationModel({
+  factory LocationModel({
     dynamic latitude,
     dynamic longitude,
   }) = _LocationModel;
@@ -116,7 +116,7 @@ class LocationModel with _$LocationModel {
 @freezed
 class ProfileCounterModel with _$ProfileCounterModel {
   @JsonSerializable()
-  const factory ProfileCounterModel({
+  factory ProfileCounterModel({
     dynamic friendsCount,
     dynamic refereesCount,
     dynamic postCount,
@@ -128,7 +128,7 @@ class ProfileCounterModel with _$ProfileCounterModel {
 @freezed
 class SubscriptionModel with _$SubscriptionModel {
   @JsonSerializable()
-  const factory SubscriptionModel({
+  factory SubscriptionModel({
     dynamic subscriptionId,
     dynamic name,
     dynamic amount,
@@ -144,7 +144,7 @@ class SubscriptionModel with _$SubscriptionModel {
 @freezed
 class WalletModel with _$WalletModel {
   @JsonSerializable()
-  const factory WalletModel({
+  factory WalletModel({
     dynamic availableBalance,
     dynamic lastTransactionDate,
   }) = _WalletModel;
@@ -155,7 +155,7 @@ class WalletModel with _$WalletModel {
 @freezed
 class InterestModel with _$InterestModel {
   @JsonSerializable()
-  const factory InterestModel({
+  factory InterestModel({
     dynamic id,
     dynamic title,
   }) = _InterestModel;
@@ -166,7 +166,7 @@ class InterestModel with _$InterestModel {
 @freezed
 class BankAccountDetailModel with _$BankAccountDetailModel {
   @JsonSerializable()
-  const factory BankAccountDetailModel({
+  factory BankAccountDetailModel({
     dynamic userId,
     dynamic firstName,
     dynamic lastName,

@@ -170,7 +170,7 @@ class __$$AddressFromLocationModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$AddressFromLocationModelImpl implements _AddressFromLocationModel {
-  const _$AddressFromLocationModelImpl(
+  _$AddressFromLocationModelImpl(
       {this.streetNumber,
       this.address,
       this.country,
@@ -241,7 +241,7 @@ class _$AddressFromLocationModelImpl implements _AddressFromLocationModel {
 }
 
 abstract class _AddressFromLocationModel implements AddressFromLocationModel {
-  const factory _AddressFromLocationModel(
+  factory _AddressFromLocationModel(
       {final dynamic streetNumber,
       final dynamic address,
       final dynamic country,

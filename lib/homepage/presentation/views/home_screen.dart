@@ -11,6 +11,7 @@ import 'package:zheeta/discover/presentation/views/discover_screen.dart';
 import 'package:zheeta/discover/presentation/widgets/criteria_filter_bottomsheet.dart';
 import 'package:zheeta/feeds/presentation/views/feed_screen.dart';
 import 'package:zheeta/messages/presentation/views/messages.dart';
+import 'package:zheeta/notification/presentation/view_model/notification_viewmodel.dart';
 import 'package:zheeta/profile/presentation/views/profile.dart';
 import 'package:zheeta/widgets/drawer.dart';
 
@@ -27,12 +28,15 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   late MatchCriteriaViewModel matchCriteriaViewModel;
+  late NotificationViewModel notificationViewModel;
 
   @override
   void initState() {
     matchCriteriaViewModel = ref.read(matchCriteriaViewModelProvider.notifier);
+    notificationViewModel = ref.read(notificationViewModelProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       matchCriteriaViewModel.getMatchCriteria();
+      notificationViewModel.getNotifications();
     });
     super.initState();
   }
@@ -217,12 +221,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 }
 
-class TopNavBtn extends StatelessWidget {
+class TopNavBtn extends ConsumerWidget {
   final String icon;
   const TopNavBtn({super.key, required this.icon});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notificationState = ref.watch(notificationViewModelProvider);
     return GestureDetector(
       onTap: () {
         if (icon.contains('menu')) {
@@ -235,30 +240,67 @@ class TopNavBtn extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: Container(
-          padding: EdgeInsets.all(10),
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-            color: AppColors.white.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: SvgPicture.asset(
-            icon,
-            width: 30,
-          ),
-        ),
+        child: icon.contains('bell') && (notificationState.unreadNotificationsCountState.data ?? 0) > 0
+            ? Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.white.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: SvgPicture.asset(
+                      icon,
+                      width: 30,
+                    ),
+                  ),
+                  Positioned(
+                    top: 5,
+                    right: 6,
+                    child: Container(
+                      constraints: BoxConstraints(minWidth: 14),
+                      height: 14,
+                      padding: EdgeInsets.symmetric(horizontal: 3),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.red,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Text(
+                        '${notificationState.unreadNotificationsCountState.data}',
+                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Container(
+                padding: EdgeInsets.all(10),
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: AppColors.white.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: SvgPicture.asset(
+                  icon,
+                  width: 30,
+                ),
+              ),
       ),
     );
   }
 }
 
-class TopNavBtn2 extends StatelessWidget {
+class TopNavBtn2 extends ConsumerWidget {
   final String icon;
   const TopNavBtn2({super.key, required this.icon});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final notificationState = ref.watch(notificationViewModelProvider);
     return GestureDetector(
       onTap: () {
         if (icon.contains('menu')) {
@@ -266,25 +308,62 @@ class TopNavBtn2 extends StatelessWidget {
         } else if (icon.contains('filter')) {
           criteriaFilterBottomSheet(context);
         } else if (icon.contains('bell')) {
-          // router.push(NotificationsRoute());
+          router.push(NotificationRoute());
         }
       },
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: Container(
-          padding: EdgeInsets.all(10),
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-            color: AppColors.grey.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: SvgPicture.asset(
-            icon,
-            width: 30,
-            colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
-          ),
-        ),
+        child: icon.contains('bell') && (notificationState.unreadNotificationsCountState.data ?? 0) > 0
+            ? Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.grey.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: SvgPicture.asset(
+                      icon,
+                      width: 30,
+                      colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+                    ),
+                  ),
+                  Positioned(
+                    top: 5,
+                    right: 6,
+                    child: Container(
+                      constraints: BoxConstraints(minWidth: 14),
+                      height: 14,
+                      padding: EdgeInsets.symmetric(horizontal: 3),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.red,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Text(
+                        '${notificationState.unreadNotificationsCountState.data}',
+                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Container(
+                padding: EdgeInsets.all(10),
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: AppColors.grey.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: SvgPicture.asset(
+                  icon,
+                  width: 30,
+                  colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+                ),
+              ),
       ),
     );
   }

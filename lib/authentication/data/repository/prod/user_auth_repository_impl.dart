@@ -46,7 +46,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
         if (error.message.toString().contains('Email is not verified')) {
           throw new EmailNotVerifiedException('Email is not verified');
         } else {
-          throw new Exception(error);
+          throw new Exception(error.message);
         }
       },
       (value) => LoginUserModel.fromJson(value['data']),

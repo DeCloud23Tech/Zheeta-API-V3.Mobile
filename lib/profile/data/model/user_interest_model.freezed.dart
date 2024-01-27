@@ -109,7 +109,7 @@ class __$$UserInterestModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$UserInterestModelImpl implements _UserInterestModel {
-  const _$UserInterestModelImpl({required this.id, required this.title});
+  _$UserInterestModelImpl({required this.id, required this.title});
 
   factory _$UserInterestModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserInterestModelImplFromJson(json);
@@ -156,7 +156,7 @@ class _$UserInterestModelImpl implements _UserInterestModel {
 }
 
 abstract class _UserInterestModel implements UserInterestModel {
-  const factory _UserInterestModel(
+  factory _UserInterestModel(
       {required final dynamic id,
       required final dynamic title}) = _$UserInterestModelImpl;
 
@@ -261,8 +261,7 @@ class __$$UserInterestListModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$UserInterestListModelImpl implements _UserInterestListModel {
-  const _$UserInterestListModelImpl(
-      {required final List<UserInterestModel> data})
+  _$UserInterestListModelImpl({required final List<UserInterestModel> data})
       : _data = data;
 
   factory _$UserInterestListModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -310,7 +309,7 @@ class _$UserInterestListModelImpl implements _UserInterestListModel {
 }
 
 abstract class _UserInterestListModel implements UserInterestListModel {
-  const factory _UserInterestListModel(
+  factory _UserInterestListModel(
           {required final List<UserInterestModel> data}) =
       _$UserInterestListModelImpl;
 

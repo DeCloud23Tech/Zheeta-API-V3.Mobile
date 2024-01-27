@@ -191,7 +191,7 @@ class __$$MatchModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$MatchModelImpl implements _MatchModel {
-  const _$MatchModelImpl(
+  _$MatchModelImpl(
       {this.id,
       this.username,
       this.profilePhotoURL,
@@ -271,7 +271,7 @@ class _$MatchModelImpl implements _MatchModel {
 }
 
 abstract class _MatchModel implements MatchModel {
-  const factory _MatchModel(
+  factory _MatchModel(
       {final dynamic id,
       final dynamic username,
       final dynamic profilePhotoURL,
@@ -390,7 +390,7 @@ class __$$MatchListModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$MatchListModelImpl implements _MatchListModel {
-  const _$MatchListModelImpl({final List<MatchModel>? data}) : _data = data;
+  _$MatchListModelImpl({final List<MatchModel>? data}) : _data = data;
 
   factory _$MatchListModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MatchListModelImplFromJson(json);
@@ -439,7 +439,7 @@ class _$MatchListModelImpl implements _MatchListModel {
 }
 
 abstract class _MatchListModel implements MatchListModel {
-  const factory _MatchListModel({final List<MatchModel>? data}) =
+  factory _MatchListModel({final List<MatchModel>? data}) =
       _$MatchListModelImpl;
 
   factory _MatchListModel.fromJson(Map<String, dynamic> json) =

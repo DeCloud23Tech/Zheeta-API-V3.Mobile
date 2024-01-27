@@ -56,4 +56,16 @@ class MatchCriteriaDataSourceImpl implements MatchCriteriaDataSource {
       );
     }
   }
+
+  @override
+  Future<Either<ErrorResponse, MappedResponse>> populateMatches() async {
+    final response = await _apiManager.getHttp('/friends/matches/populate', token: _authToken);
+    if (response.success) {
+      return Right(response.data);
+    } else {
+      return Left(
+        ErrorResponse(message: response.message, data: response.data),
+      );
+    }
+  }
 }

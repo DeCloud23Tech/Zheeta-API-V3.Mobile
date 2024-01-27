@@ -165,7 +165,7 @@ class __$$CountryDetailModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$CountryDetailModelImpl implements _CountryDetailModel {
-  const _$CountryDetailModelImpl(
+  _$CountryDetailModelImpl(
       {this.code,
       this.code2Iso,
       this.name,
@@ -239,7 +239,7 @@ class _$CountryDetailModelImpl implements _CountryDetailModel {
 }
 
 abstract class _CountryDetailModel implements CountryDetailModel {
-  const factory _CountryDetailModel(
+  factory _CountryDetailModel(
       {final String? code,
       final String? code2Iso,
       final String? name,

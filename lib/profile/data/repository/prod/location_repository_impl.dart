@@ -14,7 +14,7 @@ class LocationRepositoryImpl implements LocationRepository {
   Future<AddressFromLocationModel> getAddressFromLocationCoordinateRepo({required double latitude, required double longitude}) async {
     final result = await _datasource.getAddressFromLocationCoordinate(latitude: latitude, longitude: longitude);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => AddressFromLocationModel.fromJson(value['data']),
     );
   }
@@ -23,7 +23,7 @@ class LocationRepositoryImpl implements LocationRepository {
   getLocationCoordinateFromAddressRepo(LocationCoordinateFromAddressRequest request) async {
     final result = await _datasource.getLocationCoordinateFromAddress(request);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }

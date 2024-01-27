@@ -17,7 +17,7 @@ class UserTransactionRepositoryImpl implements UserTransactionRepository {
       pageSize: pageSize,
     );
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => UserTransactionListModel.fromJson(value),
     );
   }

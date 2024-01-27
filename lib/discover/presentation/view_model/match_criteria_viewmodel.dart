@@ -1,5 +1,6 @@
-import 'dart:developer';
+import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:zheeta/app/common/exceptions/custom_exception.dart';
@@ -8,7 +9,6 @@ import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
-import 'package:zheeta/discover/data/model/match_model.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/domain/usecase/match_criteria_usecase.dart';
 import 'package:zheeta/discover/presentation/state/match_criteria_state.dart';
@@ -30,51 +30,60 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
             updateMatchCriteriaState: State.init(),
             matchCriteriaState: State.init(),
             getMatchesState: State.init(),
+            populateMatchesState: State.init(),
+            countryState: State.init(),
+            cityState: State.init(),
           ),
         );
 
   setGender(String value) {
-    int? _gender;
-    switch (value.toLowerCase()) {
-      case 'male':
-        _gender = 1;
-        break;
-      case 'female':
-        _gender = 2;
-        break;
-    }
-    state = state.updateMatchCriteriaProperty(
-      state.matchCriteriaState.data!.copyWith(gender: _gender),
-    );
+    state = state.updateMatchCriteriaGenderState(value);
   }
 
   setMinAge(int value) {
-    state = state.updateMatchCriteriaProperty(
-      state.matchCriteriaState.data!.copyWith(minAge: value),
-    );
+    state = state.updateMatchCriteriaMinAgeState(value);
   }
 
   setMaxAge(int value) {
-    state = state.updateMatchCriteriaProperty(
-      state.matchCriteriaState.data!.copyWith(maxAge: value),
-    );
+    state = state.updateMatchCriteriaMaxAgeState(value);
   }
 
   setDistance(int value) {
-    state = state.updateMatchCriteriaProperty(
-      state.matchCriteriaState.data!.copyWith(distance: value),
-    );
+    state = state.updateMatchCriteriaDistanceState(value);
   }
 
   setCountry(String value) {
-    state = state.updateMatchCriteriaProperty(
-      state.matchCriteriaState.data!.copyWith(country: value),
+    state = state.updateMatchCriteriaCountryState(value);
+  }
+
+  setCity(String? value) {
+    state = state.updateMatchCriteriaCityState(value);
+  }
+
+  loadCountry() async {
+    state = state.setCountryState(State.success([]));
+    state = state.setCityState(State.success([]));
+    final data = await rootBundle.loadString('assets/json/countries.json');
+    final jsonData = jsonDecode(data) as Map<String, dynamic>;
+    state = state.setCountryState(
+      State.success(jsonData.keys.toSet().toList()),
     );
   }
 
-  setCity(String value) {
-    state = state.updateMatchCriteriaProperty(
-      state.matchCriteriaState.data!.copyWith(city: value),
+  loadCity(String country, {bool clearCity = true}) async {
+    if (clearCity) setCity(null);
+    state = state.setCityState(State.success([]));
+    final data = await rootBundle.loadString('assets/json/countries.json');
+    final jsonData = jsonDecode(data) as Map<String, dynamic>;
+    List<dynamic> city = jsonData.entries
+        .firstWhere(
+          (element) => element.key.toLowerCase() == country.toLowerCase(),
+        )
+        .value;
+    state = state.setCityState(
+      State.success(
+        city.map((e) => e.toString()).toSet().toList(),
+      ),
     );
   }
 
@@ -96,14 +105,14 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
         );
 
         final result = await _matchCriteriaUseCase.updateMatchCriteriaUseCase(requestData);
-        state = state.setUpdateMatchCriteriaState(State.success(result));
 
-        await getMatches(isLoading: false);
+        await getMatches(loadState: false);
+        state = state.setUpdateMatchCriteriaState(State.success(result));
 
         return true;
       } else {
         state = state.setUpdateMatchCriteriaState(
-          State.error(NoCriteriaException('Match criteria is not present')),
+          State.error(NoDataException('Match criteria is not present')),
         );
         return false;
       }
@@ -121,9 +130,8 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
       final result = await _matchCriteriaUseCase.getMatchCriteriaUseCase();
       state = state.setMatchCriteriaState(State.success(result));
       return true;
-    } on NoCriteriaException {
+    } on NoDataException {
       final userId = (await sessionManager.get(SessionManagerKeys.authUserIdString)) as String;
-      log("UserID: ${userId}");
       final userProfile = ref.watch(userProfileViewModelProvider).getSingleUserProfileState.data?.data;
       state = state.setMatchCriteriaState(
         State.success(
@@ -131,11 +139,11 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
             userId: userId,
             // Defaults to the opposite gender of the current user profile.
             gender: userProfile?.profile?.gender == 1 ? 'Female' : 'Male',
-            minAge: 18,
+            minAge: 10,
             maxAge: 100,
             distance: 100,
             country: userProfile?.residentialAddress?.country ?? userProfile?.originAddress?.country ?? null,
-            city: userProfile?.residentialAddress?.city ?? userProfile?.originAddress?.city ?? null,
+            city: null,
           ),
         ),
       );
@@ -146,20 +154,31 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
     }
   }
 
-  Future<bool> getMatches({bool isLoading = true}) async {
-    if (isLoading) state = state.setGetMatchesState(State.loading());
+  Future<bool> getMatches({bool loadState = true}) async {
+    if (loadState) state = state.setGetMatchesState(State.loading());
     try {
       final userId = (await sessionManager.get(SessionManagerKeys.authUserIdString)) as String;
       final result = await _matchCriteriaUseCase.getMatchesUseCase(userId: userId);
       state = state.setGetMatchesState(State.success(result));
       return true;
-    } on NoMatchException {
-      state = state.setGetMatchesState(
-        State.success(MatchListModel(data: [])),
-      );
+    } on NoDataException {
+      await populateMatches(getMatches: true);
       return true;
     } on Exception catch (e) {
       state = state.setGetMatchesState(State.error(e));
+      return false;
+    }
+  }
+
+  Future<bool> populateMatches({bool getMatches = false}) async {
+    state = state.setPopulateMatchesState(State.loading());
+    try {
+      final result = await _matchCriteriaUseCase.populateMatchesUseCase();
+      state = state.setPopulateMatchesState(State.success(result));
+      if (getMatches) this.getMatches();
+      return true;
+    } on Exception catch (e) {
+      state = state.setPopulateMatchesState(State.error(e));
       return false;
     }
   }

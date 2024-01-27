@@ -23,6 +23,11 @@ class MatchCriteriaUseCaseImpl implements MatchCriteriaUseCase {
 
   @override
   updateMatchCriteriaUseCase(MatchCriteriaRequest matchCreteriaRequest) {
-    return _repository.updateMatchCriteriaRepo(matchCreteriaRequest);
+    _repository.updateMatchCriteriaRepo(matchCreteriaRequest);
+  }
+
+  @override
+  populateMatchesUseCase() {
+    _repository.populateMatchesRepo();
   }
 }

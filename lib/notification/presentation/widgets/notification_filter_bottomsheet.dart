@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:zheeta/app/common/enums/notification_filter.dart';
 import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/notification/presentation/view_model/notification_viewmodel.dart';
 import 'package:zheeta/widgets/close_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
@@ -17,11 +19,26 @@ Future notificationFilterBottomSheet(BuildContext context) {
   );
 }
 
-class NotificationFilterBottomSheetView extends ConsumerWidget {
-  NotificationFilterBottomSheetView({super.key});
+class NotificationFilterBottomSheetView extends ConsumerStatefulWidget {
+  const NotificationFilterBottomSheetView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _NotificationFilterBottomSheetViewState();
+}
+
+class _NotificationFilterBottomSheetViewState extends ConsumerState<NotificationFilterBottomSheetView> {
+  late NotificationViewModel notificiationViewModel;
+  final _isLoading = StateProvider((ref) => false);
+
+  @override
+  void initState() {
+    notificiationViewModel = ref.read(notificationViewModelProvider.notifier);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final notificationState = ref.watch(notificationViewModelProvider);
     return Container(
       padding: EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -60,36 +77,15 @@ class NotificationFilterBottomSheetView extends ConsumerWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: [
-                NotificationFilterChip(
-                  text: 'Friend request',
-                  active: true,
-                ),
-                NotificationFilterChip(
-                  text: 'Activity',
-                  active: false,
-                ),
-                NotificationFilterChip(
-                  text: 'Gift',
-                  active: false,
-                ),
-                NotificationFilterChip(
-                  text: 'Post',
-                  active: false,
-                ),
-                NotificationFilterChip(
-                  text: 'Transaction',
-                  active: false,
-                ),
-                NotificationFilterChip(
-                  text: 'Shared Post',
-                  active: false,
-                ),
-                NotificationFilterChip(
-                  text: 'Community',
-                  active: false,
-                ),
-              ],
+              children: NotificationType.values.map((type) {
+                return NotificationFilterChip(
+                  text: type.name,
+                  active: notificationState.filterByCategoryState.data == type,
+                  onTap: () {
+                    notificiationViewModel.setNotificationTypeFilter(type);
+                  },
+                );
+              }).toList(),
             ),
             SizedBox(height: 20),
             Text(
@@ -100,35 +96,31 @@ class NotificationFilterBottomSheetView extends ConsumerWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: [
-                NotificationFilterChip(
-                  text: 'Last hour',
-                  active: true,
-                ),
-                NotificationFilterChip(
-                  text: 'Today',
-                  active: false,
-                ),
-                NotificationFilterChip(
-                  text: 'Last 7 days',
-                  active: false,
-                ),
-                NotificationFilterChip(
-                  text: 'Last 30 days',
-                  active: false,
-                ),
-              ],
+              children: NotificationDate.values.map((date) {
+                return NotificationFilterChip(
+                  text: date.name,
+                  active: notificationState.filterByDateState.data == date,
+                  onTap: () {
+                    notificiationViewModel.setNotificationDateFilter(date);
+                  },
+                );
+              }).toList(),
             ),
             SizedBox(height: 60),
             SizedBox(
               width: double.infinity,
               child: PrimaryButton(
                 title: 'Apply',
-                action: () {
+                state: ref.watch(_isLoading),
+                action: () async {
+                  ref.read(_isLoading.notifier).state = true;
+                  await notificiationViewModel.getNotifications(loadState: false);
+                  ref.read(_isLoading.notifier).state = false;
                   router.pop();
                 },
               ),
             ),
+            SizedBox(height: 10),
           ],
         ),
       ),

@@ -179,7 +179,7 @@ class __$$UserTransactionModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$UserTransactionModelImpl implements _UserTransactionModel {
-  const _$UserTransactionModelImpl(
+  _$UserTransactionModelImpl(
       {this.userId,
       this.title,
       this.fromUsername,
@@ -258,7 +258,7 @@ class _$UserTransactionModelImpl implements _UserTransactionModel {
 }
 
 abstract class _UserTransactionModel implements UserTransactionModel {
-  const factory _UserTransactionModel(
+  factory _UserTransactionModel(
       {final dynamic userId,
       final dynamic title,
       final dynamic fromUsername,
@@ -379,7 +379,7 @@ class __$$UserTransactionListModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$UserTransactionListModelImpl implements _UserTransactionListModel {
-  const _$UserTransactionListModelImpl({final List<UserTransactionModel>? data})
+  _$UserTransactionListModelImpl({final List<UserTransactionModel>? data})
       : _data = data;
 
   factory _$UserTransactionListModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -429,8 +429,7 @@ class _$UserTransactionListModelImpl implements _UserTransactionListModel {
 }
 
 abstract class _UserTransactionListModel implements UserTransactionListModel {
-  const factory _UserTransactionListModel(
-          {final List<UserTransactionModel>? data}) =
+  factory _UserTransactionListModel({final List<UserTransactionModel>? data}) =
       _$UserTransactionListModelImpl;
 
   factory _UserTransactionListModel.fromJson(Map<String, dynamic> json) =

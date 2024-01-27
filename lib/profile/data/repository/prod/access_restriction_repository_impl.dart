@@ -12,7 +12,7 @@ class AccessRestrictionRepositoryImpl implements AccessRestrictionRepository {
   disableAccountRepo({required String userId}) async {
     final result = await _datasource.disableAccount(userId: userId);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -21,7 +21,7 @@ class AccessRestrictionRepositoryImpl implements AccessRestrictionRepository {
   enableAccountRepo({required String userId}) async {
     final result = await _datasource.enableAccount(userId: userId);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }

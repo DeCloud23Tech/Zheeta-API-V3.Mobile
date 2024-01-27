@@ -6,7 +6,7 @@ part 'match_model.g.dart';
 @freezed
 class MatchModel with _$MatchModel {
   @JsonSerializable()
-  const factory MatchModel({
+  factory MatchModel({
     dynamic id,
     dynamic username,
     dynamic profilePhotoURL,
@@ -23,7 +23,7 @@ class MatchModel with _$MatchModel {
 @freezed
 class MatchListModel with _$MatchListModel {
   @JsonSerializable(explicitToJson: true)
-  const factory MatchListModel({
+  factory MatchListModel({
     List<MatchModel>? data,
   }) = _MatchListModel;
 

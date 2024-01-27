@@ -18,7 +18,7 @@ class UserSearchRepositorImpl implements UserSearchRepository {
       pageSize: pageSize,
     );
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => SearchUserByAdminListModel.fromJson(value),
     );
   }
@@ -31,7 +31,7 @@ class UserSearchRepositorImpl implements UserSearchRepository {
       pageSize: pageSize,
     );
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => SearchUserByAdminListModel.fromJson(value),
     );
   }
@@ -44,7 +44,7 @@ class UserSearchRepositorImpl implements UserSearchRepository {
       pageSize: pageSize,
     );
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => SearchUserByCustomerListModel.fromJson(value),
     );
   }

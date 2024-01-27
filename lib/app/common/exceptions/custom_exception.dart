@@ -42,17 +42,9 @@ class DuplicateRegisterParamException implements Exception {
   });
 }
 
-class NoCriteriaException implements Exception {
+class NoDataException implements Exception {
   final String message;
-  NoCriteriaException(this.message);
-
-  @override
-  String toString() => message;
-}
-
-class NoMatchException implements Exception {
-  final String message;
-  NoMatchException(this.message);
+  NoDataException(this.message);
 
   @override
   String toString() => message;

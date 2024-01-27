@@ -262,7 +262,7 @@ class __$$BoostedProfileByAdminModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
-  const _$BoostedProfileByAdminModelImpl(
+  _$BoostedProfileByAdminModelImpl(
       {this.userId,
       this.targetCountry,
       this.targetGender,
@@ -374,7 +374,7 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
 
 abstract class _BoostedProfileByAdminModel
     implements BoostedProfileByAdminModel {
-  const factory _BoostedProfileByAdminModel(
+  factory _BoostedProfileByAdminModel(
       {final dynamic userId,
       final dynamic targetCountry,
       final dynamic targetGender,
@@ -517,7 +517,7 @@ class __$$BoostedProfileByAdminListModelImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$BoostedProfileByAdminListModelImpl
     implements _BoostedProfileByAdminListModel {
-  const _$BoostedProfileByAdminListModelImpl(
+  _$BoostedProfileByAdminListModelImpl(
       {final List<BoostedProfileByAdminListModel>? data})
       : _data = data;
 
@@ -571,7 +571,7 @@ class _$BoostedProfileByAdminListModelImpl
 
 abstract class _BoostedProfileByAdminListModel
     implements BoostedProfileByAdminListModel {
-  const factory _BoostedProfileByAdminListModel(
+  factory _BoostedProfileByAdminListModel(
           {final List<BoostedProfileByAdminListModel>? data}) =
       _$BoostedProfileByAdminListModelImpl;
 

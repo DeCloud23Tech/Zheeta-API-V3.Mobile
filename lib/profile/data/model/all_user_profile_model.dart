@@ -7,7 +7,7 @@ part 'all_user_profile_model.g.dart';
 @freezed
 class AllUserProfileModel with _$AllUserProfileModel {
   @JsonSerializable()
-  const factory AllUserProfileModel({
+  factory AllUserProfileModel({
     dynamic userId,
     dynamic userName,
     dynamic isFullyVerified,
@@ -28,7 +28,7 @@ class AllUserProfileModel with _$AllUserProfileModel {
 @freezed
 class AllUserProfileListModel with _$AllUserProfileListModel {
   @JsonSerializable(explicitToJson: true)
-  const factory AllUserProfileListModel({
+  factory AllUserProfileListModel({
     List<AllUserProfileModel>? data,
   }) = _AllUserProfileListModel;
 

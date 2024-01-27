@@ -152,7 +152,7 @@ class __$$CountryModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$CountryModelImpl implements _CountryModel {
-  const _$CountryModelImpl(
+  _$CountryModelImpl(
       {this.code, this.code2Iso, this.name, this.phoneCode, this.currency});
 
   factory _$CountryModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -209,7 +209,7 @@ class _$CountryModelImpl implements _CountryModel {
 }
 
 abstract class _CountryModel implements CountryModel {
-  const factory _CountryModel(
+  factory _CountryModel(
       {final String? code,
       final String? code2Iso,
       final String? name,

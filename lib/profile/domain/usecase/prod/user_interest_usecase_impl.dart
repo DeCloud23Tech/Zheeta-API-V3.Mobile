@@ -12,7 +12,7 @@ class UserInterestUseCaseImpl implements UserInterestUseCase {
 
   @override
   updateUserInterestUseCase(UpdateUserUnterestRequest request) {
-    return _repository.updateUserInterestRepo(request);
+    _repository.updateUserInterestRepo(request);
   }
 
   @override

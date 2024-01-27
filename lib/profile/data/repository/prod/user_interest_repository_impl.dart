@@ -14,7 +14,7 @@ class UserInterestRepositoryImpl implements UserInterestRepository {
   updateUserInterestRepo(UpdateUserUnterestRequest request) async {
     final result = await _datasource.updateUserInterest(request);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -23,7 +23,7 @@ class UserInterestRepositoryImpl implements UserInterestRepository {
   Future<UserInterestListModel> getInterestsRepo() async {
     final result = await _datasource.getInterests();
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => UserInterestListModel.fromJson(value),
     );
   }

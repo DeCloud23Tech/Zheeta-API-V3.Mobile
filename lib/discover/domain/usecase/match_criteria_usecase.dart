@@ -6,4 +6,5 @@ abstract class MatchCriteriaUseCase {
   updateMatchCriteriaUseCase(MatchCriteriaRequest matchCreteriaRequest);
   Future<MatchCriteriaModel> getMatchCriteriaUseCase();
   Future<MatchListModel> getMatchesUseCase({required String userId});
+  populateMatchesUseCase();
 }

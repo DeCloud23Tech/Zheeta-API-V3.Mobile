@@ -22,13 +22,33 @@ Future criteriaFilterBottomSheet(BuildContext context) {
   );
 }
 
-class CriteriaFilterBottomSheetView extends ConsumerWidget {
-  CriteriaFilterBottomSheetView({super.key});
+class CriteriaFilterBottomSheetView extends ConsumerStatefulWidget {
+  const CriteriaFilterBottomSheetView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _CriteriaFilterBottomSheetViewState();
+}
+
+class _CriteriaFilterBottomSheetViewState extends ConsumerState<CriteriaFilterBottomSheetView> {
+  late MatchCriteriaViewModel matchCriteriaViewModel;
+
+  @override
+  void initState() {
+    matchCriteriaViewModel = ref.read(matchCriteriaViewModelProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      matchCriteriaViewModel.loadCountry();
+      final matchCriteriaState = ref.watch(matchCriteriaViewModelProvider);
+      Future.delayed(
+        Duration(milliseconds: 200),
+        () => matchCriteriaViewModel.loadCity(matchCriteriaState.matchCriteriaState.data!.country, clearCity: false),
+      );
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final matchCriteriaState = ref.watch(matchCriteriaViewModelProvider);
-    final matchCriteriaViewModel = ref.read(matchCriteriaViewModelProvider.notifier);
     return Container(
       padding: EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -67,14 +87,14 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
             Row(
               children: [
                 AppRadioButton(
-                  value: 'Man',
+                  value: 'Male',
                   groupValue: matchCriteriaState.matchCriteriaState.data?.gender,
                   onChanged: (value) {
                     matchCriteriaViewModel.setGender(value);
                   },
                 ),
                 AppRadioButton(
-                  value: 'Woman',
+                  value: 'Female',
                   groupValue: matchCriteriaState.matchCriteriaState.data?.gender,
                   onChanged: (value) {
                     matchCriteriaViewModel.setGender(value);
@@ -95,7 +115,7 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
                 text: 'Age ',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 children: [
-                  if (matchCriteriaState.matchCriteriaState.data?.minAge > 22 || matchCriteriaState.matchCriteriaState.data?.maxAge < 40)
+                  if (matchCriteriaState.matchCriteriaState.data!.minAge > 22 || matchCriteriaState.matchCriteriaState.data!.maxAge < 40)
                     TextSpan(
                       text: '(${matchCriteriaState.matchCriteriaState.data?.minAge}, ${matchCriteriaState.matchCriteriaState.data?.maxAge})',
                       style: TextStyle(fontSize: 12, color: AppColors.primaryDark, fontWeight: FontWeight.w400),
@@ -105,12 +125,13 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
             ),
             SizedBox(height: 10),
             RangeSlider(
-              values: RangeValues(matchCriteriaState.matchCriteriaState.data?.minAge, matchCriteriaState.matchCriteriaState.data?.maxAge),
+              values: RangeValues(matchCriteriaState.matchCriteriaState.data!.minAge.toDouble(), matchCriteriaState.matchCriteriaState.data!.maxAge.toDouble()),
               labels: RangeLabels("${matchCriteriaState.matchCriteriaState.data?.minAge}", "${matchCriteriaState.matchCriteriaState.data?.maxAge}"),
-              min: 18,
+              min: 10,
               max: 100,
               onChanged: (value) {
                 matchCriteriaViewModel.setMinAge(value.start.roundToInt);
+                matchCriteriaViewModel.setMaxAge(value.end.roundToInt);
               },
             ),
             SizedBox(height: 20),
@@ -130,7 +151,7 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
             SizedBox(height: 10),
             Slider(
               label: '${matchCriteriaState.matchCriteriaState.data?.distance} Km away',
-              value: matchCriteriaState.matchCriteriaState.data?.distance,
+              value: matchCriteriaState.matchCriteriaState.data!.distance.toDouble(),
               min: 0,
               max: 30,
               onChanged: (value) {
@@ -139,16 +160,17 @@ class CriteriaFilterBottomSheetView extends ConsumerWidget {
             ),
             SizedBox(height: 26),
             DropdownInputField(
-              items: [''],
+              items: matchCriteriaState.countryState.data ?? [],
               hintText: 'Country',
               value: matchCriteriaState.matchCriteriaState.data?.country ?? null,
               onChanged: (value) {
                 matchCriteriaViewModel.setCountry(value!);
+                matchCriteriaViewModel.loadCity(value);
               },
             ),
             SizedBox(height: 20),
             DropdownInputField(
-              items: [''],
+              items: matchCriteriaState.cityState.data ?? [],
               value: matchCriteriaState.matchCriteriaState.data?.city ?? null,
               hintText: 'City',
               onChanged: (value) {

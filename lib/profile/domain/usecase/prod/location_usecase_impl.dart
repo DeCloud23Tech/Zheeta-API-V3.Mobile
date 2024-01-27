@@ -17,6 +17,6 @@ class LocationUseCaseImpl implements LocationUseCase {
 
   @override
   getLocationCoordinateFromAddressUseCase(LocationCoordinateFromAddressRequest request) {
-    return _repository.getLocationCoordinateFromAddressRepo(request);
+    _repository.getLocationCoordinateFromAddressRepo(request);
   }
 }

@@ -6,4 +6,5 @@ abstract class MatchCriteriaRepository {
   updateMatchCriteriaRepo(MatchCriteriaRequest matchCreteriaRequest);
   Future<MatchCriteriaModel> getMatchCriteriaRepo();
   Future<MatchListModel> getMatchesRepo({required String userId});
+  populateMatchesRepo();
 }

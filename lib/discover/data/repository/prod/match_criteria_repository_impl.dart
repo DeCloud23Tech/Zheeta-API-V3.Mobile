@@ -17,10 +17,10 @@ class MatchCriteriaRepositoryImpl implements MatchCriteriaRepository {
     final result = await _datasource.getMatchCriteria();
     return result.fold(
       (error) {
-        if (error.message == "No Data to Fetch") {
-          throw new NoCriteriaException('No Criteria Found');
+        if (error.data == null) {
+          throw new NoDataException('No Criteria Found');
         } else {
-          throw new Exception(error);
+          throw new Exception(error.message);
         }
       },
       (value) => MatchCriteriaModel.fromJson(value['data']),
@@ -32,10 +32,10 @@ class MatchCriteriaRepositoryImpl implements MatchCriteriaRepository {
     final result = await _datasource.getMatches(userId: userId);
     return result.fold(
       (error) {
-        if (error.message == "No Data to Fetch" || error.data == null || error.data == []) {
-          throw new NoMatchException('No Match Found');
+        if (error.data == null) {
+          throw new NoDataException('No Match Found');
         } else {
-          throw new Exception(error);
+          throw new Exception(error.message);
         }
       },
       (value) => MatchListModel.fromJson(value),
@@ -46,7 +46,16 @@ class MatchCriteriaRepositoryImpl implements MatchCriteriaRepository {
   updateMatchCriteriaRepo(MatchCriteriaRequest matchCreteriaRequest) async {
     final result = await _datasource.updateMatchCriteria(matchCreteriaRequest);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
+      (value) => value,
+    );
+  }
+
+  @override
+  populateMatchesRepo() async {
+    final result = await _datasource.populateMatches();
+    return result.fold(
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }

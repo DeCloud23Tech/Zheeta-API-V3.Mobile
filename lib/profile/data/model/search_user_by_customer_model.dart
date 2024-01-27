@@ -6,7 +6,7 @@ part 'search_user_by_customer_model.g.dart';
 @freezed
 class SearchUserByCustomerModel with _$SearchUserByCustomerModel {
   @JsonSerializable()
-  const factory SearchUserByCustomerModel({
+  factory SearchUserByCustomerModel({
     dynamic profileDisplayURL,
     dynamic username,
     dynamic userId,
@@ -19,7 +19,7 @@ class SearchUserByCustomerModel with _$SearchUserByCustomerModel {
 @freezed
 class SearchUserByCustomerListModel with _$SearchUserByCustomerListModel {
   @JsonSerializable(explicitToJson: true)
-  const factory SearchUserByCustomerListModel({
+  factory SearchUserByCustomerListModel({
     List<SearchUserByCustomerModel>? data,
   }) = _SearchUserByCustomerListModel;
 

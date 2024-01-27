@@ -14,7 +14,7 @@ class CountryRepositoryImpl implements CountryRepository {
   Future<CountryListModel> getAllCountriesRepo() async {
     final result = await _datasource.getAllCountries();
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => CountryListModel.fromJson(value['data']),
     );
   }
@@ -23,7 +23,7 @@ class CountryRepositoryImpl implements CountryRepository {
   Future<CountryDetailModel> getCountryDetailsRepo(String countryCode) async {
     final result = await _datasource.getCountryDetails(countryCode);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => CountryDetailModel.fromJson(value['data']),
     );
   }

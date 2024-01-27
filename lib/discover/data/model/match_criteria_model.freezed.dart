@@ -20,13 +20,13 @@ MatchCriteriaModel _$MatchCriteriaModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MatchCriteriaModel {
-  dynamic get userId => throw _privateConstructorUsedError;
-  dynamic get gender => throw _privateConstructorUsedError;
-  dynamic get minAge => throw _privateConstructorUsedError;
-  dynamic get maxAge => throw _privateConstructorUsedError;
-  dynamic get distance => throw _privateConstructorUsedError;
-  dynamic get country => throw _privateConstructorUsedError;
-  dynamic get city => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
+  int get minAge => throw _privateConstructorUsedError;
+  int get maxAge => throw _privateConstructorUsedError;
+  int get distance => throw _privateConstructorUsedError;
+  String get country => throw _privateConstructorUsedError;
+  String? get city => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,13 +41,13 @@ abstract class $MatchCriteriaModelCopyWith<$Res> {
       _$MatchCriteriaModelCopyWithImpl<$Res, MatchCriteriaModel>;
   @useResult
   $Res call(
-      {dynamic userId,
-      dynamic gender,
-      dynamic minAge,
-      dynamic maxAge,
-      dynamic distance,
-      dynamic country,
-      dynamic city});
+      {String userId,
+      String gender,
+      int minAge,
+      int maxAge,
+      int distance,
+      String country,
+      String? city});
 }
 
 /// @nodoc
@@ -63,43 +63,43 @@ class _$MatchCriteriaModelCopyWithImpl<$Res, $Val extends MatchCriteriaModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? gender = freezed,
-    Object? minAge = freezed,
-    Object? maxAge = freezed,
-    Object? distance = freezed,
-    Object? country = freezed,
+    Object? userId = null,
+    Object? gender = null,
+    Object? minAge = null,
+    Object? maxAge = null,
+    Object? distance = null,
+    Object? country = null,
     Object? city = freezed,
   }) {
     return _then(_value.copyWith(
-      userId: freezed == userId
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      gender: freezed == gender
+              as String,
+      gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      minAge: freezed == minAge
+              as String,
+      minAge: null == minAge
           ? _value.minAge
           : minAge // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      maxAge: freezed == maxAge
+              as int,
+      maxAge: null == maxAge
           ? _value.maxAge
           : maxAge // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      distance: freezed == distance
+              as int,
+      distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      country: freezed == country
+              as int,
+      country: null == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
     ) as $Val);
   }
 }
@@ -113,13 +113,13 @@ abstract class _$$MatchCriteriaModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {dynamic userId,
-      dynamic gender,
-      dynamic minAge,
-      dynamic maxAge,
-      dynamic distance,
-      dynamic country,
-      dynamic city});
+      {String userId,
+      String gender,
+      int minAge,
+      int maxAge,
+      int distance,
+      String country,
+      String? city});
 }
 
 /// @nodoc
@@ -133,43 +133,43 @@ class __$$MatchCriteriaModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? gender = freezed,
-    Object? minAge = freezed,
-    Object? maxAge = freezed,
-    Object? distance = freezed,
-    Object? country = freezed,
+    Object? userId = null,
+    Object? gender = null,
+    Object? minAge = null,
+    Object? maxAge = null,
+    Object? distance = null,
+    Object? country = null,
     Object? city = freezed,
   }) {
     return _then(_$MatchCriteriaModelImpl(
-      userId: freezed == userId
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      gender: freezed == gender
+              as String,
+      gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      minAge: freezed == minAge
+              as String,
+      minAge: null == minAge
           ? _value.minAge
           : minAge // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      maxAge: freezed == maxAge
+              as int,
+      maxAge: null == maxAge
           ? _value.maxAge
           : maxAge // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      distance: freezed == distance
+              as int,
+      distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      country: freezed == country
+              as int,
+      country: null == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
     ));
   }
 }
@@ -178,32 +178,32 @@ class __$$MatchCriteriaModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$MatchCriteriaModelImpl implements _MatchCriteriaModel {
-  const _$MatchCriteriaModelImpl(
-      {this.userId,
-      this.gender,
-      this.minAge,
-      this.maxAge,
-      this.distance,
-      this.country,
-      this.city});
+  _$MatchCriteriaModelImpl(
+      {required this.userId,
+      required this.gender,
+      required this.minAge,
+      required this.maxAge,
+      required this.distance,
+      required this.country,
+      required this.city});
 
   factory _$MatchCriteriaModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MatchCriteriaModelImplFromJson(json);
 
   @override
-  final dynamic userId;
+  final String userId;
   @override
-  final dynamic gender;
+  final String gender;
   @override
-  final dynamic minAge;
+  final int minAge;
   @override
-  final dynamic maxAge;
+  final int maxAge;
   @override
-  final dynamic distance;
+  final int distance;
   @override
-  final dynamic country;
+  final String country;
   @override
-  final dynamic city;
+  final String? city;
 
   @override
   String toString() {
@@ -215,26 +215,20 @@ class _$MatchCriteriaModelImpl implements _MatchCriteriaModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MatchCriteriaModelImpl &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality().equals(other.gender, gender) &&
-            const DeepCollectionEquality().equals(other.minAge, minAge) &&
-            const DeepCollectionEquality().equals(other.maxAge, maxAge) &&
-            const DeepCollectionEquality().equals(other.distance, distance) &&
-            const DeepCollectionEquality().equals(other.country, country) &&
-            const DeepCollectionEquality().equals(other.city, city));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.minAge, minAge) || other.minAge == minAge) &&
+            (identical(other.maxAge, maxAge) || other.maxAge == maxAge) &&
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.city, city) || other.city == city));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(gender),
-      const DeepCollectionEquality().hash(minAge),
-      const DeepCollectionEquality().hash(maxAge),
-      const DeepCollectionEquality().hash(distance),
-      const DeepCollectionEquality().hash(country),
-      const DeepCollectionEquality().hash(city));
+      runtimeType, userId, gender, minAge, maxAge, distance, country, city);
 
   @JsonKey(ignore: true)
   @override
@@ -252,32 +246,32 @@ class _$MatchCriteriaModelImpl implements _MatchCriteriaModel {
 }
 
 abstract class _MatchCriteriaModel implements MatchCriteriaModel {
-  const factory _MatchCriteriaModel(
-      {final dynamic userId,
-      final dynamic gender,
-      final dynamic minAge,
-      final dynamic maxAge,
-      final dynamic distance,
-      final dynamic country,
-      final dynamic city}) = _$MatchCriteriaModelImpl;
+  factory _MatchCriteriaModel(
+      {required final String userId,
+      required final String gender,
+      required final int minAge,
+      required final int maxAge,
+      required final int distance,
+      required final String country,
+      required final String? city}) = _$MatchCriteriaModelImpl;
 
   factory _MatchCriteriaModel.fromJson(Map<String, dynamic> json) =
       _$MatchCriteriaModelImpl.fromJson;
 
   @override
-  dynamic get userId;
+  String get userId;
   @override
-  dynamic get gender;
+  String get gender;
   @override
-  dynamic get minAge;
+  int get minAge;
   @override
-  dynamic get maxAge;
+  int get maxAge;
   @override
-  dynamic get distance;
+  int get distance;
   @override
-  dynamic get country;
+  String get country;
   @override
-  dynamic get city;
+  String? get city;
   @override
   @JsonKey(ignore: true)
   _$$MatchCriteriaModelImplCopyWith<_$MatchCriteriaModelImpl> get copyWith =>

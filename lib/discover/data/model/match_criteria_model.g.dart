@@ -9,13 +9,13 @@ part of 'match_criteria_model.dart';
 _$MatchCriteriaModelImpl _$$MatchCriteriaModelImplFromJson(
         Map<String, dynamic> json) =>
     _$MatchCriteriaModelImpl(
-      userId: json['userId'],
-      gender: json['gender'],
-      minAge: json['minAge'],
-      maxAge: json['maxAge'],
-      distance: json['distance'],
-      country: json['country'],
-      city: json['city'],
+      userId: json['userId'] as String,
+      gender: json['gender'] as String,
+      minAge: json['minAge'] as int,
+      maxAge: json['maxAge'] as int,
+      distance: json['distance'] as int,
+      country: json['country'] as String,
+      city: json['city'] as String?,
     );
 
 Map<String, dynamic> _$$MatchCriteriaModelImplToJson(
