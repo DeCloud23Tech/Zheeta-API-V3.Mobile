@@ -225,7 +225,7 @@ extension GetItInjectableX on _i1.GetIt {
       registerFor: {_prod},
     );
     gh.lazySingleton<_i7.CountryDataSource>(
-      () => _i8.CountryDatasourceImpl(gh<_i5.ApiManager>()),
+      () => _i8.CountryDataSourceImpl(gh<_i5.ApiManager>()),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i9.CountryRepository>(

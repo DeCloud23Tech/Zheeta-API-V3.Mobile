@@ -10,6 +10,7 @@ import 'package:zheeta/authentication/data/request/login_request.dart';
 import 'package:zheeta/authentication/data/request/register_staff_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
+import 'package:zheeta/authentication/domain/entity/types.dart';
 
 import '../../../mock/app/api/api_manager.mocks.dart';
 
@@ -25,32 +26,29 @@ void main() {
 
     group('changePassword', () {
       test('should return Right with MappedResponse on success', () async {
-        // Arrange
         final request = ChangePasswordRequest(newPassword: 'newPassword', oldPassword: 'oldPassword');
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.changePassword(request);
 
-        // Assert
         expect(result, equals(Right(response.data)));
         verify(mockApiManager.postHttp('/userauth/change-password', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
 
       test('should return Left with error message on failure', () async {
-        // Arrange
         final request = ChangePasswordRequest(newPassword: 'newPassword', oldPassword: 'oldPassword');
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.changePassword(request);
 
-        // Assert
-        expect(result, equals(Left(errorMessage)));
+        expect(
+          result,
+          equals(Left(ErrorResponse(message: errorMessage))),
+        );
         verify(mockApiManager.postHttp('/userauth/change-password', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
@@ -58,7 +56,6 @@ void main() {
 
     group('registerUser', () {
       test('should return Right with MappedResponse on success', () async {
-        // Arrange
         final request = RegisterUserRequest(
           userName: 'username',
           password: 'password',
@@ -69,17 +66,14 @@ void main() {
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.registerUser(request);
 
-        // Assert
         expect(result, equals(Right(response.data)));
         verify(mockApiManager.postHttp('/userauth/register-user', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
 
       test('should return Left with error message on failure', () async {
-        // Arrange
         final request = RegisterUserRequest(
           userName: 'username',
           password: 'password',
@@ -91,11 +85,12 @@ void main() {
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.registerUser(request);
 
-        // Assert
-        expect(result, equals(Left(errorMessage)));
+        expect(
+          result,
+          equals(Left(ErrorResponse(message: errorMessage))),
+        );
         verify(mockApiManager.postHttp('/userauth/register-user', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
@@ -103,32 +98,29 @@ void main() {
 
     group('login', () {
       test('should return Right with MappedResponse on success', () async {
-        // Arrange
         final request = LoginRequest(email: 'email@example.com', password: 'password', userDeviceToken: 'deviceToken', platform: 'platform');
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.login(request);
 
-        // Assert
         expect(result, equals(Right(response.data)));
         verify(mockApiManager.postHttp('/userauth/login', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
 
       test('should return Left with error message on failure', () async {
-        // Arrange
         final request = LoginRequest(email: 'email@example.com', password: 'password', userDeviceToken: 'deviceToken', platform: 'platform');
         final errorMessage = 'Error message';
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.login(request);
 
-        // Assert
-        expect(result, equals(Left(errorMessage)));
+        expect(
+          result,
+          equals(Left(ErrorResponse(message: errorMessage))),
+        );
         verify(mockApiManager.postHttp('/userauth/login', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
@@ -136,7 +128,6 @@ void main() {
 
     group('registerStaff', () {
       test('should return Right with MappedResponse on success', () async {
-        // Arrange
         final request = RegisterStaffRequest(
           userName: 'username',
           password: 'password',
@@ -147,17 +138,14 @@ void main() {
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.registerStaff(request);
 
-        // Assert
         expect(result, equals(Right(response.data)));
         verify(mockApiManager.postHttp('/userauth/register-staff', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
 
       test('should return Left with error message on failure', () async {
-        // Arrange
         final request = RegisterStaffRequest(
           userName: 'username',
           password: 'password',
@@ -169,11 +157,12 @@ void main() {
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.registerStaff(request);
 
-        // Assert
-        expect(result, equals(Left(errorMessage)));
+        expect(
+          result,
+          equals(Left(ErrorResponse(message: errorMessage))),
+        );
         verify(mockApiManager.postHttp('/userauth/register-staff', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
@@ -181,7 +170,6 @@ void main() {
 
     group('resetPassword', () {
       test('should return Right with MappedResponse on success', () async {
-        // Arrange
         final request = ResetPasswordRequest(
           email: 'email@example.com',
           otp: '123456',
@@ -190,17 +178,14 @@ void main() {
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.putHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.resetPassword(request);
 
-        // Assert
         expect(result, equals(Right(response.data)));
         verify(mockApiManager.putHttp('/userauth/reset-password', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
 
       test('should return Left with error message on failure', () async {
-        // Arrange
         final request = ResetPasswordRequest(
           email: 'email@example.com',
           otp: '123456',
@@ -210,11 +195,12 @@ void main() {
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.putHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.resetPassword(request);
 
-        // Assert
-        expect(result, equals(Left(errorMessage)));
+        expect(
+          result,
+          equals(Left(ErrorResponse(message: errorMessage))),
+        );
         verify(mockApiManager.putHttp('/userauth/reset-password', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
@@ -222,7 +208,6 @@ void main() {
 
     group('loginOAuth', () {
       test('should return Right with MappedResponse on success', () async {
-        // Arrange
         final request = LoginOAuthRequest(
           googleAccessToken: 'googleAccessToken',
           googleUseridToken: 'googleUseridToken',
@@ -234,17 +219,14 @@ void main() {
         final response = FormattedResponse(success: true, data: {'key': 'value'}, message: '');
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.loginOAuth(request);
 
-        // Assert
         expect(result, equals(Right(response.data)));
         verify(mockApiManager.postHttp('/userauth/register-staff', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
 
       test('should return Left with error message on failure', () async {
-        // Arrange
         final request = LoginOAuthRequest(
           googleAccessToken: 'googleAccessToken',
           googleUseridToken: 'googleUseridToken',
@@ -257,11 +239,12 @@ void main() {
         final response = FormattedResponse(success: false, message: errorMessage);
         when(mockApiManager.postHttp(any, any)).thenAnswer((_) async => response);
 
-        // Act
         final result = await datasource.loginOAuth(request);
 
-        // Assert
-        expect(result, equals(Left(errorMessage)));
+        expect(
+          result,
+          equals(Left(ErrorResponse(message: errorMessage))),
+        );
         verify(mockApiManager.postHttp('/userauth/register-staff', request.toJson()));
         verifyNoMoreInteractions(mockApiManager);
       });
