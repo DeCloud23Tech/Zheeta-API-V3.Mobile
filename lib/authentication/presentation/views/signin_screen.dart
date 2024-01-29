@@ -64,7 +64,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 InputField(
                   hintText: 'Password',
                   password: _isPasswordObscure,
-                  validator: (data) => userAuthViewModel.validatePassword(),
                   onChanged: (value) => userAuthViewModel.setPassword(value),
                 ),
                 SizedBox(height: 32),
@@ -94,9 +93,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.3, child: Divider()),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: Divider()),
                     Text(signinAlt, style: authAltStyle),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.3, child: Divider()),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: Divider()),
                   ],
                 ),
                 SizedBox(height: 20),
