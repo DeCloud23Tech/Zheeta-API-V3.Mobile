@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       routerConfig: router.config(),
       title: 'Zheeta',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       theme: ThemeData(
         datePickerTheme: DatePickerThemeData(
           backgroundColor: Colors.white,

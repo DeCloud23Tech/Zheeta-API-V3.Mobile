@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/extensions/string_extension.dart';
+import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
 import 'package:zheeta/widgets/network_image.dart';
 
@@ -49,84 +51,89 @@ class ExampleCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 60),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/icons/user.svg',
-                              width: 22,
-                              colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),
-                            ),
-                            const SizedBox(width: 15),
-                            Text(
-                              '@${match.username}',
-                              style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w500, fontSize: 24),
-                            ),
-                            const SizedBox(width: 15),
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryDark,
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [AppColors.primaryLight, AppColors.primaryDark],
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset('assets/images/female.svg', width: 11),
-                                  SizedBox(width: 3),
-                                  Text(
-                                    '${match.age}',
-                                    style: const TextStyle(color: AppColors.white, fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 15),
-                            Container(
-                              width: 30,
-                              height: 25,
-                              padding: EdgeInsets.all(1),
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryDark,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '${match.gender.toString().getFirstLetter}',
-                                  style: const TextStyle(color: AppColors.white, fontSize: 12),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          '${match.location} (${match.distance.toString().roundToInt}km away)',
-                          style: const TextStyle(color: Colors.grey, fontSize: 15),
-                        ),
-                      ],
+              GestureDetector(
+                onTap: () {
+                  router.push(MatchProfileRoute());
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(top: 60),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
                     ),
-                  ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/icons/user.svg',
+                                width: 22,
+                                colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),
+                              ),
+                              const SizedBox(width: 15),
+                              Text(
+                                '@${match.username}',
+                                style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w500, fontSize: 24),
+                              ),
+                              const SizedBox(width: 15),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryDark,
+                                  gradient: const LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [AppColors.primaryLight, AppColors.primaryDark],
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset('assets/images/female.svg', width: 11),
+                                    SizedBox(width: 3),
+                                    Text(
+                                      '${match.age}',
+                                      style: const TextStyle(color: AppColors.white, fontSize: 10),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 15),
+                              Container(
+                                width: 30,
+                                height: 25,
+                                padding: EdgeInsets.all(1),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryDark,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '${match.gender.toString().getFirstLetter}',
+                                    style: const TextStyle(color: AppColors.white, fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            '${match.location} (${match.distance.toString().roundToInt}km away)',
+                            style: const TextStyle(color: Colors.grey, fontSize: 15),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

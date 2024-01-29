@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zheeta/app/common/enums/subscription_type.dart';
 
 part 'user_profile_model.freezed.dart';
 part 'user_profile_model.g.dart';
@@ -129,12 +130,12 @@ class ProfileCounterModel with _$ProfileCounterModel {
 class SubscriptionModel with _$SubscriptionModel {
   @JsonSerializable()
   factory SubscriptionModel({
-    dynamic subscriptionId,
+    SubscriptionType? subscriptionId,
     dynamic name,
     dynamic amount,
     dynamic startdate,
     dynamic enddate,
-    dynamic status,
+    SubscriptionStatus? status,
     dynamic paymentmethod,
   }) = _SubscriptionModel;
 

@@ -208,26 +208,38 @@ Map<String, dynamic> _$$ProfileCounterModelImplToJson(
 _$SubscriptionModelImpl _$$SubscriptionModelImplFromJson(
         Map<String, dynamic> json) =>
     _$SubscriptionModelImpl(
-      subscriptionId: json['subscriptionId'],
+      subscriptionId: $enumDecodeNullable(
+          _$SubscriptionTypeEnumMap, json['subscriptionId']),
       name: json['name'],
       amount: json['amount'],
       startdate: json['startdate'],
       enddate: json['enddate'],
-      status: json['status'],
+      status: $enumDecodeNullable(_$SubscriptionStatusEnumMap, json['status']),
       paymentmethod: json['paymentmethod'],
     );
 
 Map<String, dynamic> _$$SubscriptionModelImplToJson(
         _$SubscriptionModelImpl instance) =>
     <String, dynamic>{
-      'subscriptionId': instance.subscriptionId,
+      'subscriptionId': _$SubscriptionTypeEnumMap[instance.subscriptionId],
       'name': instance.name,
       'amount': instance.amount,
       'startdate': instance.startdate,
       'enddate': instance.enddate,
-      'status': instance.status,
+      'status': _$SubscriptionStatusEnumMap[instance.status],
       'paymentmethod': instance.paymentmethod,
     };
+
+const _$SubscriptionTypeEnumMap = {
+  SubscriptionType.regular: 1,
+  SubscriptionType.premium: 2,
+  SubscriptionType.gold: 3,
+};
+
+const _$SubscriptionStatusEnumMap = {
+  SubscriptionStatus.active: 1,
+  SubscriptionStatus.inactive: 0,
+};
 
 _$WalletModelImpl _$$WalletModelImplFromJson(Map<String, dynamic> json) =>
     _$WalletModelImpl(

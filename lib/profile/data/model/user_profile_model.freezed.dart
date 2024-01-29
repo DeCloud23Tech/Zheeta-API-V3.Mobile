@@ -2202,12 +2202,12 @@ SubscriptionModel _$SubscriptionModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SubscriptionModel {
-  dynamic get subscriptionId => throw _privateConstructorUsedError;
+  SubscriptionType? get subscriptionId => throw _privateConstructorUsedError;
   dynamic get name => throw _privateConstructorUsedError;
   dynamic get amount => throw _privateConstructorUsedError;
   dynamic get startdate => throw _privateConstructorUsedError;
   dynamic get enddate => throw _privateConstructorUsedError;
-  dynamic get status => throw _privateConstructorUsedError;
+  SubscriptionStatus? get status => throw _privateConstructorUsedError;
   dynamic get paymentmethod => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2223,12 +2223,12 @@ abstract class $SubscriptionModelCopyWith<$Res> {
       _$SubscriptionModelCopyWithImpl<$Res, SubscriptionModel>;
   @useResult
   $Res call(
-      {dynamic subscriptionId,
+      {SubscriptionType? subscriptionId,
       dynamic name,
       dynamic amount,
       dynamic startdate,
       dynamic enddate,
-      dynamic status,
+      SubscriptionStatus? status,
       dynamic paymentmethod});
 }
 
@@ -2257,7 +2257,7 @@ class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
       subscriptionId: freezed == subscriptionId
           ? _value.subscriptionId
           : subscriptionId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionType?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2277,7 +2277,7 @@ class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionStatus?,
       paymentmethod: freezed == paymentmethod
           ? _value.paymentmethod
           : paymentmethod // ignore: cast_nullable_to_non_nullable
@@ -2295,12 +2295,12 @@ abstract class _$$SubscriptionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {dynamic subscriptionId,
+      {SubscriptionType? subscriptionId,
       dynamic name,
       dynamic amount,
       dynamic startdate,
       dynamic enddate,
-      dynamic status,
+      SubscriptionStatus? status,
       dynamic paymentmethod});
 }
 
@@ -2327,7 +2327,7 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
       subscriptionId: freezed == subscriptionId
           ? _value.subscriptionId
           : subscriptionId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionType?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2347,7 +2347,7 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionStatus?,
       paymentmethod: freezed == paymentmethod
           ? _value.paymentmethod
           : paymentmethod // ignore: cast_nullable_to_non_nullable
@@ -2373,7 +2373,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
       _$$SubscriptionModelImplFromJson(json);
 
   @override
-  final dynamic subscriptionId;
+  final SubscriptionType? subscriptionId;
   @override
   final dynamic name;
   @override
@@ -2383,7 +2383,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
   @override
   final dynamic enddate;
   @override
-  final dynamic status;
+  final SubscriptionStatus? status;
   @override
   final dynamic paymentmethod;
 
@@ -2397,13 +2397,13 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SubscriptionModelImpl &&
-            const DeepCollectionEquality()
-                .equals(other.subscriptionId, subscriptionId) &&
+            (identical(other.subscriptionId, subscriptionId) ||
+                other.subscriptionId == subscriptionId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.amount, amount) &&
             const DeepCollectionEquality().equals(other.startdate, startdate) &&
             const DeepCollectionEquality().equals(other.enddate, enddate) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other.paymentmethod, paymentmethod));
   }
@@ -2412,12 +2412,12 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(subscriptionId),
+      subscriptionId,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(amount),
       const DeepCollectionEquality().hash(startdate),
       const DeepCollectionEquality().hash(enddate),
-      const DeepCollectionEquality().hash(status),
+      status,
       const DeepCollectionEquality().hash(paymentmethod));
 
   @JsonKey(ignore: true)
@@ -2437,19 +2437,19 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
 
 abstract class _SubscriptionModel implements SubscriptionModel {
   factory _SubscriptionModel(
-      {final dynamic subscriptionId,
+      {final SubscriptionType? subscriptionId,
       final dynamic name,
       final dynamic amount,
       final dynamic startdate,
       final dynamic enddate,
-      final dynamic status,
+      final SubscriptionStatus? status,
       final dynamic paymentmethod}) = _$SubscriptionModelImpl;
 
   factory _SubscriptionModel.fromJson(Map<String, dynamic> json) =
       _$SubscriptionModelImpl.fromJson;
 
   @override
-  dynamic get subscriptionId;
+  SubscriptionType? get subscriptionId;
   @override
   dynamic get name;
   @override
@@ -2459,7 +2459,7 @@ abstract class _SubscriptionModel implements SubscriptionModel {
   @override
   dynamic get enddate;
   @override
-  dynamic get status;
+  SubscriptionStatus? get status;
   @override
   dynamic get paymentmethod;
   @override
