@@ -1,99 +1,127 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/enums/others.dart';
+import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
+import 'package:zheeta/widgets/top_nav.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({super.key});
+@RoutePage()
+class ProfileScreen extends ConsumerStatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileScreenState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  final controller = ScrollController();
   var _current = 0;
   var activeTab = 1;
 
+  bool invertAppBarIcons = false;
+
   @override
   Widget build(BuildContext context) {
+    controller.addListener(() {
+      if (controller.offset > 450) {
+        setState(() {
+          invertAppBarIcons = true;
+        });
+      } else {
+        setState(() {
+          invertAppBarIcons = false;
+        });
+      }
+    });
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            child: Column(
+      body: CustomScrollView(
+        controller: controller,
+        slivers: <Widget>[
+          SliverAppBar(
+            elevation: 0,
+            centerTitle: true,
+            backgroundColor: AppColors.secondaryLight,
+            surfaceTintColor: AppColors.secondaryLight,
+            scrolledUnderElevation: 0.5,
+            shadowColor: Colors.grey,
+            leadingWidth: MediaQuery.of(context).size.width * 0.4,
+            leading: Row(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  width: double.infinity,
-                  child: Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      CarouselSlider.builder(
-                        itemCount: 5,
-                        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => ClipRRect(
-                          child: Image.asset(
-                            "assets/images/User.png",
-                            fit: BoxFit.cover,
-                            height: MediaQuery.of(context).size.height * 0.65,
-                            width: double.infinity,
-                            // loadingBuilder: (BuildContext context, Widget image,
-                            //     ImageChunkEvent? loadingProgress) {
-                            //   if (loadingProgress == null) return image;
-                            //   return Shimmer.fromColors(
-                            //       baseColor: grey.withOpacity(0.05),
-                            //       highlightColor: grey.withOpacity(0.1),
-                            //       child: Container(
-                            //         width: MediaQuery.of(context).size.width,
-                            //         height: 120,
-                            //         decoration: BoxDecoration(
-                            //           color: grey,
-                            //           borderRadius: BorderRadius.circular(8),
-                            //         ),
-                            //       ),);
-                            // },
-                          ),
-                        ),
-                        options: CarouselOptions(
-                          autoPlay: false,
-                          height: MediaQuery.of(context).size.height * 0.65,
-                          // enlargeCenterPage: true,
-                          viewportFraction: 1.0,
-                          // aspectRatio: 2.0,
-                          initialPage: 0,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 70,
-                        child: Row(
-                          children: [
-                            for (var i = 0; i < 5; i++)
-                              Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: Container(
-                                  height: 10,
-                                  width: 10,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    color: _current == i ? AppColors.white : AppColors.white.withOpacity(0.2),
-                                  ),
-                                ),
-                              )
-                          ],
-                        ),
-                      ),
-                      ProfileAddOrLike(),
-                    ],
-                  ),
+                SizedBox(width: 16),
+                CustomBackButton(
+                  isOpaque: invertAppBarIcons,
+                  greyBackground: true,
                 ),
+              ],
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  invertAppBarIcons ? TopNavBtn2(iconType: IconType.menu) : TopNavBtn(iconType: IconType.menu),
+                  invertAppBarIcons ? TopNavBtn2(iconType: IconType.bell) : TopNavBtn(iconType: IconType.bell),
+                ],
+              ),
+              SizedBox(width: 16),
+            ],
+            pinned: true,
+            expandedHeight: MediaQuery.of(context).size.height * 0.55,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              background: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  CarouselSlider.builder(
+                    itemCount: 5,
+                    itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => ClipRRect(
+                      child: Image.asset("assets/images/User.png", fit: BoxFit.cover, height: MediaQuery.of(context).size.height * 0.55, width: double.infinity),
+                    ),
+                    options: CarouselOptions(
+                      autoPlay: false,
+                      height: MediaQuery.of(context).size.height * 0.65,
+                      // enlargeCenterPage: true,
+                      viewportFraction: 1.0,
+                      // aspectRatio: 2.0,
+                      initialPage: 0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      },
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 70,
+                    child: Row(
+                      children: [
+                        for (var i = 0; i < 5; i++)
+                          Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: _current == i ? AppColors.white : AppColors.white.withOpacity(0.2),
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                  ProfileAddOrLike(),
+                ],
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -307,23 +335,26 @@ class _ProfileState extends State<Profile> {
                                   activeTab = 1;
                                 });
                               },
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 3,
-                                    width: MediaQuery.of(context).size.width * 0.44,
-                                    decoration: BoxDecoration(
-                                      color: activeTab == 1 ? AppColors.primaryDark : Colors.transparent,
-                                      border: Border(),
-                                      borderRadius: BorderRadius.circular(8),
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 3,
+                                      width: MediaQuery.of(context).size.width * 0.44,
+                                      decoration: BoxDecoration(
+                                        color: activeTab == 1 ? AppColors.primaryDark : Colors.transparent,
+                                        border: Border(),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "Bio",
-                                    style: TextStyle(color: activeTab == 1 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600),
-                                  )
-                                ],
+                                    SizedBox(height: 5),
+                                    Text(
+                                      "Bio",
+                                      style: TextStyle(color: activeTab == 1 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             GestureDetector(
@@ -332,23 +363,26 @@ class _ProfileState extends State<Profile> {
                                   activeTab = 2;
                                 });
                               },
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 3,
-                                    width: MediaQuery.of(context).size.width * 0.44,
-                                    decoration: BoxDecoration(
-                                      color: activeTab == 2 ? AppColors.primaryDark : Colors.transparent,
-                                      border: Border(),
-                                      borderRadius: BorderRadius.circular(8),
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 3,
+                                      width: MediaQuery.of(context).size.width * 0.44,
+                                      decoration: BoxDecoration(
+                                        color: activeTab == 2 ? AppColors.primaryDark : Colors.transparent,
+                                        border: Border(),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "Post",
-                                    style: TextStyle(color: activeTab == 2 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600),
-                                  )
-                                ],
+                                    SizedBox(height: 5),
+                                    Text(
+                                      "Post",
+                                      style: TextStyle(color: activeTab == 2 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -393,12 +427,7 @@ class _ProfileState extends State<Profile> {
                                             padding: EdgeInsets.only(right: 10),
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(8),
-                                              child: Image.asset(
-                                                "assets/images/ref.png",
-                                                height: 42,
-                                                width: 42,
-                                                fit: BoxFit.cover,
-                                              ),
+                                              child: Image.asset("assets/images/ref.png", height: 42, width: 42, fit: BoxFit.cover),
                                             ),
                                           ),
                                         )
@@ -465,54 +494,6 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-          Positioned(
-            top: 65,
-            right: 20,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/images/icons/menu.svg',
-                        width: 30,
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/images/icons/bell.svg',
-                        width: 30,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
         ],
       ),
     );

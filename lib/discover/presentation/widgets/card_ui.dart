@@ -53,7 +53,7 @@ class ExampleCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  router.push(MatchProfileRoute());
+                  router.push(ProfileRoute());
                 },
                 child: Container(
                   padding: const EdgeInsets.only(top: 60),

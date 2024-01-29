@@ -22,23 +22,22 @@ import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
     as _i19;
 import 'package:zheeta/authentication/presentation/views/verification_screen.dart'
     as _i20;
-import 'package:zheeta/discover/presentation/views/match_profile_screen.dart'
-    as _i9;
-import 'package:zheeta/feeds/presentation/views/product_screen.dart' as _i13;
+import 'package:zheeta/feeds/presentation/views/product_screen.dart' as _i12;
 import 'package:zheeta/homepage/presentation/views/bank_screen.dart' as _i2;
 import 'package:zheeta/homepage/presentation/views/giftshop_screen.dart' as _i5;
 import 'package:zheeta/homepage/presentation/views/home_screen.dart' as _i6;
-import 'package:zheeta/homepage/presentation/views/mygift_screen.dart' as _i10;
-import 'package:zheeta/homepage/presentation/views/pending_screen.dart' as _i12;
+import 'package:zheeta/homepage/presentation/views/mygift_screen.dart' as _i9;
+import 'package:zheeta/homepage/presentation/views/pending_screen.dart' as _i11;
 import 'package:zheeta/homepage/presentation/views/referees_screen.dart'
     as _i15;
 import 'package:zheeta/notification/presentation/views/notification_screen.dart'
-    as _i11;
+    as _i10;
 import 'package:zheeta/profile/presentation/views/about_screen.dart' as _i1;
 import 'package:zheeta/profile/presentation/views/bio_screen.dart' as _i3;
 import 'package:zheeta/profile/presentation/views/location_screen.dart' as _i8;
+import 'package:zheeta/profile/presentation/views/profile.dart' as _i14;
 import 'package:zheeta/profile/presentation/views/profilephoto_screen.dart'
-    as _i14;
+    as _i13;
 import 'package:zheeta/profile/presentation/views/welcome_screen.dart' as _i21;
 import 'package:zheeta/splash_screen/presentation/views/intro.dart' as _i7;
 
@@ -95,28 +94,22 @@ abstract class $AppRouter extends _i22.RootStackRouter {
         child: const _i8.LocationScreen(),
       );
     },
-    MatchProfileRoute.name: (routeData) {
-      return _i22.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i9.MatchProfileScreen(),
-      );
-    },
     MyGiftRoute.name: (routeData) {
       return _i22.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.MyGiftScreen(),
+        child: const _i9.MyGiftScreen(),
       );
     },
     NotificationRoute.name: (routeData) {
       return _i22.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.NotificationScreen(),
+        child: const _i10.NotificationScreen(),
       );
     },
     PendingRequestRoute.name: (routeData) {
       return _i22.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.PendingRequestScreen(),
+        child: const _i11.PendingRequestScreen(),
       );
     },
     ProductDetailsRoute.name: (routeData) {
@@ -124,7 +117,7 @@ abstract class $AppRouter extends _i22.RootStackRouter {
           orElse: () => const ProductDetailsRouteArgs());
       return _i22.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.ProductDetailsScreen(
+        child: _i12.ProductDetailsScreen(
           key: args.key,
           product: args.product,
         ),
@@ -133,7 +126,13 @@ abstract class $AppRouter extends _i22.RootStackRouter {
     ProfilePhotoRoute.name: (routeData) {
       return _i22.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.ProfilePhotoScreen(),
+        child: const _i13.ProfilePhotoScreen(),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return _i22.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i14.ProfileScreen(),
       );
     },
     RefereeRoute.name: (routeData) {
@@ -299,21 +298,7 @@ class LocationRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.MatchProfileScreen]
-class MatchProfileRoute extends _i22.PageRouteInfo<void> {
-  const MatchProfileRoute({List<_i22.PageRouteInfo>? children})
-      : super(
-          MatchProfileRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'MatchProfileRoute';
-
-  static const _i22.PageInfo<void> page = _i22.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i10.MyGiftScreen]
+/// [_i9.MyGiftScreen]
 class MyGiftRoute extends _i22.PageRouteInfo<void> {
   const MyGiftRoute({List<_i22.PageRouteInfo>? children})
       : super(
@@ -327,7 +312,7 @@ class MyGiftRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.NotificationScreen]
+/// [_i10.NotificationScreen]
 class NotificationRoute extends _i22.PageRouteInfo<void> {
   const NotificationRoute({List<_i22.PageRouteInfo>? children})
       : super(
@@ -341,7 +326,7 @@ class NotificationRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.PendingRequestScreen]
+/// [_i11.PendingRequestScreen]
 class PendingRequestRoute extends _i22.PageRouteInfo<void> {
   const PendingRequestRoute({List<_i22.PageRouteInfo>? children})
       : super(
@@ -355,7 +340,7 @@ class PendingRequestRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.ProductDetailsScreen]
+/// [_i12.ProductDetailsScreen]
 class ProductDetailsRoute extends _i22.PageRouteInfo<ProductDetailsRouteArgs> {
   ProductDetailsRoute({
     _i23.Key? key,
@@ -393,7 +378,7 @@ class ProductDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i14.ProfilePhotoScreen]
+/// [_i13.ProfilePhotoScreen]
 class ProfilePhotoRoute extends _i22.PageRouteInfo<void> {
   const ProfilePhotoRoute({List<_i22.PageRouteInfo>? children})
       : super(
@@ -402,6 +387,20 @@ class ProfilePhotoRoute extends _i22.PageRouteInfo<void> {
         );
 
   static const String name = 'ProfilePhotoRoute';
+
+  static const _i22.PageInfo<void> page = _i22.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i14.ProfileScreen]
+class ProfileRoute extends _i22.PageRouteInfo<void> {
+  const ProfileRoute({List<_i22.PageRouteInfo>? children})
+      : super(
+          ProfileRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
 
   static const _i22.PageInfo<void> page = _i22.PageInfo<void>(name);
 }
