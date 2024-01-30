@@ -1,21 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
-class SideDrawer extends StatefulWidget {
+class SideDrawer extends ConsumerStatefulWidget {
   const SideDrawer({super.key});
 
   @override
-  State<SideDrawer> createState() => _SideDrawerState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SideDrawerState();
 }
 
-class _SideDrawerState extends State<SideDrawer> {
+class _SideDrawerState extends ConsumerState<SideDrawer> {
   @override
   Widget build(BuildContext context) {
+    final userProfileState = ref.watch(userProfileViewModelProvider);
+    final user = userProfileState.getSingleUserProfileState.data?.data;
     return Container(
         width: MediaQuery.of(context).size.width,
         child: Drawer(
@@ -91,19 +95,46 @@ class _SideDrawerState extends State<SideDrawer> {
                         GestureDetector(
                           onTap: () {},
                           child: Column(
-                            children: [Text("12k", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400)), Text("Friends", style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400))],
+                            children: [
+                              Text(
+                                "${user?.profileCounters?.friendsCount}",
+                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                "Friends",
+                                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),
+                              ),
+                            ],
                           ),
                         ),
                         GestureDetector(
                           onTap: () {},
                           child: Column(
-                            children: [Text("20", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400)), Text("Referees", style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400))],
+                            children: [
+                              Text(
+                                "${user?.profileCounters?.refereesCount}",
+                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                "Referees",
+                                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),
+                              ),
+                            ],
                           ),
                         ),
                         GestureDetector(
                           onTap: () {},
                           child: Column(
-                            children: [Text("300", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400)), Text("Posts", style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400))],
+                            children: [
+                              Text(
+                                "${user?.profileCounters?.postCount}",
+                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                "Posts",
+                                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),
+                              ),
+                            ],
                           ),
                         )
                       ],

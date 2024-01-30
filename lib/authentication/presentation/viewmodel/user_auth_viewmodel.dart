@@ -16,7 +16,7 @@ import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/domain/usecase/user_auth_usecase.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_auth_state.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
 
 final userAuthViewModelProvider = StateNotifierProvider<UserAuthViewModel, UserAuthState>((ref) {
   final authUsecase = locator<UserAuthUseCase>();

@@ -6,7 +6,7 @@ import 'package:zheeta/app/common/enums/others.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/discover/presentation/widgets/criteria_filter_bottomsheet.dart';
-import 'package:zheeta/notification/presentation/view_model/notification_viewmodel.dart';
+import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
 
 class TopNavBtn2 extends ConsumerWidget {
   final IconType iconType;

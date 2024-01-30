@@ -6,7 +6,7 @@ import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_auth_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/viewmodel/user_auth_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 

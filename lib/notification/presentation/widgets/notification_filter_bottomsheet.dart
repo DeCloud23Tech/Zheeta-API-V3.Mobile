@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/enums/notification_filter.dart';
 import 'package:zheeta/app/router/app_router.dart';
-import 'package:zheeta/notification/presentation/view_model/notification_viewmodel.dart';
+import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
 import 'package:zheeta/widgets/close_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 

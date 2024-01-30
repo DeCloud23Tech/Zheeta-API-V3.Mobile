@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/strings.dart';
-import 'package:zheeta/profile/presentation/view_model/user_profile_viewmodel.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()

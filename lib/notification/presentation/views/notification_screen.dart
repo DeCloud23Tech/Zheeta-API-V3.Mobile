@@ -6,7 +6,7 @@ import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/notification_filter.dart';
 import 'package:zheeta/app/common/extensions/string_extension.dart';
 import 'package:zheeta/notification/data/model/notification_model.dart';
-import 'package:zheeta/notification/presentation/view_model/notification_viewmodel.dart';
+import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
 import 'package:zheeta/notification/presentation/widgets/notification_filter_bottomsheet.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/loading_screen.dart';

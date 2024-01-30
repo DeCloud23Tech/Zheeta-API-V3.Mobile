@@ -7,7 +7,7 @@ import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/loading_screen.dart';
 import 'package:zheeta/widgets/primary_button.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/extensions/num_extension.dart';
 import 'package:zheeta/app/router/app_router.dart';
-import 'package:zheeta/discover/presentation/view_model/match_criteria_viewmodel.dart';
+import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
 import 'package:zheeta/widgets/close_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';

@@ -12,7 +12,7 @@ import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/domain/usecase/match_criteria_usecase.dart';
 import 'package:zheeta/discover/presentation/state/match_criteria_state.dart';
-import 'package:zheeta/profile/presentation/view_model/user_profile_viewmodel.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 
 final matchCriteriaViewModelProvider = StateNotifierProvider<MatchCriteriaViewModel, MatchCriteriaState>(
   (ref) {
