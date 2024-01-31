@@ -172,7 +172,7 @@ class ApiManagerImpl implements ApiManager {
         );
       }
     }
-    if ("${response?.data['statusCode']}".startsWith('2')) {
+    if (response?.data['statusCode'] == 200 || response?.data['statusCode'] == 201) {
       return FormattedResponse(
         success: true,
         message: response?.data['message'],
