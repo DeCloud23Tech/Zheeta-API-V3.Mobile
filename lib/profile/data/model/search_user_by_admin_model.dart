@@ -8,7 +8,7 @@ part 'search_user_by_admin_model.g.dart';
 @freezed
 class SearchUserByAdminListModel with _$SearchUserByAdminListModel {
   @JsonSerializable(explicitToJson: true)
-  const factory SearchUserByAdminListModel({
+  factory SearchUserByAdminListModel({
     List<SearchUserByAdminModel>? data,
   }) = _SearchUserByAdminListModel;
 

@@ -18,7 +18,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   createUserProfileRepo(CreateUserProfileRequest request) async {
     final result = await _datasource.createUserProfile(request);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -31,7 +31,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       pageSize: pageSize,
     );
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => AllUserProfileListModel.fromJson(value),
     );
   }
@@ -41,7 +41,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     final result = await _datasource.getSingleUserProfile();
 
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) {
         if (value['data'] == null) {
           throw new UserProfileNotCreatedException('User profile not created');
@@ -56,7 +56,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   updateUserProfilePictureRepo({required String userId, required MultipartFile file}) async {
     final result = await _datasource.updateUserProfilePicture(userId: userId, file: file);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -65,7 +65,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   updateUserProfileRepo(UpdateUserProfileRequest request) async {
     final result = await _datasource.updateUserProfile(request);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -74,7 +74,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   visitUserProfileRepo({required String userId}) async {
     final result = await _datasource.visitUserProfile(userId: userId);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }

@@ -7,10 +7,10 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 
 @prod
 @LazySingleton(as: CountryDataSource)
-class CountryDatasourceImpl implements CountryDataSource {
+class CountryDataSourceImpl implements CountryDataSource {
   final ApiManager _apiManager;
 
-  CountryDatasourceImpl(this._apiManager);
+  CountryDataSourceImpl(this._apiManager);
 
   @override
   Future<Either<ErrorResponse, MappedResponse>> getAllCountries() async {

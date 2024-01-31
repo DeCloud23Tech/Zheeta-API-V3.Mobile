@@ -17,7 +17,7 @@ import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart';
 import 'package:zheeta/profile/presentation/state/user_profile_state.dart';
-import 'package:zheeta/profile/presentation/view_model/location_viewmodel.dart';
+import 'package:zheeta/profile/presentation/viewmodel/location_viewmodel.dart';
 
 final userProfileViewModelProvider = StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
   final _userProfileUseCase = locator<UserProfileUseCase>();

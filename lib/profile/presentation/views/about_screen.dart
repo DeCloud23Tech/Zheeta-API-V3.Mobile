@@ -5,11 +5,12 @@ import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/extensions/num_extension.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/profile/presentation/view_model/user_interest_viewmodel.dart';
-import 'package:zheeta/profile/presentation/view_model/user_profile_viewmodel.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_interest_viewmodel.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
+import 'package:zheeta/widgets/radio_button.dart';
 
 @RoutePage()
 class AboutScreen extends ConsumerStatefulWidget {
@@ -132,7 +133,7 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                 Wrap(
                   direction: Axis.horizontal,
                   children: userProfileViewModel.bodyTypeList.map((value) {
-                    return buildRadioButton(
+                    return AppRadioButton(
                       value: value,
                       groupValue: bodyType ?? '',
                       onChanged: (value) {
@@ -153,7 +154,7 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                 Wrap(
                   direction: Axis.horizontal,
                   children: userProfileViewModel.complexionList.map((value) {
-                    return buildRadioButton(
+                    return AppRadioButton(
                       value: value,
                       groupValue: complexion ?? '',
                       onChanged: (value) {
@@ -174,7 +175,7 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                 Wrap(
                   direction: Axis.horizontal,
                   children: userProfileViewModel.religionList.map((value) {
-                    return buildRadioButton(
+                    return AppRadioButton(
                       value: value,
                       groupValue: religion ?? '',
                       onChanged: (value) {
@@ -201,7 +202,7 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                 Wrap(
                   direction: Axis.horizontal,
                   children: userInterestState.getInterestState.data?.data.map((value) {
-                        return buildRadioButton(
+                        return AppRadioButton(
                           value: value.title,
                           groupValue: interest ?? '',
                           onChanged: (value) {
@@ -265,54 +266,6 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildRadioButton({
-    required String value,
-    required String groupValue,
-    required void Function(dynamic) onChanged,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5, top: 10),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: () {
-              onChanged(value);
-            },
-            child: Container(
-              width: 24,
-              height: 24,
-              padding: EdgeInsets.all(1),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primaryDark, width: 1),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: value == groupValue
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryDark,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    )
-                  : SizedBox.shrink(),
-            ),
-          ),
-          SizedBox(width: 8),
-          GestureDetector(
-            onTap: () {
-              onChanged(value);
-            },
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 12),
-            ),
-          ),
-          SizedBox(width: 14),
-        ],
       ),
     );
   }

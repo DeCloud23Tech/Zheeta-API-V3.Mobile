@@ -6,7 +6,7 @@ part 'matched_profile_boost_model.g.dart';
 @freezed
 class MatchedProfileBoostModel with _$MatchedProfileBoostModel {
   @JsonSerializable()
-  const factory MatchedProfileBoostModel({
+  factory MatchedProfileBoostModel({
     dynamic userId,
     dynamic userName,
     dynamic fullName,
@@ -19,7 +19,7 @@ class MatchedProfileBoostModel with _$MatchedProfileBoostModel {
 @freezed
 class MatchedProfileBoostListModel with _$MatchedProfileBoostListModel {
   @JsonSerializable(explicitToJson: true)
-  const factory MatchedProfileBoostListModel({
+  factory MatchedProfileBoostListModel({
     List<MatchedProfileBoostModel>? data,
   }) = _MatchedProfileBoostListModel;
 

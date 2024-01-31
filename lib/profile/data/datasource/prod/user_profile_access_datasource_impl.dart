@@ -7,7 +7,7 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_access_datasource.dart';
 
 @prod
-@LazySingleton(as: UserProfileAccessDataSource)
+@Singleton(as: UserProfileAccessDataSource)
 class UserProfileAccessDataSourceImpl implements UserProfileAccessDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

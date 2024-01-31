@@ -16,7 +16,7 @@ import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/domain/usecase/user_auth_usecase.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_auth_state.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
 
 final userAuthViewModelProvider = StateNotifierProvider<UserAuthViewModel, UserAuthState>((ref) {
   final authUsecase = locator<UserAuthUseCase>();
@@ -39,11 +39,11 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
         );
 
   String _username = '';
-  String _password = '';
+  String _password = 'Password@123';
   String _retypePassword = '';
-  String _email = '';
+  String _email = 'onipedejoseph2018@gmail.com';
   PhoneNumber _phoneNumber = PhoneNumber(countryISOCode: '+234', countryCode: 'NG', number: '');
-  String _referral = '';
+  String? _referral = null;
   bool _agree = false;
   String _userDeviceToken = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
   String _otp = '';
@@ -55,7 +55,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   setEmail(String value) => _email = value;
   setPhoneNumber(PhoneNumber value) => _phoneNumber = value;
   setCountryCode(Country value) => _phoneNumber.countryCode = '+${value.dialCode}';
-  setReferral(String value) => _referral = value;
+  setReferral(String value) => value.isEmpty ? _referral = null : _referral = value;
   setAgree(bool value) => _agree = value;
   setUserDeviceToken(String value) => _userDeviceToken = value;
   setOtp(String value) => _otp = value;

@@ -144,7 +144,7 @@ class __$$MatchedProfileBoostModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$MatchedProfileBoostModelImpl implements _MatchedProfileBoostModel {
-  const _$MatchedProfileBoostModelImpl(
+  _$MatchedProfileBoostModelImpl(
       {this.userId, this.userName, this.fullName, this.profileUrlForAds});
 
   factory _$MatchedProfileBoostModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -201,7 +201,7 @@ class _$MatchedProfileBoostModelImpl implements _MatchedProfileBoostModel {
 }
 
 abstract class _MatchedProfileBoostModel implements MatchedProfileBoostModel {
-  const factory _MatchedProfileBoostModel(
+  factory _MatchedProfileBoostModel(
       {final dynamic userId,
       final dynamic userName,
       final dynamic fullName,
@@ -317,7 +317,7 @@ class __$$MatchedProfileBoostListModelImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$MatchedProfileBoostListModelImpl
     implements _MatchedProfileBoostListModel {
-  const _$MatchedProfileBoostListModelImpl(
+  _$MatchedProfileBoostListModelImpl(
       {final List<MatchedProfileBoostModel>? data})
       : _data = data;
 
@@ -371,7 +371,7 @@ class _$MatchedProfileBoostListModelImpl
 
 abstract class _MatchedProfileBoostListModel
     implements MatchedProfileBoostListModel {
-  const factory _MatchedProfileBoostListModel(
+  factory _MatchedProfileBoostListModel(
           {final List<MatchedProfileBoostModel>? data}) =
       _$MatchedProfileBoostListModelImpl;
 

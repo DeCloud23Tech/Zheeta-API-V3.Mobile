@@ -7,7 +7,7 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 import 'package:zheeta/profile/data/datasource/user_search_datasource.dart';
 
 @prod
-@LazySingleton(as: UserSearchDataSource)
+@Singleton(as: UserSearchDataSource)
 class UserSearchDataSourceImpl implements UserSearchDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

@@ -14,18 +14,6 @@ class UserOtpDataSourceImpl implements UserOtpDataSource {
   UserOtpDataSourceImpl(this._apiManager);
 
   @override
-  Future<Either<ErrorResponse, MappedResponse>> resetPassword(String phoneNumber) async {
-    final response = await _apiManager.postHttp('/userauth/send-phoneno-verifyOtp/$phoneNumber', null);
-    if (response.success) {
-      return Right(response.data);
-    } else {
-      return Left(
-        ErrorResponse(message: response.message, data: response.data),
-      );
-    }
-  }
-
-  @override
   Future<Either<ErrorResponse, MappedResponse>> sendEmailVerifyOtp(String email) async {
     final response = await _apiManager.postHttp('/userauth/send-email-verifyOtp/$email', null);
     if (response.success) {

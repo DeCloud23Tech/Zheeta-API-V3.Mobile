@@ -66,11 +66,4 @@ class MockUserOtpUseCase extends _i1.Mock implements _i2.UserOtpUseCase {
         #sendPasswordResetOtpUsecase,
         [email],
       ));
-
-  @override
-  dynamic resetPasswordUsecase(String? phoneNumber) =>
-      super.noSuchMethod(Invocation.method(
-        #resetPasswordUsecase,
-        [phoneNumber],
-      ));
 }

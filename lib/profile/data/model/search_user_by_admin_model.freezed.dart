@@ -104,8 +104,7 @@ class __$$SearchUserByAdminListModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$SearchUserByAdminListModelImpl implements _SearchUserByAdminListModel {
-  const _$SearchUserByAdminListModelImpl(
-      {final List<AllUserProfileModel>? data})
+  _$SearchUserByAdminListModelImpl({final List<AllUserProfileModel>? data})
       : _data = data;
 
   factory _$SearchUserByAdminListModelImpl.fromJson(
@@ -157,8 +156,7 @@ class _$SearchUserByAdminListModelImpl implements _SearchUserByAdminListModel {
 
 abstract class _SearchUserByAdminListModel
     implements SearchUserByAdminListModel {
-  const factory _SearchUserByAdminListModel(
-          {final List<AllUserProfileModel>? data}) =
+  factory _SearchUserByAdminListModel({final List<AllUserProfileModel>? data}) =
       _$SearchUserByAdminListModelImpl;
 
   factory _SearchUserByAdminListModel.fromJson(Map<String, dynamic> json) =

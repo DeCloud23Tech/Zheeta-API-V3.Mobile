@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/strings.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_auth_viewmodel.dart';
-import 'package:zheeta/profile/presentation/view_model/user_profile_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/viewmodel/user_auth_viewmodel.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()

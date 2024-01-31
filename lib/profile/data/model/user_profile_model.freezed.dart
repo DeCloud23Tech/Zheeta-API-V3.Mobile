@@ -111,7 +111,7 @@ class __$$UserProfileModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$UserProfileModelImpl implements _UserProfileModel {
-  const _$UserProfileModelImpl({required this.data});
+  _$UserProfileModelImpl({required this.data});
 
   factory _$UserProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserProfileModelImplFromJson(json);
@@ -152,7 +152,7 @@ class _$UserProfileModelImpl implements _UserProfileModel {
 }
 
 abstract class _UserProfileModel implements UserProfileModel {
-  const factory _UserProfileModel({required final UserProfileDataModel data}) =
+  factory _UserProfileModel({required final UserProfileDataModel data}) =
       _$UserProfileModelImpl;
 
   factory _UserProfileModel.fromJson(Map<String, dynamic> json) =
@@ -512,7 +512,7 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$UserProfileDataModelImpl implements _UserProfileDataModel {
-  const _$UserProfileDataModelImpl(
+  _$UserProfileDataModelImpl(
       {this.user,
       this.profile,
       this.residentialAddress,
@@ -618,7 +618,7 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
 }
 
 abstract class _UserProfileDataModel implements UserProfileDataModel {
-  const factory _UserProfileDataModel(
+  factory _UserProfileDataModel(
           {final UserModel? user,
           final ProfileModel? profile,
           final ResidentialAddressModel? residentialAddress,
@@ -875,7 +875,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
-  const _$UserModelImpl(
+  _$UserModelImpl(
       {this.userId,
       this.isFullyVerified,
       this.userName,
@@ -976,7 +976,7 @@ class _$UserModelImpl implements _UserModel {
 }
 
 abstract class _UserModel implements UserModel {
-  const factory _UserModel(
+  factory _UserModel(
       {final dynamic userId,
       final dynamic isFullyVerified,
       final dynamic userName,
@@ -1288,7 +1288,7 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$ProfileModelImpl implements _ProfileModel {
-  const _$ProfileModelImpl(
+  _$ProfileModelImpl(
       {this.firstName,
       this.lastName,
       this.dateOfBirth,
@@ -1407,7 +1407,7 @@ class _$ProfileModelImpl implements _ProfileModel {
 }
 
 abstract class _ProfileModel implements ProfileModel {
-  const factory _ProfileModel(
+  factory _ProfileModel(
       {final dynamic firstName,
       final dynamic lastName,
       final dynamic dateOfBirth,
@@ -1585,7 +1585,7 @@ class __$$ResidentialAddressModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$ResidentialAddressModelImpl implements _ResidentialAddressModel {
-  const _$ResidentialAddressModelImpl(
+  _$ResidentialAddressModelImpl(
       {this.city, this.state, this.country, this.zipCode});
 
   factory _$ResidentialAddressModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -1641,7 +1641,7 @@ class _$ResidentialAddressModelImpl implements _ResidentialAddressModel {
 }
 
 abstract class _ResidentialAddressModel implements ResidentialAddressModel {
-  const factory _ResidentialAddressModel(
+  factory _ResidentialAddressModel(
       {final dynamic city,
       final dynamic state,
       final dynamic country,
@@ -1781,8 +1781,7 @@ class __$$OriginAddressModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$OriginAddressModelImpl implements _OriginAddressModel {
-  const _$OriginAddressModelImpl(
-      {this.city, this.state, this.country, this.zipCode});
+  _$OriginAddressModelImpl({this.city, this.state, this.country, this.zipCode});
 
   factory _$OriginAddressModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OriginAddressModelImplFromJson(json);
@@ -1837,7 +1836,7 @@ class _$OriginAddressModelImpl implements _OriginAddressModel {
 }
 
 abstract class _OriginAddressModel implements OriginAddressModel {
-  const factory _OriginAddressModel(
+  factory _OriginAddressModel(
       {final dynamic city,
       final dynamic state,
       final dynamic country,
@@ -1955,7 +1954,7 @@ class __$$LocationModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$LocationModelImpl implements _LocationModel {
-  const _$LocationModelImpl({this.latitude, this.longitude});
+  _$LocationModelImpl({this.latitude, this.longitude});
 
   factory _$LocationModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationModelImplFromJson(json);
@@ -2001,8 +2000,8 @@ class _$LocationModelImpl implements _LocationModel {
 }
 
 abstract class _LocationModel implements LocationModel {
-  const factory _LocationModel(
-      {final dynamic latitude, final dynamic longitude}) = _$LocationModelImpl;
+  factory _LocationModel({final dynamic latitude, final dynamic longitude}) =
+      _$LocationModelImpl;
 
   factory _LocationModel.fromJson(Map<String, dynamic> json) =
       _$LocationModelImpl.fromJson;
@@ -2123,7 +2122,7 @@ class __$$ProfileCounterModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$ProfileCounterModelImpl implements _ProfileCounterModel {
-  const _$ProfileCounterModelImpl(
+  _$ProfileCounterModelImpl(
       {this.friendsCount, this.refereesCount, this.postCount});
 
   factory _$ProfileCounterModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -2177,7 +2176,7 @@ class _$ProfileCounterModelImpl implements _ProfileCounterModel {
 }
 
 abstract class _ProfileCounterModel implements ProfileCounterModel {
-  const factory _ProfileCounterModel(
+  factory _ProfileCounterModel(
       {final dynamic friendsCount,
       final dynamic refereesCount,
       final dynamic postCount}) = _$ProfileCounterModelImpl;
@@ -2203,12 +2202,12 @@ SubscriptionModel _$SubscriptionModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SubscriptionModel {
-  dynamic get subscriptionId => throw _privateConstructorUsedError;
+  SubscriptionType? get subscriptionId => throw _privateConstructorUsedError;
   dynamic get name => throw _privateConstructorUsedError;
   dynamic get amount => throw _privateConstructorUsedError;
   dynamic get startdate => throw _privateConstructorUsedError;
   dynamic get enddate => throw _privateConstructorUsedError;
-  dynamic get status => throw _privateConstructorUsedError;
+  SubscriptionStatus? get status => throw _privateConstructorUsedError;
   dynamic get paymentmethod => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2224,12 +2223,12 @@ abstract class $SubscriptionModelCopyWith<$Res> {
       _$SubscriptionModelCopyWithImpl<$Res, SubscriptionModel>;
   @useResult
   $Res call(
-      {dynamic subscriptionId,
+      {SubscriptionType? subscriptionId,
       dynamic name,
       dynamic amount,
       dynamic startdate,
       dynamic enddate,
-      dynamic status,
+      SubscriptionStatus? status,
       dynamic paymentmethod});
 }
 
@@ -2258,7 +2257,7 @@ class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
       subscriptionId: freezed == subscriptionId
           ? _value.subscriptionId
           : subscriptionId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionType?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2278,7 +2277,7 @@ class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionStatus?,
       paymentmethod: freezed == paymentmethod
           ? _value.paymentmethod
           : paymentmethod // ignore: cast_nullable_to_non_nullable
@@ -2296,12 +2295,12 @@ abstract class _$$SubscriptionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {dynamic subscriptionId,
+      {SubscriptionType? subscriptionId,
       dynamic name,
       dynamic amount,
       dynamic startdate,
       dynamic enddate,
-      dynamic status,
+      SubscriptionStatus? status,
       dynamic paymentmethod});
 }
 
@@ -2328,7 +2327,7 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
       subscriptionId: freezed == subscriptionId
           ? _value.subscriptionId
           : subscriptionId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionType?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2348,7 +2347,7 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as SubscriptionStatus?,
       paymentmethod: freezed == paymentmethod
           ? _value.paymentmethod
           : paymentmethod // ignore: cast_nullable_to_non_nullable
@@ -2361,7 +2360,7 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$SubscriptionModelImpl implements _SubscriptionModel {
-  const _$SubscriptionModelImpl(
+  _$SubscriptionModelImpl(
       {this.subscriptionId,
       this.name,
       this.amount,
@@ -2374,7 +2373,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
       _$$SubscriptionModelImplFromJson(json);
 
   @override
-  final dynamic subscriptionId;
+  final SubscriptionType? subscriptionId;
   @override
   final dynamic name;
   @override
@@ -2384,7 +2383,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
   @override
   final dynamic enddate;
   @override
-  final dynamic status;
+  final SubscriptionStatus? status;
   @override
   final dynamic paymentmethod;
 
@@ -2398,13 +2397,13 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SubscriptionModelImpl &&
-            const DeepCollectionEquality()
-                .equals(other.subscriptionId, subscriptionId) &&
+            (identical(other.subscriptionId, subscriptionId) ||
+                other.subscriptionId == subscriptionId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.amount, amount) &&
             const DeepCollectionEquality().equals(other.startdate, startdate) &&
             const DeepCollectionEquality().equals(other.enddate, enddate) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
                 .equals(other.paymentmethod, paymentmethod));
   }
@@ -2413,12 +2412,12 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(subscriptionId),
+      subscriptionId,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(amount),
       const DeepCollectionEquality().hash(startdate),
       const DeepCollectionEquality().hash(enddate),
-      const DeepCollectionEquality().hash(status),
+      status,
       const DeepCollectionEquality().hash(paymentmethod));
 
   @JsonKey(ignore: true)
@@ -2437,20 +2436,20 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
 }
 
 abstract class _SubscriptionModel implements SubscriptionModel {
-  const factory _SubscriptionModel(
-      {final dynamic subscriptionId,
+  factory _SubscriptionModel(
+      {final SubscriptionType? subscriptionId,
       final dynamic name,
       final dynamic amount,
       final dynamic startdate,
       final dynamic enddate,
-      final dynamic status,
+      final SubscriptionStatus? status,
       final dynamic paymentmethod}) = _$SubscriptionModelImpl;
 
   factory _SubscriptionModel.fromJson(Map<String, dynamic> json) =
       _$SubscriptionModelImpl.fromJson;
 
   @override
-  dynamic get subscriptionId;
+  SubscriptionType? get subscriptionId;
   @override
   dynamic get name;
   @override
@@ -2460,7 +2459,7 @@ abstract class _SubscriptionModel implements SubscriptionModel {
   @override
   dynamic get enddate;
   @override
-  dynamic get status;
+  SubscriptionStatus? get status;
   @override
   dynamic get paymentmethod;
   @override
@@ -2564,7 +2563,7 @@ class __$$WalletModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$WalletModelImpl implements _WalletModel {
-  const _$WalletModelImpl({this.availableBalance, this.lastTransactionDate});
+  _$WalletModelImpl({this.availableBalance, this.lastTransactionDate});
 
   factory _$WalletModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$WalletModelImplFromJson(json);
@@ -2612,7 +2611,7 @@ class _$WalletModelImpl implements _WalletModel {
 }
 
 abstract class _WalletModel implements WalletModel {
-  const factory _WalletModel(
+  factory _WalletModel(
       {final dynamic availableBalance,
       final dynamic lastTransactionDate}) = _$WalletModelImpl;
 
@@ -2724,7 +2723,7 @@ class __$$InterestModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$InterestModelImpl implements _InterestModel {
-  const _$InterestModelImpl({this.id, this.title});
+  _$InterestModelImpl({this.id, this.title});
 
   factory _$InterestModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InterestModelImplFromJson(json);
@@ -2770,7 +2769,7 @@ class _$InterestModelImpl implements _InterestModel {
 }
 
 abstract class _InterestModel implements InterestModel {
-  const factory _InterestModel({final dynamic id, final dynamic title}) =
+  factory _InterestModel({final dynamic id, final dynamic title}) =
       _$InterestModelImpl;
 
   factory _InterestModel.fromJson(Map<String, dynamic> json) =
@@ -3033,7 +3032,7 @@ class __$$BankAccountDetailModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$BankAccountDetailModelImpl implements _BankAccountDetailModel {
-  const _$BankAccountDetailModelImpl(
+  _$BankAccountDetailModelImpl(
       {this.userId,
       this.firstName,
       this.lastName,
@@ -3142,7 +3141,7 @@ class _$BankAccountDetailModelImpl implements _BankAccountDetailModel {
 }
 
 abstract class _BankAccountDetailModel implements BankAccountDetailModel {
-  const factory _BankAccountDetailModel(
+  factory _BankAccountDetailModel(
       {final dynamic userId,
       final dynamic firstName,
       final dynamic lastName,

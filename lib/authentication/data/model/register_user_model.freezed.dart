@@ -373,7 +373,7 @@ class __$$RegisterUserModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$RegisterUserModelImpl implements _RegisterUserModel {
-  const _$RegisterUserModelImpl(
+  _$RegisterUserModelImpl(
       {this.phoneCountryCode,
       this.rolesCSV,
       this.createdDate,
@@ -539,7 +539,7 @@ class _$RegisterUserModelImpl implements _RegisterUserModel {
 }
 
 abstract class _RegisterUserModel implements RegisterUserModel {
-  const factory _RegisterUserModel(
+  factory _RegisterUserModel(
       {final dynamic phoneCountryCode,
       final dynamic rolesCSV,
       final dynamic createdDate,

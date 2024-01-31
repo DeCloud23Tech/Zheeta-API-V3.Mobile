@@ -41,3 +41,11 @@ class DuplicateRegisterParamException implements Exception {
     this.phoneException,
   });
 }
+
+class NoDataException implements Exception {
+  final String message;
+  NoDataException(this.message);
+
+  @override
+  String toString() => message;
+}

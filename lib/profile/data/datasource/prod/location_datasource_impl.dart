@@ -8,7 +8,7 @@ import 'package:zheeta/profile/data/datasource/location_datasource.dart';
 import 'package:zheeta/profile/data/request/location_coordinate_from_address_request.dart';
 
 @prod
-@LazySingleton(as: LocationDataSource)
+@Singleton(as: LocationDataSource)
 class LocationDataSourceImpl implements LocationDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

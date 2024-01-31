@@ -144,7 +144,7 @@ class __$$SearchUserByCustomerModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$SearchUserByCustomerModelImpl implements _SearchUserByCustomerModel {
-  const _$SearchUserByCustomerModelImpl(
+  _$SearchUserByCustomerModelImpl(
       {this.profileDisplayURL,
       this.username,
       this.userId,
@@ -205,7 +205,7 @@ class _$SearchUserByCustomerModelImpl implements _SearchUserByCustomerModel {
 }
 
 abstract class _SearchUserByCustomerModel implements SearchUserByCustomerModel {
-  const factory _SearchUserByCustomerModel(
+  factory _SearchUserByCustomerModel(
       {final dynamic profileDisplayURL,
       final dynamic username,
       final dynamic userId,
@@ -321,7 +321,7 @@ class __$$SearchUserByCustomerListModelImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$SearchUserByCustomerListModelImpl
     implements _SearchUserByCustomerListModel {
-  const _$SearchUserByCustomerListModelImpl(
+  _$SearchUserByCustomerListModelImpl(
       {final List<SearchUserByCustomerModel>? data})
       : _data = data;
 
@@ -375,7 +375,7 @@ class _$SearchUserByCustomerListModelImpl
 
 abstract class _SearchUserByCustomerListModel
     implements SearchUserByCustomerListModel {
-  const factory _SearchUserByCustomerListModel(
+  factory _SearchUserByCustomerListModel(
           {final List<SearchUserByCustomerModel>? data}) =
       _$SearchUserByCustomerListModelImpl;
 

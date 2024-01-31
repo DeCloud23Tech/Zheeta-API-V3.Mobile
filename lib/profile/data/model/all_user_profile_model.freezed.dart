@@ -262,7 +262,7 @@ class __$$AllUserProfileModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$AllUserProfileModelImpl implements _AllUserProfileModel {
-  const _$AllUserProfileModelImpl(
+  _$AllUserProfileModelImpl(
       {this.userId,
       this.userName,
       this.isFullyVerified,
@@ -366,7 +366,7 @@ class _$AllUserProfileModelImpl implements _AllUserProfileModel {
 }
 
 abstract class _AllUserProfileModel implements AllUserProfileModel {
-  const factory _AllUserProfileModel(
+  factory _AllUserProfileModel(
       {final dynamic userId,
       final dynamic userName,
       final dynamic isFullyVerified,
@@ -502,7 +502,7 @@ class __$$AllUserProfileListModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$AllUserProfileListModelImpl implements _AllUserProfileListModel {
-  const _$AllUserProfileListModelImpl({final List<AllUserProfileModel>? data})
+  _$AllUserProfileListModelImpl({final List<AllUserProfileModel>? data})
       : _data = data;
 
   factory _$AllUserProfileListModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -552,8 +552,8 @@ class _$AllUserProfileListModelImpl implements _AllUserProfileListModel {
 }
 
 abstract class _AllUserProfileListModel implements AllUserProfileListModel {
-  const factory _AllUserProfileListModel(
-      {final List<AllUserProfileModel>? data}) = _$AllUserProfileListModelImpl;
+  factory _AllUserProfileListModel({final List<AllUserProfileModel>? data}) =
+      _$AllUserProfileListModelImpl;
 
   factory _AllUserProfileListModel.fromJson(Map<String, dynamic> json) =
       _$AllUserProfileListModelImpl.fromJson;

@@ -1,6 +1,5 @@
 // const paymentCurrency = "NGN";
 // const currencySymBol = "₦";
-const baseUrl = "https://test-api.zheeta.com/api";
 const currencySymBol = "\$";
 const paymentCurrency = "USD";
 const ravePubKey = "FLWPUBK_TEST-300740a1febf7b3fe8a1f4aa7c336bbc-X";

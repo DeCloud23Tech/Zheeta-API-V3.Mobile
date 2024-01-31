@@ -8,7 +8,7 @@ import 'package:zheeta/profile/data/datasource/user_interest_datasource.dart';
 import 'package:zheeta/profile/data/request/update_user_interest_request.dart';
 
 @prod
-@LazySingleton(as: UserInterestDataSource)
+@Singleton(as: UserInterestDataSource)
 class UserInterestDataSourceImpl implements UserInterestDataSource {
   final ApiManager _apiManager;
   late final String? _authToken;

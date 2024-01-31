@@ -14,7 +14,7 @@ class UserBankAccountRepositoryImpl implements UserBankAccountRepository {
   createUpdateBankAccountRepo(CreateUpdateBankAccountRequest request) async {
     final result = await _datasource.createUpdateBankAccount(request);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -23,7 +23,7 @@ class UserBankAccountRepositoryImpl implements UserBankAccountRepository {
   Future<BankAccountDetailModel> getUserBankAccountRepo() async {
     final result = await _datasource.getUserBankAccount();
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => BankAccountDetailModel.fromJson(value['data']),
     );
   }

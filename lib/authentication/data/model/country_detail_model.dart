@@ -6,7 +6,7 @@ part 'country_detail_model.g.dart';
 @freezed
 class CountryDetailModel with _$CountryDetailModel {
   @JsonSerializable()
-  const factory CountryDetailModel({
+  factory CountryDetailModel({
     String? code,
     String? code2Iso,
     String? name,

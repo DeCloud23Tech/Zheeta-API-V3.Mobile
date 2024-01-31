@@ -14,7 +14,7 @@ class UserProfileBoostUseCaseImpl implements UserProfileBoostUseCase {
 
   @override
   createProfileBoostUseCase(CreateProfileBoostRequest request) {
-    return _repository.createProfileBoostRepo(request);
+    _repository.createProfileBoostRepo(request);
   }
 
   @override

@@ -16,7 +16,7 @@ class UserProfileBoostRepositoryImpl implements UserProfileBoostRepository {
   createProfileBoostRepo(CreateProfileBoostRequest request) async {
     final result = await _datasource.createProfileBoost(request);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -25,7 +25,7 @@ class UserProfileBoostRepositoryImpl implements UserProfileBoostRepository {
   Future<BoostedProfileByAdminListModel> getBoostedProfileByAdminRepo(GetBoostedProfileByAdminRequest request) async {
     final result = await _datasource.getBoostedProfileByAdmin(request);
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => BoostedProfileByAdminListModel.fromJson(value),
     );
   }
@@ -34,7 +34,7 @@ class UserProfileBoostRepositoryImpl implements UserProfileBoostRepository {
   Future<MatchedProfileBoostListModel> getMatchedProfileBoostRepo() async {
     final result = await _datasource.getMatchedProfileBoost();
     return result.fold(
-      (error) => throw new Exception(error),
+      (error) => throw new Exception(error.message),
       (value) => MatchedProfileBoostListModel.fromJson(value),
     );
   }
