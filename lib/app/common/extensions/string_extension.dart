@@ -14,4 +14,14 @@ extension StringExtension on String {
       return '';
     }
   }
+
+  // DateTime to age
+  int get dateToAge {
+    DateTime? formatted = DateTime.tryParse(this);
+    if (formatted != null) {
+      return DateTime.now().year - formatted.year;
+    } else {
+      return 0;
+    }
+  }
 }

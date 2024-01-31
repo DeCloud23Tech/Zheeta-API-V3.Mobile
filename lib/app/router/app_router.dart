@@ -32,6 +32,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: HomeRoute.page, guards: [AppGuard()]),
         AutoRoute(page: ProfileRoute.page, guards: [AppGuard()]),
 
+        // Friends
+        AutoRoute(page: FriendRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: PendingRequestRoute.page, guards: [AppGuard()]),
+
         // Notification
         AutoRoute(page: NotificationRoute.page, guards: [AppGuard()]),
 
@@ -40,7 +44,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: BankAccountRoute.page, guards: [AppGuard()]),
         AutoRoute(page: GiftShopRoute.page, guards: [AppGuard()]),
         AutoRoute(page: MyGiftRoute.page, guards: [AppGuard()]),
-        AutoRoute(page: PendingRequestRoute.page, guards: [AppGuard()]),
         AutoRoute(page: RefereeRoute.page, guards: [AppGuard()]),
       ];
 }

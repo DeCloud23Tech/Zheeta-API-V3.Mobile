@@ -103,6 +103,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
         router.popAndPush(VerificationRoute(identifier: _phoneNumber.number, isPhoneNumber: true));
         return true;
       } on DuplicateRegisterParamException catch (e) {
+        state = state.setRegisterUserState(State.error(e));
         if (e.usernameException != null) {
           NotifyUser.showSnackbar(e.usernameException!);
         }
@@ -118,6 +119,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
         return false;
       } on Exception catch (e) {
         state = state.setRegisterUserState(State.error(e));
+        NotifyUser.showSnackbar(e.toString());
         return false;
       }
     } else {
@@ -148,8 +150,8 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
       return true;
     } on UserNotFoundException catch (e) {
-      NotifyUser.showSnackbar(e.toString());
       state = state.setLoginUserState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
 
       return false;
     } on EmailNotVerifiedException catch (e) {
@@ -163,7 +165,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       return false;
     } on Exception catch (e) {
       state = state.setLoginUserState(State.error(e));
-
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -189,7 +191,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       return true;
     } on Exception catch (e) {
       state = state.setResetPasswordState(State.error(e));
-
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

@@ -172,26 +172,46 @@ class ApiManagerImpl implements ApiManager {
         );
       }
     }
-    if (!"${response?.data['statusCode']}".startsWith('2')) {
-      if (response?.data['data'] != null) {
-        return FormattedResponse(
-          success: false,
-          message: response?.data['message'],
-          data: response?.data['data'],
-          statusCode: response?.statusCode,
-        );
-      } else {
-        return FormattedResponse(
-          success: false,
-          message: response?.data['message'],
-          statusCode: response?.statusCode,
-        );
-      }
-    } else {
+    if ("${response?.data['statusCode']}".startsWith('2')) {
       return FormattedResponse(
         success: true,
         message: response?.data['message'],
         data: response?.data,
+        statusCode: response?.statusCode,
+      );
+    } else if (response?.data['statusCode'] == 401) {
+      return FormattedResponse(
+        success: false,
+        message: 'Unauthorized action',
+        data: response?.data['data'],
+        statusCode: response?.statusCode,
+      );
+    } else if (response?.data['statusCode'] == 404) {
+      return FormattedResponse(
+        success: false,
+        message: 'Resource not found',
+        data: response?.data['data'],
+        statusCode: response?.statusCode,
+      );
+    } else if (response?.data['statusCode'] == 500 || response?.data['statusCode'] == 403) {
+      return FormattedResponse(
+        success: false,
+        message: 'Internal server error',
+        data: response?.data['data'],
+        statusCode: response?.statusCode,
+      );
+    } else if (response?.data['statusCode'] == 500 || response?.data['statusCode'] == 400) {
+      return FormattedResponse(
+        success: false,
+        message: 'Bad request',
+        data: response?.data['data'],
+        statusCode: response?.statusCode,
+      );
+    } else {
+      return FormattedResponse(
+        success: false,
+        message: response?.data['message'],
+        data: response?.data['data'],
         statusCode: response?.statusCode,
       );
     }

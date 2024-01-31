@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
+import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/discover/domain/usecase/friend_request_usecase.dart';
@@ -31,6 +32,7 @@ class FriendRequestViewModel extends StateNotifier<FriendRequestState> {
       return true;
     } on Exception catch (e) {
       state = state.setSendFriendRequestState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

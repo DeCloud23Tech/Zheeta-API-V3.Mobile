@@ -108,6 +108,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setSendPhoneVerifyOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -120,6 +121,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setSendEmailVerifyOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -133,6 +135,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setVerifyPhoneOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -146,6 +149,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setVerifyEmailOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -168,6 +172,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       }
     } on Exception catch (e) {
       state = state.setSendPasswordResetOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

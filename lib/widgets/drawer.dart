@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/extensions/string_extension.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
@@ -30,7 +31,7 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  SizedBox(height: 24),
+                  SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,16 +52,63 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              SizedBox(height: 20),
                               Row(
                                 children: [
-                                  Column(
-                                    children: [SvgPicture.asset('assets/images/icons/verified.svg'), SizedBox(width: 5), Text("Christine Doe", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400)), SizedBox(height: 5)],
+                                  if (user?.user?.isFullyVerified ?? false) Image.asset('assets/images/badge.png', width: 19, height: 19),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "${user?.profile?.firstName} ${user?.profile?.lastName}",
+                                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                                   ),
+                                  SizedBox(height: 5),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text("@christinedoe", style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
+                                  Text(
+                                    "@${user?.user?.userName}",
+                                    style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryDark,
+                                      gradient: const LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [AppColors.primaryLight, AppColors.primaryDark],
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset('assets/images/female.svg', width: 10),
+                                        SizedBox(width: 3),
+                                        Text(
+                                          '${user?.profile?.dateOfBirth.toString().dateToAge}',
+                                          style: const TextStyle(color: AppColors.white, fontSize: 9),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: 6),
+                                  Container(
+                                    width: 24,
+                                    height: 19,
+                                    padding: EdgeInsets.all(1),
+                                    decoration: BoxDecoration(
+                                      color: user?.profile?.gender.toString().getFirstLetter == 'M' ? Color(0xff07C35D) : AppColors.primaryLight,
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '${user?.profile?.gender.toString().getFirstLetter}',
+                                        style: const TextStyle(color: AppColors.white, fontSize: 12),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                               SizedBox(height: 20),
@@ -93,7 +141,9 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            router.push(FriendRoute());
+                          },
                           child: Column(
                             children: [
                               Text(

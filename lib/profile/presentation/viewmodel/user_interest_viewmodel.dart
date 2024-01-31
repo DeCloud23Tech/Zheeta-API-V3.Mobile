@@ -29,7 +29,6 @@ class UserInterestViewModel extends StateNotifier<UserInterestState> {
       return true;
     } on Exception catch (e) {
       state = state.setGetInterestState(State.error(e));
-
       NotifyUser.showSnackbar(e.toString());
 
       return false;

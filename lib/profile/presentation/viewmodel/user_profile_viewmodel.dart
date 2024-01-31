@@ -189,6 +189,7 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
       return false;
     } on Exception catch (e) {
       state = state.setGetSingleUserProfileState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -218,8 +219,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
         return false;
       }
     } on Exception catch (e) {
-      NotifyUser.showSnackbar(e.toString());
       state = state.setUpdateUserProfilePictureState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -262,14 +263,15 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
         state = state.setCreateUserProfileState(State.success(result));
         return true;
       } else {
-        NotifyUser.showSnackbar(isValidFormOrErrorMessage);
         state = state.setCreateUserProfileState(
           State.error(Exception(isValidFormOrErrorMessage)),
         );
+        NotifyUser.showSnackbar(isValidFormOrErrorMessage);
         return false;
       }
     } on Exception catch (e) {
       state = state.setCreateUserProfileState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:zheeta/app/common/exceptions/custom_exception.dart';
+import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/injection/di.dart';
@@ -118,6 +119,7 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
       }
     } on Exception catch (e) {
       state = state.setUpdateMatchCriteriaState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -150,6 +152,7 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
       return true;
     } on Exception catch (e) {
       state = state.setMatchCriteriaState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -166,6 +169,7 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
       return true;
     } on Exception catch (e) {
       state = state.setGetMatchesState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -179,6 +183,7 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
       return true;
     } on Exception catch (e) {
       state = state.setPopulateMatchesState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

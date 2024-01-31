@@ -52,7 +52,6 @@ class LocationViewModel extends StateNotifier<LocationState> with LocationHelper
     } on Exception catch (e) {
       state = state.setGetCurrentLocationState(State.error(e));
       NotifyUser.showSnackbar(e.toString());
-
       return false;
     }
   }
@@ -67,6 +66,7 @@ class LocationViewModel extends StateNotifier<LocationState> with LocationHelper
         return true;
       } on Exception catch (e) {
         state = state.setGetAddressFromLocationCoordinateState(State.error(e));
+        NotifyUser.showSnackbar(e.toString());
         return false;
       }
     } else {
