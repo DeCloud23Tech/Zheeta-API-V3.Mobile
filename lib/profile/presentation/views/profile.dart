@@ -105,6 +105,37 @@ class _ProfileState extends State<Profile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          children: [
+                            Image.asset('assets/images/badge.png',
+                                width: 19, height: 19),
+                            SizedBox(width: 5),
+                            SvgPicture.asset('assets/images/icons/share_2.svg'),
+                            SizedBox(width: 5),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xffFEB237),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 2,
+                                      offset: Offset(0, 1),
+                                    ),
+                                  ]),
+                              child: Text(
+                                'Premium',
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
@@ -414,7 +445,8 @@ class _ProfileState extends State<Profile> {
                                 ? Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [])
+                                    children: [],
+                                  )
                                 : Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
