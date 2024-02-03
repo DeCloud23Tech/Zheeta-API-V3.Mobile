@@ -15,7 +15,7 @@ class UserProfileUseCaseImpl implements UserProfileUseCase {
 
   @override
   createUserProfileUseCase(CreateUserProfileRequest request) {
-    _repository.createUserProfileRepo(request);
+    return _repository.createUserProfileRepo(request);
   }
 
   @override
@@ -34,16 +34,16 @@ class UserProfileUseCaseImpl implements UserProfileUseCase {
 
   @override
   updateUserProfilePictureUseCase({required String userId, required MultipartFile file}) {
-    _repository.updateUserProfilePictureRepo(userId: userId, file: file);
+    return _repository.updateUserProfilePictureRepo(userId: userId, file: file);
   }
 
   @override
   updateUserProfileUseCase(UpdateUserProfileRequest request) {
-    _repository.updateUserProfileRepo(request);
+    return _repository.updateUserProfileRepo(request);
   }
 
   @override
   visitUserProfileUseCase({required String userId}) {
-    _repository.visitUserProfileRepo(userId: userId);
+    return _repository.visitUserProfileRepo(userId: userId);
   }
 }

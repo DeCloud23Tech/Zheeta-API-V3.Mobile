@@ -110,6 +110,7 @@ class ApiManagerImpl implements ApiManager {
   @override
   Future<FormattedResponse> makeRequest(Future<Response> future) async {
     Response? response;
+    String? message;
     try {
       response = await future;
       logger.log('Response Path: ${response.realUri.path}, Data Response: ${response.data} \n\n');
@@ -172,45 +173,50 @@ class ApiManagerImpl implements ApiManager {
         );
       }
     }
+
+    if (response?.data['message'] != 'Failed to Create Data') {
+      message = response?.data['message'];
+    }
+
     if (response?.data['statusCode'] == 200 || response?.data['statusCode'] == 201) {
       return FormattedResponse(
         success: true,
-        message: response?.data['message'],
+        message: message.toString(),
         data: response?.data,
         statusCode: response?.statusCode,
       );
     } else if (response?.data['statusCode'] == 401) {
       return FormattedResponse(
         success: false,
-        message: 'Unauthorized action',
+        message: message ?? 'Unauthorized action',
         data: response?.data['data'],
         statusCode: response?.statusCode,
       );
     } else if (response?.data['statusCode'] == 404) {
       return FormattedResponse(
         success: false,
-        message: 'Resource not found',
+        message: message ?? 'Resource not found',
         data: response?.data['data'],
         statusCode: response?.statusCode,
       );
     } else if (response?.data['statusCode'] == 500 || response?.data['statusCode'] == 403) {
       return FormattedResponse(
         success: false,
-        message: 'Internal server error',
+        message: message ?? 'Internal server error',
         data: response?.data['data'],
         statusCode: response?.statusCode,
       );
     } else if (response?.data['statusCode'] == 500 || response?.data['statusCode'] == 400) {
       return FormattedResponse(
         success: false,
-        message: 'Bad request',
+        message: message ?? 'Bad request',
         data: response?.data['data'],
         statusCode: response?.statusCode,
       );
     } else {
       return FormattedResponse(
         success: false,
-        message: response?.data['message'],
+        message: message.toString(),
         data: response?.data['data'],
         statusCode: response?.statusCode,
       );

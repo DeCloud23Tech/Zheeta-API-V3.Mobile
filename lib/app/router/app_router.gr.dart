@@ -179,7 +179,9 @@ abstract class $AppRouter extends _i23.RootStackRouter {
         child: _i21.VerificationScreen(
           key: args.key,
           isPhoneNumber: args.isPhoneNumber,
-          identifier: args.identifier,
+          phoneNumber: args.phoneNumber,
+          countryCode: args.countryCode,
+          email: args.email,
         ),
       );
     },
@@ -502,14 +504,18 @@ class VerificationRoute extends _i23.PageRouteInfo<VerificationRouteArgs> {
   VerificationRoute({
     _i24.Key? key,
     required bool isPhoneNumber,
-    required String identifier,
+    required String phoneNumber,
+    required String countryCode,
+    required String email,
     List<_i23.PageRouteInfo>? children,
   }) : super(
           VerificationRoute.name,
           args: VerificationRouteArgs(
             key: key,
             isPhoneNumber: isPhoneNumber,
-            identifier: identifier,
+            phoneNumber: phoneNumber,
+            countryCode: countryCode,
+            email: email,
           ),
           initialChildren: children,
         );
@@ -524,18 +530,24 @@ class VerificationRouteArgs {
   const VerificationRouteArgs({
     this.key,
     required this.isPhoneNumber,
-    required this.identifier,
+    required this.phoneNumber,
+    required this.countryCode,
+    required this.email,
   });
 
   final _i24.Key? key;
 
   final bool isPhoneNumber;
 
-  final String identifier;
+  final String phoneNumber;
+
+  final String countryCode;
+
+  final String email;
 
   @override
   String toString() {
-    return 'VerificationRouteArgs{key: $key, isPhoneNumber: $isPhoneNumber, identifier: $identifier}';
+    return 'VerificationRouteArgs{key: $key, isPhoneNumber: $isPhoneNumber, phoneNumber: $phoneNumber, countryCode: $countryCode, email: $email}';
   }
 }
 

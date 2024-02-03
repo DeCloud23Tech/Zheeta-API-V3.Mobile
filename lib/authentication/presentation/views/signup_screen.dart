@@ -70,7 +70,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 InputField(
                   hintText: 'Retype Password',
                   password: _isPasswordObscure,
-                  validator: (data) => userAuthViewModel.validateRetypePassword(),
+                  validator: (data) => userAuthViewModel.validateRetypedPassword(),
                   onChanged: (value) => userAuthViewModel.setRetypePassword(value),
                 ),
                 SizedBox(height: 10),

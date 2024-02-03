@@ -27,11 +27,11 @@ class NotificationUseCaseImpl implements NotificationUseCase {
 
   @override
   markAllNotificationsReadUseCase() {
-    _repository.markAllNotificationsReadRepo();
+    return _repository.markAllNotificationsReadRepo();
   }
 
   @override
   markNotificationUseCase({required List<String> notificationIds}) {
-    _repository.markNotificationRepo(notificationIds: notificationIds);
+    return _repository.markNotificationRepo(notificationIds: notificationIds);
   }
 }

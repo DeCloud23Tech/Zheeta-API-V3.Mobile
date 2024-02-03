@@ -11,11 +11,11 @@ class IdentityRoleUseCaseImpl implements IdentityRoleUseCase {
 
   @override
   downgradeUserRoleUsecase(UserRoleRequest request) {
-    _repository.downgradeUserRoleRepo(request);
+    return _repository.downgradeUserRoleRepo(request);
   }
 
   @override
   upgradeUserRoleUsecase(UserRoleRequest request) {
-    _repository.upgradeUserRoleRepo(request);
+    return _repository.upgradeUserRoleRepo(request);
   }
 }

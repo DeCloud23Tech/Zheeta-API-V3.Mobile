@@ -12,26 +12,26 @@ class UserOtpUseCaseImpl implements UserOtpUseCase {
 
   @override
   sendEmailVerifyOtpUsecase(String email) {
-    _repository.sendEmailVerifyOtpRepo(email);
+    return _repository.sendEmailVerifyOtpRepo(email);
   }
 
   @override
   sendPhoneVerifyOtpUsecase(String phoneNumber) {
-    _repository.sendPhoneVerifyOtpRepo(phoneNumber);
+    return _repository.sendPhoneVerifyOtpRepo(phoneNumber);
   }
 
   @override
   sendPasswordResetOtpUsecase(String email) {
-    _repository.sendPasswordResetOtpRepo(email);
+    return _repository.sendPasswordResetOtpRepo(email);
   }
 
   @override
   verifyEmailOtpUsecase(VerifyEmailOtpRequest request) {
-    _repository.verifyEmailOtpRepo(request);
+    return _repository.verifyEmailOtpRepo(request);
   }
 
   @override
   verifyPhoneOtpUsecase(VerifyPhoneOtpRequest request) {
-    _repository.verifyPhoneOtpRepo(request);
+    return _repository.verifyPhoneOtpRepo(request);
   }
 }
