@@ -39,9 +39,9 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
         );
 
   String _username = '';
-  String _password = '';
+  String _password = 'Password@123';
   String _retypePassword = '';
-  String _email = '';
+  String _email = 'peterosunsan2@gmail.com';
   PhoneNumber _phoneNumber = PhoneNumber(countryISOCode: '+234', countryCode: 'NG', number: '');
   String? _referral = null;
   bool _agree = false;

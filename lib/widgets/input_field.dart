@@ -13,6 +13,7 @@ class InputField extends StatefulWidget {
   final VoidCallback? onTap;
   final bool readonly;
   final String? initialValue;
+  final Widget? suffixIcon;
   const InputField({
     Key? key,
     this.controller,
@@ -25,6 +26,7 @@ class InputField extends StatefulWidget {
     this.onTap,
     this.readonly = false,
     this.initialValue,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -75,20 +77,21 @@ class _InputFieldState extends State<InputField> {
           hintText: widget.hintText,
           hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
           errorStyle: const TextStyle(color: Colors.red),
-          suffixIcon: widget.password
-              ? InkWell(
-                  onTap: () => setState(() {
-                    obscure = !obscure;
-                  }),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: obscure ? SvgPicture.asset("assets/images/icons/eye_closed.svg") : SvgPicture.asset("assets/images/icons/eye.svg"),
-                    ),
-                  ),
-                )
-              : SizedBox(),
+          suffixIcon: widget.suffixIcon ??
+              (widget.password
+                  ? InkWell(
+                      onTap: () => setState(() {
+                        obscure = !obscure;
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: obscure ? SvgPicture.asset("assets/images/icons/eye_closed.svg") : SvgPicture.asset("assets/images/icons/eye.svg"),
+                        ),
+                      ),
+                    )
+                  : SizedBox()),
         ),
         validator: widget.validator,
       ),
