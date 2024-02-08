@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/widgets/media_container.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/widgets/transparent_button.dart';
 
@@ -106,10 +108,10 @@ class _ProfileState extends State<Profile> {
                       children: [
                         Row(
                           children: [
-                            Image.asset('assets/images/badge.png',
-                                width: 19, height: 19),
+                            // Image.asset('assets/images/badge.png',
+                            //     width: 19, height: 19),
                             SizedBox(width: 5),
-                            SvgPicture.asset('assets/images/icons/share_2.svg'),
+                            // SvgPicture.asset('assets/images/icons/share_2.svg'),
                             SizedBox(width: 5),
                             Container(
                               padding: EdgeInsets.symmetric(
@@ -442,11 +444,7 @@ class _ProfileState extends State<Profile> {
                                     )
                                   ])
                             : activeTab == 2
-                                ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [],
-                                  )
+                                ? PostsWidget()
                                 : Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -513,6 +511,54 @@ class _ProfileState extends State<Profile> {
             color: AppColors.grayscale,
             fontSize: 12,
             fontWeight: FontWeight.w400),
+      ),
+    );
+  }
+}
+
+class PostsWidget extends ConsumerStatefulWidget {
+  bool isVideo;
+  PostsWidget({super.key, this.isVideo = false});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _PostsWidgetState();
+}
+
+class _PostsWidgetState extends ConsumerState<PostsWidget> {
+  List<String> medias = [
+    "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "https://sample-videos.com/img/Sample-jpg-image-50kb.jpg",
+    "https://sample-videos.com/img/Sample-jpg-image-100kb.jpg",
+    "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "https://sample-videos.com/img/Sample-jpg-image-100kb.jpg",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+            runSpacing: 10,
+            alignment: WrapAlignment.spaceBetween,
+            // runAlignment: WrapAlignment.spaceBetween,
+            children: medias.map((e) => MediaContainer(mediaPath: e)).toList()
+            // children: [
+            //   ...List.generate(10, (index) {
+            //     return MediaContainer();
+            //     // return Container(
+            //     //   height: 170,
+            //     //   width: 122,
+            //     //   decoration:
+            //     //       BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            //     //   clipBehavior: Clip.hardEdge,
+            //     //   child: Image.asset('assets/images/post.png', fit: BoxFit.cover),
+            //     // );
+            //   })
+            // ],
+            ),
       ),
     );
   }
