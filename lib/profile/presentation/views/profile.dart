@@ -516,6 +516,152 @@ class _ProfileState extends State<Profile> {
   }
 }
 
+class BasicProfileProp extends StatelessWidget {
+  final String leftTitle;
+  final String leftValue;
+  final String rightTitle;
+  final String rightValue;
+  const BasicProfileProp({
+    super.key,
+    required this.leftTitle,
+    required this.leftValue,
+    required this.rightTitle,
+    required this.rightValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: Row(
+                children: [
+                  Text(
+                    '$leftTitle: ',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    '$leftValue',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff979797)),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  '$rightTitle: ',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  '$rightValue',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff979797)),
+                ),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 15),
+      ],
+    );
+  }
+}
+
+class InterestWidget extends StatelessWidget {
+  const InterestWidget({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 28,
+      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        title,
+        style: TextStyle(
+            color: AppColors.grayscale,
+            fontSize: 12,
+            fontWeight: FontWeight.w400),
+      ),
+    );
+  }
+}
+
+class ProfileAddOrLike extends StatelessWidget {
+  const ProfileAddOrLike({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 10,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            color: AppColors.primaryDark,
+            height: 50,
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/images/icons/add_friend.svg'),
+                SizedBox(width: 10),
+                Text(
+                  'Add Friend',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 8),
+          Container(
+            color: AppColors.primaryDark,
+            height: 50,
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/images/icons/star.svg'),
+                SizedBox(width: 10),
+                Text(
+                  'Super-Like',
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class PostsWidget extends ConsumerStatefulWidget {
   bool isVideo;
   PostsWidget({super.key, this.isVideo = false});
