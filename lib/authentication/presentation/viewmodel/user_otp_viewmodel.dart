@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
-import 'package:zheeta/app/common/storage/local_storage_impl.dart';
-import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
@@ -33,6 +31,8 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
         ));
 
   String _phoneNumber = '';
+
+  String _countryCode = '';
 
   bool _isPhoneNumberVerification = true;
 
@@ -64,13 +64,16 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
     );
   }
 
-  setPhoneNumberOrEmail(bool isPhoneNumber, String identifier) {
+  setPhoneNumberOrEmail({
+    required bool isPhoneNumber,
+    required String phoneNumber,
+    required String countryCode,
+    required String email,
+  }) {
     _isPhoneNumberVerification = isPhoneNumber;
-    if (isPhoneNumber) {
-      _phoneNumber = identifier;
-    } else {
-      _email = identifier;
-    }
+    _phoneNumber = phoneNumber;
+    _countryCode = countryCode;
+    _email = email;
   }
 
   reSendPhoneOrEmailOtp() async {
@@ -90,9 +93,13 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
     if (_isPhoneNumberVerification) {
       canGoNext = await verifyPhoneNumber();
       if (canGoNext) {
-        router.popAndPush(
-          VerificationRoute(isPhoneNumber: false, identifier: '${sessionManager.get(SessionManagerKeys.userEmailString)}'),
-        );
+        final emailSent = await sendEmailVerifyOtp();
+        if (emailSent) {
+          setOtp = '';
+          router.popAndPush(
+            VerificationRoute(isPhoneNumber: false, email: _email, phoneNumber: _phoneNumber, countryCode: _countryCode),
+          );
+        }
       }
     } else {
       canGoNext = await verifyEmail();
@@ -108,6 +115,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setSendPhoneVerifyOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -120,6 +128,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setSendEmailVerifyOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -133,6 +142,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setVerifyPhoneOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -146,6 +156,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       return true;
     } on Exception catch (e) {
       state = state.setVerifyEmailOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -155,8 +166,6 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
     try {
       final isValidEmailOrMessage = validateEmail();
       if (isValidEmailOrMessage == null) {
-        await sessionManager.set(SessionManagerKeys.userEmailString, _email);
-
         final result = await _otpUsecase.sendPasswordResetOtpUsecase(_email);
         state = state.setSendPasswordResetOtpState(State.success(result));
         router.popAndPush(ResetPasswordOtpRoute());
@@ -168,6 +177,7 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       }
     } on Exception catch (e) {
       state = state.setSendPasswordResetOtpState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

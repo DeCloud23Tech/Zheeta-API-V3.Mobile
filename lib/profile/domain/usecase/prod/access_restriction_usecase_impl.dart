@@ -10,11 +10,11 @@ class AccessRestrictionUseCaseImpl implements AccessRestrictionUseCase {
 
   @override
   disableAccountUseCase({required String userId}) {
-    _repository.disableAccountRepo(userId: userId);
+    return _repository.disableAccountRepo(userId: userId);
   }
 
   @override
   enableAccountUseCase({required String userId}) {
-    _repository.enableAccountRepo(userId: userId);
+    return _repository.enableAccountRepo(userId: userId);
   }
 }

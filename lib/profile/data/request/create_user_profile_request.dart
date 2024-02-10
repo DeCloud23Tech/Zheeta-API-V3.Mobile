@@ -9,7 +9,8 @@ class CreateUserProfileRequest {
   String lastName;
   String dateOfBirth;
   int gender;
-  String languageCSV;
+  @JsonKey(toJson: languageCSVToJson)
+  List<String> languageCSV;
   String aboutMe;
   String bodyType;
   String complexion;
@@ -50,4 +51,6 @@ class CreateUserProfileRequest {
 
   factory CreateUserProfileRequest.fromJson(Map<String, dynamic> json) => _$CreateUserProfileRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CreateUserProfileRequestToJson(this);
+
+  static String languageCSVToJson(List<String> languageCSV) => languageCSV.join(',');
 }

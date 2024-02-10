@@ -13,7 +13,7 @@ class UserOtpRepositoryImpl implements UserOtpRepository {
   sendEmailVerifyOtpRepo(String email) async {
     final result = await _datasource.sendEmailVerifyOtp(email);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -21,7 +21,7 @@ class UserOtpRepositoryImpl implements UserOtpRepository {
   sendPhoneVerifyOtpRepo(String phoneNumber) async {
     final result = await _datasource.sendPhoneVerifyOtp(phoneNumber);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -29,7 +29,7 @@ class UserOtpRepositoryImpl implements UserOtpRepository {
   verifyPhoneOtpRepo(VerifyPhoneOtpRequest request) async {
     final result = await _datasource.verifyPhoneOtp(request);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -37,7 +37,7 @@ class UserOtpRepositoryImpl implements UserOtpRepository {
   verifyEmailOtpRepo(VerifyEmailOtpRequest request) async {
     final result = await _datasource.verifyEmailOtp(request);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -45,7 +45,7 @@ class UserOtpRepositoryImpl implements UserOtpRepository {
   sendPasswordResetOtpRepo(String email) async {
     final result = await _datasource.sendPasswordResetOtp(email);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }

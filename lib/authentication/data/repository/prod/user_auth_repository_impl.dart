@@ -21,7 +21,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   changePasswordRepo(ChangePasswordRequest data) async {
     final result = await _datasource.changePassword(data);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -30,7 +30,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   loginOAuthRepo(LoginOAuthRequest data) async {
     final result = await _datasource.loginOAuth(data);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -40,6 +40,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     final result = await _datasource.login(data);
     return result.fold(
       (error) {
+        print("Error: ${error.message}");
         if (error.message.toString().contains('Data Not Found')) {
           throw new UserNotFoundException('User not found');
         }
@@ -57,7 +58,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   registerStaffRepo(RegisterStaffRequest data) async {
     final result = await _datasource.registerStaff(data);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }
@@ -99,7 +100,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   resetPasswordRepo(ResetPasswordRequest data) async {
     final result = await _datasource.resetPassword(data);
     result.fold(
-      (error) => throw Exception(error.message),
+      (error) => throw new Exception(error.message),
       (value) => value,
     );
   }

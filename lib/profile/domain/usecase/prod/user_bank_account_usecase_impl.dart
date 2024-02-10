@@ -12,7 +12,7 @@ class UserBankAccountUseCaseImpl implements UserBankAccountUseCase {
 
   @override
   createUpdateBankAccountUseCase(CreateUpdateBankAccountRequest request) {
-    _repository.createUpdateBankAccountRepo(request);
+    return _repository.createUpdateBankAccountRepo(request);
   }
 
   @override

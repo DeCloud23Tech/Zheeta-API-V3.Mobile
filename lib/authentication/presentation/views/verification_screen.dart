@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/common/storage/local_storage_impl.dart';
-import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
@@ -15,8 +13,10 @@ import 'package:zheeta/widgets/primary_button.dart';
 @RoutePage()
 class VerificationScreen extends ConsumerStatefulWidget {
   final bool isPhoneNumber;
-  final String identifier;
-  const VerificationScreen({super.key, required this.isPhoneNumber, required this.identifier});
+  final String phoneNumber;
+  final String countryCode;
+  final String email;
+  const VerificationScreen({super.key, required this.isPhoneNumber, required this.phoneNumber, required this.countryCode, required this.email});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _VerificationScreenState();
@@ -30,7 +30,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
   void initState() {
     super.initState();
     userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
-    userOtpViewModel.setPhoneNumberOrEmail(widget.isPhoneNumber, widget.identifier);
+    userOtpViewModel.setPhoneNumberOrEmail(isPhoneNumber: widget.isPhoneNumber, phoneNumber: widget.phoneNumber, countryCode: widget.countryCode, email: widget.email);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       userOtpViewModel.startTimer();
     });
@@ -64,41 +64,19 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 15),
-                          if (widget.isPhoneNumber)
-                            FutureBuilder(
-                                future: sessionManager.get(SessionManagerKeys.userPhoneNumberString),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Text.rich(
-                                      TextSpan(
-                                        text: verificationSubtitle,
-                                        style: forgotSubtitleStyle,
-                                        children: [
-                                          TextSpan(
-                                            text: snapshot.data,
-                                            style: TextStyle(color: AppColors.primaryDark),
-                                          )
-                                        ],
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    );
-                                  } else {
-                                    return SizedBox();
-                                  }
-                                })
-                          else
-                            Text.rich(
+                          Text.rich(
+                            TextSpan(
+                              text: verificationSubtitle,
+                              style: forgotSubtitleStyle,
+                              children: [
                                 TextSpan(
-                                  text: verificationSubtitle,
-                                  style: forgotSubtitleStyle,
-                                  children: [
-                                    TextSpan(
-                                      text: widget.identifier,
-                                      style: TextStyle(color: AppColors.primaryDark),
-                                    ),
-                                  ],
+                                  text: widget.isPhoneNumber ? '${widget.countryCode}${widget.phoneNumber}' : widget.email,
+                                  style: TextStyle(color: AppColors.primaryDark),
                                 ),
-                                textAlign: TextAlign.center)
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ],
                       ),
                     ],
@@ -195,7 +173,7 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
             ),
           ),
         ),
-        userOtpState.sendPhoneVerifyOtpState.isLoading || userOtpState.sendEmailVerifyOtpState.isLoading ? LoadingScreen() : SizedBox(),
+        (userOtpState.sendPhoneVerifyOtpState.isLoading || userOtpState.sendEmailVerifyOtpState.isLoading) ? LoadingScreen() : SizedBox(),
       ],
     );
   }

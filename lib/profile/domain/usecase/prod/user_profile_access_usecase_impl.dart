@@ -10,16 +10,16 @@ class UserProfileAccessUseCaseImpl implements UserProfileAccessUseCase {
 
   @override
   blockAccountUseCase({required String userId, required String blockOrUnblockUserId}) {
-    _repository.blockAccountRepo(userId: userId, blockOrUnblockUserId: blockOrUnblockUserId);
+    return _repository.blockAccountRepo(userId: userId, blockOrUnblockUserId: blockOrUnblockUserId);
   }
 
   @override
   getBlockedUsersUseCase({required int pageNumber, required int pageSize}) {
-    _repository.getBlockedUsersRepo(pageNumber: pageNumber, pageSize: pageSize);
+    return _repository.getBlockedUsersRepo(pageNumber: pageNumber, pageSize: pageSize);
   }
 
   @override
   unblockAccountUseCase({required String userId, required String blockOrUnblockUserId}) {
-    _repository.unblockAccountRepo(userId: userId, blockOrUnblockUserId: blockOrUnblockUserId);
+    return _repository.unblockAccountRepo(userId: userId, blockOrUnblockUserId: blockOrUnblockUserId);
   }
 }

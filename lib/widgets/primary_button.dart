@@ -10,7 +10,8 @@ class PrimaryButton extends StatelessWidget {
   final Color? color;
   final String? icon;
   final String? icon2;
-  const PrimaryButton({Key? key, this.state = false, required this.title, required this.action, this.invert = false, this.color, this.icon, this.icon2}) : super(key: key);
+  final bool showBorder;
+  const PrimaryButton({Key? key, this.state = false, required this.title, required this.action, this.invert = false, this.color, this.showBorder = false, this.icon, this.icon2}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +75,11 @@ class PrimaryButton extends StatelessWidget {
               return states.contains(MaterialState.pressed) ? AppColors.primaryLight.withOpacity(0.5) : null;
             },
           ),
+
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
-              // side: BorderSide(color: Colors.red)
+              side: showBorder ? BorderSide(color: AppColors.primaryDark) : BorderSide.none,
             ),
           ),
         ),

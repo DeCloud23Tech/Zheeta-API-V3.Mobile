@@ -18,12 +18,12 @@ class UserAuthUseCaseImpl implements UserAuthUseCase {
 
   @override
   changePasswordUsecase(ChangePasswordRequest data) {
-    _repository.changePasswordRepo(data);
+    return _repository.changePasswordRepo(data);
   }
 
   @override
   loginOAuthUsecase(LoginOAuthRequest data) {
-    _repository.loginOAuthRepo(data);
+    return _repository.loginOAuthRepo(data);
   }
 
   @override
@@ -33,7 +33,7 @@ class UserAuthUseCaseImpl implements UserAuthUseCase {
 
   @override
   registerStaffUsecase(RegisterStaffRequest data) {
-    _repository.registerStaffRepo(data);
+    return _repository.registerStaffRepo(data);
   }
 
   @override
@@ -43,6 +43,6 @@ class UserAuthUseCaseImpl implements UserAuthUseCase {
 
   @override
   resetPasswordUsecase(ResetPasswordRequest data) {
-    _repository.resetPasswordRepo(data);
+    return _repository.resetPasswordRepo(data);
   }
 }

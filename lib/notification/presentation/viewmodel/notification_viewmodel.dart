@@ -53,6 +53,7 @@ class NotificationViewModel extends StateNotifier<NotificationState> {
       return true;
     } on Exception catch (e) {
       state = state.setGetNotificationsState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

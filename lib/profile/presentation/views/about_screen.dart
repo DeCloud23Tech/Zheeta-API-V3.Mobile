@@ -26,14 +26,19 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
   String? bodyType;
   String? complexion;
   String? religion;
-  String? interest;
+  List<String> interest = [];
+  List<String>? languages;
   late UserProfileViewModel userProfileViewModel;
+  late UserInterestViewModel userInterestViewModel;
+  late TextEditingController languagesController;
 
   final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     userProfileViewModel = ref.read(userProfileViewModelProvider.notifier);
+    userInterestViewModel = ref.read(userInterestViewModelProvider.notifier);
+    languagesController = TextEditingController();
     super.initState();
   }
 
@@ -202,14 +207,21 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                 Wrap(
                   direction: Axis.horizontal,
                   children: userInterestState.getInterestState.data?.data.map((value) {
-                        return AppRadioButton(
+                        return AppMultipleSelectRadioButton(
                           value: value.title,
-                          groupValue: interest ?? '',
+                          isActive: interest.contains(value.title),
                           onChanged: (value) {
-                            setState(() {
-                              interest = value;
-                            });
-                            userProfileViewModel.setInterest(value);
+                            if (interest.contains(value)) {
+                              interest.remove(value);
+                            } else {
+                              interest.add(value);
+                            }
+                            setState(() {});
+                            userInterestViewModel.setInterest(
+                              userInterestState.getInterestState.data!.data.firstWhere((element) {
+                                return element.title == value;
+                              }).id,
+                            );
                           },
                         );
                       }).toList() ??
@@ -231,11 +243,29 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                   'Language',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
-                DropdownInputField(
-                  items: userProfileViewModel.languageList,
+                InputField(
+                  controller: languagesController,
                   hintText: 'Select language',
-                  onChanged: (value) => userProfileViewModel.setLanguage(value!),
                   validator: (value) => userProfileViewModel.validateLanguage(),
+                  readonly: true,
+                  onTap: () async {
+                    final _lang = await router.push<List<String>?>(SelectLanguageRoute(languages: languages ?? []));
+                    if (_lang != null) {
+                      languages = _lang;
+                      userProfileViewModel.setLanguage(_lang);
+                      languagesController.text = languages!.join(', ');
+                    }
+                  },
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'About Me',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                InputField(
+                  hintText: 'Write about yourself',
+                  onChanged: (value) => userProfileViewModel.setAbout(value),
+                  validator: (value) => userProfileViewModel.validateAboutMe(),
                 ),
                 SizedBox(height: 10),
                 Text(

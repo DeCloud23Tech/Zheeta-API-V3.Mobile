@@ -14,7 +14,9 @@ CreateUserProfileRequest _$CreateUserProfileRequestFromJson(
       lastName: json['lastName'] as String,
       dateOfBirth: json['dateOfBirth'] as String,
       gender: json['gender'] as int,
-      languageCSV: json['languageCSV'] as String,
+      languageCSV: (json['languageCSV'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       aboutMe: json['aboutMe'] as String,
       bodyType: json['bodyType'] as String,
       complexion: json['complexion'] as String,
@@ -39,7 +41,8 @@ Map<String, dynamic> _$CreateUserProfileRequestToJson(
       'lastName': instance.lastName,
       'dateOfBirth': instance.dateOfBirth,
       'gender': instance.gender,
-      'languageCSV': instance.languageCSV,
+      'languageCSV':
+          CreateUserProfileRequest.languageCSVToJson(instance.languageCSV),
       'aboutMe': instance.aboutMe,
       'bodyType': instance.bodyType,
       'complexion': instance.complexion,

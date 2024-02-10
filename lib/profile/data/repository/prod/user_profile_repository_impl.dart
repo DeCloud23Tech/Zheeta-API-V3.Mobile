@@ -41,14 +41,14 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     final result = await _datasource.getSingleUserProfile();
 
     return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) {
-        if (value['data'] == null) {
+      (error) {
+        if (error.data == null) {
           throw new UserProfileNotCreatedException('User profile not created');
         } else {
-          return UserProfileModel.fromJson(value);
+          throw new Exception(error.message);
         }
       },
+      (value) => UserProfileModel.fromJson(value),
     );
   }
 

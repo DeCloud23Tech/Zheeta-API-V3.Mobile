@@ -43,7 +43,7 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
 
   @override
   Future<Either<ErrorResponse, MappedResponse>> loginOAuth(LoginOAuthRequest request) async {
-    final response = await _apiManager.postHttp('/userauth/register-staff', request.toJson());
+    final response = await _apiManager.postHttp('/userauth/login/oauth', request.toJson());
     if (response.success) {
       return Right(response.data);
     } else {

@@ -60,7 +60,7 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
                 password: true,
               ),
               InputField(
-                validator: (data) => userAuthViewModel.validateRetypePassword(),
+                validator: (data) => userAuthViewModel.validateRetypedPassword(),
                 onChanged: (value) => userAuthViewModel.setRetypePassword(value),
                 hintText: 'Retype password',
                 password: true,

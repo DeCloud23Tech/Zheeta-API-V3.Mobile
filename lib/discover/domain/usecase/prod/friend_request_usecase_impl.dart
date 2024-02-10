@@ -14,6 +14,6 @@ class FriendRequestUseCaseImpl implements FriendRequestUseCase {
     required String recieverId,
     required TypeOfRequest typeOfRequest,
   }) {
-    _repository.sendFriendRequestRepo(recieverId: recieverId, typeOfRequest: typeOfRequest);
+    return _repository.sendFriendRequestRepo(recieverId: recieverId, typeOfRequest: typeOfRequest);
   }
 }

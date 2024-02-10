@@ -41,7 +41,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   String _username = '';
   String _password = 'Password@123';
   String _retypePassword = '';
-  String _email = 'onipedejoseph2018@gmail.com';
+  String _email = 'peterosunsan2@gmail.com';
   PhoneNumber _phoneNumber = PhoneNumber(countryISOCode: '+234', countryCode: 'NG', number: '');
   String? _referral = null;
   bool _agree = false;
@@ -66,7 +66,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
 
   String? validateUsername() => this.isValidInput(_username);
   String? validatePassword() => this.isValidPassword(_password);
-  String? validateRetypePassword() => _password == _retypePassword ? null : 'Password does not match';
+  String? validateRetypedPassword() => _password == _retypePassword ? null : 'Password does not match';
   String? validateEmail() => this.isValidEmail(_email);
   String? validatePhoneNumber() => this.isValidPhoneNumber(_phoneNumber.completeNumber);
   String? validateOtp() => this.isValidNumber(_otp, minLength: 6);
@@ -75,18 +75,14 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   Future<bool> registerUser() async {
     state = state.setRegisterUserState(State.loading());
 
-    await sessionManager.set(SessionManagerKeys.userEmailString, _email);
-    await sessionManager.set(SessionManagerKeys.userPasswordString, _password);
-    await sessionManager.set(SessionManagerKeys.userPhoneNumberString, _phoneNumber.completeNumber);
-
-    final retypePasswordIsMatchOrMessage = validateRetypePassword();
-    if (retypePasswordIsMatchOrMessage != null) {
-      NotifyUser.showSnackbar(retypePasswordIsMatchOrMessage);
-      state = state.setRegisterUserState(State.error(Exception(retypePasswordIsMatchOrMessage)));
+    final retypedPasswordIsMatchOrMessage = validateRetypedPassword();
+    if (retypedPasswordIsMatchOrMessage != null) {
+      NotifyUser.showSnackbar(retypedPasswordIsMatchOrMessage);
+      state = state.setRegisterUserState(State.error(Exception(retypedPasswordIsMatchOrMessage)));
       return false;
     }
 
-    if (_agree && retypePasswordIsMatchOrMessage == null) {
+    if (_agree && retypedPasswordIsMatchOrMessage == null) {
       try {
         final data = RegisterUserRequest(
           userName: _username,
@@ -100,24 +96,24 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
         state = state.setRegisterUserState(State.success(result));
 
         // Navigate to verification screen
-        router.popAndPush(VerificationRoute(identifier: _phoneNumber.number, isPhoneNumber: true));
+        router.popAndPush(VerificationRoute(isPhoneNumber: true, phoneNumber: _phoneNumber.number, countryCode: _phoneNumber.countryCode, email: _email));
         return true;
       } on DuplicateRegisterParamException catch (e) {
+        state = state.setRegisterUserState(State.error(e));
         if (e.usernameException != null) {
           NotifyUser.showSnackbar(e.usernameException!);
         }
         if (e.emailException != null) {
-          print(e.emailException);
           NotifyUser.showSnackbar(e.emailException!);
         }
         if (e.phoneException != null) {
-          print(e.phoneException);
           NotifyUser.showSnackbar(e.phoneException!);
         }
         state = state.setRegisterUserState(State.error(e));
         return false;
       } on Exception catch (e) {
         state = state.setRegisterUserState(State.error(e));
+        NotifyUser.showSnackbar(e.toString());
         return false;
       }
     } else {
@@ -129,8 +125,6 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
 
   Future<bool> loginUser() async {
     state = state.setLoginUserState(State.loading());
-    await sessionManager.set(SessionManagerKeys.userEmailString, _email);
-    await sessionManager.set(SessionManagerKeys.userPasswordString, _password);
     try {
       final data = LoginRequest(email: _email, password: _password, userDeviceToken: _userDeviceToken, platform: 'APNS');
       final result = await _authUsecase.loginUsecase(data);
@@ -148,22 +142,22 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
       return true;
     } on UserNotFoundException catch (e) {
-      NotifyUser.showSnackbar(e.toString());
       state = state.setLoginUserState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
 
       return false;
     } on EmailNotVerifiedException catch (e) {
       state = state.setLoginUserState(State.error(e));
 
       final _userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
-      _userOtpViewModel.setPhoneNumberOrEmail(false, _email);
+      _userOtpViewModel.setPhoneNumberOrEmail(isPhoneNumber: false, phoneNumber: _phoneNumber.number, countryCode: _phoneNumber.countryCode, email: _email);
       await _userOtpViewModel.sendEmailVerifyOtp();
 
-      router.push(VerificationRoute(isPhoneNumber: false, identifier: _email));
+      router.push(VerificationRoute(isPhoneNumber: false, phoneNumber: _phoneNumber.number, countryCode: _phoneNumber.countryCode, email: _email));
       return false;
     } on Exception catch (e) {
       state = state.setLoginUserState(State.error(e));
-
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -171,15 +165,13 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
   Future<bool> resetPassword() async {
     state = state.setResetPasswordState(State.loading());
     try {
-      final retypePasswordIsMatchOrMessage = validateRetypePassword();
+      final retypePasswordIsMatchOrMessage = validateRetypedPassword();
       if (retypePasswordIsMatchOrMessage != null) {
         NotifyUser.showSnackbar(retypePasswordIsMatchOrMessage);
         state = state.setResetPasswordState(State.error(Exception(retypePasswordIsMatchOrMessage)));
         return false;
       } else {
-        final userEmail = await sessionManager.get(SessionManagerKeys.userEmailString);
-
-        final data = ResetPasswordRequest(email: userEmail, otp: _otp, newPassword: _password);
+        final data = ResetPasswordRequest(email: _email, otp: _otp, newPassword: _password);
         final result = await _authUsecase.resetPasswordUsecase(data);
         state = state.setResetPasswordState(State.success(result));
 
@@ -189,7 +181,7 @@ class UserAuthViewModel extends StateNotifier<UserAuthState> with ValidationHelp
       return true;
     } on Exception catch (e) {
       state = state.setResetPasswordState(State.error(e));
-
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }

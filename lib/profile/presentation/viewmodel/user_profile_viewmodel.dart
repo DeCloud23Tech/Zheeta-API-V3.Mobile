@@ -18,6 +18,7 @@ import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart';
 import 'package:zheeta/profile/presentation/state/user_profile_state.dart';
 import 'package:zheeta/profile/presentation/viewmodel/location_viewmodel.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_interest_viewmodel.dart';
 
 final userProfileViewModelProvider = StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
   final _userProfileUseCase = locator<UserProfileUseCase>();
@@ -63,9 +64,9 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   String _bodyType = '';
   String _complexion = '';
   String _religion = '';
-  String _interest = '';
-  String _language = '';
+  List<String> _languages = [];
   String _occupation = '';
+  String _aboutMe = '';
   String _tagline = '';
 
   File? _profilePicture;
@@ -108,9 +109,11 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   setBodyType(String value) => _bodyType = value;
   setComplexion(String value) => _complexion = value;
   setReligion(String value) => _religion = value;
-  setInterest(String value) => _interest = value;
-  setLanguage(String value) => _language = value;
+
+  setLanguage(List<String> value) => _languages = value;
+
   setOccupation(String value) => _occupation = value;
+  setAbout(String value) => _aboutMe = value;
   setTagline(String value) => _tagline = value;
 
   setProfilePicture(File file) => _profilePicture = file;
@@ -135,7 +138,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   String? validateCountry() => this.isValidInput(_country);
 
   String? validateOccupation() => this.isValidInput(_occupation);
-  String? validateLanguage() => this.isValidInput(_language);
+  String? validateAboutMe() => this.isValidInput(_aboutMe);
+  String? validateLanguage() => this.isValidInput(_languages.join(','));
   String? validateTagline() => this.isValidInput(_tagline);
 
   String? validateLetsKnowYouForm() {
@@ -149,12 +153,12 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
       return 'Select your complexion';
     } else if (_religion.isEmpty) {
       return 'Select your religion';
-    } else if (_interest.isEmpty) {
-      return 'Select your interest';
     } else if (_occupation.isEmpty) {
       return 'Select your occupation';
-    } else if (_language.isEmpty) {
+    } else if (_languages.isEmpty) {
       return 'Select your language';
+    } else if (_aboutMe.isEmpty) {
+      return 'Write something about yourself';
     } else if (_tagline.isEmpty) {
       return 'Please enter your tagline';
     } else {
@@ -189,6 +193,7 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
       return false;
     } on Exception catch (e) {
       state = state.setGetSingleUserProfileState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -218,8 +223,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
         return false;
       }
     } on Exception catch (e) {
-      NotifyUser.showSnackbar(e.toString());
       state = state.setUpdateUserProfilePictureState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -242,8 +247,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
           lastName: _lastName,
           dateOfBirth: _dob,
           gender: _gender,
-          languageCSV: _language,
-          aboutMe: _language,
+          languageCSV: _languages,
+          aboutMe: _aboutMe,
           bodyType: _bodyType,
           complexion: _complexion,
           height: _height,
@@ -259,17 +264,22 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
           longitude: _longitude,
         );
         final result = await _userProfileUseCase.createUserProfileUseCase(data);
+
+        UserInterestViewModel _userInterestViewModel = ref.read(userInterestViewModelProvider.notifier);
+        await _userInterestViewModel.updateUserInterest();
+
         state = state.setCreateUserProfileState(State.success(result));
         return true;
       } else {
-        NotifyUser.showSnackbar(isValidFormOrErrorMessage);
         state = state.setCreateUserProfileState(
           State.error(Exception(isValidFormOrErrorMessage)),
         );
+        NotifyUser.showSnackbar(isValidFormOrErrorMessage);
         return false;
       }
     } on Exception catch (e) {
       state = state.setCreateUserProfileState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
       return false;
     }
   }
@@ -285,7 +295,7 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     _address = '';
     _city = '';
     _postcode = '';
-    _language = '';
+    _languages.clear();
     _state = '';
     _country = '';
 
@@ -295,8 +305,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     _bodyType = '';
     _complexion = '';
     _religion = '';
-    _interest = '';
     _occupation = '';
+    _aboutMe = '';
     _tagline = '';
 
     _profilePicture = null;
