@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.only(left: 20, top: 10),
         child: Text(
           'Discover',
-          style: TextStyle(color: AppColors.white, fontSize: 32, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: AppColors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.w600),
         ),
       ),
       actions: [
@@ -65,14 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.only(left: 20, top: 10),
         child: Text(
           'Feeds',
-          style: TextStyle(color: AppColors.grayscale, fontSize: 32, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: AppColors.grayscale,
+              fontSize: 32,
+              fontWeight: FontWeight.w600),
         ),
       ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 20.0),
           child: Row(
-            children: [TopNavBtn2(icon: 'assets/images/icons/menu.svg'), TopNavBtn2(icon: 'assets/images/icons/bell.svg')],
+            children: [
+              TopNavBtn2(icon: 'assets/images/icons/menu.svg'),
+              TopNavBtn2(icon: 'assets/images/icons/bell.svg')
+            ],
           ),
         )
       ],
@@ -85,7 +92,10 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.only(left: 20, top: 10),
         child: Text(
           'Messages',
-          style: TextStyle(color: AppColors.grayscale, fontSize: 32, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: AppColors.grayscale,
+              fontSize: 32,
+              fontWeight: FontWeight.w600),
         ),
       ),
       actions: [
@@ -102,7 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final pages = [DiscoverPage(), Feeds(), Messages(), Profile()];
 
-  final bg = [AppColors.primaryDark, AppColors.secondaryLight, AppColors.secondaryLight, AppColors.secondaryLight];
+  final bg = [
+    AppColors.primaryDark,
+    AppColors.secondaryLight,
+    AppColors.secondaryLight,
+    AppColors.secondaryLight
+  ];
 
   List icons = [
     ["Discover", "assets/images/icons/card.svg"],
@@ -117,21 +132,15 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: bg[index],
       appBar: index == 3 ? null : appbar[index],
       drawer: SideDrawer(),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: Platform.isIOS ? 40.0 : 80.0),
-        child: SizedBox(
-          height: 55,
-          width: 55,
-          child: ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
-                  elevation: MaterialStateProperty.all(10),
-                  backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                  ))),
-              child: SvgPicture.asset('assets/images/icons/plus.svg')),
+      floatingActionButton: Transform.translate(
+        offset: Offset(0, -30),
+        child: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
+          ),
+          backgroundColor: Colors.white,
+          onPressed: () {},
+          child: SvgPicture.asset('assets/images/icons/plus.svg'),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -142,7 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
               child: Stack(
             children: [
-              CustomPaint(size: Size(double.infinity, 78), painter: BNBCustomPainter()),
+              CustomPaint(
+                  size: Size(double.infinity, 78), painter: BNBCustomPainter()),
               Container(
                 padding: const EdgeInsets.fromLTRB(6, 0, 6, 20),
                 decoration: BoxDecoration(
@@ -159,22 +169,33 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: AnimatedOpacity(
                             opacity: index == i ? 1 : 0.5,
                             duration: const Duration(milliseconds: 200),
-                            child: Stack(clipBehavior: Clip.none, alignment: Alignment.center, children: [
-                              SizedBox(
-                                  height: 26,
-                                  width: 26,
-                                  child: SvgPicture.asset(
-                                    icons[i][1],
-                                    colorFilter: ColorFilter.mode(index == i ? AppColors.primaryDark : AppColors.grey, BlendMode.srcIn),
-                                  )),
-                              Positioned(
-                                top: 32,
-                                child: Text(
-                                  icons[i][0],
-                                  style: TextStyle(fontSize: 10, color: index == i ? AppColors.primaryDark : AppColors.grey),
-                                ),
-                              ),
-                            ]),
+                            child: Stack(
+                                clipBehavior: Clip.none,
+                                alignment: Alignment.center,
+                                children: [
+                                  SizedBox(
+                                      height: 26,
+                                      width: 26,
+                                      child: SvgPicture.asset(
+                                        icons[i][1],
+                                        colorFilter: ColorFilter.mode(
+                                            index == i
+                                                ? AppColors.primaryDark
+                                                : AppColors.grey,
+                                            BlendMode.srcIn),
+                                      )),
+                                  Positioned(
+                                    top: 32,
+                                    child: Text(
+                                      icons[i][0],
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: index == i
+                                              ? AppColors.primaryDark
+                                              : AppColors.grey),
+                                    ),
+                                  ),
+                                ]),
                           ),
                           onPressed: () {
                             setState(() {
@@ -218,7 +239,9 @@ class TopNavBtn extends StatelessWidget {
             padding: EdgeInsets.all(10),
             height: 40,
             width: 40,
-            decoration: BoxDecoration(color: AppColors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(100)),
+            decoration: BoxDecoration(
+                color: AppColors.white.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(100)),
             child: SvgPicture.asset(
               icon,
               width: 30,
@@ -240,7 +263,17 @@ class TopNavBtn2 extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: Container(padding: EdgeInsets.all(10), height: 40, width: 40, decoration: BoxDecoration(color: AppColors.grey.withOpacity(0.1), borderRadius: BorderRadius.circular(100)), child: SvgPicture.asset(icon, width: 30, colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn))),
+        child: Container(
+            padding: EdgeInsets.all(10),
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+                color: AppColors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(100)),
+            child: SvgPicture.asset(icon,
+                width: 30,
+                colorFilter:
+                    ColorFilter.mode(AppColors.grey, BlendMode.srcIn))),
       ),
     );
   }
@@ -259,7 +292,8 @@ class BNBCustomPainter extends CustomPainter {
 
     // Adjust the 0.4 and 0.6 for start and end points
     path.quadraticBezierTo(size.width * 0.55, 0, size.width * 0.42, 0);
-    path.arcToPoint(Offset(size.width * 0.58, 0), radius: Radius.circular(38.0), clockwise: false);
+    path.arcToPoint(Offset(size.width * 0.58, 0),
+        radius: Radius.circular(38.0), clockwise: false);
     path.quadraticBezierTo(size.width * 0.80, 0, size.width, 0);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);

@@ -108,10 +108,10 @@ class _ProfileState extends State<Profile> {
                       children: [
                         Row(
                           children: [
-                            // Image.asset('assets/images/badge.png',
-                            //     width: 19, height: 19),
+                            Image.asset('assets/images/badge.png',
+                                width: 19, height: 19),
                             SizedBox(width: 5),
-                            // SvgPicture.asset('assets/images/icons/share_2.svg'),
+                            SvgPicture.asset('assets/images/icons/share_2.svg'),
                             SizedBox(width: 5),
                             Container(
                               padding: EdgeInsets.symmetric(
