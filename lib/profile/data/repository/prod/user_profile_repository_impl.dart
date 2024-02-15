@@ -18,13 +18,24 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   createUserProfileRepo(CreateUserProfileRequest request) async {
     final result = await _datasource.createUserProfile(request);
     return result.fold(
-      (error) => throw new Exception(error.message),
+      (error) {
+        if (error.errors != null) {
+          throw new CreateProfileValidationException(
+              originCityException: error.errors['OriginCity'],
+              originCountryException: error.errors['OriginCountry']);
+        } else {
+          throw new Exception(error.message);
+        }
+      },
       (value) => value,
     );
   }
 
   @override
-  Future<AllUserProfileListModel> getAllUsersProfileRepo({required int roleType, required int pageNumber, required int pageSize}) async {
+  Future<AllUserProfileListModel> getAllUsersProfileRepo(
+      {required int roleType,
+      required int pageNumber,
+      required int pageSize}) async {
     final result = await _datasource.getAllUsersProfile(
       roleType: roleType,
       pageNumber: pageNumber,
@@ -53,8 +64,10 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  updateUserProfilePictureRepo({required String userId, required MultipartFile file}) async {
-    final result = await _datasource.updateUserProfilePicture(userId: userId, file: file);
+  updateUserProfilePictureRepo(
+      {required String userId, required MultipartFile file}) async {
+    final result =
+        await _datasource.updateUserProfilePicture(userId: userId, file: file);
     return result.fold(
       (error) => throw new Exception(error.message),
       (value) => value,

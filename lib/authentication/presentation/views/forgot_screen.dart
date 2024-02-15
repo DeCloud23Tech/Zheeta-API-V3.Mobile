@@ -14,7 +14,8 @@ class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ForgotPasswordScreenState();
 }
 
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
@@ -25,6 +26,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
     super.initState();
   }
+
+  final validatorChange = ValueNotifier<dynamic>(null);
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +49,12 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 children: [
                   Column(
                     children: [
-                      Text(forgotTitle, style: forgotTitleStyle, textAlign: TextAlign.center),
+                      Text(forgotTitle,
+                          style: forgotTitleStyle, textAlign: TextAlign.center),
                       SizedBox(height: 15),
-                      Text(forgotSubtitle, style: forgotSubtitleStyle, textAlign: TextAlign.center),
+                      Text(forgotSubtitle,
+                          style: forgotSubtitleStyle,
+                          textAlign: TextAlign.center),
                     ],
                   ),
                 ],
@@ -56,19 +62,27 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
               SizedBox(height: 32),
               InputField(
                 validator: (data) => userOtpViewModel.validateEmail(),
-                onChanged: (value) => userOtpViewModel.setEmail = value,
+                onChanged: (value) {
+                  validatorChange.value = value;
+                  userOtpViewModel.setEmail = value;
+                },
                 hintText: 'E-mail Address',
               ),
               SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,
-                child: PrimaryButton(
-                  title: 'Reset Password',
-                  state: userOtpState.sendPasswordResetOtpState.isLoading,
-                  action: () {
-                    userOtpViewModel.sendPasswordResetOtp();
-                  },
-                ),
+                child: ListenableBuilder(
+                    listenable: validatorChange,
+                    builder: (context, _) {
+                      return PrimaryButton(
+                        title: 'Reset Password',
+                        disabled: userOtpViewModel.validateEmail() != null,
+                        state: userOtpState.sendPasswordResetOtpState.isLoading,
+                        action: () {
+                          userOtpViewModel.sendPasswordResetOtp();
+                        },
+                      );
+                    }),
               )
             ],
           ),

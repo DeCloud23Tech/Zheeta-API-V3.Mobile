@@ -15,10 +15,12 @@ class ResetPasswordOtpScreen extends ConsumerStatefulWidget {
   const ResetPasswordOtpScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ResetPasswordOtpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ResetPasswordOtpScreenState();
 }
 
-class _ResetPasswordOtpScreenState extends ConsumerState<ResetPasswordOtpScreen> {
+class _ResetPasswordOtpScreenState
+    extends ConsumerState<ResetPasswordOtpScreen> {
   late UserAuthViewModel userAuthViewModel;
 
   final formKey = GlobalKey<FormState>();
@@ -28,6 +30,8 @@ class _ResetPasswordOtpScreenState extends ConsumerState<ResetPasswordOtpScreen>
     super.initState();
     userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
   }
+
+  final validatorChange = ValueNotifier<dynamic>(null);
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +52,12 @@ class _ResetPasswordOtpScreenState extends ConsumerState<ResetPasswordOtpScreen>
                 children: [
                   Column(
                     children: [
-                      Text('Reset Password', style: forgotTitleStyle, textAlign: TextAlign.center),
+                      Text('Reset Password',
+                          style: forgotTitleStyle, textAlign: TextAlign.center),
                       SizedBox(height: 15),
-                      Text('An otp code has been sent to your email address', style: forgotSubtitleStyle, textAlign: TextAlign.center),
+                      Text('An otp code has been sent to your email address',
+                          style: forgotSubtitleStyle,
+                          textAlign: TextAlign.center),
                     ],
                   ),
                 ],
@@ -87,20 +94,28 @@ class _ResetPasswordOtpScreenState extends ConsumerState<ResetPasswordOtpScreen>
                   animationDuration: const Duration(milliseconds: 300),
                   enableActiveFill: true,
                   keyboardType: TextInputType.number,
-                  onChanged: (value) => userAuthViewModel.setOtp(value),
+                  onChanged: (value) {
+                    validatorChange.value = value;
+                    userAuthViewModel.setOtp(value);
+                  },
                 ),
               ),
               SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,
-                child: PrimaryButton(
-                  title: 'Next',
-                  action: () {
-                    if (formKey.currentState!.validate()) {
-                      router.push(ResetPasswordRoute());
-                    }
-                  },
-                ),
+                child: ListenableBuilder(
+                    listenable: validatorChange,
+                    builder: (context, _) {
+                      return PrimaryButton(
+                        title: 'Next',
+                        disabled: userAuthViewModel.validateOtp() != null,
+                        action: () {
+                          if (formKey.currentState!.validate()) {
+                            router.push(ResetPasswordRoute());
+                          }
+                        },
+                      );
+                    }),
               )
             ],
           ),

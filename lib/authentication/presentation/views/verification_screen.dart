@@ -16,10 +16,16 @@ class VerificationScreen extends ConsumerStatefulWidget {
   final String phoneNumber;
   final String countryCode;
   final String email;
-  const VerificationScreen({super.key, required this.isPhoneNumber, required this.phoneNumber, required this.countryCode, required this.email});
+  const VerificationScreen(
+      {super.key,
+      required this.isPhoneNumber,
+      required this.phoneNumber,
+      required this.countryCode,
+      required this.email});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _VerificationScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _VerificationScreenState();
 }
 
 class _VerificationScreenState extends ConsumerState<VerificationScreen> {
@@ -30,11 +36,17 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
   void initState() {
     super.initState();
     userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
-    userOtpViewModel.setPhoneNumberOrEmail(isPhoneNumber: widget.isPhoneNumber, phoneNumber: widget.phoneNumber, countryCode: widget.countryCode, email: widget.email);
+    userOtpViewModel.setPhoneNumberOrEmail(
+        isPhoneNumber: widget.isPhoneNumber,
+        phoneNumber: widget.phoneNumber,
+        countryCode: widget.countryCode,
+        email: widget.email);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       userOtpViewModel.startTimer();
     });
   }
+
+  final validatorChange = ValueNotifier<dynamic>(null);
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +82,11 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                               style: forgotSubtitleStyle,
                               children: [
                                 TextSpan(
-                                  text: widget.isPhoneNumber ? '${widget.countryCode}${widget.phoneNumber}' : widget.email,
-                                  style: TextStyle(color: AppColors.primaryDark),
+                                  text: widget.isPhoneNumber
+                                      ? '${widget.countryCode}${widget.phoneNumber}'
+                                      : widget.email,
+                                  style:
+                                      TextStyle(color: AppColors.primaryDark),
                                 ),
                               ],
                             ),
@@ -113,7 +128,10 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                       animationDuration: const Duration(milliseconds: 300),
                       enableActiveFill: true,
                       keyboardType: TextInputType.number,
-                      onChanged: (value) => userOtpViewModel.setOtp = value,
+                      onChanged: (value) {
+                        validatorChange.value = value;
+                        userOtpViewModel.setOtp = value;
+                      },
                     ),
                   ),
                   SizedBox(height: 22),
@@ -147,16 +165,22 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  child: PrimaryButton(
-                    state: userOtpState.verifyPhoneOtpState.isLoading || userOtpState.verifyEmailOtpState.isLoading,
-                    title: 'Continue',
-                    action: () async {
-                      final isValid = formKey.currentState?.validate();
-                      if (isValid ?? false) {
-                        userOtpViewModel.verifyPhoneOrEmail();
-                      }
-                    },
-                  ),
+                  child: ListenableBuilder(
+                      listenable: validatorChange,
+                      builder: (context, _) {
+                        return PrimaryButton(
+                          disabled: userOtpViewModel.validateOtp() != null,
+                          state: userOtpState.verifyPhoneOtpState.isLoading ||
+                              userOtpState.verifyEmailOtpState.isLoading,
+                          title: 'Continue',
+                          action: () async {
+                            final isValid = formKey.currentState?.validate();
+                            if (isValid ?? false) {
+                              userOtpViewModel.verifyPhoneOrEmail();
+                            }
+                          },
+                        );
+                      }),
                 ),
                 if (widget.isPhoneNumber) SizedBox(height: 20),
                 if (widget.isPhoneNumber)
@@ -173,7 +197,10 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
             ),
           ),
         ),
-        (userOtpState.sendPhoneVerifyOtpState.isLoading || userOtpState.sendEmailVerifyOtpState.isLoading) ? LoadingScreen() : SizedBox(),
+        (userOtpState.sendPhoneVerifyOtpState.isLoading ||
+                userOtpState.sendEmailVerifyOtpState.isLoading)
+            ? LoadingScreen()
+            : SizedBox(),
       ],
     );
   }

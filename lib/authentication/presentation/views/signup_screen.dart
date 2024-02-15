@@ -31,6 +31,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     super.initState();
   }
 
+  final validatorChange = ValueNotifier<dynamic>(null);
+
   @override
   Widget build(BuildContext context) {
     final userAuthState = ref.watch(userAuthViewModelProvider);
@@ -59,25 +61,38 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 InputField(
                   hintText: 'Username',
                   validator: (data) => userAuthViewModel.validateUsername(),
-                  onChanged: (value) => userAuthViewModel.setUsername(value),
+                  onChanged: (value) {
+                    validatorChange.value = value;
+                    userAuthViewModel.setUsername(value);
+                  },
                 ),
                 InputField(
                   hintText: 'Password',
                   password: _isPasswordObscure,
                   validator: (data) => userAuthViewModel.validatePassword(),
-                  onChanged: (value) => userAuthViewModel.setPassword(value),
+                  onChanged: (value) {
+                    validatorChange.value = value;
+                    userAuthViewModel.setPassword(value);
+                  },
                 ),
                 InputField(
                   hintText: 'Retype Password',
                   password: _isPasswordObscure,
-                  validator: (data) => userAuthViewModel.validateRetypedPassword(),
-                  onChanged: (value) => userAuthViewModel.setRetypePassword(value),
+                  validator: (data) =>
+                      userAuthViewModel.validateRetypedPassword(),
+                  onChanged: (value) {
+                    validatorChange.value = value;
+                    userAuthViewModel.setRetypePassword(value);
+                  },
                 ),
                 SizedBox(height: 10),
                 InputField(
                   hintText: 'Email Address',
                   validator: (data) => userAuthViewModel.validateEmail(),
-                  onChanged: (value) => userAuthViewModel.setEmail(value),
+                  onChanged: (value) {
+                    validatorChange.value = value;
+                    userAuthViewModel.setEmail(value);
+                  },
                 ),
                 SizedBox(height: 10),
                 IntlPhoneField(
@@ -87,19 +102,27 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       filled: true,
                       fillColor: AppColors.white,
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.grey.withOpacity(0.5), width: 1.0),
+                        borderSide: BorderSide(
+                            color: AppColors.grey.withOpacity(0.5), width: 1.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.primaryDark, width: 1.0),
+                        borderSide: BorderSide(
+                            color: AppColors.primaryDark, width: 1.0),
                       ),
                       border: const OutlineInputBorder(),
                       hintText: "Phone number",
-                      hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
+                      hintStyle: TextStyle(
+                          color: AppColors.grey.withOpacity(0.5), fontSize: 14),
                       errorStyle: const TextStyle(color: Colors.red)),
-                  initialCountryCode: userAuthViewModel.getPhoneNumber.countryCode,
+                  initialCountryCode:
+                      userAuthViewModel.getPhoneNumber.countryCode,
                   validator: (phone) => userAuthViewModel.validatePhoneNumber(),
-                  onChanged: (phone) => userAuthViewModel.setPhoneNumber(phone),
-                  onCountryChanged: (value) => userAuthViewModel.setCountryCode(value),
+                  onChanged: (phone) {
+                    validatorChange.value = phone;
+                    userAuthViewModel.setPhoneNumber(phone);
+                  },
+                  onCountryChanged: (value) =>
+                      userAuthViewModel.setCountryCode(value),
                   autovalidateMode: AutovalidateMode.disabled,
                 ),
                 SizedBox(height: 10),
@@ -116,10 +139,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         borderRadius: BorderRadius.circular(100.0),
                       ),
                       side: MaterialStateBorderSide.resolveWith(
-                        (states) => BorderSide(width: 1.0, color: AppColors.primaryDark),
+                        (states) => BorderSide(
+                            width: 1.0, color: AppColors.primaryDark),
                       ),
                       value: agree,
                       onChanged: (value) {
+                        validatorChange.value = value;
                         setState(() {
                           agree = value!;
                         });
@@ -148,16 +173,28 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 SizedBox(height: 12),
                 SizedBox(
                   width: double.infinity,
-                  child: PrimaryButton(
-                    title: 'Sign Up',
-                    state: userAuthState.registerUserState.isLoading,
-                    action: () async {
-                      final isValid = formKey.currentState?.validate();
-                      if (isValid ?? false) {
-                        userAuthViewModel.registerUser();
-                      }
-                    },
-                  ),
+                  child: ListenableBuilder(
+                      listenable: validatorChange,
+                      builder: (context, _) {
+                        return PrimaryButton(
+                          title: 'Sign Up',
+                          disabled: userAuthViewModel.validateUsername() !=
+                                  null ||
+                              userAuthViewModel.validatePassword() != null ||
+                              userAuthViewModel.validateRetypedPassword() !=
+                                  null ||
+                              userAuthViewModel.validateEmail() != null ||
+                              userAuthViewModel.validatePhoneNumber() != null ||
+                              !agree,
+                          state: userAuthState.registerUserState.isLoading,
+                          action: () async {
+                            final isValid = formKey.currentState?.validate();
+                            if (isValid ?? false) {
+                              userAuthViewModel.registerUser();
+                            }
+                          },
+                        );
+                      }),
                 ),
               ],
             ),

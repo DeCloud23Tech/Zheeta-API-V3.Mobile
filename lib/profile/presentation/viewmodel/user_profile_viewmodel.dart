@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart' show MultipartFile;
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:intl/intl.dart';
@@ -20,12 +22,14 @@ import 'package:zheeta/profile/presentation/state/user_profile_state.dart';
 import 'package:zheeta/profile/presentation/viewmodel/location_viewmodel.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_interest_viewmodel.dart';
 
-final userProfileViewModelProvider = StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
+final userProfileViewModelProvider =
+    StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
   final _userProfileUseCase = locator<UserProfileUseCase>();
   return UserProfileViewModel(_userProfileUseCase, ref);
 });
 
-class UserProfileViewModel extends StateNotifier<UserProfileState> with ValidationHelperMixin {
+class UserProfileViewModel extends StateNotifier<UserProfileState>
+    with ValidationHelperMixin {
   final UserProfileUseCase _userProfileUseCase;
   final Ref ref;
   UserProfileViewModel(this._userProfileUseCase, this.ref)
@@ -37,6 +41,10 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
             createUserProfileState: State.init(),
             updateUserProfileState: State.init(),
             visitUserProfileState: State.init(),
+            countryState: State.init(),
+            cityState: State.init(),
+            selectedCityState: State.init(),
+            selectedCountryState: State.init(),
           ),
         );
 
@@ -55,8 +63,6 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   String _address = '';
   String _city = '';
   String _postcode = '';
-  String _state = '';
-  String _country = '';
 
   double _height = 0;
   double _weight = 0;
@@ -100,8 +106,14 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   setAddress(String value) => _address = value;
   setCity(String value) => _city = value;
   setPostcode(String value) => _postcode = value;
-  setState(String value) => _state = value;
-  setCountry(String value) => _country = value;
+
+  setState(String? value) {
+    state = state.setSelectedCityState(value);
+  }
+
+  setCountry(String? value) {
+    state = state.setSelectedCountryState(value);
+  }
 
   setHeight(double value) => _height = value;
   setWeight(double value) => _weight = value;
@@ -134,12 +146,13 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
   String? validateAddress() => this.isValidInput(_address);
   String? validateCity() => this.isValidInput(_city);
   String? validatePostcode() => this.isValidInput(_postcode);
-  String? validateState() => this.isValidInput(_state);
-  String? validateCountry() => this.isValidInput(_country);
+  String? validateState() => this.isValidInput(state.selectedCityState.data);
+  String? validateCountry() =>
+      this.isValidInput(state.selectedCountryState.data);
 
   String? validateOccupation() => this.isValidInput(_occupation);
   String? validateAboutMe() => this.isValidInput(_aboutMe);
-  String? validateLanguage() => this.isValidInput(_languages.join(','));
+  String? validateLanguage() => this.isValidInput(_languages.join(', '));
   String? validateTagline() => this.isValidInput(_tagline);
 
   String? validateLetsKnowYouForm() {
@@ -174,6 +187,33 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     }
   }
 
+  loadCountry() async {
+    state = state.setCountryState(State.success([]));
+    state = state.setCityState(State.success([]));
+    final data = await rootBundle.loadString('assets/json/countries.json');
+    final jsonData = jsonDecode(data) as Map<String, dynamic>;
+    state = state.setCountryState(
+      State.success(jsonData.keys.toSet().toList()),
+    );
+  }
+
+  loadCity(String country, {bool clearCity = true}) async {
+    if (clearCity) setState(null);
+    state = state.setCityState(State.success([]));
+    final data = await rootBundle.loadString('assets/json/countries.json');
+    final jsonData = jsonDecode(data) as Map<String, dynamic>;
+    List<dynamic> city = jsonData.entries
+        .firstWhere(
+          (element) => element.key.toLowerCase() == country.toLowerCase(),
+        )
+        .value;
+    state = state.setCityState(
+      State.success(
+        city.map((e) => e.toString()).toSet().toList(),
+      ),
+    );
+  }
+
   Future<bool> getSingleUserProfile() async {
     state = state.setGetSingleUserProfileState(State.loading());
     try {
@@ -203,10 +243,13 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     try {
       final profilePictureIsValidOrMessage = validateProfilePicture();
       if (profilePictureIsValidOrMessage == null) {
-        final userId = await sessionManager.get(SessionManagerKeys.authUserIdString);
-        final result = await _userProfileUseCase.updateUserProfilePictureUseCase(
+        final userId =
+            await sessionManager.get(SessionManagerKeys.authUserIdString);
+        final result =
+            await _userProfileUseCase.updateUserProfilePictureUseCase(
           userId: userId,
-          file: await MultipartFile.fromFile(_profilePicture!.path, contentType: MediaType('image', 'jpg')),
+          file: await MultipartFile.fromFile(_profilePicture!.path,
+              contentType: MediaType('image', 'jpg')),
         );
 
         state = state.setUpdateUserProfilePictureState(State.success(result));
@@ -234,12 +277,14 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     try {
       String? isValidFormOrErrorMessage = validateLetsKnowYouForm();
       if (isValidFormOrErrorMessage == null) {
-        final _userId = await sessionManager.get(SessionManagerKeys.authUserIdString);
+        final _userId =
+            await sessionManager.get(SessionManagerKeys.authUserIdString);
 
         final _locationState = ref.watch(locationViewModelProvider);
 
         final _latitude = _locationState.getCurrentLocationState.data!.latitude;
-        final _longitude = _locationState.getCurrentLocationState.data!.longitude;
+        final _longitude =
+            _locationState.getCurrentLocationState.data!.longitude;
 
         final data = CreateUserProfileRequest(
           userId: _userId,
@@ -257,15 +302,19 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
           weight: _weight,
           tagline: _tagline,
           city: _city,
-          state: _state,
-          country: _country,
+          state: state.selectedCityState.data!,
+          country: state.selectedCountryState.data!,
           zipCode: _postcode,
           latitude: _latitude,
           longitude: _longitude,
+          originCity: state.selectedCityState.data!,
+          originCountry: state.selectedCountryState.data!,
+          maritalStatus: 1,
         );
         final result = await _userProfileUseCase.createUserProfileUseCase(data);
 
-        UserInterestViewModel _userInterestViewModel = ref.read(userInterestViewModelProvider.notifier);
+        UserInterestViewModel _userInterestViewModel =
+            ref.read(userInterestViewModelProvider.notifier);
         await _userInterestViewModel.updateUserInterest();
 
         state = state.setCreateUserProfileState(State.success(result));
@@ -277,6 +326,19 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
         NotifyUser.showSnackbar(isValidFormOrErrorMessage);
         return false;
       }
+    } on CreateProfileValidationException catch (e) {
+      if (e.originCityException?.isNotEmpty ?? false) {
+        for (var message in e.originCityException!) {
+          NotifyUser.showSnackbar(message);
+        }
+      }
+      if (e.originCountryException?.isNotEmpty ?? false) {
+        for (var message in e.originCountryException!) {
+          NotifyUser.showSnackbar(message);
+        }
+      }
+      state = state.setCreateUserProfileState(State.error(e));
+      return false;
     } on Exception catch (e) {
       state = state.setCreateUserProfileState(State.error(e));
       NotifyUser.showSnackbar(e.toString());
@@ -296,8 +358,11 @@ class UserProfileViewModel extends StateNotifier<UserProfileState> with Validati
     _city = '';
     _postcode = '';
     _languages.clear();
-    _state = '';
-    _country = '';
+
+    state = state.copyWith(
+      selectedCityState: State.success(null),
+      selectedCountryState: State.success(null),
+    );
 
     _height = 0;
     _weight = 0;

@@ -24,8 +24,6 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
   final _address = TextEditingController();
   final _city = TextEditingController();
   final _postcode = TextEditingController();
-  final _state = TextEditingController();
-  final _country = TextEditingController();
   late UserProfileViewModel userProfileViewModel;
   late UserInterestViewModel userInterestViewModel;
   final formKey = GlobalKey<FormState>();
@@ -37,12 +35,15 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
     userInterestViewModel = ref.read(userInterestViewModelProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       populateLocationField();
+      userProfileViewModel.loadCountry();
     });
   }
 
   populateLocationField() async {
     await locationBottomSheet(context);
-    final addressState = ref.watch(locationViewModelProvider).getAddressFromLocationCoordinateState;
+    final addressState = ref
+        .watch(locationViewModelProvider)
+        .getAddressFromLocationCoordinateState;
     if (addressState.isSuccess) {
       _address.text = addressState.data!.address ?? '';
       userProfileViewModel.setAddress(addressState.data!.address ?? '');
@@ -50,16 +51,16 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
       userProfileViewModel.setCity(addressState.data!.city ?? '');
       _postcode.text = addressState.data!.postalCode ?? '';
       userProfileViewModel.setPostcode(addressState.data!.postalCode ?? '');
-      _state.text = addressState.data!.state ?? '';
-      userProfileViewModel.setState(addressState.data!.state ?? '');
-      _country.text = addressState.data!.country ?? '';
-      userProfileViewModel.setCountry(addressState.data!.country ?? '');
+
+      userProfileViewModel.setState(addressState.data!.state);
+      userProfileViewModel.setCountry(addressState.data!.country);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final userInterestState = ref.watch(userInterestViewModelProvider);
+    final userProfileState = ref.watch(userProfileViewModelProvider);
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
       body: Padding(
@@ -92,17 +93,22 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                   onChanged: (value) => userProfileViewModel.setPostcode(value),
                   validator: (data) => userProfileViewModel.validatePostcode(),
                 ),
-                InputField(
-                  controller: _state,
-                  hintText: 'State',
+                DropdownInputField(
+                  value: userProfileState.selectedCountryState.data,
+                  hintText: 'Country',
+                  onChanged: (value) {
+                    userProfileViewModel.setCountry(value);
+                    userProfileViewModel.loadCity(value!, clearCity: true);
+                  },
+                  validator: (data) => userProfileViewModel.validateCountry(),
+                  items: userProfileState.countryState.data ?? [],
+                ),
+                DropdownInputField(
+                  value: userProfileState.selectedCityState.data,
+                  hintText: 'State or City',
                   onChanged: (value) => userProfileViewModel.setState(value),
                   validator: (data) => userProfileViewModel.validateState(),
-                ),
-                InputField(
-                  controller: _country,
-                  hintText: 'Country',
-                  onChanged: (value) => userProfileViewModel.setPostcode(value),
-                  validator: (data) => userProfileViewModel.validateCountry(),
+                  items: userProfileState.cityState.data ?? [],
                 ),
                 SizedBox(height: 32),
                 SizedBox(
@@ -112,7 +118,8 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                     state: userInterestState.getInterestState.isLoading,
                     action: () async {
                       if (formKey.currentState!.validate()) {
-                        final interestIsFetched = await userInterestViewModel.getInterests();
+                        final interestIsFetched =
+                            await userInterestViewModel.getInterests();
                         if (interestIsFetched) router.push(const AboutRoute());
                       }
                     },

@@ -31,6 +31,9 @@ CreateUserProfileRequest _$CreateUserProfileRequestFromJson(
       zipCode: json['zipCode'] as String,
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
+      originCity: json['originCity'] as String,
+      originCountry: json['originCountry'] as String,
+      maritalStatus: json['maritalStatus'] as int,
     );
 
 Map<String, dynamic> _$CreateUserProfileRequestToJson(
@@ -57,4 +60,7 @@ Map<String, dynamic> _$CreateUserProfileRequestToJson(
       'zipCode': instance.zipCode,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
+      'originCity': instance.originCity,
+      'originCountry': instance.originCountry,
+      'maritalStatus': instance.maritalStatus,
     };

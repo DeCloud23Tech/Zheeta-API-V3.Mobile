@@ -18,10 +18,14 @@ class MatchCriteriaState with _$MatchCriteriaState {
 
   MatchCriteriaState._();
 
-  MatchCriteriaState setUpdateMatchCriteriaState(State state) => copyWith(updateMatchCriteriaState: state);
-  MatchCriteriaState setMatchCriteriaState(State<MatchCriteriaModel> state) => copyWith(matchCriteriaState: state);
-  MatchCriteriaState setGetMatchesState(State<MatchListModel> state) => copyWith(getMatchesState: state);
-  MatchCriteriaState setPopulateMatchesState(State state) => copyWith(populateMatchesState: state);
+  MatchCriteriaState setUpdateMatchCriteriaState(State state) =>
+      copyWith(updateMatchCriteriaState: state);
+  MatchCriteriaState setMatchCriteriaState(State<MatchCriteriaModel> state) =>
+      copyWith(matchCriteriaState: state);
+  MatchCriteriaState setGetMatchesState(State<MatchListModel> state) =>
+      copyWith(getMatchesState: state);
+  MatchCriteriaState setPopulateMatchesState(State state) =>
+      copyWith(populateMatchesState: state);
 
   MatchCriteriaState updateMatchCriteriaGenderState(String value) {
     return copyWith(
@@ -65,6 +69,8 @@ class MatchCriteriaState with _$MatchCriteriaState {
     ));
   }
 
-  MatchCriteriaState setCountryState(State<List<String>> state) => copyWith(countryState: state);
-  MatchCriteriaState setCityState(State<List<String>> state) => copyWith(cityState: state);
+  MatchCriteriaState setCountryState(State<List<String>> state) =>
+      copyWith(countryState: state);
+  MatchCriteriaState setCityState(State<List<String>> state) =>
+      copyWith(cityState: state);
 }

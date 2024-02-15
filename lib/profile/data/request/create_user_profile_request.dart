@@ -25,6 +25,9 @@ class CreateUserProfileRequest {
   String zipCode;
   double latitude;
   double longitude;
+  String originCity;
+  String originCountry;
+  int maritalStatus;
 
   CreateUserProfileRequest({
     required this.userId,
@@ -47,10 +50,15 @@ class CreateUserProfileRequest {
     required this.zipCode,
     required this.latitude,
     required this.longitude,
+    required this.originCity,
+    required this.originCountry,
+    required this.maritalStatus,
   });
 
-  factory CreateUserProfileRequest.fromJson(Map<String, dynamic> json) => _$CreateUserProfileRequestFromJson(json);
+  factory CreateUserProfileRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateUserProfileRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CreateUserProfileRequestToJson(this);
 
-  static String languageCSVToJson(List<String> languageCSV) => languageCSV.join(',');
+  static String languageCSVToJson(List<String> languageCSV) =>
+      languageCSV.join(', ');
 }
