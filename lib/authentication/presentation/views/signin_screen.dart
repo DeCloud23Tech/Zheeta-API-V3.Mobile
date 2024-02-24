@@ -31,6 +31,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     super.initState();
   }
 
+  final validatorChange = ValueNotifier<dynamic>(0);
+
   @override
   Widget build(BuildContext context) {
     final userAuthState = ref.watch(userAuthViewModelProvider);
@@ -58,24 +60,38 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 SizedBox(height: 32),
                 InputField(
                   validator: (data) => userAuthViewModel.validateEmail(),
-                  onChanged: (value) => userAuthViewModel.setEmail(value),
+                  onChanged: (value) {
+                    validatorChange.value = value;
+                    userAuthViewModel.setEmail(value);
+                  },
                   hintText: 'Email',
                 ),
                 InputField(
                   hintText: 'Password',
                   password: _isPasswordObscure,
-                  onChanged: (value) => userAuthViewModel.setPassword(value),
+                  validator: (data) => userAuthViewModel.validatePassword(true),
+                  onChanged: (value) {
+                    validatorChange.value = value;
+                    userAuthViewModel.setPassword(value);
+                  },
                 ),
                 SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
-                  child: PrimaryButton(
-                    title: 'Login',
-                    state: userAuthState.loginUserState.isLoading,
-                    action: () async {
-                      if (formKey.currentState!.validate()) {
-                        await userAuthViewModel.loginUser();
-                      }
+                  child: ListenableBuilder(
+                    listenable: validatorChange,
+                    builder: (context, _) {
+                      return PrimaryButton(
+                        title: 'Login',
+                        disabled: userAuthViewModel.validateEmail() != null ||
+                            userAuthViewModel.validatePassword(true) != null,
+                        state: userAuthState.loginUserState.isLoading,
+                        action: () async {
+                          if (formKey.currentState!.validate()) {
+                            await userAuthViewModel.loginUser();
+                          }
+                        },
+                      );
                     },
                   ),
                 ),
@@ -112,7 +128,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     SizedBox(width: 30),
                     SocialButton(icon: "assets/images/twitter.png"),
                   ],
-                )
+                ),
               ],
             ),
           ),

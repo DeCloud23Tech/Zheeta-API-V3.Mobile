@@ -20,17 +20,23 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   }
 
   _getAuthToken() async {
-    _authToken = (await sessionManager.get(SessionManagerKeys.authTokenString)) as String?;
+    _authToken = (await sessionManager.get(SessionManagerKeys.authTokenString))
+        as String?;
   }
 
   @override
-  Future<Either<ErrorResponse, MappedResponse>> createUserProfile(CreateUserProfileRequest request) async {
-    final response = await _apiManager.postHttp('/user/profile', request.toJson(), token: _authToken);
+  Future<Either<ErrorResponse, MappedResponse>> createUserProfile(
+      CreateUserProfileRequest request) async {
+    final response = await _apiManager
+        .postHttp('/user/profile', request.toJson(), token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
       return Left(
-        ErrorResponse(message: response.message, data: response.data),
+        ErrorResponse(
+            message: response.message,
+            data: response.data,
+            errors: response.errors),
       );
     }
   }
@@ -41,7 +47,9 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
     required int pageNumber,
     required int pageSize,
   }) async {
-    final response = await _apiManager.getHttp('/user/get-all-users?PageNumber=$pageNumber&PageSize=$pageSize&roleType=$roleType', token: _authToken);
+    final response = await _apiManager.getHttp(
+        '/user/get-all-users?PageNumber=$pageNumber&PageSize=$pageSize&roleType=$roleType',
+        token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
@@ -53,7 +61,8 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
 
   @override
   Future<Either<ErrorResponse, MappedResponse>> getSingleUserProfile() async {
-    final response = await _apiManager.getHttp('/user/get-single-user-profile', token: _authToken);
+    final response = await _apiManager.getHttp('/user/get-single-user-profile',
+        token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
@@ -64,8 +73,11 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   }
 
   @override
-  Future<Either<ErrorResponse, MappedResponse>> updateUserProfile(UpdateUserProfileRequest request) async {
-    final response = await _apiManager.putHttp('/user/update-user-profile', request.toJson(), token: _authToken);
+  Future<Either<ErrorResponse, MappedResponse>> updateUserProfile(
+      UpdateUserProfileRequest request) async {
+    final response = await _apiManager.putHttp(
+        '/user/update-user-profile', request.toJson(),
+        token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {
@@ -81,7 +93,8 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
     required MultipartFile file,
   }) async {
     Map<String, dynamic> payload = {'userId': userId, 'file': file};
-    final response = await _apiManager.putHttp('/user/picture', payload, token: _authToken, formdata: true);
+    final response = await _apiManager.putHttp('/user/picture', payload,
+        token: _authToken, formdata: true);
     if (response.success) {
       return Right(response.data);
     } else if (response.statusCode == 413) {
@@ -94,8 +107,11 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   }
 
   @override
-  Future<Either<ErrorResponse, MappedResponse>> visitUserProfile({required String userId}) async {
-    final response = await _apiManager.getHttp('/user/get-user-profile-full-detail/$userId', token: _authToken);
+  Future<Either<ErrorResponse, MappedResponse>> visitUserProfile(
+      {required String userId}) async {
+    final response = await _apiManager.getHttp(
+        '/user/get-user-profile-full-detail/$userId',
+        token: _authToken);
     if (response.success) {
       return Right(response.data);
     } else {

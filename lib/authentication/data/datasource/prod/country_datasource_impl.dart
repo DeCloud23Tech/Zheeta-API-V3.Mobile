@@ -25,8 +25,10 @@ class CountryDataSourceImpl implements CountryDataSource {
   }
 
   @override
-  Future<Either<InvalidResponse, MappedResponse>> getCountryDetails(String countryCode) async {
-    final response = await _apiManager.getHttp('/userauth/get-all-country-details/$countryCode');
+  Future<Either<InvalidResponse, MappedResponse>> getCountryDetails(
+      String countryCode) async {
+    final response = await _apiManager
+        .getHttp('/userauth/get-all-country-details/$countryCode');
     if (response.success) {
       return Right(response.data);
     } else {

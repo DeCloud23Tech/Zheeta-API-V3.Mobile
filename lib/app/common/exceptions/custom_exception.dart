@@ -42,6 +42,16 @@ class DuplicateRegisterParamException implements Exception {
   });
 }
 
+class CreateProfileValidationException implements Exception {
+  final List<dynamic>? originCityException;
+  final List<dynamic>? originCountryException;
+
+  CreateProfileValidationException({
+    this.originCityException,
+    this.originCountryException,
+  });
+}
+
 class NoDataException implements Exception {
   final String message;
   NoDataException(this.message);

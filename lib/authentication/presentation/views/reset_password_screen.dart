@@ -13,7 +13,8 @@ class ResetPasswordScreen extends ConsumerStatefulWidget {
   const ResetPasswordScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ResetPasswordScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ResetPasswordScreenState();
 }
 
 class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
@@ -24,6 +25,8 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
     super.initState();
     userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
   }
+
+  final validatorChange = ValueNotifier<dynamic>(null);
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +48,12 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
                 children: [
                   Column(
                     children: [
-                      Text('Reset Password', style: forgotTitleStyle, textAlign: TextAlign.center),
+                      Text('Reset Password',
+                          style: forgotTitleStyle, textAlign: TextAlign.center),
                       SizedBox(height: 15),
-                      Text('Create a new password', style: forgotSubtitleStyle, textAlign: TextAlign.center),
+                      Text('Create a new password',
+                          style: forgotSubtitleStyle,
+                          textAlign: TextAlign.center),
                     ],
                   ),
                 ],
@@ -55,26 +61,40 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
               SizedBox(height: 32),
               InputField(
                 validator: (data) => userAuthViewModel.validatePassword(),
-                onChanged: (value) => userAuthViewModel.setPassword(value),
+                onChanged: (value) {
+                  validatorChange.value = value;
+                  userAuthViewModel.setPassword(value);
+                },
                 hintText: 'New password',
                 password: true,
               ),
               InputField(
-                validator: (data) => userAuthViewModel.validateRetypedPassword(),
-                onChanged: (value) => userAuthViewModel.setRetypePassword(value),
+                validator: (data) =>
+                    userAuthViewModel.validateRetypedPassword(),
+                onChanged: (value) {
+                  validatorChange.value = value;
+                  userAuthViewModel.setRetypePassword(value);
+                },
                 hintText: 'Retype password',
                 password: true,
               ),
               SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,
-                child: PrimaryButton(
-                  title: 'Reset Password',
-                  state: userAuthState.resetPasswordState.isLoading,
-                  action: () {
-                    userAuthViewModel.resetPassword();
-                  },
-                ),
+                child: ListenableBuilder(
+                    listenable: validatorChange,
+                    builder: (context, _) {
+                      return PrimaryButton(
+                        title: 'Reset Password',
+                        disabled: userAuthViewModel.validatePassword() !=
+                                null ||
+                            userAuthViewModel.validateRetypedPassword() != null,
+                        state: userAuthState.resetPasswordState.isLoading,
+                        action: () {
+                          userAuthViewModel.resetPassword();
+                        },
+                      );
+                    }),
               )
             ],
           ),

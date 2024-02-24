@@ -14,7 +14,8 @@ class SelectLanguageScreen extends ConsumerStatefulWidget {
   const SelectLanguageScreen({super.key, required this.languages});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SelectLanguageScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _SelectLanguageScreenState();
 }
 
 class _SelectLanguageScreenState extends ConsumerState<SelectLanguageScreen> {
