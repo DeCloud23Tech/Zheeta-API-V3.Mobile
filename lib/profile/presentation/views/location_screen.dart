@@ -36,6 +36,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       populateLocationField();
       userProfileViewModel.loadCountry();
+      //userProfileViewModel.loadSelectedCountryStates('Nigeria');
     });
   }
 
@@ -51,8 +52,9 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
       userProfileViewModel.setCity(addressState.data!.city ?? '');
       _postcode.text = addressState.data!.postalCode ?? '';
       userProfileViewModel.setPostcode(addressState.data!.postalCode ?? '');
-
-      userProfileViewModel.setState(addressState.data!.state);
+      userProfileViewModel
+          .loadSelectedCountryStates(addressState.data!.country);
+      //userProfileViewModel.setState(addressState.data!.state);
       userProfileViewModel.setCountry(addressState.data!.country);
     }
   }
@@ -98,14 +100,15 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                   hintText: 'Country',
                   onChanged: (value) {
                     userProfileViewModel.setCountry(value);
-                    userProfileViewModel.loadCity(value!, clearCity: true);
+                    userProfileViewModel.loadSelectedCountryStates(value!,
+                        clearState: true);
                   },
                   validator: (data) => userProfileViewModel.validateCountry(),
                   items: userProfileState.countryState.data ?? [],
                 ),
                 DropdownInputField(
                   value: userProfileState.selectedCityState.data,
-                  hintText: 'State or City',
+                  hintText: 'State',
                   onChanged: (value) => userProfileViewModel.setState(value),
                   validator: (data) => userProfileViewModel.validateState(),
                   items: userProfileState.cityState.data ?? [],

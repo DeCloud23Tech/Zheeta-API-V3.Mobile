@@ -16,6 +16,7 @@ import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
+import 'package:zheeta/profile/data/model/country_states_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart';
 import 'package:zheeta/profile/presentation/state/user_profile_state.dart';
@@ -197,22 +198,42 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
     );
   }
 
-  loadCity(String country, {bool clearCity = true}) async {
-    if (clearCity) setState(null);
+  loadSelectedCountryStates(String country, {bool clearState = true}) async {
+    if (clearState) setState(null);
     state = state.setCityState(State.success([]));
-    final data = await rootBundle.loadString('assets/json/countries.json');
-    final jsonData = jsonDecode(data) as Map<String, dynamic>;
-    List<dynamic> city = jsonData.entries
-        .firstWhere(
-          (element) => element.key.toLowerCase() == country.toLowerCase(),
-        )
-        .value;
-    state = state.setCityState(
-      State.success(
-        city.map((e) => e.toString()).toSet().toList(),
-      ),
-    );
+    final data =
+        await rootBundle.loadString('assets/json/countries_states.json');
+    final jsonData = jsonDecode(data) as List<dynamic>;
+    print(jsonData);
+    var listOfCountriesWithState = jsonData
+        .map((countryState) => CountryState.fromJson(countryState))
+        .toList();
+    if (listOfCountriesWithState != null) {
+      var theCountry = listOfCountriesWithState
+          .firstWhere((element) => element.name == country);
+      var states =
+          theCountry.states!.map((e) => e.name.toString()).toSet().toList();
+      state = state.setCityState(State.success(states));
+      setState(states[0]);
+    }
   }
+
+  // loadCity(String country, {bool clearCity = true}) async {
+  //   if (clearCity) setState(null);
+  //   state = state.setCityState(State.success([]));
+  //   final data = await rootBundle.loadString('assets/json/countries.json');
+  //   final jsonData = jsonDecode(data) as Map<String, dynamic>;
+  //   List<dynamic> city = jsonData.entries
+  //       .firstWhere(
+  //         (element) => element.key.toLowerCase() == country.toLowerCase(),
+  //       )
+  //       .value;
+  //   state = state.setCityState(
+  //     State.success(
+  //       city.map((e) => e.toString()).toSet().toList(),
+  //     ),
+  //   );
+  // }
 
   Future<bool> getSingleUserProfile() async {
     state = state.setGetSingleUserProfileState(State.loading());

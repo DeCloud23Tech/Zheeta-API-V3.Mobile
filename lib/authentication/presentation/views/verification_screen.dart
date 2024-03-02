@@ -5,6 +5,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
+import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/loading_screen.dart';
@@ -154,6 +156,20 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                           ),
                   ),
                   SizedBox(height: 32),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text:
+                          "Failed to receive your ${widget.isPhoneNumber ? 'Phone Number' : 'Email'} verification OTP . Contact Our Support  at",
+                      style: forgotSubtitleStyle,
+                      children: [
+                        TextSpan(
+                            text: ' support@zheeta.com',
+                            style: TextStyle(color: AppColors.primaryDark))
+                      ],
+                    ),
+                    //textAlign: TextAlign.center,
+                  )
                 ],
               ),
             ),
@@ -190,7 +206,15 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                       // state: _isLoading,
                       invert: true,
                       title: 'Skip',
-                      action: () {},
+                      action: () {
+                        router.popAndPush(
+                          VerificationRoute(
+                              isPhoneNumber: false,
+                              email: widget.email,
+                              phoneNumber: widget.phoneNumber,
+                              countryCode: widget.countryCode),
+                        );
+                      },
                     ),
                   ),
               ],

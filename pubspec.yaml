@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  flutter_native_splash: ^2.0.0
   qr_flutter: ^4.0.0
   intl: any
   otp: ^3.1.3
@@ -69,6 +70,19 @@ flutter_icons:
 
   flutter_lints: ^2.0.0
 
+flutter_native_splash:
+  #background_image: assets/images/logo_pink.png
+  image: assets/images/logo_pink.png
+  color: "#FFF1F7"
+  android: true
+  ios: true
+
+  android_12:
+    color: "#FFF1F7"
+
+  web: false
+  fullscreen: false
+
 flutter:
   uses-material-design: true
 
@@ -77,6 +91,7 @@ flutter:
     - assets/json/
     - assets/images/
     - assets/images/icons/
+    - assets/images/heroo.png
 
   fonts:
     - family: MuseoModerno
