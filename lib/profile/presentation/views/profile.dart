@@ -495,14 +495,25 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 5),
-                                Text(
-                                  'My name is Christine Doe and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading, and the knowledge ...',
-                                  style: const TextStyle(
-                                    color: AppColors.grayscale,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
+                                if (theUser?.profile?.aboutMe.length > 150)
+                                  SizedBox(
+                                    height: 10,
                                   ),
-                                ),
+                                if (theUser?.profile?.aboutMe.length > 150)
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: TransparentButtonNew(
+                                      title: showFullBio
+                                          ? 'Show Less'
+                                          : 'Show More',
+                                      action: () {
+                                        setState(() {
+                                          showFullBio = !showFullBio;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                SizedBox(height: 20),
                                 SizedBox(height: 20),
                                 Text(
                                   "M Recent Referees",
