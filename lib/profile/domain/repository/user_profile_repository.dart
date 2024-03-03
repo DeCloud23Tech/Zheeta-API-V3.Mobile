@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
+import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 
@@ -17,5 +18,5 @@ abstract class UserProfileRepository {
   });
   createUserProfileRepo(CreateUserProfileRequest request);
   updateUserProfileRepo(UpdateUserProfileRequest request);
-  visitUserProfileRepo({required String userId});
+  Future<ViewProfileModel> visitUserProfileRepo({required String userId});
 }

@@ -57,7 +57,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         padding: const EdgeInsets.only(left: 20, top: 10),
         child: Text(
           'Discover',
-          style: TextStyle(color: AppColors.white, fontSize: 32, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: AppColors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.w600),
         ),
       ),
       actions: [
@@ -81,7 +84,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         padding: const EdgeInsets.only(left: 20, top: 10),
         child: Text(
           'Feeds',
-          style: TextStyle(color: AppColors.grayscale, fontSize: 32, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: AppColors.grayscale,
+              fontSize: 32,
+              fontWeight: FontWeight.w600),
         ),
       ),
       actions: [
@@ -104,7 +110,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         padding: const EdgeInsets.only(left: 20, top: 10),
         child: Text(
           'Messages',
-          style: TextStyle(color: AppColors.grayscale, fontSize: 32, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: AppColors.grayscale,
+              fontSize: 32,
+              fontWeight: FontWeight.w600),
         ),
       ),
       actions: [
@@ -123,7 +132,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final pages = [DiscoverPage(), Feeds(), Messages(), ProfileScreen()];
 
-  final bg = [AppColors.primaryDark, AppColors.secondaryLight, AppColors.secondaryLight, AppColors.secondaryLight];
+  final bg = [
+    AppColors.primaryDark,
+    AppColors.secondaryLight,
+    AppColors.secondaryLight,
+    AppColors.secondaryLight
+  ];
 
   List icons = [
     ["Discover", "assets/images/icons/card.svg"],
@@ -162,7 +176,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Image.asset('assets/images/bottom_nav.png', width: double.infinity),
+                child: Image.asset('assets/images/bottom_nav.png',
+                    width: double.infinity),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -188,7 +203,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   width: 26,
                                   child: SvgPicture.asset(
                                     icons[i][1],
-                                    colorFilter: ColorFilter.mode(index == i ? AppColors.primaryDark : AppColors.grey, BlendMode.srcIn),
+                                    colorFilter: ColorFilter.mode(
+                                        index == i
+                                            ? AppColors.primaryDark
+                                            : AppColors.grey,
+                                        BlendMode.srcIn),
                                   ),
                                 ),
                               ),

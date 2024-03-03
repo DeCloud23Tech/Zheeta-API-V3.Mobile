@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
+import 'package:zheeta/profile/data/model/view_profile_model.dart';
 
 part 'user_profile_state.freezed.dart';
 
@@ -13,7 +14,7 @@ class UserProfileState with _$UserProfileState {
     required State<AllUserProfileListModel> getAllUsersProfileState,
     required State createUserProfileState,
     required State updateUserProfileState,
-    required State visitUserProfileState,
+    required State<ViewProfileModel> visitUserProfileState,
     required State<List<String>> countryState,
     required State<List<String>> cityState,
     required State<String?> selectedCityState,
@@ -25,6 +26,7 @@ class UserProfileState with _$UserProfileState {
   UserProfileState setGetSingleUserProfileState(
           State<UserProfileModel> state) =>
       copyWith(getSingleUserProfileState: state);
+
   UserProfileState setUpdateUserProfilePictureState(State state) =>
       copyWith(updateUserProfilePictureState: state);
   UserProfileState setGetAllUsersProfileState(
@@ -34,7 +36,7 @@ class UserProfileState with _$UserProfileState {
       copyWith(createUserProfileState: state);
   UserProfileState setUpdateUserProfileState(State state) =>
       copyWith(updateUserProfileState: state);
-  UserProfileState setVisitUserProfileState(State state) =>
+  UserProfileState setVisitUserProfileState(State<ViewProfileModel> state) =>
       copyWith(visitUserProfileState: state);
 
   UserProfileState setCountryState(State<List<String>> state) =>

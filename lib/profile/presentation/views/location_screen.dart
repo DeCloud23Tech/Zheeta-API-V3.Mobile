@@ -83,18 +83,6 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                   onChanged: (value) => userProfileViewModel.setAddress(value),
                   validator: (data) => userProfileViewModel.validateAddress(),
                 ),
-                InputField(
-                  controller: _city,
-                  hintText: 'City',
-                  onChanged: (value) => userProfileViewModel.setCity(value),
-                  validator: (data) => userProfileViewModel.validateCity(),
-                ),
-                InputField(
-                  controller: _postcode,
-                  hintText: 'Zip/Postcode',
-                  onChanged: (value) => userProfileViewModel.setPostcode(value),
-                  validator: (data) => userProfileViewModel.validatePostcode(),
-                ),
                 DropdownInputField(
                   value: userProfileState.selectedCountryState.data,
                   hintText: 'Country',
@@ -112,6 +100,18 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                   onChanged: (value) => userProfileViewModel.setState(value),
                   validator: (data) => userProfileViewModel.validateState(),
                   items: userProfileState.cityState.data ?? [],
+                ),
+                InputField(
+                  controller: _city,
+                  hintText: 'City',
+                  onChanged: (value) => userProfileViewModel.setCity(value),
+                  validator: (data) => userProfileViewModel.validateCity(),
+                ),
+                InputField(
+                  controller: _postcode,
+                  hintText: 'Zip/Postcode',
+                  onChanged: (value) => userProfileViewModel.setPostcode(value),
+                  validator: (data) => userProfileViewModel.validatePostcode(),
                 ),
                 SizedBox(height: 32),
                 SizedBox(

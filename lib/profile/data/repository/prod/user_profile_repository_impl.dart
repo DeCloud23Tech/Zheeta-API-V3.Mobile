@@ -4,6 +4,7 @@ import 'package:zheeta/app/common/exceptions/custom_exception.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_datasource.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
+import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_repository.dart';
@@ -84,11 +85,12 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  visitUserProfileRepo({required String userId}) async {
+  Future<ViewProfileModel> visitUserProfileRepo(
+      {required String userId}) async {
     final result = await _datasource.visitUserProfile(userId: userId);
     return result.fold(
       (error) => throw new Exception(error.message),
-      (value) => value,
+      (value) => ViewProfileModel.fromJson(value),
     );
   }
 }

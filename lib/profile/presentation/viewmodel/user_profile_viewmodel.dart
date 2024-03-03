@@ -367,6 +367,24 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
     }
   }
 
+  visitUserProfile(String visitingId) async {
+    try {
+      final result =
+          await _userProfileUseCase.visitUserProfileUseCase(userId: visitingId);
+      state = state.setVisitUserProfileState(State.success(result));
+      return true;
+    } on UserProfileNotCreatedException catch (e) {
+      NotifyUser.showSnackbar(e.toString());
+      state = state.setGetSingleUserProfileState(State.error(e));
+      router.push(BioDataRoute());
+      return false;
+    } on Exception catch (e) {
+      state = state.setGetSingleUserProfileState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
+      return false;
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();

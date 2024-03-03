@@ -109,11 +109,11 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   @override
   Future<Either<ErrorResponse, MappedResponse>> visitUserProfile(
       {required String userId}) async {
-    final response = await _apiManager.getHttp(
-        '/user/get-user-profile-full-detail/$userId',
+    final response = await _apiManager.getHttp('/user/view-profile/$userId',
         token: _authToken);
     if (response.success) {
-      return Right(response.data);
+      var theData = response.data['data'];
+      return Right(theData);
     } else {
       return Left(
         ErrorResponse(message: response.message, data: response.data),

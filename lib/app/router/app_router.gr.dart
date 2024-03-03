@@ -139,9 +139,14 @@ abstract class $AppRouter extends _i24.RootStackRouter {
       );
     },
     ProfileRoute.name: (routeData) {
-      return _i24.AutoRoutePage<dynamic>(
+      final args = routeData.argsAs<ProfileRouteArgs>(
+          orElse: () => const ProfileRouteArgs());
+      return _i24.AutoRoutePage<String?>(
         routeData: routeData,
-        child: const _i15.ProfileScreen(),
+        child: _i15.ProfileScreen(
+          key: args.key,
+          profileId: args.profileId,
+        ),
       );
     },
     RefereeRoute.name: (routeData) {
@@ -428,16 +433,40 @@ class ProfilePhotoRoute extends _i24.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i15.ProfileScreen]
-class ProfileRoute extends _i24.PageRouteInfo<void> {
-  const ProfileRoute({List<_i24.PageRouteInfo>? children})
-      : super(
+class ProfileRoute extends _i24.PageRouteInfo<ProfileRouteArgs> {
+  ProfileRoute({
+    _i25.Key? key,
+    String? profileId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
           ProfileRoute.name,
+          args: ProfileRouteArgs(
+            key: key,
+            profileId: profileId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ProfileRoute';
 
-  static const _i24.PageInfo<void> page = _i24.PageInfo<void>(name);
+  static const _i24.PageInfo<ProfileRouteArgs> page =
+      _i24.PageInfo<ProfileRouteArgs>(name);
+}
+
+class ProfileRouteArgs {
+  const ProfileRouteArgs({
+    this.key,
+    this.profileId,
+  });
+
+  final _i25.Key? key;
+
+  final String? profileId;
+
+  @override
+  String toString() {
+    return 'ProfileRouteArgs{key: $key, profileId: $profileId}';
+  }
 }
 
 /// generated route for

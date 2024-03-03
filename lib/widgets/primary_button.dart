@@ -47,7 +47,7 @@ class PrimaryButton extends StatelessWidget {
                             invert ? AppColors.primaryDark : AppColors.white,
                             BlendMode.srcIn),
                       ),
-                      SizedBox(width: 5)
+                      SizedBox(width: 10)
                     ],
                   )
                 : SizedBox(),
@@ -64,7 +64,7 @@ class PrimaryButton extends StatelessWidget {
                     title,
                     style: TextStyle(
                         color: invert ? AppColors.primaryDark : AppColors.white,
-                        fontSize: 14,
+                        fontSize: 17,
                         fontWeight: FontWeight.w400),
                   ),
             icon2 != null

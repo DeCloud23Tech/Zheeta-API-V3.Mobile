@@ -26,7 +26,7 @@ mixin _$UserProfileState {
       throw _privateConstructorUsedError;
   State<dynamic> get updateUserProfileState =>
       throw _privateConstructorUsedError;
-  State<dynamic> get visitUserProfileState =>
+  State<ViewProfileModel> get visitUserProfileState =>
       throw _privateConstructorUsedError;
   State<List<String>> get countryState => throw _privateConstructorUsedError;
   State<List<String>> get cityState => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $UserProfileStateCopyWith<$Res> {
       State<AllUserProfileListModel> getAllUsersProfileState,
       State<dynamic> createUserProfileState,
       State<dynamic> updateUserProfileState,
-      State<dynamic> visitUserProfileState,
+      State<ViewProfileModel> visitUserProfileState,
       State<List<String>> countryState,
       State<List<String>> cityState,
       State<String?> selectedCityState,
@@ -61,7 +61,7 @@ abstract class $UserProfileStateCopyWith<$Res> {
   $StateCopyWith<AllUserProfileListModel, $Res> get getAllUsersProfileState;
   $StateCopyWith<dynamic, $Res> get createUserProfileState;
   $StateCopyWith<dynamic, $Res> get updateUserProfileState;
-  $StateCopyWith<dynamic, $Res> get visitUserProfileState;
+  $StateCopyWith<ViewProfileModel, $Res> get visitUserProfileState;
   $StateCopyWith<List<String>, $Res> get countryState;
   $StateCopyWith<List<String>, $Res> get cityState;
   $StateCopyWith<String?, $Res> get selectedCityState;
@@ -116,7 +116,7 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
       visitUserProfileState: null == visitUserProfileState
           ? _value.visitUserProfileState
           : visitUserProfileState // ignore: cast_nullable_to_non_nullable
-              as State<dynamic>,
+              as State<ViewProfileModel>,
       countryState: null == countryState
           ? _value.countryState
           : countryState // ignore: cast_nullable_to_non_nullable
@@ -184,8 +184,9 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get visitUserProfileState {
-    return $StateCopyWith<dynamic, $Res>(_value.visitUserProfileState, (value) {
+  $StateCopyWith<ViewProfileModel, $Res> get visitUserProfileState {
+    return $StateCopyWith<ViewProfileModel, $Res>(_value.visitUserProfileState,
+        (value) {
       return _then(_value.copyWith(visitUserProfileState: value) as $Val);
     });
   }
@@ -237,7 +238,7 @@ abstract class _$$UserProfileStateImplCopyWith<$Res>
       State<AllUserProfileListModel> getAllUsersProfileState,
       State<dynamic> createUserProfileState,
       State<dynamic> updateUserProfileState,
-      State<dynamic> visitUserProfileState,
+      State<ViewProfileModel> visitUserProfileState,
       State<List<String>> countryState,
       State<List<String>> cityState,
       State<String?> selectedCityState,
@@ -254,7 +255,7 @@ abstract class _$$UserProfileStateImplCopyWith<$Res>
   @override
   $StateCopyWith<dynamic, $Res> get updateUserProfileState;
   @override
-  $StateCopyWith<dynamic, $Res> get visitUserProfileState;
+  $StateCopyWith<ViewProfileModel, $Res> get visitUserProfileState;
   @override
   $StateCopyWith<List<String>, $Res> get countryState;
   @override
@@ -311,7 +312,7 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
       visitUserProfileState: null == visitUserProfileState
           ? _value.visitUserProfileState
           : visitUserProfileState // ignore: cast_nullable_to_non_nullable
-              as State<dynamic>,
+              as State<ViewProfileModel>,
       countryState: null == countryState
           ? _value.countryState
           : countryState // ignore: cast_nullable_to_non_nullable
@@ -359,7 +360,7 @@ class _$UserProfileStateImpl extends _UserProfileState {
   @override
   final State<dynamic> updateUserProfileState;
   @override
-  final State<dynamic> visitUserProfileState;
+  final State<ViewProfileModel> visitUserProfileState;
   @override
   final State<List<String>> countryState;
   @override
@@ -434,7 +435,7 @@ abstract class _UserProfileState extends UserProfileState {
           required final State<AllUserProfileListModel> getAllUsersProfileState,
           required final State<dynamic> createUserProfileState,
           required final State<dynamic> updateUserProfileState,
-          required final State<dynamic> visitUserProfileState,
+          required final State<ViewProfileModel> visitUserProfileState,
           required final State<List<String>> countryState,
           required final State<List<String>> cityState,
           required final State<String?> selectedCityState,
@@ -453,7 +454,7 @@ abstract class _UserProfileState extends UserProfileState {
   @override
   State<dynamic> get updateUserProfileState;
   @override
-  State<dynamic> get visitUserProfileState;
+  State<ViewProfileModel> get visitUserProfileState;
   @override
   State<List<String>> get countryState;
   @override

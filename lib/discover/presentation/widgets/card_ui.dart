@@ -42,7 +42,9 @@ class ExampleCard extends StatelessWidget {
             children: [
               Container(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15)),
                   child: CustomNetworkImage(
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width,
@@ -53,7 +55,7 @@ class ExampleCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  router.push(ProfileRoute());
+                  router.push(ProfileRoute(profileId: match.id));
                 },
                 child: Container(
                   padding: const EdgeInsets.only(top: 60),
@@ -77,32 +79,42 @@ class ExampleCard extends StatelessWidget {
                               SvgPicture.asset(
                                 'assets/images/icons/user.svg',
                                 width: 22,
-                                colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),
+                                colorFilter: ColorFilter.mode(
+                                    AppColors.primaryDark, BlendMode.srcIn),
                               ),
                               const SizedBox(width: 15),
                               Text(
                                 '@${match.username}',
-                                style: const TextStyle(color: AppColors.darkText, fontWeight: FontWeight.w500, fontSize: 24),
+                                style: const TextStyle(
+                                    color: AppColors.darkText,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 24),
                               ),
                               const SizedBox(width: 15),
                               Container(
-                                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 3, horizontal: 6),
                                 decoration: BoxDecoration(
                                   color: AppColors.primaryDark,
                                   gradient: const LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
-                                    colors: [AppColors.primaryLight, AppColors.primaryDark],
+                                    colors: [
+                                      AppColors.primaryLight,
+                                      AppColors.primaryDark
+                                    ],
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Row(
                                   children: [
-                                    SvgPicture.asset('assets/images/female.svg', width: 11),
+                                    SvgPicture.asset('assets/images/female.svg',
+                                        width: 11),
                                     SizedBox(width: 3),
                                     Text(
                                       '${match.age}',
-                                      style: const TextStyle(color: AppColors.white, fontSize: 10),
+                                      style: const TextStyle(
+                                          color: AppColors.white, fontSize: 10),
                                     ),
                                   ],
                                 ),
@@ -119,7 +131,8 @@ class ExampleCard extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     '${match.gender.toString().getFirstLetter}',
-                                    style: const TextStyle(color: AppColors.white, fontSize: 12),
+                                    style: const TextStyle(
+                                        color: AppColors.white, fontSize: 12),
                                   ),
                                 ),
                               ),
@@ -128,7 +141,8 @@ class ExampleCard extends StatelessWidget {
                           const SizedBox(height: 5),
                           Text(
                             '${match.location} (${match.distance.toString().roundToInt}km away)',
-                            style: const TextStyle(color: Colors.grey, fontSize: 15),
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 15),
                           ),
                         ],
                       ),
@@ -148,12 +162,16 @@ class ExampleCard extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => controller.swipeLeft(),
                     style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all<Color>(AppColors.white),
-                      shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
+                      overlayColor:
+                          MaterialStateProperty.all<Color>(AppColors.white),
+                      shadowColor: MaterialStateProperty.all<Color>(
+                          AppColors.black.withOpacity(0.7)),
                       elevation: MaterialStateProperty.all(5),
-                      backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(AppColors.white),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
                       ),
                     ),
                     child: Transform.scale(
@@ -169,16 +187,22 @@ class ExampleCard extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => controller.swipeUp(),
                     style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.all<Color>(AppColors.white),
-                        shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
+                        overlayColor:
+                            MaterialStateProperty.all<Color>(AppColors.white),
+                        shadowColor: MaterialStateProperty.all<Color>(
+                            AppColors.black.withOpacity(0.7)),
                         elevation: MaterialStateProperty.all(5),
-                        backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(AppColors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ))),
                     child: Transform.scale(
                       scale: 1.4,
-                      child: SvgPicture.asset('assets/images/icons/favorite.svg'),
+                      child:
+                          SvgPicture.asset('assets/images/icons/favorite.svg'),
                     ),
                   ),
                 ),
@@ -191,10 +215,13 @@ class ExampleCard extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => controller.swipeRight(),
                     style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all<Color>(AppColors.white),
-                      shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
+                      overlayColor:
+                          MaterialStateProperty.all<Color>(AppColors.white),
+                      shadowColor: MaterialStateProperty.all<Color>(
+                          AppColors.black.withOpacity(0.7)),
                       elevation: MaterialStateProperty.all(5),
-                      backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(AppColors.white),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),

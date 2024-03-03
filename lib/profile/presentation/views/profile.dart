@@ -5,19 +5,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
+import 'package:zheeta/profile/data/model/user_profile_model.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/widgets/top_nav.dart';
 
-@RoutePage()
+@RoutePage<String?>()
 class ProfileScreen extends ConsumerStatefulWidget {
-  const ProfileScreen({super.key});
+  String? profileId;
+  ProfileScreen({super.key, this.profileId});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  late UserProfileViewModel userProfileViewModel;
+
   final controller = ScrollController();
   var _current = 0;
   var activeTab = 1;
@@ -25,7 +30,26 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   bool invertAppBarIcons = false;
 
   @override
+  void initState() {
+    super.initState();
+    userProfileViewModel = ref.read(userProfileViewModelProvider.notifier);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (widget.profileId != null)
+        userProfileViewModel.visitUserProfile(widget.profileId!);
+      //userProfileViewModel.loadSelectedCountryStates('Nigeria');
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final userProfileState = ref.watch(userProfileViewModelProvider);
+    UserProfileDataModel? theUser;
+    if (widget.profileId == null) {
+      theUser = userProfileState.getSingleUserProfileState.data?.data;
+    } else {
+      theUser = userProfileState.visitUserProfileState.data?.profile;
+    }
     controller.addListener(() {
       if (controller.offset > 450) {
         setState(() {
@@ -63,8 +87,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  invertAppBarIcons ? TopNavBtn2(iconType: IconType.menu) : TopNavBtn(iconType: IconType.menu),
-                  invertAppBarIcons ? TopNavBtn2(iconType: IconType.bell) : TopNavBtn(iconType: IconType.bell),
+                  invertAppBarIcons
+                      ? TopNavBtn2(iconType: IconType.menu)
+                      : TopNavBtn(iconType: IconType.menu),
+                  invertAppBarIcons
+                      ? TopNavBtn2(iconType: IconType.bell)
+                      : TopNavBtn(iconType: IconType.bell),
                 ],
               ),
               SizedBox(width: 16),
@@ -78,8 +106,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 children: [
                   CarouselSlider.builder(
                     itemCount: 5,
-                    itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => ClipRRect(
-                      child: Image.asset("assets/images/User.png", fit: BoxFit.cover, height: MediaQuery.of(context).size.height * 0.55, width: double.infinity),
+                    itemBuilder: (BuildContext context, int itemIndex,
+                            int pageViewIndex) =>
+                        ClipRRect(
+                      child: Image.asset("assets/images/User.png",
+                          fit: BoxFit.cover,
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          width: double.infinity),
                     ),
                     options: CarouselOptions(
                       autoPlay: false,
@@ -107,14 +140,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               width: 10,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: _current == i ? AppColors.white : AppColors.white.withOpacity(0.2),
+                                color: _current == i
+                                    ? AppColors.white
+                                    : AppColors.white.withOpacity(0.2),
                               ),
                             ),
                           )
                       ],
                     ),
                   ),
-                  ProfileAddOrLike(),
+                  if (widget.profileId != null) ProfileAddOrLike(),
                 ],
               ),
             ),
@@ -135,32 +170,44 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    Image.asset('assets/images/badge.png', width: 19, height: 19),
+                                    Image.asset('assets/images/badge.png',
+                                        width: 19, height: 19),
                                     SizedBox(width: 5),
-                                    SvgPicture.asset('assets/images/icons/share_2.svg'),
+                                    SvgPicture.asset(
+                                        'assets/images/icons/share_2.svg'),
                                     SizedBox(width: 5),
                                     Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Color(0xffFEB237), boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 2,
-                                          offset: Offset(0, 1),
-                                        ),
-                                      ]),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 5),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: Color(0xffFEB237),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.3),
+                                              spreadRadius: 0,
+                                              blurRadius: 2,
+                                              offset: Offset(0, 1),
+                                            ),
+                                          ]),
                                       child: Text(
                                         'Premium',
-                                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.white),
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.white),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Christine Doe',
+                                      '${theUser?.profile?.firstName} ${theUser?.profile?.lastName}',
                                       style: const TextStyle(
                                         color: AppColors.darkText,
                                         fontWeight: FontWeight.w500,
@@ -170,23 +217,32 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     Row(
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 3, horizontal: 6),
                                           decoration: BoxDecoration(
                                             color: AppColors.primaryDark,
                                             gradient: const LinearGradient(
                                               begin: Alignment.topLeft,
                                               end: Alignment.bottomRight,
-                                              colors: [AppColors.primaryLight, AppColors.primaryDark],
+                                              colors: [
+                                                AppColors.primaryLight,
+                                                AppColors.primaryDark
+                                              ],
                                             ),
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
                                           child: Row(
                                             children: [
-                                              SvgPicture.asset('assets/images/female.svg', width: 11),
+                                              SvgPicture.asset(
+                                                  'assets/images/female.svg',
+                                                  width: 11),
                                               SizedBox(width: 3),
                                               Text(
                                                 '23',
-                                                style: const TextStyle(color: AppColors.white, fontSize: 10),
+                                                style: const TextStyle(
+                                                    color: AppColors.white,
+                                                    fontSize: 10),
                                               ),
                                             ],
                                           ),
@@ -198,12 +254,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                           padding: EdgeInsets.all(1),
                                           decoration: BoxDecoration(
                                             color: Color(0xff07C35D),
-                                            borderRadius: BorderRadius.circular(6),
+                                            borderRadius:
+                                                BorderRadius.circular(6),
                                           ),
                                           child: Center(
                                             child: Text(
-                                              'F',
-                                              style: const TextStyle(color: AppColors.white, fontSize: 12),
+                                              theUser?.profile?.gender == 1
+                                                  ? 'M'
+                                                  : 'F',
+                                              style: const TextStyle(
+                                                  color: AppColors.white,
+                                                  fontSize: 12),
                                             ),
                                           ),
                                         ),
@@ -214,7 +275,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  'Ikeja, Nigeria (2 miles away)',
+                                  '${theUser?.residentialAddress?.city}, ${theUser?.residentialAddress?.country}',
                                   style: const TextStyle(
                                     color: AppColors.grey,
                                     fontWeight: FontWeight.w400,
@@ -248,15 +309,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         ],
                       ),
                       SizedBox(height: 20),
-                      SizedBox(
-                        height: 40,
-                        child: PrimaryButton(
-                          invert: true,
-                          title: 'Boost Profile',
-                          action: () {},
-                        ),
-                      ),
-                      SizedBox(height: 15),
                       Container(
                         padding: EdgeInsets.all(22),
                         decoration: BoxDecoration(
@@ -271,13 +323,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    "489",
-                                    style: TextStyle(color: AppColors.grayscale, fontSize: 18, fontWeight: FontWeight.w600),
+                                    '${theUser?.profileCounters?.friendsCount}',
+                                    style: TextStyle(
+                                        color: AppColors.grayscale,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(height: 3),
                                   Text(
                                     "Friends",
-                                    style: TextStyle(color: AppColors.grey, fontSize: 12, fontWeight: FontWeight.w400),
+                                    style: TextStyle(
+                                        color: AppColors.grey,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                 ],
                               ),
@@ -287,13 +345,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    "95.2k",
-                                    style: TextStyle(color: AppColors.grayscale, fontSize: 18, fontWeight: FontWeight.w600),
+                                    '${theUser?.profileCounters?.refereesCount}',
+                                    style: TextStyle(
+                                        color: AppColors.grayscale,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(height: 3),
                                   Text(
                                     "Referees",
-                                    style: TextStyle(color: AppColors.grey, fontSize: 12, fontWeight: FontWeight.w400),
+                                    style: TextStyle(
+                                        color: AppColors.grey,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                 ],
                               ),
@@ -303,19 +367,32 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    "763",
-                                    style: TextStyle(color: AppColors.grayscale, fontSize: 18, fontWeight: FontWeight.w600),
+                                    '${theUser?.profileCounters?.postCount}',
+                                    style: TextStyle(
+                                        color: AppColors.grayscale,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(height: 3),
                                   Text(
                                     "Posts",
-                                    style: TextStyle(color: AppColors.grey, fontSize: 12, fontWeight: FontWeight.w400),
+                                    style: TextStyle(
+                                        color: AppColors.grey,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                 ],
                               ),
                             )
                           ],
                         ),
+                      ),
+                      SizedBox(height: 15),
+                      PrimaryButton(
+                        icon: 'assets/images/icons/rocket.svg',
+                        invert: false,
+                        title: 'Boost Profile',
+                        action: () {},
                       ),
                       SizedBox(height: 20),
                       Container(
@@ -341,9 +418,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   children: [
                                     Container(
                                       height: 3,
-                                      width: MediaQuery.of(context).size.width * 0.44,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.44,
                                       decoration: BoxDecoration(
-                                        color: activeTab == 1 ? AppColors.primaryDark : Colors.transparent,
+                                        color: activeTab == 1
+                                            ? AppColors.primaryDark
+                                            : Colors.transparent,
                                         border: Border(),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
@@ -351,7 +431,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     SizedBox(height: 5),
                                     Text(
                                       "Bio",
-                                      style: TextStyle(color: activeTab == 1 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600),
+                                      style: TextStyle(
+                                          color: activeTab == 1
+                                              ? AppColors.grayscale
+                                              : AppColors.grey,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600),
                                     )
                                   ],
                                 ),
@@ -369,9 +454,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                   children: [
                                     Container(
                                       height: 3,
-                                      width: MediaQuery.of(context).size.width * 0.44,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.44,
                                       decoration: BoxDecoration(
-                                        color: activeTab == 2 ? AppColors.primaryDark : Colors.transparent,
+                                        color: activeTab == 2
+                                            ? AppColors.primaryDark
+                                            : Colors.transparent,
                                         border: Border(),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
@@ -379,7 +467,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     SizedBox(height: 5),
                                     Text(
                                       "Post",
-                                      style: TextStyle(color: activeTab == 2 ? AppColors.grayscale : AppColors.grey, fontSize: 16, fontWeight: FontWeight.w600),
+                                      style: TextStyle(
+                                          color: activeTab == 2
+                                              ? AppColors.grayscale
+                                              : AppColors.grey,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600),
                                     )
                                   ],
                                 ),
@@ -394,7 +487,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               children: [
                                 SizedBox(height: 20),
                                 Text(
-                                  'Christine Doe',
+                                  '${theUser?.profile?.firstName} ${theUser?.profile?.lastName}',
                                   style: const TextStyle(
                                     color: AppColors.primaryDark,
                                     fontWeight: FontWeight.w500,
@@ -413,7 +506,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 SizedBox(height: 20),
                                 Text(
                                   "M Recent Referees",
-                                  style: TextStyle(color: AppColors.grayscale, fontSize: 16, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      color: AppColors.grayscale,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 SizedBox(height: 10),
                                 SingleChildScrollView(
@@ -426,8 +522,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                           child: Padding(
                                             padding: EdgeInsets.only(right: 10),
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
-                                              child: Image.asset("assets/images/ref.png", height: 42, width: 42, fit: BoxFit.cover),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.asset(
+                                                  "assets/images/ref.png",
+                                                  height: 42,
+                                                  width: 42,
+                                                  fit: BoxFit.cover),
                                             ),
                                           ),
                                         )
@@ -437,7 +538,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 SizedBox(height: 20),
                                 Text(
                                   "Basic Profile",
-                                  style: TextStyle(color: AppColors.grayscale, fontSize: 16, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      color: AppColors.grayscale,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 SizedBox(height: 10),
                                 BasicProfileProp(
@@ -467,7 +571,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 SizedBox(height: 20),
                                 Text(
                                   "Interest",
-                                  style: TextStyle(color: AppColors.grayscale, fontSize: 16, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      color: AppColors.grayscale,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 SizedBox(height: 10),
                                 Wrap(
@@ -479,7 +586,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     InterestWidget(title: 'Dating'),
                                     InterestWidget(title: 'Body Massage'),
                                     InterestWidget(title: 'Friends'),
-                                    InterestWidget(title: 'Serious Relationships'),
+                                    InterestWidget(
+                                        title: 'Serious Relationships'),
                                     InterestWidget(title: 'Massage Plus'),
                                     InterestWidget(title: 'Networking'),
                                   ],
@@ -530,7 +638,10 @@ class BasicProfileProp extends StatelessWidget {
                   ),
                   Text(
                     '$leftValue',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff979797)),
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff979797)),
                   ),
                 ],
               ),
@@ -543,7 +654,10 @@ class BasicProfileProp extends StatelessWidget {
                 ),
                 Text(
                   '$rightValue',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff979797)),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff979797)),
                 ),
               ],
             ),
@@ -574,7 +688,10 @@ class InterestWidget extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: TextStyle(color: AppColors.grayscale, fontSize: 12, fontWeight: FontWeight.w400),
+        style: TextStyle(
+            color: AppColors.grayscale,
+            fontSize: 12,
+            fontWeight: FontWeight.w400),
       ),
     );
   }
@@ -603,7 +720,10 @@ class ProfileAddOrLike extends StatelessWidget {
                 SizedBox(width: 10),
                 Text(
                   'Add Friend',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.white),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white),
                 ),
               ],
             ),
@@ -620,7 +740,10 @@ class ProfileAddOrLike extends StatelessWidget {
                 SizedBox(width: 10),
                 Text(
                   'Super-Like',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.white),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white),
                 ),
               ],
             ),
@@ -654,7 +777,8 @@ class _PostsWidgetState extends ConsumerState<PostsWidget> {
               return Container(
                 height: 170,
                 width: 122,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
                 clipBehavior: Clip.hardEdge,
                 child: Image.asset('assets/images/post.png', fit: BoxFit.cover),
               );
