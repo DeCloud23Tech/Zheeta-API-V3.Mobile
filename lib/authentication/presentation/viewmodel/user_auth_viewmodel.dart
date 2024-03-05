@@ -144,7 +144,9 @@ class UserAuthViewModel extends StateNotifier<UserAuthState>
   }
 
   Future<bool> checkIfUserIsLoggedIn() async {
-    return await sessionManager.get(SessionManagerKeys.isLoggedInBool);
+    var check = await sessionManager.get(SessionManagerKeys.isLoggedInBool);
+
+    return check ?? false;
   }
 
   Future<bool> loginUser() async {

@@ -6,10 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
+import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/widgets/top_nav.dart';
+import 'package:zheeta/widgets/transparent_button.dart';
 
 @RoutePage<String?>()
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -41,15 +43,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     });
   }
 
+  bool showFullBio = false;
+
   @override
   Widget build(BuildContext context) {
     final userProfileState = ref.watch(userProfileViewModelProvider);
     UserProfileDataModel? theUser;
+    ViewProfileModel? visitProfile;
     if (widget.profileId == null) {
       theUser = userProfileState.getSingleUserProfileState.data?.data;
     } else {
       theUser = userProfileState.visitUserProfileState.data?.profile;
+      visitProfile = userProfileState.visitUserProfileState.data;
     }
+    // DateFormat inputFormat = DateFormat('dd-MM-yyyy hh:mm:ss a');
+    // DateTime input = inputFormat.parse(theUser?.profile?.dateOfBirth);
+    // String datee = DateFormat('yyyy-MM-dd').format(input);
+    // var theDate = DateTime.parse(datee);
+    // final theAge = AgeCalculator.age(theDate);
     controller.addListener(() {
       if (controller.offset > 450) {
         setState(() {
@@ -105,11 +116,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 alignment: AlignmentDirectional.center,
                 children: [
                   CarouselSlider.builder(
-                    itemCount: 5,
+                    itemCount: 1,
                     itemBuilder: (BuildContext context, int itemIndex,
                             int pageViewIndex) =>
                         ClipRRect(
-                      child: Image.asset("assets/images/User.png",
+                      child: Image.network(theUser?.profile?.profilePhotoURL,
                           fit: BoxFit.cover,
                           height: MediaQuery.of(context).size.height * 0.55,
                           width: double.infinity),
@@ -132,7 +143,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     bottom: 70,
                     child: Row(
                       children: [
-                        for (var i = 0; i < 5; i++)
+                        for (var i = 0; i < 1; i++)
                           Padding(
                             padding: const EdgeInsets.all(3),
                             child: Container(
@@ -149,7 +160,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ],
                     ),
                   ),
-                  if (widget.profileId != null) ProfileAddOrLike(),
+                  if (widget.profileId != null) ProfileAddOrLike(visitProfile),
                 ],
               ),
             ),
@@ -173,33 +184,31 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     Image.asset('assets/images/badge.png',
                                         width: 19, height: 19),
                                     SizedBox(width: 5),
-                                    SvgPicture.asset(
-                                        'assets/images/icons/share_2.svg'),
-                                    SizedBox(width: 5),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 5),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: Color(0xffFEB237),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.3),
-                                              spreadRadius: 0,
-                                              blurRadius: 2,
-                                              offset: Offset(0, 1),
-                                            ),
-                                          ]),
-                                      child: Text(
-                                        'Premium',
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.white),
+                                    if (theUser?.subscription?.name == "Yellow")
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 5),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Color(0xffFEB237),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 2,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ]),
+                                        child: Text(
+                                          'Premium',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.white),
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                                 Row(
@@ -387,13 +396,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 15),
-                      PrimaryButton(
-                        icon: 'assets/images/icons/rocket.svg',
-                        invert: false,
-                        title: 'Boost Profile',
-                        action: () {},
-                      ),
+                      if (widget.profileId == null) SizedBox(height: 15),
+                      if (widget.profileId == null)
+                        PrimaryButton(
+                          icon: 'assets/images/icons/rocket.svg',
+                          invert: false,
+                          title: 'Boost Profile',
+                          action: () {},
+                        ),
                       SizedBox(height: 20),
                       Container(
                         height: 40,
@@ -485,16 +495,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 20),
-                                Text(
-                                  '${theUser?.profile?.firstName} ${theUser?.profile?.lastName}',
-                                  style: const TextStyle(
-                                    color: AppColors.primaryDark,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
+                                if (theUser?.profile?.aboutMe.length > 0)
+                                  SizedBox(height: 20),
+                                if (theUser?.profile?.aboutMe.length > 0)
+                                  Text(
+                                    '${theUser?.profile?.firstName} ${theUser?.profile?.lastName}',
+                                    style: const TextStyle(
+                                      color: AppColors.primaryDark,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 5),
+                                if (theUser?.profile?.aboutMe.length > 0)
+                                  SizedBox(height: 5),
                                 if (theUser?.profile?.aboutMe.length > 150)
                                   SizedBox(
                                     height: 10,
@@ -514,38 +527,38 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                     ),
                                   ),
                                 SizedBox(height: 20),
-                                SizedBox(height: 20),
-                                Text(
-                                  "M Recent Referees",
-                                  style: TextStyle(
-                                      color: AppColors.grayscale,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(height: 10),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      for (var i = 0; i < 5; i++)
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: Padding(
-                                            padding: EdgeInsets.only(right: 10),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child: Image.asset(
-                                                  "assets/images/ref.png",
-                                                  height: 42,
-                                                  width: 42,
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                        )
-                                    ],
-                                  ),
-                                ),
+                                // SizedBox(height: 20),
+                                // Text(
+                                //   "Recent Referees",
+                                //   style: TextStyle(
+                                //       color: AppColors.grayscale,
+                                //       fontSize: 16,
+                                //       fontWeight: FontWeight.w600),
+                                // ),
+                                // SizedBox(height: 10),
+                                // SingleChildScrollView(
+                                //   scrollDirection: Axis.horizontal,
+                                //   child: Row(
+                                //     children: [
+                                //       for (var i = 0; i < 5; i++)
+                                //         GestureDetector(
+                                //           onTap: () {},
+                                //           child: Padding(
+                                //             padding: EdgeInsets.only(right: 10),
+                                //             child: ClipRRect(
+                                //               borderRadius:
+                                //                   BorderRadius.circular(8),
+                                //               child: Image.asset(
+                                //                   "assets/images/ref.png",
+                                //                   height: 42,
+                                //                   width: 42,
+                                //                   fit: BoxFit.cover),
+                                //             ),
+                                //           ),
+                                //         )
+                                //     ],
+                                //   ),
+                                // ),
                                 SizedBox(height: 20),
                                 Text(
                                   "Basic Profile",
@@ -557,27 +570,26 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 SizedBox(height: 10),
                                 BasicProfileProp(
                                   leftTitle: 'Height',
-                                  leftValue: '160cm',
+                                  leftValue: '${theUser?.profile?.height}cm',
                                   rightTitle: 'Weight',
-                                  rightValue: '65kg',
+                                  rightValue: '${theUser?.profile?.weight}kg',
                                 ),
                                 BasicProfileProp(
                                   leftTitle: 'Body Type',
-                                  leftValue: 'Slim',
+                                  leftValue: '${theUser?.profile?.bodyType}',
                                   rightTitle: 'Occupation',
-                                  rightValue: 'Student',
-                                ),
-                                BasicProfileProp(
-                                  leftTitle: 'Heighest Education',
-                                  leftValue: 'Bsc',
-                                  rightTitle: 'Religion',
-                                  rightValue: 'Islam',
+                                  rightValue: '${theUser?.profile?.occupation}',
                                 ),
                                 BasicProfileProp(
                                   leftTitle: 'Complexion',
-                                  leftValue: 'Black',
+                                  leftValue: '${theUser?.profile?.complexion}',
                                   rightTitle: 'Language',
-                                  rightValue: 'English',
+                                  rightValue:
+                                      '${theUser?.profile?.languageCSV}',
+                                ),
+                                BasicProfileProp(
+                                  leftTitle: 'Religion',
+                                  leftValue: '${theUser?.profile?.religion}',
                                 ),
                                 SizedBox(height: 20),
                                 Text(
@@ -589,20 +601,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 Wrap(
-                                  runSpacing: 10,
-                                  spacing: 10,
-                                  children: [
-                                    InterestWidget(title: 'Friend WB'),
-                                    InterestWidget(title: 'Hangout'),
-                                    InterestWidget(title: 'Dating'),
-                                    InterestWidget(title: 'Body Massage'),
-                                    InterestWidget(title: 'Friends'),
-                                    InterestWidget(
-                                        title: 'Serious Relationships'),
-                                    InterestWidget(title: 'Massage Plus'),
-                                    InterestWidget(title: 'Networking'),
-                                  ],
-                                ),
+                                    runSpacing: 10,
+                                    spacing: 10,
+                                    children: theUser?.interests!.map((e) {
+                                          return InterestWidget(title: e.title);
+                                        }).toList() ??
+                                        []
+                                    // children: [
+                                    //   InterestWidget(title: 'Friend WB'),
+                                    //   InterestWidget(title: 'Hangout'),
+                                    //   InterestWidget(title: 'Dating'),
+                                    //   InterestWidget(title: 'Body Massage'),
+                                    //   InterestWidget(title: 'Friends'),
+                                    //   InterestWidget(
+                                    //       title: 'Serious Relationships'),
+                                    //   InterestWidget(title: 'Massage Plus'),
+                                    //   InterestWidget(title: 'Networking'),
+                                    // ],
+                                    ),
                               ],
                             )
                           : PostsWidget(),
@@ -620,16 +636,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 }
 
 class BasicProfileProp extends StatelessWidget {
-  final String leftTitle;
-  final String leftValue;
-  final String rightTitle;
-  final String rightValue;
-  const BasicProfileProp({
+  String? leftTitle;
+  String? leftValue;
+  String? rightTitle;
+  String? rightValue;
+  BasicProfileProp({
     super.key,
-    required this.leftTitle,
-    required this.leftValue,
-    required this.rightTitle,
-    required this.rightValue,
+    this.leftTitle,
+    this.leftValue,
+    this.rightTitle,
+    this.rightValue,
   });
 
   @override
@@ -644,11 +660,11 @@ class BasicProfileProp extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    '$leftTitle: ',
+                    leftTitle != null ? '$leftTitle: ' : '',
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    '$leftValue',
+                    leftValue != null ? '$leftValue' : '',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -660,11 +676,11 @@ class BasicProfileProp extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '$rightTitle: ',
+                  rightTitle != null ? '$rightTitle: ' : '',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  '$rightValue',
+                  rightValue != null ? '$rightValue' : '',
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -709,7 +725,8 @@ class InterestWidget extends StatelessWidget {
 }
 
 class ProfileAddOrLike extends StatelessWidget {
-  const ProfileAddOrLike({
+  const ProfileAddOrLike(
+    ViewProfileModel? visitProfile, {
     super.key,
   });
 
