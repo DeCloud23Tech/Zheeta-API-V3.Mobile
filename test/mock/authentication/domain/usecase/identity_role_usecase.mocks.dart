@@ -22,12 +22,12 @@ import 'package:zheeta/authentication/domain/usecase/identity_role_usecase.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [IdentityRoleUsecase].
+/// A class which mocks [IdentityRoleUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIdentityRoleUsecase extends _i1.Mock
-    implements _i2.IdentityRoleUsecase {
-  MockIdentityRoleUsecase() {
+class MockIdentityRoleUseCase extends _i1.Mock
+    implements _i2.IdentityRoleUseCase {
+  MockIdentityRoleUseCase() {
     _i1.throwOnMissingStub(this);
   }
 

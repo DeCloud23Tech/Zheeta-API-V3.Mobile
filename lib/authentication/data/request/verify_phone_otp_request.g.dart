@@ -9,8 +9,8 @@ part of 'verify_phone_otp_request.dart';
 VerifyPhoneOtpRequest _$VerifyPhoneOtpRequestFromJson(
         Map<String, dynamic> json) =>
     VerifyPhoneOtpRequest(
-      json['phoneNumber'] as String,
-      json['otp'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      otp: json['otp'] as String,
     );
 
 Map<String, dynamic> _$VerifyPhoneOtpRequestToJson(

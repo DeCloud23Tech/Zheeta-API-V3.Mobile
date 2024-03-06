@@ -45,6 +45,7 @@ class MockApiManager extends _i1.Mock implements _i3.ApiManager {
   @override
   _i4.Future<_i2.FormattedResponse> getHttp(
     String? route, {
+    Map<String, dynamic>? body,
     Map<String, dynamic>? params,
     bool? formdata = false,
     String? token,
@@ -54,6 +55,7 @@ class MockApiManager extends _i1.Mock implements _i3.ApiManager {
           #getHttp,
           [route],
           {
+            #body: body,
             #params: params,
             #formdata: formdata,
             #token: token,
@@ -66,6 +68,7 @@ class MockApiManager extends _i1.Mock implements _i3.ApiManager {
             #getHttp,
             [route],
             {
+              #body: body,
               #params: params,
               #formdata: formdata,
               #token: token,

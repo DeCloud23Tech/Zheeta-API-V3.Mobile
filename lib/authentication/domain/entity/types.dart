@@ -1,2 +1,4 @@
+import 'package:zheeta/app/api/formatted_response.dart';
+
 typedef MappedResponse = Map<String, dynamic>;
-typedef Error = String;
+typedef ErrorResponse = InvalidResponse;

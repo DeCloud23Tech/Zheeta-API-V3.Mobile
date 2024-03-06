@@ -1,79 +1,58 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/strings.dart';
+import 'package:zheeta/app/common/text_style.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/app/strings.dart';
-import 'package:zheeta/app/text_style.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_auth_viewmodel.dart';
-import 'package:zheeta/authentication/presentation/view_model/user_otp_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
-import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/loading_screen.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class VerificationScreen extends ConsumerStatefulWidget {
-  final String identifier;
   final bool isPhoneNumber;
-  const VerificationScreen({required this.identifier, required this.isPhoneNumber, super.key});
+  final String phoneNumber;
+  final String countryCode;
+  final String email;
+  const VerificationScreen(
+      {super.key,
+      required this.isPhoneNumber,
+      required this.phoneNumber,
+      required this.countryCode,
+      required this.email});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _VerificationScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _VerificationScreenState();
 }
 
 class _VerificationScreenState extends ConsumerState<VerificationScreen> {
-  late UserOtpViewModel _userOtpViewModel;
+  late UserOtpViewModel userOtpViewModel;
 
   final formKey = GlobalKey<FormState>();
-
-  late Timer _timer;
-  late int _counter;
-
-  void startTimer() {
-    _counter = 59;
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_counter == 0) {
-          setState(() {
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            _counter--;
-          });
-        }
-      },
-    );
-  }
-
   @override
   void initState() {
     super.initState();
-    _counter = 59;
-    _userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
-    if (widget.isPhoneNumber) {
-      _userOtpViewModel.setPhoneNumber = widget.identifier;
-    } else {
-      _userOtpViewModel.setEmail = widget.identifier;
-    }
-
-    startTimer();
+    userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
+    userOtpViewModel.setPhoneNumberOrEmail(
+        isPhoneNumber: widget.isPhoneNumber,
+        phoneNumber: widget.phoneNumber,
+        countryCode: widget.countryCode,
+        email: widget.email);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      userOtpViewModel.startTimer();
+    });
   }
 
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
+  final validatorChange = ValueNotifier<dynamic>(null);
 
   @override
   Widget build(BuildContext context) {
-    final _userAuthViewModel = ref.watch(userAuthViewModelProvider);
+    final userOtpState = ref.watch(userOtpViewModelProvider);
     return Stack(
       children: [
         Scaffold(
@@ -100,17 +79,21 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                           ),
                           SizedBox(height: 15),
                           Text.rich(
-                              TextSpan(
-                                text: verificationSubtitle,
-                                style: forgotSubtitleStyle,
-                                children: [
-                                  TextSpan(
-                                    text: widget.identifier,
-                                    style: TextStyle(color: AppColors.primaryDark),
-                                  )
-                                ],
-                              ),
-                              textAlign: TextAlign.center)
+                            TextSpan(
+                              text: verificationSubtitle,
+                              style: forgotSubtitleStyle,
+                              children: [
+                                TextSpan(
+                                  text: widget.isPhoneNumber
+                                      ? '${widget.countryCode}${widget.phoneNumber}'
+                                      : widget.email,
+                                  style:
+                                      TextStyle(color: AppColors.primaryDark),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ],
                       ),
                     ],
@@ -118,26 +101,47 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                   SizedBox(height: 32),
                   Form(
                     key: formKey,
-                    child: InputField(
-                      onChanged: (value) => _userOtpViewModel.setOtp = value,
-                      validator: (value) => _userOtpViewModel.validateOtp(),
-                      label: 'OTP',
+                    child: PinCodeTextField(
+                      validator: (data) => userOtpViewModel.validateOtp(),
+                      autovalidateMode: AutovalidateMode.disabled,
+                      autoDismissKeyboard: true,
+                      appContext: context,
+                      pastedTextStyle: TextStyle(
+                        color: AppColors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                      length: 6,
+                      animationType: AnimationType.fade,
+                      pinTheme: PinTheme(
+                        selectedFillColor: Colors.white,
+                        selectedColor: AppColors.black,
+                        inactiveFillColor: AppColors.white,
+                        inactiveColor: AppColors.grey,
+                        shape: PinCodeFieldShape.box,
+                        borderWidth: 1,
+                        activeColor: AppColors.primaryLight,
+                        borderRadius: BorderRadius.circular(4),
+                        fieldHeight: 50,
+                        fieldWidth: 50,
+                        activeFillColor: AppColors.white,
+                      ),
+                      cursorColor: AppColors.black,
+                      animationDuration: const Duration(milliseconds: 300),
+                      enableActiveFill: true,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        validatorChange.value = value;
+                        userOtpViewModel.setOtp = value;
+                      },
                     ),
                   ),
                   SizedBox(height: 22),
                   Center(
-                    child: _counter == 0
+                    child: userOtpState.counterState == 0
                         ? GestureDetector(
                             onTap: () async {
-                              late bool haveResentOtp;
-                              if (widget.isPhoneNumber) {
-                                haveResentOtp = await _userOtpViewModel.sendPhoneVerifyOtp();
-                              } else {
-                                haveResentOtp = await _userOtpViewModel.sendEmailVerifyOtp();
-                              }
-                              if (haveResentOtp) {
-                                startTimer();
-                              }
+                              userOtpViewModel.reSendPhoneOrEmailOtp();
                             },
                             child: Text(
                               'Resend OTP',
@@ -145,13 +149,27 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                             ),
                           )
                         : Text(
-                            'Send Again OTP ($_counter\s)',
+                            'Send Again OTP (${userOtpState.counterState}\s)',
                             style: TextStyle(
                               color: Colors.blue.withOpacity(0.5),
                             ),
                           ),
                   ),
                   SizedBox(height: 32),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text:
+                          "Failed to receive your ${widget.isPhoneNumber ? 'Phone Number' : 'Email'} verification OTP . Contact Our Support  at",
+                      style: forgotSubtitleStyle,
+                      children: [
+                        TextSpan(
+                            text: ' support@zheeta.com',
+                            style: TextStyle(color: AppColors.primaryDark))
+                      ],
+                    ),
+                    //textAlign: TextAlign.center,
+                  )
                 ],
               ),
             ),
@@ -163,26 +181,22 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  child: PrimaryButton(
-                    state: ref.watch(userOtpViewModelProvider).verifyPhoneOtp.isLoading || ref.watch(userOtpViewModelProvider).verifyEmailOtp.isLoading,
-                    title: 'Continue',
-                    action: () async {
-                      final isValid = formKey.currentState?.validate();
-                      if (isValid ?? false) {
-                        late bool canGoNext;
-                        if (widget.isPhoneNumber) {
-                          canGoNext = await _userOtpViewModel.verifyPhoneNumber();
-                          if (canGoNext)
-                            context.router.push(
-                              VerificationRoute(identifier: _userAuthViewModel.registerUser.data?.email, isPhoneNumber: false),
-                            );
-                        } else {
-                          canGoNext = await _userOtpViewModel.verifyEmail();
-                          if (canGoNext) context.router.push(BioDataRoute());
-                        }
-                      }
-                    },
-                  ),
+                  child: ListenableBuilder(
+                      listenable: validatorChange,
+                      builder: (context, _) {
+                        return PrimaryButton(
+                          disabled: userOtpViewModel.validateOtp() != null,
+                          state: userOtpState.verifyPhoneOtpState.isLoading ||
+                              userOtpState.verifyEmailOtpState.isLoading,
+                          title: 'Continue',
+                          action: () async {
+                            final isValid = formKey.currentState?.validate();
+                            if (isValid ?? false) {
+                              userOtpViewModel.verifyPhoneOrEmail();
+                            }
+                          },
+                        );
+                      }),
                 ),
                 if (widget.isPhoneNumber) SizedBox(height: 20),
                 if (widget.isPhoneNumber)
@@ -192,14 +206,25 @@ class _VerificationScreenState extends ConsumerState<VerificationScreen> {
                       // state: _isLoading,
                       invert: true,
                       title: 'Skip',
-                      action: () {},
+                      action: () {
+                        router.popAndPush(
+                          VerificationRoute(
+                              isPhoneNumber: false,
+                              email: widget.email,
+                              phoneNumber: widget.phoneNumber,
+                              countryCode: widget.countryCode),
+                        );
+                      },
                     ),
                   ),
               ],
             ),
           ),
         ),
-        ref.watch(userOtpViewModelProvider).sendPhoneVerifyOtp.isLoading || ref.watch(userOtpViewModelProvider).sendEmailVerifyOtp.isLoading ? LoadingScreen() : SizedBox(),
+        (userOtpState.sendPhoneVerifyOtpState.isLoading ||
+                userOtpState.sendEmailVerifyOtpState.isLoading)
+            ? LoadingScreen()
+            : SizedBox(),
       ],
     );
   }

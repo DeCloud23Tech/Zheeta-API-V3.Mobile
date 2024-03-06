@@ -8,8 +8,8 @@ part of 'user_roles_request.dart';
 
 UserRoleRequest _$UserRoleRequestFromJson(Map<String, dynamic> json) =>
     UserRoleRequest(
-      json['userId'] as String,
-      (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
+      userId: json['userId'] as String,
+      roles: (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$UserRoleRequestToJson(UserRoleRequest instance) =>

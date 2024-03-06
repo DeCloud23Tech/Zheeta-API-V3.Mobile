@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:zheeta/app/api/formatted_response.dart';
 
 abstract class ApiManager {
-  Future<FormattedResponse> getHttp(String route, {Map<String, dynamic>? params, bool formdata = false, String? token});
+  Future<FormattedResponse> getHttp(String route, {Map<String, dynamic>? body, Map<String, dynamic>? params, bool formdata = false, String? token});
 
   Future<FormattedResponse> postHttp(String route, dynamic body, {Map<String, dynamic>? params, bool formdata = false, bool formEncoded = false, String? token, void Function({int count, int total})? onSendProgress, void Function({int count, int total})? onRecieveProgress});
 

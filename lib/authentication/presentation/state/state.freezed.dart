@@ -104,7 +104,7 @@ class __$$initImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$initImpl<T> extends _init<T> {
-  const _$initImpl() : super._();
+  _$initImpl() : super._();
 
   @override
   String toString() {
@@ -196,8 +196,8 @@ class _$initImpl<T> extends _init<T> {
 }
 
 abstract class _init<T> extends State<T> {
-  const factory _init() = _$initImpl<T>;
-  const _init._() : super._();
+  factory _init() = _$initImpl<T>;
+  _init._() : super._();
 }
 
 /// @nodoc
@@ -219,7 +219,7 @@ class __$$loadingImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$loadingImpl<T> extends _loading<T> {
-  const _$loadingImpl() : super._();
+  _$loadingImpl() : super._();
 
   @override
   String toString() {
@@ -311,8 +311,8 @@ class _$loadingImpl<T> extends _loading<T> {
 }
 
 abstract class _loading<T> extends State<T> {
-  const factory _loading() = _$loadingImpl<T>;
-  const _loading._() : super._();
+  factory _loading() = _$loadingImpl<T>;
+  _loading._() : super._();
 }
 
 /// @nodoc
@@ -349,7 +349,7 @@ class __$$successImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$successImpl<T> extends _success<T> {
-  const _$successImpl(this.data) : super._();
+  _$successImpl(this.data) : super._();
 
   @override
   final T data;
@@ -453,8 +453,8 @@ class _$successImpl<T> extends _success<T> {
 }
 
 abstract class _success<T> extends State<T> {
-  const factory _success(final T data) = _$successImpl<T>;
-  const _success._() : super._();
+  factory _success(final T data) = _$successImpl<T>;
+  _success._() : super._();
 
   T get data;
   @JsonKey(ignore: true)

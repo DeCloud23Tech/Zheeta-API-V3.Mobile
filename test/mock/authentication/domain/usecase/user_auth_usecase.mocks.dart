@@ -3,24 +3,25 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:zheeta/authentication/data/model/login_user_model.dart' as _i3;
 import 'package:zheeta/authentication/data/model/register_user_model.dart'
     as _i2;
 import 'package:zheeta/authentication/data/request/change_password_request.dart'
-    as _i8;
-import 'package:zheeta/authentication/data/request/login_oauth_request.dart'
-    as _i10;
-import 'package:zheeta/authentication/data/request/login_request.dart' as _i6;
-import 'package:zheeta/authentication/data/request/register_staff_request.dart'
-    as _i7;
-import 'package:zheeta/authentication/data/request/register_user_request.dart'
-    as _i5;
-import 'package:zheeta/authentication/data/request/reset_password_request.dart'
     as _i9;
+import 'package:zheeta/authentication/data/request/login_oauth_request.dart'
+    as _i11;
+import 'package:zheeta/authentication/data/request/login_request.dart' as _i7;
+import 'package:zheeta/authentication/data/request/register_staff_request.dart'
+    as _i8;
+import 'package:zheeta/authentication/data/request/register_user_request.dart'
+    as _i6;
+import 'package:zheeta/authentication/data/request/reset_password_request.dart'
+    as _i10;
 import 'package:zheeta/authentication/domain/usecase/user_auth_usecase.dart'
-    as _i3;
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -46,62 +47,82 @@ class _FakeRegisterUserModel_0 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [UserAuthUsecase].
+class _FakeLoginUserModel_1 extends _i1.SmartFake
+    implements _i3.LoginUserModel {
+  _FakeLoginUserModel_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [UserAuthUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserAuthUsecase extends _i1.Mock implements _i3.UserAuthUsecase {
-  MockUserAuthUsecase() {
+class MockUserAuthUseCase extends _i1.Mock implements _i4.UserAuthUseCase {
+  MockUserAuthUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.RegisterUserModel> registerUserUsecase(
-          _i5.RegisterUserRequest? data) =>
+  _i5.Future<_i2.RegisterUserModel> registerUserUsecase(
+          _i6.RegisterUserRequest? data) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerUserUsecase,
           [data],
         ),
         returnValue:
-            _i4.Future<_i2.RegisterUserModel>.value(_FakeRegisterUserModel_0(
+            _i5.Future<_i2.RegisterUserModel>.value(_FakeRegisterUserModel_0(
           this,
           Invocation.method(
             #registerUserUsecase,
             [data],
           ),
         )),
-      ) as _i4.Future<_i2.RegisterUserModel>);
+      ) as _i5.Future<_i2.RegisterUserModel>);
 
   @override
-  dynamic loginUsecase(_i6.LoginRequest? data) =>
-      super.noSuchMethod(Invocation.method(
-        #loginUsecase,
-        [data],
-      ));
+  _i5.Future<_i3.LoginUserModel> loginUsecase(_i7.LoginRequest? data) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #loginUsecase,
+          [data],
+        ),
+        returnValue: _i5.Future<_i3.LoginUserModel>.value(_FakeLoginUserModel_1(
+          this,
+          Invocation.method(
+            #loginUsecase,
+            [data],
+          ),
+        )),
+      ) as _i5.Future<_i3.LoginUserModel>);
 
   @override
-  dynamic registerStaffUsecase(_i7.RegisterStaffRequest? data) =>
+  dynamic registerStaffUsecase(_i8.RegisterStaffRequest? data) =>
       super.noSuchMethod(Invocation.method(
         #registerStaffUsecase,
         [data],
       ));
 
   @override
-  dynamic changePasswordUsecase(_i8.ChangePasswordRequest? data) =>
+  dynamic changePasswordUsecase(_i9.ChangePasswordRequest? data) =>
       super.noSuchMethod(Invocation.method(
         #changePasswordUsecase,
         [data],
       ));
 
   @override
-  dynamic resetPasswordUsecase(_i9.ResetPasswordRequest? data) =>
+  dynamic resetPasswordUsecase(_i10.ResetPasswordRequest? data) =>
       super.noSuchMethod(Invocation.method(
         #resetPasswordUsecase,
         [data],
       ));
 
   @override
-  dynamic loginOAuthUsecase(_i10.LoginOAuthRequest? data) =>
+  dynamic loginOAuthUsecase(_i11.LoginOAuthRequest? data) =>
       super.noSuchMethod(Invocation.method(
         #loginOAuthUsecase,
         [data],

@@ -7,10 +7,10 @@ class VerifyPhoneOtpRequest {
   String phoneNumber;
   String otp;
 
-  VerifyPhoneOtpRequest(
-    this.phoneNumber,
-    this.otp,
-  );
+  VerifyPhoneOtpRequest({
+    required this.phoneNumber,
+    required this.otp,
+  });
 
   factory VerifyPhoneOtpRequest.fromJson(Map<String, dynamic> json) => _$VerifyPhoneOtpRequestFromJson(json);
 

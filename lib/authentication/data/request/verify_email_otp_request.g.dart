@@ -9,13 +9,13 @@ part of 'verify_email_otp_request.dart';
 VerifyEmailOtpRequest _$VerifyEmailOtpRequestFromJson(
         Map<String, dynamic> json) =>
     VerifyEmailOtpRequest(
-      json['phoneNumber'] as String,
-      json['otp'] as String,
+      email: json['email'] as String,
+      otp: json['otp'] as String,
     );
 
 Map<String, dynamic> _$VerifyEmailOtpRequestToJson(
         VerifyEmailOtpRequest instance) =>
     <String, dynamic>{
-      'phoneNumber': instance.phoneNumber,
+      'email': instance.email,
       'otp': instance.otp,
     };

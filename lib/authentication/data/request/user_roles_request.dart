@@ -7,7 +7,7 @@ class UserRoleRequest {
   String userId;
   List<String> roles;
 
-  UserRoleRequest(this.userId, this.roles);
+  UserRoleRequest({required this.userId, required this.roles});
 
   factory UserRoleRequest.fromJson(Map<String, dynamic> json) => _$UserRoleRequestFromJson(json);
   Map<String, dynamic> toJson() => _$UserRoleRequestToJson(this);

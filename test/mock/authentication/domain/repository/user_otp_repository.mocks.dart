@@ -61,16 +61,9 @@ class MockUserOtpRepository extends _i1.Mock implements _i2.UserOtpRepository {
       ));
 
   @override
-  dynamic sendResetPasswordOtpRepo(String? phoneNumber) =>
+  dynamic sendPasswordResetOtpRepo(String? email) =>
       super.noSuchMethod(Invocation.method(
-        #sendResetPasswordOtpRepo,
-        [phoneNumber],
-      ));
-
-  @override
-  dynamic resetPasswordRepo(String? phoneNumber) =>
-      super.noSuchMethod(Invocation.method(
-        #resetPasswordRepo,
-        [phoneNumber],
+        #sendPasswordResetOtpRepo,
+        [email],
       ));
 }

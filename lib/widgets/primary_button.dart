@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
 
 class PrimaryButton extends StatelessWidget {
   final bool state;
@@ -10,14 +10,31 @@ class PrimaryButton extends StatelessWidget {
   final Color? color;
   final String? icon;
   final String? icon2;
-  const PrimaryButton({Key? key, this.state = false, required this.title, required this.action, this.invert = false, this.color, this.icon, this.icon2}) : super(key: key);
+  final bool showBorder;
+  final bool disabled;
+  const PrimaryButton({
+    Key? key,
+    this.state = false,
+    required this.title,
+    required this.action,
+    this.invert = false,
+    this.color,
+    this.showBorder = false,
+    this.icon,
+    this.icon2,
+    this.disabled = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 56,
       child: ElevatedButton(
-        onPressed: state ? null : action,
+        onPressed: disabled
+            ? null
+            : state
+                ? null
+                : action,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -26,9 +43,11 @@ class PrimaryButton extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         icon!,
-                        colorFilter: ColorFilter.mode(invert ? AppColors.primaryDark : AppColors.white, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            invert ? AppColors.primaryDark : AppColors.white,
+                            BlendMode.srcIn),
                       ),
-                      SizedBox(width: 5)
+                      SizedBox(width: 10)
                     ],
                   )
                 : SizedBox(),
@@ -43,12 +62,18 @@ class PrimaryButton extends StatelessWidget {
                   )
                 : Text(
                     title,
-                    style: TextStyle(color: invert ? AppColors.primaryDark : AppColors.white, fontSize: 14, fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                        color: invert ? AppColors.primaryDark : AppColors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400),
                   ),
             icon2 != null
                 ? Row(children: [
                     SizedBox(width: 5),
-                    SvgPicture.asset(icon2!, colorFilter: ColorFilter.mode(invert ? AppColors.primaryDark : AppColors.white, BlendMode.srcIn)),
+                    SvgPicture.asset(icon2!,
+                        colorFilter: ColorFilter.mode(
+                            invert ? AppColors.primaryDark : AppColors.white,
+                            BlendMode.srcIn)),
                   ])
                 : SizedBox(),
           ],
@@ -62,7 +87,9 @@ class PrimaryButton extends StatelessWidget {
                     : AppColors.white
                 : color != null
                     ? color!
-                    : AppColors.primaryDark),
+                    : disabled
+                        ? AppColors.primaryDark.withOpacity(0.3)
+                        : AppColors.primaryDark),
           ),
           // shadowColor: MaterialStateProperty.all<Color>(invert
           //     ? white
@@ -71,13 +98,18 @@ class PrimaryButton extends StatelessWidget {
           //         : primaryDark)),
           overlayColor: MaterialStateProperty.resolveWith(
             (states) {
-              return states.contains(MaterialState.pressed) ? AppColors.primaryLight.withOpacity(0.5) : null;
+              return states.contains(MaterialState.pressed)
+                  ? AppColors.primaryLight.withOpacity(0.5)
+                  : null;
             },
           ),
+
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
-              // side: BorderSide(color: Colors.red)
+              side: showBorder
+                  ? BorderSide(color: AppColors.primaryDark)
+                  : BorderSide.none,
             ),
           ),
         ),
