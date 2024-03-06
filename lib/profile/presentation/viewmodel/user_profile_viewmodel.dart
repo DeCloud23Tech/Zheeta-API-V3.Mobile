@@ -368,6 +368,7 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
   }
 
   visitUserProfile(String visitingId) async {
+    state = state.setVisitUserProfileState(State.loading());
     try {
       final result =
           await _userProfileUseCase.visitUserProfileUseCase(userId: visitingId);
@@ -375,11 +376,11 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
       return true;
     } on UserProfileNotCreatedException catch (e) {
       NotifyUser.showSnackbar(e.toString());
-      state = state.setGetSingleUserProfileState(State.error(e));
+      state = state.setVisitUserProfileState(State.error(e));
       router.push(BioDataRoute());
       return false;
     } on Exception catch (e) {
-      state = state.setGetSingleUserProfileState(State.error(e));
+      state = state.setVisitUserProfileState(State.error(e));
       NotifyUser.showSnackbar(e.toString());
       return false;
     }

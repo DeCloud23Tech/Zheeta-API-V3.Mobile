@@ -11,7 +11,8 @@ class UserProfileModel with _$UserProfileModel {
     required UserProfileDataModel data,
   }) = _UserProfileModel;
 
-  factory UserProfileModel.fromJson(Map<String, dynamic> json) => _$UserProfileModelFromJson(json);
+  factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileModelFromJson(json);
 }
 
 @freezed
@@ -28,9 +29,11 @@ class UserProfileDataModel with _$UserProfileDataModel {
     WalletModel? wallet,
     List<InterestModel>? interests,
     BankAccountDetailModel? bankAccountDetails,
+    List<UserDownlines>? userDownlines,
   }) = _UserProfileDataModel;
 
-  factory UserProfileDataModel.fromJson(Map<String, dynamic> json) => _$UserProfileDataModelFromJson(json);
+  factory UserProfileDataModel.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileDataModelFromJson(json);
 }
 
 @freezed
@@ -50,7 +53,8 @@ class UserModel with _$UserModel {
     dynamic phoneNumberConfirmed,
   }) = _UserModel;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }
 
 @freezed
@@ -60,6 +64,7 @@ class ProfileModel with _$ProfileModel {
     dynamic firstName,
     dynamic lastName,
     dynamic dateOfBirth,
+    dynamic age,
     dynamic gender,
     dynamic languageCSV,
     dynamic aboutMe,
@@ -74,7 +79,8 @@ class ProfileModel with _$ProfileModel {
     dynamic profileStatus,
   }) = _ProfileModel;
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);
+  factory ProfileModel.fromJson(Map<String, dynamic> json) =>
+      _$ProfileModelFromJson(json);
 }
 
 @freezed
@@ -87,7 +93,8 @@ class ResidentialAddressModel with _$ResidentialAddressModel {
     dynamic zipCode,
   }) = _ResidentialAddressModel;
 
-  factory ResidentialAddressModel.fromJson(Map<String, dynamic> json) => _$ResidentialAddressModelFromJson(json);
+  factory ResidentialAddressModel.fromJson(Map<String, dynamic> json) =>
+      _$ResidentialAddressModelFromJson(json);
 }
 
 @freezed
@@ -100,7 +107,8 @@ class OriginAddressModel with _$OriginAddressModel {
     dynamic zipCode,
   }) = _OriginAddressModel;
 
-  factory OriginAddressModel.fromJson(Map<String, dynamic> json) => _$OriginAddressModelFromJson(json);
+  factory OriginAddressModel.fromJson(Map<String, dynamic> json) =>
+      _$OriginAddressModelFromJson(json);
 }
 
 @freezed
@@ -111,7 +119,8 @@ class LocationModel with _$LocationModel {
     dynamic longitude,
   }) = _LocationModel;
 
-  factory LocationModel.fromJson(Map<String, dynamic> json) => _$LocationModelFromJson(json);
+  factory LocationModel.fromJson(Map<String, dynamic> json) =>
+      _$LocationModelFromJson(json);
 }
 
 @freezed
@@ -123,7 +132,8 @@ class ProfileCounterModel with _$ProfileCounterModel {
     dynamic postCount,
   }) = _ProfileCounterModel;
 
-  factory ProfileCounterModel.fromJson(Map<String, dynamic> json) => _$ProfileCounterModelFromJson(json);
+  factory ProfileCounterModel.fromJson(Map<String, dynamic> json) =>
+      _$ProfileCounterModelFromJson(json);
 }
 
 @freezed
@@ -139,7 +149,8 @@ class SubscriptionModel with _$SubscriptionModel {
     dynamic paymentmethod,
   }) = _SubscriptionModel;
 
-  factory SubscriptionModel.fromJson(Map<String, dynamic> json) => _$SubscriptionModelFromJson(json);
+  factory SubscriptionModel.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionModelFromJson(json);
 }
 
 @freezed
@@ -150,7 +161,8 @@ class WalletModel with _$WalletModel {
     dynamic lastTransactionDate,
   }) = _WalletModel;
 
-  factory WalletModel.fromJson(Map<String, dynamic> json) => _$WalletModelFromJson(json);
+  factory WalletModel.fromJson(Map<String, dynamic> json) =>
+      _$WalletModelFromJson(json);
 }
 
 @freezed
@@ -161,7 +173,23 @@ class InterestModel with _$InterestModel {
     dynamic title,
   }) = _InterestModel;
 
-  factory InterestModel.fromJson(Map<String, dynamic> json) => _$InterestModelFromJson(json);
+  factory InterestModel.fromJson(Map<String, dynamic> json) =>
+      _$InterestModelFromJson(json);
+}
+
+@freezed
+class UserDownlines with _$UserDownlines {
+  @JsonSerializable()
+  factory UserDownlines(
+    dynamic id,
+    dynamic firstName,
+    dynamic lastName,
+    dynamic userName,
+    dynamic profilePhotoURL,
+  ) = _UserDownlines;
+
+  factory UserDownlines.fromJson(Map<String, dynamic> json) =>
+      _$UserDownlinesFromJson(json);
 }
 
 @freezed
@@ -183,5 +211,6 @@ class BankAccountDetailModel with _$BankAccountDetailModel {
     dynamic swiftCode,
   }) = _BankAccountDetailModel;
 
-  factory BankAccountDetailModel.fromJson(Map<String, dynamic> json) => _$BankAccountDetailModelFromJson(json);
+  factory BankAccountDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$BankAccountDetailModelFromJson(json);
 }

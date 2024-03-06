@@ -24,3 +24,29 @@ class EmptyContent extends StatelessWidget {
     );
   }
 }
+
+class BlockedUserContent extends StatelessWidget {
+  final Color? backgroundColor;
+  final Color? indicatorColor;
+  const BlockedUserContent(
+      {super.key, this.backgroundColor, this.indicatorColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        ModalBarrier(
+          dismissible: false,
+          color: Colors.transparent,
+          semanticsLabel: 'Loading',
+          barrierSemanticsDismissible: false,
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text('Cannot view this user'),
+        ),
+      ],
+    );
+  }
+}

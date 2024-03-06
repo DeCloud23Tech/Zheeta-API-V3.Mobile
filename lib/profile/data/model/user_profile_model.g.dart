@@ -56,6 +56,9 @@ _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
           ? null
           : BankAccountDetailModel.fromJson(
               json['bankAccountDetails'] as Map<String, dynamic>),
+      userDownlines: (json['userDownlines'] as List<dynamic>?)
+          ?.map((e) => UserDownlines.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserProfileDataModelImplToJson(
@@ -71,6 +74,7 @@ Map<String, dynamic> _$$UserProfileDataModelImplToJson(
       'wallet': instance.wallet?.toJson(),
       'interests': instance.interests?.map((e) => e.toJson()).toList(),
       'bankAccountDetails': instance.bankAccountDetails?.toJson(),
+      'userDownlines': instance.userDownlines?.map((e) => e.toJson()).toList(),
     };
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
@@ -108,6 +112,7 @@ _$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
       firstName: json['firstName'],
       lastName: json['lastName'],
       dateOfBirth: json['dateOfBirth'],
+      age: json['age'],
       gender: json['gender'],
       languageCSV: json['languageCSV'],
       aboutMe: json['aboutMe'],
@@ -127,6 +132,7 @@ Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'dateOfBirth': instance.dateOfBirth,
+      'age': instance.age,
       'gender': instance.gender,
       'languageCSV': instance.languageCSV,
       'aboutMe': instance.aboutMe,
@@ -263,6 +269,24 @@ Map<String, dynamic> _$$InterestModelImplToJson(_$InterestModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
+    };
+
+_$UserDownlinesImpl _$$UserDownlinesImplFromJson(Map<String, dynamic> json) =>
+    _$UserDownlinesImpl(
+      json['id'],
+      json['firstName'],
+      json['lastName'],
+      json['userName'],
+      json['profilePhotoURL'],
+    );
+
+Map<String, dynamic> _$$UserDownlinesImplToJson(_$UserDownlinesImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'userName': instance.userName,
+      'profilePhotoURL': instance.profilePhotoURL,
     };
 
 _$BankAccountDetailModelImpl _$$BankAccountDetailModelImplFromJson(
