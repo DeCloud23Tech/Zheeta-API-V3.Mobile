@@ -42,6 +42,7 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
             createUserProfileState: State.init(),
             updateUserProfileState: State.init(),
             visitUserProfileState: State.init(),
+            getUserRecentActivityState: State.init(),
             countryState: State.init(),
             cityState: State.init(),
             selectedCityState: State.init(),
@@ -381,6 +382,24 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
       return false;
     } on Exception catch (e) {
       state = state.setVisitUserProfileState(State.error(e));
+      NotifyUser.showSnackbar(e.toString());
+      return false;
+    }
+  }
+
+  loadUserRecentActivity() async {
+    state = state.setGetRecentUserActivityState(State.loading());
+    try {
+      final result = await _userProfileUseCase.getUserRecentActivity();
+      state = state.setGetRecentUserActivityState(State.success(result));
+      return true;
+    } on UserProfileNotCreatedException catch (e) {
+      NotifyUser.showSnackbar(e.toString());
+      state = state.setGetRecentUserActivityState(State.error(e));
+      router.push(BioDataRoute());
+      return false;
+    } on Exception catch (e) {
+      state = state.setGetRecentUserActivityState(State.error(e));
       NotifyUser.showSnackbar(e.toString());
       return false;
     }

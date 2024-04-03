@@ -3,13 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:zheeta/app/api/formatted_response.dart' as _i5;
+import 'package:zheeta/app/api/formatted_response.dart' as _i7;
 import 'package:zheeta/authentication/data/datasource/country_datasource.dart'
-    as _i3;
+    as _i5;
+import 'package:zheeta/authentication/data/model/country_detail_model.dart'
+    as _i4;
+import 'package:zheeta/authentication/data/model/country_model.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -34,51 +37,107 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
+class _FakeCountryListModel_1 extends _i1.SmartFake
+    implements _i3.CountryListModel {
+  _FakeCountryListModel_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCountryDetailModel_2 extends _i1.SmartFake
+    implements _i4.CountryDetailModel {
+  _FakeCountryDetailModel_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [CountryDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCountryDataSource extends _i1.Mock implements _i3.CountryDataSource {
+class MockCountryDataSource extends _i1.Mock implements _i5.CountryDataSource {
   MockCountryDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>
+  _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>
       getAllCountries() => (super.noSuchMethod(
             Invocation.method(
               #getAllCountries,
               [],
             ),
-            returnValue: _i4.Future<
+            returnValue: _i6.Future<
                     _i2
-                    .Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-                _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+                    .Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+                _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
               this,
               Invocation.method(
                 #getAllCountries,
                 [],
               ),
             )),
-          ) as _i4
-              .Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+          ) as _i6
+              .Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<
-      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> getCountryDetails(
+  _i6.Future<
+      _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>> getCountryDetails(
           String? countryCode) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCountryDetails,
           [countryCode],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #getCountryDetails,
             [countryCode],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+      ) as _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
+
+  @override
+  _i6.Future<_i3.CountryListModel> getAllCountriesNew() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllCountriesNew,
+          [],
+        ),
+        returnValue:
+            _i6.Future<_i3.CountryListModel>.value(_FakeCountryListModel_1(
+          this,
+          Invocation.method(
+            #getAllCountriesNew,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i3.CountryListModel>);
+
+  @override
+  _i6.Future<_i4.CountryDetailModel> getCountryDetailsNew(
+          String? countryCode) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCountryDetailsNew,
+          [countryCode],
+        ),
+        returnValue:
+            _i6.Future<_i4.CountryDetailModel>.value(_FakeCountryDetailModel_2(
+          this,
+          Invocation.method(
+            #getCountryDetailsNew,
+            [countryCode],
+          ),
+        )),
+      ) as _i6.Future<_i4.CountryDetailModel>);
 }

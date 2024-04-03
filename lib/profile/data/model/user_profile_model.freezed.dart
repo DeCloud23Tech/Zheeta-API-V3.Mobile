@@ -186,6 +186,7 @@ mixin _$UserProfileDataModel {
   BankAccountDetailModel? get bankAccountDetails =>
       throw _privateConstructorUsedError;
   List<UserDownlines>? get userDownlines => throw _privateConstructorUsedError;
+  List<UserCarousels>? get userCarousels => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -210,7 +211,8 @@ abstract class $UserProfileDataModelCopyWith<$Res> {
       WalletModel? wallet,
       List<InterestModel>? interests,
       BankAccountDetailModel? bankAccountDetails,
-      List<UserDownlines>? userDownlines});
+      List<UserDownlines>? userDownlines,
+      List<UserCarousels>? userCarousels});
 
   $UserModelCopyWith<$Res>? get user;
   $ProfileModelCopyWith<$Res>? get profile;
@@ -248,6 +250,7 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
     Object? interests = freezed,
     Object? bankAccountDetails = freezed,
     Object? userDownlines = freezed,
+    Object? userCarousels = freezed,
   }) {
     return _then(_value.copyWith(
       user: freezed == user
@@ -294,6 +297,10 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
           ? _value.userDownlines
           : userDownlines // ignore: cast_nullable_to_non_nullable
               as List<UserDownlines>?,
+      userCarousels: freezed == userCarousels
+          ? _value.userCarousels
+          : userCarousels // ignore: cast_nullable_to_non_nullable
+              as List<UserCarousels>?,
     ) as $Val);
   }
 
@@ -427,7 +434,8 @@ abstract class _$$UserProfileDataModelImplCopyWith<$Res>
       WalletModel? wallet,
       List<InterestModel>? interests,
       BankAccountDetailModel? bankAccountDetails,
-      List<UserDownlines>? userDownlines});
+      List<UserDownlines>? userDownlines,
+      List<UserCarousels>? userCarousels});
 
   @override
   $UserModelCopyWith<$Res>? get user;
@@ -471,6 +479,7 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
     Object? interests = freezed,
     Object? bankAccountDetails = freezed,
     Object? userDownlines = freezed,
+    Object? userCarousels = freezed,
   }) {
     return _then(_$UserProfileDataModelImpl(
       user: freezed == user
@@ -517,6 +526,10 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
           ? _value._userDownlines
           : userDownlines // ignore: cast_nullable_to_non_nullable
               as List<UserDownlines>?,
+      userCarousels: freezed == userCarousels
+          ? _value._userCarousels
+          : userCarousels // ignore: cast_nullable_to_non_nullable
+              as List<UserCarousels>?,
     ));
   }
 }
@@ -536,9 +549,11 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
       this.wallet,
       final List<InterestModel>? interests,
       this.bankAccountDetails,
-      final List<UserDownlines>? userDownlines})
+      final List<UserDownlines>? userDownlines,
+      final List<UserCarousels>? userCarousels})
       : _interests = interests,
-        _userDownlines = userDownlines;
+        _userDownlines = userDownlines,
+        _userCarousels = userCarousels;
 
   factory _$UserProfileDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserProfileDataModelImplFromJson(json);
@@ -581,9 +596,19 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<UserCarousels>? _userCarousels;
+  @override
+  List<UserCarousels>? get userCarousels {
+    final value = _userCarousels;
+    if (value == null) return null;
+    if (_userCarousels is EqualUnmodifiableListView) return _userCarousels;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'UserProfileDataModel(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, interests: $interests, bankAccountDetails: $bankAccountDetails, userDownlines: $userDownlines)';
+    return 'UserProfileDataModel(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, interests: $interests, bankAccountDetails: $bankAccountDetails, userDownlines: $userDownlines, userCarousels: $userCarousels)';
   }
 
   @override
@@ -609,7 +634,9 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
             (identical(other.bankAccountDetails, bankAccountDetails) ||
                 other.bankAccountDetails == bankAccountDetails) &&
             const DeepCollectionEquality()
-                .equals(other._userDownlines, _userDownlines));
+                .equals(other._userDownlines, _userDownlines) &&
+            const DeepCollectionEquality()
+                .equals(other._userCarousels, _userCarousels));
   }
 
   @JsonKey(ignore: true)
@@ -626,7 +653,8 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
       wallet,
       const DeepCollectionEquality().hash(_interests),
       bankAccountDetails,
-      const DeepCollectionEquality().hash(_userDownlines));
+      const DeepCollectionEquality().hash(_userDownlines),
+      const DeepCollectionEquality().hash(_userCarousels));
 
   @JsonKey(ignore: true)
   @override
@@ -656,7 +684,8 @@ abstract class _UserProfileDataModel implements UserProfileDataModel {
       final WalletModel? wallet,
       final List<InterestModel>? interests,
       final BankAccountDetailModel? bankAccountDetails,
-      final List<UserDownlines>? userDownlines}) = _$UserProfileDataModelImpl;
+      final List<UserDownlines>? userDownlines,
+      final List<UserCarousels>? userCarousels}) = _$UserProfileDataModelImpl;
 
   factory _UserProfileDataModel.fromJson(Map<String, dynamic> json) =
       _$UserProfileDataModelImpl.fromJson;
@@ -683,6 +712,8 @@ abstract class _UserProfileDataModel implements UserProfileDataModel {
   BankAccountDetailModel? get bankAccountDetails;
   @override
   List<UserDownlines>? get userDownlines;
+  @override
+  List<UserCarousels>? get userCarousels;
   @override
   @JsonKey(ignore: true)
   _$$UserProfileDataModelImplCopyWith<_$UserProfileDataModelImpl>
@@ -3056,6 +3087,164 @@ abstract class _UserDownlines implements UserDownlines {
   @override
   @JsonKey(ignore: true)
   _$$UserDownlinesImplCopyWith<_$UserDownlinesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UserCarousels _$UserCarouselsFromJson(Map<String, dynamic> json) {
+  return _UserCarousels.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserCarousels {
+  dynamic get id => throw _privateConstructorUsedError;
+  dynamic get carouselPhotoUrl => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserCarouselsCopyWith<UserCarousels> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserCarouselsCopyWith<$Res> {
+  factory $UserCarouselsCopyWith(
+          UserCarousels value, $Res Function(UserCarousels) then) =
+      _$UserCarouselsCopyWithImpl<$Res, UserCarousels>;
+  @useResult
+  $Res call({dynamic id, dynamic carouselPhotoUrl});
+}
+
+/// @nodoc
+class _$UserCarouselsCopyWithImpl<$Res, $Val extends UserCarousels>
+    implements $UserCarouselsCopyWith<$Res> {
+  _$UserCarouselsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? carouselPhotoUrl = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      carouselPhotoUrl: freezed == carouselPhotoUrl
+          ? _value.carouselPhotoUrl
+          : carouselPhotoUrl // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$UserCarouselsImplCopyWith<$Res>
+    implements $UserCarouselsCopyWith<$Res> {
+  factory _$$UserCarouselsImplCopyWith(
+          _$UserCarouselsImpl value, $Res Function(_$UserCarouselsImpl) then) =
+      __$$UserCarouselsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({dynamic id, dynamic carouselPhotoUrl});
+}
+
+/// @nodoc
+class __$$UserCarouselsImplCopyWithImpl<$Res>
+    extends _$UserCarouselsCopyWithImpl<$Res, _$UserCarouselsImpl>
+    implements _$$UserCarouselsImplCopyWith<$Res> {
+  __$$UserCarouselsImplCopyWithImpl(
+      _$UserCarouselsImpl _value, $Res Function(_$UserCarouselsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? carouselPhotoUrl = freezed,
+  }) {
+    return _then(_$UserCarouselsImpl(
+      freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      freezed == carouselPhotoUrl
+          ? _value.carouselPhotoUrl
+          : carouselPhotoUrl // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable()
+class _$UserCarouselsImpl implements _UserCarousels {
+  _$UserCarouselsImpl(this.id, this.carouselPhotoUrl);
+
+  factory _$UserCarouselsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserCarouselsImplFromJson(json);
+
+  @override
+  final dynamic id;
+  @override
+  final dynamic carouselPhotoUrl;
+
+  @override
+  String toString() {
+    return 'UserCarousels(id: $id, carouselPhotoUrl: $carouselPhotoUrl)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserCarouselsImpl &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.carouselPhotoUrl, carouselPhotoUrl));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(carouselPhotoUrl));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserCarouselsImplCopyWith<_$UserCarouselsImpl> get copyWith =>
+      __$$UserCarouselsImplCopyWithImpl<_$UserCarouselsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserCarouselsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserCarousels implements UserCarousels {
+  factory _UserCarousels(final dynamic id, final dynamic carouselPhotoUrl) =
+      _$UserCarouselsImpl;
+
+  factory _UserCarousels.fromJson(Map<String, dynamic> json) =
+      _$UserCarouselsImpl.fromJson;
+
+  @override
+  dynamic get id;
+  @override
+  dynamic get carouselPhotoUrl;
+  @override
+  @JsonKey(ignore: true)
+  _$$UserCarouselsImplCopyWith<_$UserCarouselsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

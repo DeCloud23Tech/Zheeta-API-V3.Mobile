@@ -12,12 +12,14 @@ import 'package:zheeta/authentication/domain/usecase/user_otp_usecase.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_otp_state.dart';
 
-final userOtpViewModelProvider = StateNotifierProvider<UserOtpViewModel, UserOtpState>((ref) {
+final userOtpViewModelProvider =
+    StateNotifierProvider<UserOtpViewModel, UserOtpState>((ref) {
   final otpUsecase = locator<UserOtpUseCase>();
   return UserOtpViewModel(otpUsecase);
 });
 
-class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelperMixin {
+class UserOtpViewModel extends StateNotifier<UserOtpState>
+    with ValidationHelperMixin {
   final UserOtpUseCase _otpUsecase;
   UserOtpViewModel(this._otpUsecase)
       : super(UserOtpState(
@@ -97,13 +99,18 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
         if (emailSent) {
           setOtp = '';
           router.popAndPush(
-            VerificationRoute(isPhoneNumber: false, email: _email, phoneNumber: _phoneNumber, countryCode: _countryCode),
+            VerificationRoute(
+                isPhoneNumber: false,
+                email: _email,
+                phoneNumber: _phoneNumber,
+                countryCode: _countryCode),
           );
         }
       }
     } else {
       canGoNext = await verifyEmail();
-      if (canGoNext) router.pushAndPopUntil(SignInRoute(), predicate: (route) => false);
+      if (canGoNext)
+        router.pushAndPopUntil(SignInRoute(), predicate: (route) => false);
     }
   }
 
@@ -168,11 +175,12 @@ class UserOtpViewModel extends StateNotifier<UserOtpState> with ValidationHelper
       if (isValidEmailOrMessage == null) {
         final result = await _otpUsecase.sendPasswordResetOtpUsecase(_email);
         state = state.setSendPasswordResetOtpState(State.success(result));
-        router.popAndPush(ResetPasswordOtpRoute());
+        //router.popAndPush(ResetPasswordOtpRoute());
         return true;
       } else {
         NotifyUser.showSnackbar(isValidEmailOrMessage);
-        state = state.setSendPasswordResetOtpState(State.error(Exception(isValidEmailOrMessage)));
+        state = state.setSendPasswordResetOtpState(
+            State.error(Exception(isValidEmailOrMessage)));
         return false;
       }
     } on Exception catch (e) {

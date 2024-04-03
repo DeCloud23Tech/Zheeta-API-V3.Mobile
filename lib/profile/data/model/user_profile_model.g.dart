@@ -59,6 +59,9 @@ _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
       userDownlines: (json['userDownlines'] as List<dynamic>?)
           ?.map((e) => UserDownlines.fromJson(e as Map<String, dynamic>))
           .toList(),
+      userCarousels: (json['userCarousels'] as List<dynamic>?)
+          ?.map((e) => UserCarousels.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserProfileDataModelImplToJson(
@@ -75,6 +78,7 @@ Map<String, dynamic> _$$UserProfileDataModelImplToJson(
       'interests': instance.interests?.map((e) => e.toJson()).toList(),
       'bankAccountDetails': instance.bankAccountDetails?.toJson(),
       'userDownlines': instance.userDownlines?.map((e) => e.toJson()).toList(),
+      'userCarousels': instance.userCarousels?.map((e) => e.toJson()).toList(),
     };
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
@@ -287,6 +291,18 @@ Map<String, dynamic> _$$UserDownlinesImplToJson(_$UserDownlinesImpl instance) =>
       'lastName': instance.lastName,
       'userName': instance.userName,
       'profilePhotoURL': instance.profilePhotoURL,
+    };
+
+_$UserCarouselsImpl _$$UserCarouselsImplFromJson(Map<String, dynamic> json) =>
+    _$UserCarouselsImpl(
+      json['id'],
+      json['carouselPhotoUrl'],
+    );
+
+Map<String, dynamic> _$$UserCarouselsImplToJson(_$UserCarouselsImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'carouselPhotoUrl': instance.carouselPhotoUrl,
     };
 
 _$BankAccountDetailModelImpl _$$BankAccountDetailModelImplFromJson(

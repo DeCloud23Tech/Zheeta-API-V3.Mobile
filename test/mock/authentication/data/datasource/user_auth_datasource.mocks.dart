@@ -3,24 +3,27 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:zheeta/app/api/formatted_response.dart' as _i5;
+import 'package:zheeta/app/api/formatted_response.dart' as _i7;
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart'
+    as _i5;
+import 'package:zheeta/authentication/data/model/login_user_model.dart' as _i4;
+import 'package:zheeta/authentication/data/model/register_user_model.dart'
     as _i3;
 import 'package:zheeta/authentication/data/request/change_password_request.dart'
-    as _i9;
-import 'package:zheeta/authentication/data/request/login_oauth_request.dart'
     as _i11;
-import 'package:zheeta/authentication/data/request/login_request.dart' as _i7;
+import 'package:zheeta/authentication/data/request/login_oauth_request.dart'
+    as _i13;
+import 'package:zheeta/authentication/data/request/login_request.dart' as _i9;
 import 'package:zheeta/authentication/data/request/register_staff_request.dart'
-    as _i8;
-import 'package:zheeta/authentication/data/request/register_user_request.dart'
-    as _i6;
-import 'package:zheeta/authentication/data/request/reset_password_request.dart'
     as _i10;
+import 'package:zheeta/authentication/data/request/register_user_request.dart'
+    as _i8;
+import 'package:zheeta/authentication/data/request/reset_password_request.dart'
+    as _i12;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -45,130 +48,230 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
+class _FakeRegisterUserModel_1 extends _i1.SmartFake
+    implements _i3.RegisterUserModel {
+  _FakeRegisterUserModel_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeLoginUserModel_2 extends _i1.SmartFake
+    implements _i4.LoginUserModel {
+  _FakeLoginUserModel_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [UserAuthDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserAuthDataSource extends _i1.Mock
-    implements _i3.UserAuthDataSource {
+    implements _i5.UserAuthDataSource {
   MockUserAuthDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<
-      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> registerUser(
-          _i6.RegisterUserRequest? request) =>
+  _i6.Future<
+      _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>> registerUser(
+          _i8.RegisterUserRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerUser,
           [request],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #registerUser,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+      ) as _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> login(
-          _i7.LoginRequest? request) =>
+  _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>> login(
+          _i9.LoginRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #login,
           [request],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #login,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+      ) as _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<
-      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> registerStaff(
-          _i8.RegisterStaffRequest? request) =>
+  _i6.Future<
+      _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>> registerStaff(
+          _i10.RegisterStaffRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerStaff,
           [request],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #registerStaff,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+      ) as _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<
-      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> changePassword(
-          _i9.ChangePasswordRequest? request) =>
+  _i6.Future<
+      _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>> changePassword(
+          _i11.ChangePasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #changePassword,
           [request],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #changePassword,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+      ) as _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<
-      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> resetPassword(
-          _i10.ResetPasswordRequest? request) =>
+  _i6.Future<
+      _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>> resetPassword(
+          _i12.ResetPasswordRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
           [request],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #resetPassword,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+      ) as _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> loginOAuth(
-          _i11.LoginOAuthRequest? request) =>
+  _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>> loginOAuth(
+          _i13.LoginOAuthRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #loginOAuth,
           [request],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
-            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+        returnValue: _i6.Future<
+                _i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i7.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #loginOAuth,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+      ) as _i6.Future<_i2.Either<_i7.InvalidResponse, Map<String, dynamic>>>);
+
+  @override
+  _i6.Future<_i3.RegisterUserModel> registerUserNew(
+          _i8.RegisterUserRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #registerUserNew,
+          [request],
+        ),
+        returnValue:
+            _i6.Future<_i3.RegisterUserModel>.value(_FakeRegisterUserModel_1(
+          this,
+          Invocation.method(
+            #registerUserNew,
+            [request],
+          ),
+        )),
+      ) as _i6.Future<_i3.RegisterUserModel>);
+
+  @override
+  _i6.Future<void> changePasswordNew(_i11.ChangePasswordRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changePasswordNew,
+          [request],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> loginOAuthNew(_i13.LoginOAuthRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #loginOAuthNew,
+          [request],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<_i4.LoginUserModel> loginNew(_i9.LoginRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #loginNew,
+          [request],
+        ),
+        returnValue: _i6.Future<_i4.LoginUserModel>.value(_FakeLoginUserModel_2(
+          this,
+          Invocation.method(
+            #loginNew,
+            [request],
+          ),
+        )),
+      ) as _i6.Future<_i4.LoginUserModel>);
+
+  @override
+  _i6.Future<void> resetPasswordNew(_i12.ResetPasswordRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPasswordNew,
+          [request],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> registerStaffNew(_i10.RegisterStaffRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #registerStaffNew,
+          [request],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }

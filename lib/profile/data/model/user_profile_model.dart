@@ -30,6 +30,7 @@ class UserProfileDataModel with _$UserProfileDataModel {
     List<InterestModel>? interests,
     BankAccountDetailModel? bankAccountDetails,
     List<UserDownlines>? userDownlines,
+    List<UserCarousels>? userCarousels,
   }) = _UserProfileDataModel;
 
   factory UserProfileDataModel.fromJson(Map<String, dynamic> json) =>
@@ -190,6 +191,18 @@ class UserDownlines with _$UserDownlines {
 
   factory UserDownlines.fromJson(Map<String, dynamic> json) =>
       _$UserDownlinesFromJson(json);
+}
+
+@freezed
+class UserCarousels with _$UserCarousels {
+  @JsonSerializable()
+  factory UserCarousels(
+    dynamic id,
+    dynamic carouselPhotoUrl,
+  ) = _UserCarousels;
+
+  factory UserCarousels.fromJson(Map<String, dynamic> json) =>
+      _$UserCarouselsFromJson(json);
 }
 
 @freezed

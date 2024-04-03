@@ -32,6 +32,8 @@ mixin _$UserProfileState {
   State<List<String>> get cityState => throw _privateConstructorUsedError;
   State<String?> get selectedCityState => throw _privateConstructorUsedError;
   State<String?> get selectedCountryState => throw _privateConstructorUsedError;
+  State<ActivityListModel> get getUserRecentActivityState =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserProfileStateCopyWith<UserProfileState> get copyWith =>
@@ -54,7 +56,8 @@ abstract class $UserProfileStateCopyWith<$Res> {
       State<List<String>> countryState,
       State<List<String>> cityState,
       State<String?> selectedCityState,
-      State<String?> selectedCountryState});
+      State<String?> selectedCountryState,
+      State<ActivityListModel> getUserRecentActivityState});
 
   $StateCopyWith<UserProfileModel, $Res> get getSingleUserProfileState;
   $StateCopyWith<dynamic, $Res> get updateUserProfilePictureState;
@@ -66,6 +69,7 @@ abstract class $UserProfileStateCopyWith<$Res> {
   $StateCopyWith<List<String>, $Res> get cityState;
   $StateCopyWith<String?, $Res> get selectedCityState;
   $StateCopyWith<String?, $Res> get selectedCountryState;
+  $StateCopyWith<ActivityListModel, $Res> get getUserRecentActivityState;
 }
 
 /// @nodoc
@@ -91,6 +95,7 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
     Object? cityState = null,
     Object? selectedCityState = null,
     Object? selectedCountryState = null,
+    Object? getUserRecentActivityState = null,
   }) {
     return _then(_value.copyWith(
       getSingleUserProfileState: null == getSingleUserProfileState
@@ -133,6 +138,10 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
           ? _value.selectedCountryState
           : selectedCountryState // ignore: cast_nullable_to_non_nullable
               as State<String?>,
+      getUserRecentActivityState: null == getUserRecentActivityState
+          ? _value.getUserRecentActivityState
+          : getUserRecentActivityState // ignore: cast_nullable_to_non_nullable
+              as State<ActivityListModel>,
     ) as $Val);
   }
 
@@ -222,6 +231,15 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
       return _then(_value.copyWith(selectedCountryState: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StateCopyWith<ActivityListModel, $Res> get getUserRecentActivityState {
+    return $StateCopyWith<ActivityListModel, $Res>(
+        _value.getUserRecentActivityState, (value) {
+      return _then(_value.copyWith(getUserRecentActivityState: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -242,7 +260,8 @@ abstract class _$$UserProfileStateImplCopyWith<$Res>
       State<List<String>> countryState,
       State<List<String>> cityState,
       State<String?> selectedCityState,
-      State<String?> selectedCountryState});
+      State<String?> selectedCountryState,
+      State<ActivityListModel> getUserRecentActivityState});
 
   @override
   $StateCopyWith<UserProfileModel, $Res> get getSingleUserProfileState;
@@ -264,6 +283,8 @@ abstract class _$$UserProfileStateImplCopyWith<$Res>
   $StateCopyWith<String?, $Res> get selectedCityState;
   @override
   $StateCopyWith<String?, $Res> get selectedCountryState;
+  @override
+  $StateCopyWith<ActivityListModel, $Res> get getUserRecentActivityState;
 }
 
 /// @nodoc
@@ -287,6 +308,7 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
     Object? cityState = null,
     Object? selectedCityState = null,
     Object? selectedCountryState = null,
+    Object? getUserRecentActivityState = null,
   }) {
     return _then(_$UserProfileStateImpl(
       getSingleUserProfileState: null == getSingleUserProfileState
@@ -329,6 +351,10 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
           ? _value.selectedCountryState
           : selectedCountryState // ignore: cast_nullable_to_non_nullable
               as State<String?>,
+      getUserRecentActivityState: null == getUserRecentActivityState
+          ? _value.getUserRecentActivityState
+          : getUserRecentActivityState // ignore: cast_nullable_to_non_nullable
+              as State<ActivityListModel>,
     ));
   }
 }
@@ -346,7 +372,8 @@ class _$UserProfileStateImpl extends _UserProfileState {
       required this.countryState,
       required this.cityState,
       required this.selectedCityState,
-      required this.selectedCountryState})
+      required this.selectedCountryState,
+      required this.getUserRecentActivityState})
       : super._();
 
   @override
@@ -369,10 +396,12 @@ class _$UserProfileStateImpl extends _UserProfileState {
   final State<String?> selectedCityState;
   @override
   final State<String?> selectedCountryState;
+  @override
+  final State<ActivityListModel> getUserRecentActivityState;
 
   @override
   String toString() {
-    return 'UserProfileState(getSingleUserProfileState: $getSingleUserProfileState, updateUserProfilePictureState: $updateUserProfilePictureState, getAllUsersProfileState: $getAllUsersProfileState, createUserProfileState: $createUserProfileState, updateUserProfileState: $updateUserProfileState, visitUserProfileState: $visitUserProfileState, countryState: $countryState, cityState: $cityState, selectedCityState: $selectedCityState, selectedCountryState: $selectedCountryState)';
+    return 'UserProfileState(getSingleUserProfileState: $getSingleUserProfileState, updateUserProfilePictureState: $updateUserProfilePictureState, getAllUsersProfileState: $getAllUsersProfileState, createUserProfileState: $createUserProfileState, updateUserProfileState: $updateUserProfileState, visitUserProfileState: $visitUserProfileState, countryState: $countryState, cityState: $cityState, selectedCityState: $selectedCityState, selectedCountryState: $selectedCountryState, getUserRecentActivityState: $getUserRecentActivityState)';
   }
 
   @override
@@ -403,7 +432,11 @@ class _$UserProfileStateImpl extends _UserProfileState {
             (identical(other.selectedCityState, selectedCityState) ||
                 other.selectedCityState == selectedCityState) &&
             (identical(other.selectedCountryState, selectedCountryState) ||
-                other.selectedCountryState == selectedCountryState));
+                other.selectedCountryState == selectedCountryState) &&
+            (identical(other.getUserRecentActivityState,
+                    getUserRecentActivityState) ||
+                other.getUserRecentActivityState ==
+                    getUserRecentActivityState));
   }
 
   @override
@@ -418,7 +451,8 @@ class _$UserProfileStateImpl extends _UserProfileState {
       countryState,
       cityState,
       selectedCityState,
-      selectedCountryState);
+      selectedCountryState,
+      getUserRecentActivityState);
 
   @JsonKey(ignore: true)
   @override
@@ -439,7 +473,8 @@ abstract class _UserProfileState extends UserProfileState {
           required final State<List<String>> countryState,
           required final State<List<String>> cityState,
           required final State<String?> selectedCityState,
-          required final State<String?> selectedCountryState}) =
+          required final State<String?> selectedCountryState,
+          required final State<ActivityListModel> getUserRecentActivityState}) =
       _$UserProfileStateImpl;
   _UserProfileState._() : super._();
 
@@ -463,6 +498,8 @@ abstract class _UserProfileState extends UserProfileState {
   State<String?> get selectedCityState;
   @override
   State<String?> get selectedCountryState;
+  @override
+  State<ActivityListModel> get getUserRecentActivityState;
   @override
   @JsonKey(ignore: true)
   _$$UserProfileStateImplCopyWith<_$UserProfileStateImpl> get copyWith =>

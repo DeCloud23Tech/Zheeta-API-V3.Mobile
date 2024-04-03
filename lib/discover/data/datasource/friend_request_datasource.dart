@@ -7,4 +7,9 @@ abstract class FriendRequestDataSource {
     required String recieverId,
     required TypeOfRequest typeOfRequest,
   });
+
+  Future<void> sendFriendRequestNew({
+    required String recieverId,
+    required TypeOfRequest typeOfRequest,
+  });
 }

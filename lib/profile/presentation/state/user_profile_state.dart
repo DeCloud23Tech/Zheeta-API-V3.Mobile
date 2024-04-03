@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zheeta/activity/data/models/activity_model.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
@@ -19,6 +20,7 @@ class UserProfileState with _$UserProfileState {
     required State<List<String>> cityState,
     required State<String?> selectedCityState,
     required State<String?> selectedCountryState,
+    required State<ActivityListModel> getUserRecentActivityState,
   }) = _UserProfileState;
 
   UserProfileState._();
@@ -38,6 +40,10 @@ class UserProfileState with _$UserProfileState {
       copyWith(updateUserProfileState: state);
   UserProfileState setVisitUserProfileState(State<ViewProfileModel> state) =>
       copyWith(visitUserProfileState: state);
+
+  UserProfileState setGetRecentUserActivityState(
+          State<ActivityListModel> state) =>
+      copyWith(getUserRecentActivityState: state);
 
   UserProfileState setCountryState(State<List<String>> state) =>
       copyWith(countryState: state);

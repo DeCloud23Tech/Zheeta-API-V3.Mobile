@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zheeta/activity/data/models/activity_model.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
@@ -42,6 +43,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.profileId != null)
         userProfileViewModel.visitUserProfile(widget.profileId!);
+
+      userProfileViewModel.loadUserRecentActivity();
+
       //userProfileViewModel.loadSelectedCountryStates('Nigeria');
     });
   }
@@ -52,12 +56,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     final userProfileState = ref.watch(userProfileViewModelProvider);
     UserProfileDataModel? theUser;
+    List<ActivityModel>? theActivity;
     ViewProfileModel? visitProfile;
+    int carouselCount = 1;
     if (widget.profileId == null) {
       theUser = userProfileState.getSingleUserProfileState.data?.data;
     } else {
       theUser = userProfileState.visitUserProfileState.data?.profile;
       visitProfile = userProfileState.visitUserProfileState.data;
+    }
+    if (userProfileState.getUserRecentActivityState.data != null) {
+      theActivity = userProfileState.getUserRecentActivityState.data?.data;
+    }
+
+    if (theUser != null) {
+      carouselCount = theUser.userCarousels?.length ?? 1;
     }
     // DateFormat inputFormat = DateFormat('dd-MM-yyyy hh:mm:ss a');
     // DateTime input = inputFormat.parse(theUser?.profile?.dateOfBirth);
@@ -76,7 +89,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
     });
     return userProfileState.visitUserProfileState.isLoading ||
-            userProfileState.getSingleUserProfileState.isLoading
+            userProfileState.getSingleUserProfileState.isLoading ||
+            userProfileState.getUserRecentActivityState.isLoading
         ? LoadingScreen()
         : widget.profileId != null &&
                 !userProfileState.visitUserProfileState.data!.canViewProfile
@@ -125,17 +139,32 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           alignment: AlignmentDirectional.center,
                           children: [
                             CarouselSlider.builder(
-                              itemCount: 1,
+                              itemCount: theUser?.userCarousels?.length != 0
+                                  ? theUser?.userCarousels?.length
+                                  : 1,
                               itemBuilder: (BuildContext context, int itemIndex,
-                                      int pageViewIndex) =>
-                                  ClipRRect(
-                                child: Image.network(
-                                    theUser?.profile?.profilePhotoURL,
-                                    fit: BoxFit.cover,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.55,
-                                    width: double.infinity),
-                              ),
+                                  int pageViewIndex) {
+                                if (theUser?.userCarousels?.length != 0)
+                                  return ClipRRect(
+                                    child: Image.network(
+                                        theUser?.userCarousels?[itemIndex]
+                                            .carouselPhotoUrl,
+                                        fit: BoxFit.cover,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.55,
+                                        width: double.infinity),
+                                  );
+                                return ClipRRect(
+                                  child: Image.network(
+                                      theUser?.profile?.profilePhotoURL,
+                                      fit: BoxFit.cover,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.55,
+                                      width: double.infinity),
+                                );
+                              },
                               options: CarouselOptions(
                                 autoPlay: false,
                                 height:
@@ -151,11 +180,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                 },
                               ),
                             ),
+                            if (widget.profileId == null &&
+                                theUser!.userCarousels!.length > 0)
+                              Positioned(
+                                bottom: 75,
+                                left: 10,
+                                child: TopNavBtn(iconType: IconType.photo),
+                              ),
                             Positioned(
-                              bottom: 70,
+                              bottom: 30,
                               child: Row(
                                 children: [
-                                  for (var i = 0; i < 1; i++)
+                                  for (var i = 0; i < carouselCount; i++)
                                     Padding(
                                       padding: const EdgeInsets.all(3),
                                       child: Container(
@@ -192,6 +228,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               children: [
                                 Row(
                                   children: [
+                                    if (widget.profileId != null)
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                                image: NetworkImage(theUser
+                                                    ?.profile!
+                                                    .profilePhotoURL))),
+                                        width: 50,
+                                        height: 50,
+                                      ),
+                                    if (widget.profileId != null)
+                                      SizedBox(
+                                        width: 10,
+                                      ),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
@@ -238,8 +290,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                             ],
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 '${theUser?.profile?.firstName} ${theUser?.profile?.lastName}',
@@ -249,6 +299,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                                   fontSize: 24,
                                                 ),
                                               ),
+                                              SizedBox(width: 20),
                                               Row(
                                                 children: [
                                                   Container(
@@ -323,7 +374,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                           ),
                                           SizedBox(height: 5),
                                           Text(
-                                            '${theUser?.residentialAddress?.city}, ${theUser?.residentialAddress?.country}',
+                                            '${theUser?.residentialAddress?.city}, ${theUser?.residentialAddress?.country}(2 miles away)',
                                             style: const TextStyle(
                                               color: AppColors.grey,
                                               fontWeight: FontWeight.w400,
@@ -333,28 +384,29 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                         ],
                                       ),
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        // Scaffold.of(context).openDrawer();
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Container(
-                                          padding: EdgeInsets.all(10),
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                            color: AppColors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                          ),
-                                          child: SvgPicture.asset(
-                                            'assets/images/icons/dots.svg',
-                                            width: 30,
+                                    if (widget.profileId == null)
+                                      GestureDetector(
+                                        onTap: () {
+                                          // Scaffold.of(context).openDrawer();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            height: 40,
+                                            width: 40,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                            ),
+                                            child: SvgPicture.asset(
+                                              'assets/images/icons/dots.svg',
+                                              width: 30,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
+                                      )
                                   ],
                                 ),
                                 SizedBox(height: 20),
@@ -587,8 +639,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                               alignment: Alignment.centerRight,
                                               child: TransparentButtonNew(
                                                 title: showFullBio
-                                                    ? 'Show Less'
-                                                    : 'Show More',
+                                                    ? 'Show More'
+                                                    : 'Show Less',
                                                 action: () {
                                                   setState(() {
                                                     showFullBio = !showFullBio;
@@ -598,12 +650,26 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                             ),
                                           SizedBox(height: 20),
                                           SizedBox(height: 20),
-                                          Text(
-                                            "Recent Referees",
-                                            style: TextStyle(
-                                                color: AppColors.grayscale,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "Recent Referees",
+                                                style: TextStyle(
+                                                    color: AppColors.grayscale,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              if (theUser!
+                                                      .userDownlines!.length >
+                                                  0)
+                                                TransparentButtonNew(
+                                                  title: 'View all',
+                                                  action: () {},
+                                                ),
+                                            ],
                                           ),
                                           SizedBox(height: 10),
                                           SingleChildScrollView(
@@ -723,7 +789,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                               ),
                                         ],
                                       )
-                                    : PostsWidget(),
+                                    : PostsWidget(
+                                        medias: theActivity,
+                                      ),
                                 SizedBox(height: 200),
                               ],
                             ),
@@ -872,7 +940,7 @@ class ProfileAddOrLike extends StatelessWidget {
                   SvgPicture.asset('assets/images/icons/star.svg'),
                   SizedBox(width: 10),
                   Text(
-                    'Super-Like',
+                    'Super-FR',
                     style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -930,24 +998,20 @@ class ProfileAddOrLike extends StatelessWidget {
 
 class PostsWidget extends ConsumerStatefulWidget {
   bool isVideo;
-  PostsWidget({super.key, this.isVideo = false});
+  List<ActivityModel>? medias;
+  PostsWidget({super.key, this.isVideo = false, required this.medias});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _PostsWidgetState();
 }
 
 class _PostsWidgetState extends ConsumerState<PostsWidget> {
-  List<String> medias = [
-    "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    "https://sample-videos.com/img/Sample-jpg-image-50kb.jpg",
-    "https://sample-videos.com/img/Sample-jpg-image-100kb.jpg",
-    "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    "https://sample-videos.com/img/Sample-jpg-image-100kb.jpg",
-  ];
-
   @override
   Widget build(BuildContext context) {
+    // List<String> theMedia = [];
+    // if(widget.medias != null){
+    //   theMedia = widget.medias?.map((e) => e.mediaCollectionURL[0]).toList();
+    // }
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: SizedBox(
@@ -956,7 +1020,9 @@ class _PostsWidgetState extends ConsumerState<PostsWidget> {
             runSpacing: 10,
             alignment: WrapAlignment.spaceBetween,
             // runAlignment: WrapAlignment.spaceBetween,
-            children: medias.map((e) => MediaContainer(mediaPath: e)).toList()
+            children: widget.medias!
+                .map((e) => MediaContainer(mediaPath: e.mediaCollectionURL[0]))
+                .toList()
             // children: [
             //   ...List.generate(10, (index) {
             //     return MediaContainer();

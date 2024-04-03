@@ -1,4 +1,9 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/api/errors/error.dart';
+import 'package:zheeta/app/api/errors/exception.dart';
+import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/profile/data/datasource/access_restriction_datasource.dart';
 import 'package:zheeta/profile/domain/repository/access_restriction_repository.dart';
 
@@ -9,20 +14,43 @@ class AccessRestrictionRepositoryImpl implements AccessRestrictionRepository {
   AccessRestrictionRepositoryImpl(this._datasource);
 
   @override
-  disableAccountRepo({required String userId}) async {
-    final result = await _datasource.disableAccount(userId: userId);
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+  ResultVoid disableAccountRepo({required String userId}) async {
+    try {
+      var result = await _datasource.disableAccountNew(userId: userId);
+
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+
+    // final result = await _datasource.disableAccount(userId: userId);
+    //
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => value,
+    // );
   }
 
   @override
-  enableAccountRepo({required String userId}) async {
-    final result = await _datasource.enableAccount(userId: userId);
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+  ResultVoid enableAccountRepo({required String userId}) async {
+    try {
+      var result = await _datasource.enableAccountNew(userId: userId);
+
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+
+    // final result = await _datasource.enableAccount(userId: userId);
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => value,
+    // );
   }
 }

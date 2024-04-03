@@ -1,6 +1,11 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/activity/data/models/activity_model.dart';
+import 'package:zheeta/app/api/errors/error.dart';
+import 'package:zheeta/app/api/errors/exception.dart';
 import 'package:zheeta/app/common/exceptions/custom_exception.dart';
+import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_datasource.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
@@ -16,81 +21,147 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   UserProfileRepositoryImpl(this._datasource);
 
   @override
-  createUserProfileRepo(CreateUserProfileRequest request) async {
-    final result = await _datasource.createUserProfile(request);
-    return result.fold(
-      (error) {
-        if (error.errors != null) {
-          throw new CreateProfileValidationException(
-              originCityException: error.errors['OriginCity'],
-              originCountryException: error.errors['OriginCountry']);
-        } else {
-          throw new Exception(error.message);
-        }
-      },
-      (value) => value,
-    );
+  ResultVoid createUserProfileRepo(CreateUserProfileRequest request) async {
+    try {
+      final result = await _datasource.createUserProfileNew(request);
+
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+    // return result.fold(
+    //   (error) {
+    //     if (error.errors != null) {
+    //       throw new CreateProfileValidationException(
+    //           originCityException: error.errors['OriginCity'],
+    //           originCountryException: error.errors['OriginCountry']);
+    //     } else {
+    //       throw new Exception(error.message);
+    //     }
+    //   },
+    //   (value) => value,
+    // );
   }
 
   @override
-  Future<AllUserProfileListModel> getAllUsersProfileRepo(
+  ResultFuture<AllUserProfileListModel> getAllUsersProfileRepo(
       {required int roleType,
       required int pageNumber,
       required int pageSize}) async {
-    final result = await _datasource.getAllUsersProfile(
-      roleType: roleType,
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-    );
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => AllUserProfileListModel.fromJson(value),
-    );
+    try {
+      final result = await _datasource.getAllUsersProfileNew(
+        roleType: roleType,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      );
+
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => AllUserProfileListModel.fromJson(value),
+    // );
   }
 
   @override
-  Future<UserProfileModel> getSingleUserProfileRepo() async {
-    final result = await _datasource.getSingleUserProfile();
+  ResultFuture<UserProfileModel> getSingleUserProfileRepo() async {
+    try {
+      final result = await _datasource.getSingleUserProfileNew();
 
-    return result.fold(
-      (error) {
-        if (error.data == null) {
-          throw new UserProfileNotCreatedException('User profile not created');
-        } else {
-          throw new Exception(error.message);
-        }
-      },
-      (value) => UserProfileModel.fromJson(value),
-    );
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
-  updateUserProfilePictureRepo(
+  ResultVoid updateUserProfilePictureRepo(
       {required String userId, required MultipartFile file}) async {
-    final result =
-        await _datasource.updateUserProfilePicture(userId: userId, file: file);
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+    try {
+      final result = await _datasource.updateUserProfilePictureNew(
+          userId: userId, file: file);
+
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => value,
+    // );
   }
 
   @override
-  updateUserProfileRepo(UpdateUserProfileRequest request) async {
-    final result = await _datasource.updateUserProfile(request);
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+  ResultVoid updateUserProfileRepo(UpdateUserProfileRequest request) async {
+    try {
+      final result = await _datasource.updateUserProfileNew(request);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => value,
+    // );
   }
 
   @override
-  Future<ViewProfileModel> visitUserProfileRepo(
+  ResultFuture<ViewProfileModel> visitUserProfileRepo(
       {required String userId}) async {
-    final result = await _datasource.visitUserProfile(userId: userId);
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => ViewProfileModel.fromJson(value),
-    );
+    try {
+      final result = await _datasource.visitUserProfileNew(userId: userId);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => ViewProfileModel.fromJson(value),
+    // );
+  }
+
+  @override
+  ResultFuture<ActivityListModel> getUserRecentActivity() async {
+    try {
+      final result = await _datasource.getUserActivityNew();
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) {
+    //     //var theData = value['data'];
+    //     //theData.map(activity => ActivityModel.fromJson(activity)).toList();
+    //     var theList = ActivityListModel.fromJson(value);
+
+    //     return theList;
+    //   },
+    // );
   }
 }

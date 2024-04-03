@@ -1,4 +1,9 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/api/errors/error.dart';
+import 'package:zheeta/app/api/errors/exception.dart';
+import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_boost_datasource.dart';
 import 'package:zheeta/profile/data/model/boosted_profile_by_admin_model.dart';
 import 'package:zheeta/profile/data/model/matched_profile_boost_model.dart';
@@ -13,29 +18,55 @@ class UserProfileBoostRepositoryImpl implements UserProfileBoostRepository {
   UserProfileBoostRepositoryImpl(this._datasource);
 
   @override
-  createProfileBoostRepo(CreateProfileBoostRequest request) async {
-    final result = await _datasource.createProfileBoost(request);
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+  ResultVoid createProfileBoostRepo(CreateProfileBoostRequest request) async {
+    // final result = await _datasource.createProfileBoost(request);
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => value,
+    // );
+
+    try {
+      final result = await _datasource.createProfileBoostNew(request);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
-  Future<BoostedProfileByAdminListModel> getBoostedProfileByAdminRepo(GetBoostedProfileByAdminRequest request) async {
-    final result = await _datasource.getBoostedProfileByAdmin(request);
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => BoostedProfileByAdminListModel.fromJson(value),
-    );
+  ResultFuture<BoostedProfileByAdminListModel> getBoostedProfileByAdminRepo(
+      GetBoostedProfileByAdminRequest request) async {
+    try {
+      final result = await _datasource.getBoostedProfileByAdminNew(request);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+
+    // final result = await _datasource.getBoostedProfileByAdmin(request);
+    // return result.fold(
+    //   (error) => throw new Exception(error.message),
+    //   (value) => BoostedProfileByAdminListModel.fromJson(value),
+    // );
   }
 
   @override
-  Future<MatchedProfileBoostListModel> getMatchedProfileBoostRepo() async {
-    final result = await _datasource.getMatchedProfileBoost();
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => MatchedProfileBoostListModel.fromJson(value),
-    );
+  ResultFuture<MatchedProfileBoostListModel>
+      getMatchedProfileBoostRepo() async {
+    try {
+      final result = await _datasource.getMatchedProfileBoostNew();
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 }

@@ -3,32 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
+import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/user_auth_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
-@RoutePage()
-class ResetPasswordOtpScreen extends ConsumerStatefulWidget {
-  const ResetPasswordOtpScreen({super.key});
+@RoutePage<String>()
+class ResetPasswordOtpScreen extends StatefulWidget {
+  final String email;
+  const ResetPasswordOtpScreen({super.key, required this.email});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ResetPasswordOtpScreenState();
+  State<ResetPasswordOtpScreen> createState() => _ResetPasswordOtpScreenState();
 }
 
-class _ResetPasswordOtpScreenState
-    extends ConsumerState<ResetPasswordOtpScreen> {
-  late UserAuthViewModel userAuthViewModel;
-
+class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen>
+    with ValidationHelperMixin {
   final formKey = GlobalKey<FormState>();
+  String otp = '';
 
   @override
   void initState() {
     super.initState();
-    userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
   }
 
   final validatorChange = ValueNotifier<dynamic>(null);
@@ -66,7 +66,7 @@ class _ResetPasswordOtpScreenState
               Form(
                 key: formKey,
                 child: PinCodeTextField(
-                  validator: (value) => userAuthViewModel.validateOtp(),
+                  validator: (value) => isValidNumber(value!, minLength: 6),
                   autovalidateMode: AutovalidateMode.disabled,
                   autoDismissKeyboard: true,
                   appContext: context,
@@ -96,7 +96,9 @@ class _ResetPasswordOtpScreenState
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
                     validatorChange.value = value;
-                    userAuthViewModel.setOtp(value);
+                    setState(() {
+                      otp = value;
+                    });
                   },
                 ),
               ),
@@ -108,10 +110,14 @@ class _ResetPasswordOtpScreenState
                     builder: (context, _) {
                       return PrimaryButton(
                         title: 'Next',
-                        disabled: userAuthViewModel.validateOtp() != null,
+                        disabled: isValidNumber(otp, minLength: 6) != null,
                         action: () {
                           if (formKey.currentState!.validate()) {
-                            router.push(ResetPasswordRoute());
+                            router.push(ResetPasswordRoute(
+                                request: ResetPasswordRequest(
+                                    email: widget.email,
+                                    otp: otp,
+                                    newPassword: '')));
                           }
                         },
                       );

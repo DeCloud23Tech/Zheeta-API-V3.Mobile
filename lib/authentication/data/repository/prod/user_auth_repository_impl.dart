@@ -1,5 +1,10 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/api/errors/error.dart';
+import 'package:zheeta/app/api/errors/exception.dart';
 import 'package:zheeta/app/common/exceptions/custom_exception.dart';
+import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
 import 'package:zheeta/authentication/data/model/login_user_model.dart';
 import 'package:zheeta/authentication/data/model/register_user_model.dart';
@@ -18,90 +23,110 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   UserAuthRepositoryImpl(this._datasource);
 
   @override
-  changePasswordRepo(ChangePasswordRequest data) async {
-    final result = await _datasource.changePassword(data);
-    result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+  ResultVoid changePasswordRepo(ChangePasswordRequest data) async {
+    try {
+      final result = await _datasource.changePasswordNew(data);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
-  loginOAuthRepo(LoginOAuthRequest data) async {
-    final result = await _datasource.loginOAuth(data);
-    result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+  ResultVoid loginOAuthRepo(LoginOAuthRequest data) async {
+    try {
+      final result = await _datasource.loginOAuthNew(data);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
-  Future<LoginUserModel> loginRepo(LoginRequest data) async {
-    final result = await _datasource.login(data);
-    return result.fold(
-      (error) {
-        print("Error: ${error.message}");
-        if (error.message.toString().contains('Data Not Found')) {
-          throw new UserNotFoundException('User not found');
-        }
-        if (error.message.toString().contains('Email is not verified')) {
-          throw new EmailNotVerifiedException('Email is not verified');
-        } else {
-          throw new Exception(error.message);
-        }
-      },
-      (value) => LoginUserModel.fromJson(value['data']),
-    );
+  ResultFuture<LoginUserModel> loginRepo(LoginRequest data) async {
+    try {
+      final result = await _datasource.loginNew(data);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
   registerStaffRepo(RegisterStaffRequest data) async {
-    final result = await _datasource.registerStaff(data);
-    result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+    try {
+      final result = await _datasource.registerStaffNew(data);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
-  Future<RegisterUserModel> registerUserRepo(RegisterUserRequest data) async {
-    final result = await _datasource.registerUser(data);
-    return result.fold(
-      (error) {
-        if (error.data != null) {
-          String? usernameException;
-          String? emailException;
-          String? phoneException;
+  ResultFuture<RegisterUserModel> registerUserRepo(
+      RegisterUserRequest data) async {
+    try {
+      final result = await _datasource.registerUserNew(data);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+    // return result.fold(
+    //   (error) {
+    //     if (error.data != null) {
+    //       String? usernameException;
+    //       String? emailException;
+    //       String? phoneException;
 
-          final data = error.data as List;
-          for (String e in data) {
-            if (e.toString().toLowerCase().contains('username')) {
-              usernameException = e;
-            } else if (e.toString().toLowerCase().contains('email')) {
-              emailException = e;
-            } else if (e.toString().toLowerCase().contains('phone')) {
-              phoneException = e;
-            }
-          }
-          throw new DuplicateRegisterParamException(
-            usernameException: usernameException,
-            emailException: emailException,
-            phoneException: phoneException,
-          );
-        } else {
-          throw new Exception(error.message);
-        }
-      },
-      (value) => RegisterUserModel.fromJson(value['data']),
-    );
+    //       final data = error.data as List;
+    //       for (String e in data) {
+    //         if (e.toString().toLowerCase().contains('username')) {
+    //           usernameException = e;
+    //         } else if (e.toString().toLowerCase().contains('email')) {
+    //           emailException = e;
+    //         } else if (e.toString().toLowerCase().contains('phone')) {
+    //           phoneException = e;
+    //         }
+    //       }
+    //       throw new DuplicateRegisterParamException(
+    //         usernameException: usernameException,
+    //         emailException: emailException,
+    //         phoneException: phoneException,
+    //       );
+    //     } else {
+    //       throw new Exception(error.message);
+    //     }
+    //   },
+    //   (value) => RegisterUserModel.fromJson(value['data']),
+    // );
   }
 
   @override
-  resetPasswordRepo(ResetPasswordRequest data) async {
-    final result = await _datasource.resetPassword(data);
-    result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => value,
-    );
+  ResultVoid resetPasswordRepo(ResetPasswordRequest data) async {
+    //final result = await _datasource.resetPassword(data);
+    try {
+      final result = await _datasource.resetPasswordNew(data);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 }

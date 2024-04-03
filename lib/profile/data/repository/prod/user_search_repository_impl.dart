@@ -1,4 +1,9 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/api/errors/error.dart';
+import 'package:zheeta/app/api/errors/exception.dart';
+import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/profile/data/datasource/user_search_datasource.dart';
 import 'package:zheeta/profile/data/model/search_user_by_admin_model.dart';
 import 'package:zheeta/profile/data/model/search_user_by_customer_model.dart';
@@ -11,41 +16,62 @@ class UserSearchRepositorImpl implements UserSearchRepository {
   UserSearchRepositorImpl(this._datasource);
 
   @override
-  Future<SearchUserByAdminListModel> findUserByAdminEmailRepo({required String email, required int pageNumber, required int pageSize}) async {
-    final result = await _datasource.findUserByAdminEmail(
-      email: email,
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-    );
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => SearchUserByAdminListModel.fromJson(value),
-    );
+  ResultFuture<SearchUserByAdminListModel> findUserByAdminEmailRepo(
+      {required String email,
+      required int pageNumber,
+      required int pageSize}) async {
+    try {
+      final result = await _datasource.findUserByAdminEmailNew(
+        email: email,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      );
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
-  Future<SearchUserByAdminListModel> findUserByAdminUsernameRepo({required String username, required int pageNumber, required int pageSize}) async {
-    final result = await _datasource.findUserByAdminUsername(
-      username: username,
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-    );
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => SearchUserByAdminListModel.fromJson(value),
-    );
+  ResultFuture<SearchUserByAdminListModel> findUserByAdminUsernameRepo(
+      {required String username,
+      required int pageNumber,
+      required int pageSize}) async {
+    try {
+      final result = await _datasource.findUserByAdminUsernameNew(
+        username: username,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      );
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 
   @override
-  Future<SearchUserByCustomerListModel> searchUserByCustomerRepo({required String username, required int pageNumber, required int pageSize}) async {
-    final result = await _datasource.searchUserByCustomer(
-      username: username,
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-    );
-    return result.fold(
-      (error) => throw new Exception(error.message),
-      (value) => SearchUserByCustomerListModel.fromJson(value),
-    );
+  ResultFuture<SearchUserByCustomerListModel> searchUserByCustomerRepo(
+      {required String username,
+      required int pageNumber,
+      required int pageSize}) async {
+    try {
+      final result = await _datasource.searchUserByCustomerNew(
+        username: username,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      );
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 }

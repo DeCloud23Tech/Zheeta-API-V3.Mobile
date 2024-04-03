@@ -3,13 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i4;
+
+import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:zheeta/app/api/errors/error.dart' as _i5;
 import 'package:zheeta/authentication/data/request/verify_email_otp_request.dart'
-    as _i4;
+    as _i7;
 import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart'
-    as _i3;
+    as _i6;
 import 'package:zheeta/authentication/domain/repository/user_otp_repository.dart'
-    as _i2;
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,46 +28,111 @@ import 'package:zheeta/authentication/domain/repository/user_otp_repository.dart
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
+  _FakeEither_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [UserOtpRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserOtpRepository extends _i1.Mock implements _i2.UserOtpRepository {
+class MockUserOtpRepository extends _i1.Mock implements _i3.UserOtpRepository {
   MockUserOtpRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  dynamic sendEmailVerifyOtpRepo(String? email) =>
-      super.noSuchMethod(Invocation.method(
-        #sendEmailVerifyOtpRepo,
-        [email],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> sendEmailVerifyOtpRepo(
+          String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendEmailVerifyOtpRepo,
+          [email],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #sendEmailVerifyOtpRepo,
+            [email],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic sendPhoneVerifyOtpRepo(String? phoneNumber) =>
-      super.noSuchMethod(Invocation.method(
-        #sendPhoneVerifyOtpRepo,
-        [phoneNumber],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> sendPhoneVerifyOtpRepo(
+          String? phoneNumber) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendPhoneVerifyOtpRepo,
+          [phoneNumber],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #sendPhoneVerifyOtpRepo,
+            [phoneNumber],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic verifyPhoneOtpRepo(_i3.VerifyPhoneOtpRequest? request) =>
-      super.noSuchMethod(Invocation.method(
-        #verifyPhoneOtpRepo,
-        [request],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> verifyPhoneOtpRepo(
+          _i6.VerifyPhoneOtpRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyPhoneOtpRepo,
+          [request],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #verifyPhoneOtpRepo,
+            [request],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic verifyEmailOtpRepo(_i4.VerifyEmailOtpRequest? request) =>
-      super.noSuchMethod(Invocation.method(
-        #verifyEmailOtpRepo,
-        [request],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> verifyEmailOtpRepo(
+          _i7.VerifyEmailOtpRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyEmailOtpRepo,
+          [request],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #verifyEmailOtpRepo,
+            [request],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic sendPasswordResetOtpRepo(String? email) =>
-      super.noSuchMethod(Invocation.method(
-        #sendPasswordResetOtpRepo,
-        [email],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> sendPasswordResetOtpRepo(
+          String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendPasswordResetOtpRepo,
+          [email],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #sendPasswordResetOtpRepo,
+            [email],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 }

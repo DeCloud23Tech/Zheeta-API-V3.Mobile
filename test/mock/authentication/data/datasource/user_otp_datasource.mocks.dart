@@ -145,4 +145,58 @@ class MockUserOtpDataSource extends _i1.Mock implements _i3.UserOtpDataSource {
             )),
           ) as _i4
               .Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+
+  @override
+  _i4.Future<void> sendEmailVerifyOtpNew(String? email) => (super.noSuchMethod(
+        Invocation.method(
+          #sendEmailVerifyOtpNew,
+          [email],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> sendPhoneVerifyOtpNew(String? phoneNumber) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendPhoneVerifyOtpNew,
+          [phoneNumber],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> verifyPhoneOtpNew(_i6.VerifyPhoneOtpRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyPhoneOtpNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> verifyEmailOtpNew(_i7.VerifyEmailOtpRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyEmailOtpNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> sendPasswordResetOtpNew(String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendPasswordResetOtpNew,
+          [email],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

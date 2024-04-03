@@ -1,4 +1,6 @@
+import 'package:zheeta/app/common/type_def.dart';
+
 abstract class AccessRestrictionRepository {
-  enableAccountRepo({required String userId});
-  disableAccountRepo({required String userId});
+  ResultVoid enableAccountRepo({required String userId});
+  ResultVoid disableAccountRepo({required String userId});
 }

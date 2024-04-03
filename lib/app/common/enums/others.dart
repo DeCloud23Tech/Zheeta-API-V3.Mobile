@@ -1,1 +1,1 @@
-enum IconType { menu, filter, bell }
+enum IconType { menu, filter, bell, photo }

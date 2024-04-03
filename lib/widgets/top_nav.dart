@@ -38,7 +38,8 @@ class TopNavBtn2 extends ConsumerWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: iconType == IconType.bell && (notificationState.unreadNotificationsCountState.data ?? 0) > 0
+        child: iconType == IconType.bell &&
+                (notificationState.unreadNotificationsCountState.data ?? 0) > 0
             ? Stack(
                 children: [
                   Container(
@@ -52,7 +53,8 @@ class TopNavBtn2 extends ConsumerWidget {
                     child: SvgPicture.asset(
                       icon,
                       width: 30,
-                      colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+                      colorFilter:
+                          ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
                     ),
                   ),
                   Positioned(
@@ -69,7 +71,10 @@ class TopNavBtn2 extends ConsumerWidget {
                       ),
                       child: Text(
                         '${notificationState.unreadNotificationsCountState.data}',
-                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.white),
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white),
                       ),
                     ),
                   ),
@@ -86,7 +91,8 @@ class TopNavBtn2 extends ConsumerWidget {
                 child: SvgPicture.asset(
                   icon,
                   width: 30,
-                  colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+                  colorFilter:
+                      ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
                 ),
               ),
       ),
@@ -109,6 +115,8 @@ class TopNavBtn extends ConsumerWidget {
       icon = 'assets/images/icons/filter.svg';
     } else if (iconType == IconType.bell) {
       icon = 'assets/images/icons/bell.svg';
+    } else if (iconType == IconType.photo) {
+      icon = 'assets/images/icons/camera.svg';
     } else {
       throw AssertionError('Invalid icon type');
     }
@@ -124,7 +132,8 @@ class TopNavBtn extends ConsumerWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: iconType == IconType.bell && (notificationState.unreadNotificationsCountState.data ?? 0) > 0
+        child: iconType == IconType.bell &&
+                (notificationState.unreadNotificationsCountState.data ?? 0) > 0
             ? Stack(
                 children: [
                   Container(
@@ -154,7 +163,10 @@ class TopNavBtn extends ConsumerWidget {
                       ),
                       child: Text(
                         '${notificationState.unreadNotificationsCountState.data}',
-                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.white),
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white),
                       ),
                     ),
                   ),

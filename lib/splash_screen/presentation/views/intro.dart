@@ -25,23 +25,24 @@ class _IntroScreenState extends ConsumerState<IntroScreen>
   @override
   void initState() {
     userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
-    super.initState();
-    animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 5));
-    animationController.animateTo(0.5);
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       checkForLogin();
       //userProfileViewModel.loadSelectedCountryStates('Nigeria');
     });
+    super.initState();
+    animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 5));
+    animationController.animateTo(0.5);
   }
 
   checkForLogin() async {
-    var result = await userAuthViewModel.checkIfUserIsLoggedIn();
-    if (result) {
-      //Navigate away from this screen
-      router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
-    }
+    await userAuthViewModel.checkIfUserIsLoggedIn();
+  }
+
+  @override
+  dispose() {
+    animationController.dispose(); // you need this
+    super.dispose();
   }
 
   @override

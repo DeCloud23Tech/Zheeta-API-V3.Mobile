@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:zheeta/activity/data/models/activity_model.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/model/view_profile_model.dart';
@@ -19,4 +20,6 @@ abstract class UserProfileUseCase {
   createUserProfileUseCase(CreateUserProfileRequest request);
   updateUserProfileUseCase(UpdateUserProfileRequest request);
   Future<ViewProfileModel> visitUserProfileUseCase({required String userId});
+
+  Future<ActivityListModel> getUserRecentActivity();
 }

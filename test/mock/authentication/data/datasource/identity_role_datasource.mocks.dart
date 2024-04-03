@@ -84,4 +84,26 @@ class MockIdentityRoleDataSource extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+
+  @override
+  _i4.Future<void> upgradeUserRoleNew(_i6.UserRoleRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #upgradeUserRoleNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> downgradeUserRoleNew(_i6.UserRoleRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #downgradeUserRoleNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
