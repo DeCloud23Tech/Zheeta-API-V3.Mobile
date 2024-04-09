@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart' show MultipartFile;
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:intl/intl.dart';
@@ -19,36 +21,19 @@ import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/profile/data/model/country_states_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart';
+import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/state/user_profile_state.dart';
 import 'package:zheeta/profile/presentation/viewmodel/location_viewmodel.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_interest_viewmodel.dart';
 
-final userProfileViewModelProvider =
-    StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
-  final _userProfileUseCase = locator<UserProfileUseCase>();
-  return UserProfileViewModel(_userProfileUseCase, ref);
-});
+// final userProfileViewModelProvider =
+//     StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
+//   final _userProfileUseCase = locator<UserProfileUseCase>();
+//   return UserProfileViewModel();
+// });
 
-class UserProfileViewModel extends StateNotifier<UserProfileState>
-    with ValidationHelperMixin {
-  final UserProfileUseCase _userProfileUseCase;
-  final Ref ref;
-  UserProfileViewModel(this._userProfileUseCase, this.ref)
-      : super(
-          UserProfileState(
-            getSingleUserProfileState: State.init(),
-            updateUserProfilePictureState: State.init(),
-            getAllUsersProfileState: State.init(),
-            createUserProfileState: State.init(),
-            updateUserProfileState: State.init(),
-            visitUserProfileState: State.init(),
-            getUserRecentActivityState: State.init(),
-            countryState: State.init(),
-            cityState: State.init(),
-            selectedCityState: State.init(),
-            selectedCountryState: State.init(),
-          ),
-        );
+class UserProfileViewModel with ValidationHelperMixin {
+  UserProfileViewModel();
 
   final List<String> bodyTypeList = AppLists.bodyTypes;
   final List<String> complexionList = AppLists.complexions;
@@ -56,6 +41,9 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
   final List<String> interestList = AppLists.interests;
   final List<String> occupationList = AppLists.occupations..sort();
   final List<String> languageList = AppLists.languages..sort();
+
+  List<String> allStates = [];
+  List<String> allCountries = [];
 
   String _firstName = '';
   String _lastName = '';
@@ -76,6 +64,9 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
   String _occupation = '';
   String _aboutMe = '';
   String _tagline = '';
+
+  String _state = '';
+  String _country = '';
 
   File? _profilePicture;
 
@@ -110,11 +101,11 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
   setPostcode(String value) => _postcode = value;
 
   setState(String? value) {
-    state = state.setSelectedCityState(value);
+    _state = value ?? '';
   }
 
   setCountry(String? value) {
-    state = state.setSelectedCountryState(value);
+    _country = value ?? '';
   }
 
   setHeight(double value) => _height = value;
@@ -148,9 +139,8 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
   String? validateAddress() => this.isValidInput(_address);
   String? validateCity() => this.isValidInput(_city);
   String? validatePostcode() => this.isValidInput(_postcode);
-  String? validateState() => this.isValidInput(state.selectedCityState.data);
-  String? validateCountry() =>
-      this.isValidInput(state.selectedCountryState.data);
+  String? validateState() => this.isValidInput(_state);
+  String? validateCountry() => this.isValidInput(_country);
 
   String? validateOccupation() => this.isValidInput(_occupation);
   String? validateAboutMe() => this.isValidInput(_aboutMe);
@@ -190,18 +180,16 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
   }
 
   loadCountry() async {
-    state = state.setCountryState(State.success([]));
-    state = state.setCityState(State.success([]));
+    allStates = [];
+    allCountries = [];
     final data = await rootBundle.loadString('assets/json/countries.json');
     final jsonData = jsonDecode(data) as Map<String, dynamic>;
-    state = state.setCountryState(
-      State.success(jsonData.keys.toSet().toList()),
-    );
+    allCountries = jsonData.keys.toSet().toList();
   }
 
   loadSelectedCountryStates(String country, {bool clearState = true}) async {
     if (clearState) setState(null);
-    state = state.setCityState(State.success([]));
+    allStates = [];
     final data =
         await rootBundle.loadString('assets/json/countries_states.json');
     final jsonData = jsonDecode(data) as List<dynamic>;
@@ -214,7 +202,7 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
           .firstWhere((element) => element.name == country);
       var states =
           theCountry.states!.map((e) => e.name.toString()).toSet().toList();
-      state = state.setCityState(State.success(states));
+      allStates = states;
       setState(states[0]);
     }
   }
@@ -236,28 +224,17 @@ class UserProfileViewModel extends StateNotifier<UserProfileState>
   //   );
   // }
 
-  Future<bool> getSingleUserProfile() async {
-    state = state.setGetSingleUserProfileState(State.loading());
-    try {
-      final result = await _userProfileUseCase.getSingleUserProfileUseCase();
-      state = state.setGetSingleUserProfileState(State.success(result));
-      if (result.data.profile?.profilePhotoURL == null) {
-        router.push(ProfilePhotoRoute());
-      } else {
-        router.popUntil((route) => route.isFirst);
-        router.replace(HomeRoute());
-      }
-      return true;
-    } on UserProfileNotCreatedException catch (e) {
-      NotifyUser.showSnackbar(e.toString());
-      state = state.setGetSingleUserProfileState(State.error(e));
-      router.push(BioDataRoute());
-      return false;
-    } on Exception catch (e) {
-      state = state.setGetSingleUserProfileState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
+  Future<bool> getSingleUserProfile(BuildContext context) async {
+    final result =
+        await context.read<ProfileCubit>().getSingleUserProfileCubit();
+
+    if (result?.data.profile?.profilePhotoURL == null) {
+      router.push(ProfilePhotoRoute());
+    } else {
+      router.popUntil((route) => route.isFirst);
+      router.replace(HomeRoute());
     }
+    return true;
   }
 
   Future<bool> updateUserProfilePicture() async {

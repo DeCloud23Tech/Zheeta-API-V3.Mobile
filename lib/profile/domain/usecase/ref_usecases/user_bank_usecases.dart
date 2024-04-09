@@ -7,9 +7,9 @@ import 'package:zheeta/profile/domain/repository/access_restriction_repository.d
 import 'package:zheeta/profile/domain/repository/location_repository.dart';
 import 'package:zheeta/profile/domain/repository/user_bank_account_repository.dart';
 
-class CreateUpdateBankAccountRepo
+class CreateUpdateBankAccount
     extends UsecaseWithParams<void, CreateUpdateBankAccountRequest> {
-  const CreateUpdateBankAccountRepo(this._repo);
+  const CreateUpdateBankAccount(this._repo);
 
   final UserBankAccountRepository _repo;
 

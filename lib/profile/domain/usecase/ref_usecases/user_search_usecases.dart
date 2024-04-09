@@ -4,9 +4,9 @@ import 'package:zheeta/profile/data/model/search_user_by_admin_model.dart';
 import 'package:zheeta/profile/data/model/search_user_by_customer_model.dart';
 import 'package:zheeta/profile/domain/repository/user_search_repository.dart';
 
-class FindUserByAdminEmailRepo extends UsecaseWithParams<
-    SearchUserByAdminListModel, UserSearchByEmailParam> {
-  const FindUserByAdminEmailRepo(this._repo);
+class FindUserByAdminEmail extends UsecaseWithParams<SearchUserByAdminListModel,
+    UserSearchByEmailParam> {
+  const FindUserByAdminEmail(this._repo);
 
   final UserSearchRepository _repo;
 
