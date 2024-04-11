@@ -134,6 +134,7 @@ class MatchCriteriaViewModel extends StateNotifier<MatchCriteriaState> {
       return true;
     } on NoDataException {
       final userId = (await sessionManager.get(SessionManagerKeys.authUserIdString)) as String;
+      
       final userProfile = ref.watch(userProfileViewModelProvider).getSingleUserProfileState.data?.data;
       state = state.setMatchCriteriaState(
         State.success(

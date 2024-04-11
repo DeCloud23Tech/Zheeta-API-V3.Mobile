@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/activity/data/models/activity_model.dart';
+import 'package:zheeta/profile/data/model/address_from_location_model.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
 import 'package:zheeta/profile/data/model/boosted_profile_by_admin_model.dart';
 import 'package:zheeta/profile/data/model/matched_profile_boost_model.dart';
@@ -111,9 +112,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   //Enable and Disable Account End
 
   //Profile Location Section
-  Future<void> getAddressFromLocationCoordinateCubit(
+  Future<AddressFromLocationModel?> getAddressFromLocationCoordinateCubit(
       {required double longitude, required double latitude}) async {
     emit(ProfileLoadingState());
+
+    AddressFromLocationModel? data;
     var result = await getAddressFromLocationCoordinate(
         GetAddressParameter(latitude: latitude, longitude: longitude));
     result.fold(
@@ -121,9 +124,12 @@ class ProfileCubit extends Cubit<ProfileState> {
         emit(ProfileErrorState(fail.message));
       },
       (success) {
-        emit(ProfileGotAddressLocationState());
+        emit(ProfileGotAddressLocationState(success));
+        data = success;
       },
     );
+
+    return data;
   }
 
   Future<void> getLocationCoordinateFromAddressCubit(
@@ -171,7 +177,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   //Profile Bank Section
 
   //Profile Interests
-  Future<void> getInterestsCubit() async {
+  Future<UserInterestListModel?> getInterestsCubit() async {
+    UserInterestListModel? data;
     emit(ProfileLoadingState());
     var result = await getInterests();
     result.fold(
@@ -180,8 +187,10 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
       (success) {
         emit(ProfileGotUserInterests(success));
+        data = success;
       },
     );
+    return data;
   }
 
   Future<void> updateUserInterestCubit(
@@ -334,8 +343,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     return userProfile;
   }
 
-  Future<void> getUserRecentActivityCubit() async {
+  Future<ActivityListModel?> getUserRecentActivityCubit() async {
     emit(ProfileLoadingState());
+    ActivityListModel? data;
     var result = await getUserRecentActivity();
     result.fold(
       (fail) {
@@ -343,8 +353,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
       (success) {
         emit(ProfileUserActivityState(success));
+        data = success;
       },
     );
+
+    return data;
   }
 
   Future<void> updateUserProfilePictureCubit(
@@ -374,8 +387,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  Future<void> visitUserProfileCubit(String request) async {
+  Future<ViewProfileModel?> visitUserProfileCubit(String request) async {
     emit(ProfileLoadingState());
+    ViewProfileModel? data;
     var result = await visitUserProfile(request);
     result.fold(
       (fail) {
@@ -383,8 +397,10 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
       (success) {
         emit(ProfileVisitedState(success));
+        data = success;
       },
     );
+    return data;
   }
   //User Profile Ends
 

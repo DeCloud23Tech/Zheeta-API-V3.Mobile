@@ -5,26 +5,31 @@ import 'package:dio/dio.dart' show MultipartFile;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:intl/intl.dart';
-import 'package:zheeta/app/common/exceptions/custom_exception.dart';
+import 'package:zheeta/activity/data/models/activity_model.dart';
+
 import 'package:zheeta/app/common/lists.dart';
+import 'package:zheeta/app/common/mixins/location_helper.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
-import 'package:zheeta/app/injection/di.dart';
+
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/authentication/presentation/state/state.dart';
+
+import 'package:zheeta/profile/data/model/address_from_location_model.dart';
 import 'package:zheeta/profile/data/model/country_states_model.dart';
+import 'package:zheeta/profile/data/model/user_interest_model.dart';
+import 'package:zheeta/profile/data/model/user_profile_model.dart';
+import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
-import 'package:zheeta/profile/domain/usecase/user_profile_usecase.dart';
+import 'package:zheeta/profile/data/request/update_user_interest_request.dart';
+import 'package:zheeta/profile/domain/usecase/ref_usecases/user_profile_usecases.dart';
+
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
-import 'package:zheeta/profile/presentation/state/user_profile_state.dart';
-import 'package:zheeta/profile/presentation/viewmodel/location_viewmodel.dart';
-import 'package:zheeta/profile/presentation/viewmodel/user_interest_viewmodel.dart';
 
 // final userProfileViewModelProvider =
 //     StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
@@ -32,7 +37,7 @@ import 'package:zheeta/profile/presentation/viewmodel/user_interest_viewmodel.da
 //   return UserProfileViewModel();
 // });
 
-class UserProfileViewModel with ValidationHelperMixin {
+class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   UserProfileViewModel();
 
   final List<String> bodyTypeList = AppLists.bodyTypes;
@@ -41,6 +46,14 @@ class UserProfileViewModel with ValidationHelperMixin {
   final List<String> interestList = AppLists.interests;
   final List<String> occupationList = AppLists.occupations..sort();
   final List<String> languageList = AppLists.languages..sort();
+
+  UserInterestListModel? interestsList;
+
+  AddressFromLocationModel? addressFromLocation;
+
+  ViewProfileModel? visitProfilePage;
+  UserProfileModel? userProfileModel;
+  ActivityListModel? userActivityModel;
 
   List<String> allStates = [];
   List<String> allCountries = [];
@@ -69,6 +82,22 @@ class UserProfileViewModel with ValidationHelperMixin {
   String _country = '';
 
   File? _profilePicture;
+
+  double? _latitude;
+  double? _longitude;
+
+  List<int> _interest = [];
+
+  setInterest(int value) {
+    if (_interest.contains(value)) {
+      _interest.remove(value);
+    } else {
+      _interest.add(value);
+    }
+  }
+
+  String? validateInterest() =>
+      _interest.isEmpty ? 'Please select at least one interest' : null;
 
   setFirstName(String value) => _firstName = value;
   setLastName(String value) => _lastName = value;
@@ -132,6 +161,13 @@ class UserProfileViewModel with ValidationHelperMixin {
       NotifyUser.showSnackbar('Select your gender');
       return false;
     }
+  }
+
+  bool _isValidLatLong() {
+    if (_latitude != null && _longitude != null) {
+      return true;
+    }
+    return false;
   }
 
   String? validateDob() => this.isValidInput(_dob);
@@ -224,10 +260,21 @@ class UserProfileViewModel with ValidationHelperMixin {
   //   );
   // }
 
+  Future<bool> getInterests(BuildContext context) async {
+    final result = await context.read<ProfileCubit>().getInterestsCubit();
+
+    if (result != null) {
+      interestsList = result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> getSingleUserProfile(BuildContext context) async {
     final result =
         await context.read<ProfileCubit>().getSingleUserProfileCubit();
-
+    userProfileModel = result;
     if (result?.data.profile?.profilePhotoURL == null) {
       router.push(ProfilePhotoRoute());
     } else {
@@ -237,179 +284,111 @@ class UserProfileViewModel with ValidationHelperMixin {
     return true;
   }
 
-  Future<bool> updateUserProfilePicture() async {
-    state = state.setUpdateUserProfilePictureState(State.loading());
-    try {
-      final profilePictureIsValidOrMessage = validateProfilePicture();
-      if (profilePictureIsValidOrMessage == null) {
-        final userId =
-            await sessionManager.get(SessionManagerKeys.authUserIdString);
-        final result =
-            await _userProfileUseCase.updateUserProfilePictureUseCase(
-          userId: userId,
-          file: await MultipartFile.fromFile(_profilePicture!.path,
-              contentType: MediaType('image', 'jpg')),
-        );
+  Future<bool> updateUserProfilePicture(BuildContext context) async {
+    final profilePictureIsValidOrMessage = validateProfilePicture();
+    if (profilePictureIsValidOrMessage == null) {
+      final userId =
+          await sessionManager.get(SessionManagerKeys.authUserIdString);
+      final result = await context
+          .read<ProfileCubit>()
+          .updateUserProfilePictureCubit(UploadProfilePictureParam(
+            userId: userId,
+            file: await MultipartFile.fromFile(_profilePicture!.path,
+                contentType: MediaType('image', 'jpg')),
+          ));
 
-        state = state.setUpdateUserProfilePictureState(State.success(result));
+      //state = state.setUpdateUserProfilePictureState(State.success(result));
 
-        router.popUntil((route) => route.isFirst);
-        router.replace(HomeRoute());
+      router.popUntil((route) => route.isFirst);
+      router.replace(HomeRoute());
 
-        return true;
-      } else {
-        NotifyUser.showSnackbar(profilePictureIsValidOrMessage);
-        state = state.setUpdateUserProfilePictureState(
-          State.error(Exception(profilePictureIsValidOrMessage)),
-        );
-        return false;
-      }
-    } on Exception catch (e) {
-      state = state.setUpdateUserProfilePictureState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
-  }
-
-  Future<bool> createUserProfile() async {
-    state = state.setCreateUserProfileState(State.loading());
-    try {
-      String? isValidFormOrErrorMessage = validateLetsKnowYouForm();
-      if (isValidFormOrErrorMessage == null) {
-        final _userId =
-            await sessionManager.get(SessionManagerKeys.authUserIdString);
-
-        final _locationState = ref.watch(locationViewModelProvider);
-
-        final _latitude = _locationState.getCurrentLocationState.data!.latitude;
-        final _longitude =
-            _locationState.getCurrentLocationState.data!.longitude;
-
-        final data = CreateUserProfileRequest(
-          userId: _userId,
-          firstName: _firstName,
-          lastName: _lastName,
-          dateOfBirth: _dob,
-          gender: _gender,
-          languageCSV: _languages,
-          aboutMe: _aboutMe,
-          bodyType: _bodyType,
-          complexion: _complexion,
-          height: _height,
-          occupation: _occupation,
-          religion: _religion,
-          weight: _weight,
-          tagline: _tagline,
-          city: _city,
-          state: state.selectedCityState.data!,
-          country: state.selectedCountryState.data!,
-          zipCode: _postcode,
-          latitude: _latitude,
-          longitude: _longitude,
-          originCity: state.selectedCityState.data!,
-          originCountry: state.selectedCountryState.data!,
-          maritalStatus: 1,
-        );
-        final result = await _userProfileUseCase.createUserProfileUseCase(data);
-
-        UserInterestViewModel _userInterestViewModel =
-            ref.read(userInterestViewModelProvider.notifier);
-        await _userInterestViewModel.updateUserInterest();
-
-        state = state.setCreateUserProfileState(State.success(result));
-        return true;
-      } else {
-        state = state.setCreateUserProfileState(
-          State.error(Exception(isValidFormOrErrorMessage)),
-        );
-        NotifyUser.showSnackbar(isValidFormOrErrorMessage);
-        return false;
-      }
-    } on CreateProfileValidationException catch (e) {
-      if (e.originCityException?.isNotEmpty ?? false) {
-        for (var message in e.originCityException!) {
-          NotifyUser.showSnackbar(message);
-        }
-      }
-      if (e.originCountryException?.isNotEmpty ?? false) {
-        for (var message in e.originCountryException!) {
-          NotifyUser.showSnackbar(message);
-        }
-      }
-      state = state.setCreateUserProfileState(State.error(e));
-      return false;
-    } on Exception catch (e) {
-      state = state.setCreateUserProfileState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
-  }
-
-  visitUserProfile(String visitingId) async {
-    state = state.setVisitUserProfileState(State.loading());
-    try {
-      final result =
-          await _userProfileUseCase.visitUserProfileUseCase(userId: visitingId);
-      state = state.setVisitUserProfileState(State.success(result));
       return true;
-    } on UserProfileNotCreatedException catch (e) {
-      NotifyUser.showSnackbar(e.toString());
-      state = state.setVisitUserProfileState(State.error(e));
-      router.push(BioDataRoute());
-      return false;
-    } on Exception catch (e) {
-      state = state.setVisitUserProfileState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
+    }
+    return false;
+  }
+
+  Future<void> updateUserInterest(BuildContext context) async {
+    final userId = (await sessionManager
+        .get(SessionManagerKeys.authUserIdString)) as String;
+    await context.read<ProfileCubit>().updateUserInterest(
+        UpdateUserUnterestRequest(userId: userId, interestIds: _interest));
+  }
+
+  Future<void> createUserProfile(BuildContext context) async {
+    String? isValidFormOrErrorMessage = validateLetsKnowYouForm();
+    if (isValidFormOrErrorMessage == null) {
+      final _userId =
+          await sessionManager.get(SessionManagerKeys.authUserIdString);
+
+      //final _locationState = ref.watch(locationViewModelProvider);
+      final locationResult = await getLocation();
+
+      // final _location = await context
+      //     .read<ProfileCubit>()
+      //     .getAddressFromLocationCoordinate();
+      // final _latitude = _locationState.getCurrentLocationState.data!.latitude;
+      // final _longitude =
+      //     _locationState.getCurrentLocationState.data!.longitude;
+
+      final data = CreateUserProfileRequest(
+        userId: _userId,
+        firstName: _firstName,
+        lastName: _lastName,
+        dateOfBirth: _dob,
+        gender: _gender,
+        languageCSV: _languages,
+        aboutMe: _aboutMe,
+        bodyType: _bodyType,
+        complexion: _complexion,
+        height: _height,
+        occupation: _occupation,
+        religion: _religion,
+        weight: _weight,
+        tagline: _tagline,
+        city: _city,
+        state: _state,
+        country: _country,
+        zipCode: _postcode,
+        latitude: locationResult!.latitude,
+        longitude: locationResult.longitude,
+        originCity: _state,
+        originCountry: _country,
+        maritalStatus: 1,
+      );
+
+      await context.read<ProfileCubit>().createProfile(data);
+
+      await updateUserInterest(context);
+      //Navigate to profile
+      router.push(ProfilePhotoRoute());
     }
   }
 
-  loadUserRecentActivity() async {
-    state = state.setGetRecentUserActivityState(State.loading());
-    try {
-      final result = await _userProfileUseCase.getUserRecentActivity();
-      state = state.setGetRecentUserActivityState(State.success(result));
-      return true;
-    } on UserProfileNotCreatedException catch (e) {
-      NotifyUser.showSnackbar(e.toString());
-      state = state.setGetRecentUserActivityState(State.error(e));
-      router.push(BioDataRoute());
-      return false;
-    } on Exception catch (e) {
-      state = state.setGetRecentUserActivityState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
+  Future<AddressFromLocationModel?> getAddressFromLocationCoordinate(
+      BuildContext context) async {
+    if (_isValidLatLong()) {
+      final result = await context
+          .read<ProfileCubit>()
+          .getAddressFromLocationCoordinateCubit(
+              latitude: _latitude!, longitude: _longitude!);
+      return result;
+    } else {
+      NotifyUser.showSnackbar('Invalid Latitude and Longitude');
+      return null;
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _firstName = '';
-    _lastName = '';
-    _gender = -1;
-    _dob = '';
+  visitUserProfile(BuildContext context, String visitingId) async {
+    final result =
+        await context.read<ProfileCubit>().visitUserProfileCubit(visitingId);
+    visitProfilePage = result;
+    
 
-    _address = '';
-    _city = '';
-    _postcode = '';
-    _languages.clear();
+  }
 
-    state = state.copyWith(
-      selectedCityState: State.success(null),
-      selectedCountryState: State.success(null),
-    );
-
-    _height = 0;
-    _weight = 0;
-
-    _bodyType = '';
-    _complexion = '';
-    _religion = '';
-    _occupation = '';
-    _aboutMe = '';
-    _tagline = '';
-
-    _profilePicture = null;
+  loadUserRecentActivity(BuildContext context) async {
+    final result =
+        await context.read<ProfileCubit>().getUserRecentActivityCubit();
+    userActivityModel = result;
   }
 }

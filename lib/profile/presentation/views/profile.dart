@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/activity/data/models/activity_model.dart';
@@ -34,17 +35,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   var activeTab = 1;
 
   bool invertAppBarIcons = false;
-
+  UserProfileDataModel? theUser;
   @override
   void initState() {
     super.initState();
-    userProfileViewModel = ref.read(userProfileViewModelProvider.notifier);
+    userProfileViewModel = UserProfileViewModel();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (widget.profileId != null)
-        userProfileViewModel.visitUserProfile(widget.profileId!);
+      setState(() async {
+        if (widget.profileId != null)
+          await userProfileViewModel.visitUserProfile(
+              context, widget.profileId!);
 
-      userProfileViewModel.loadUserRecentActivity();
+        await userProfileViewModel.loadUserRecentActivity(context);
+        theUser = userProfileViewModel.visitProfilePage?.profile;
+      });
 
       //userProfileViewModel.loadSelectedCountryStates('Nigeria');
     });
@@ -54,29 +59,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userProfileState = ref.watch(userProfileViewModelProvider);
-    UserProfileDataModel? theUser;
-    List<ActivityModel>? theActivity;
-    ViewProfileModel? visitProfile;
     int carouselCount = 1;
-    if (widget.profileId == null) {
-      theUser = userProfileState.getSingleUserProfileState.data?.data;
-    } else {
-      theUser = userProfileState.visitUserProfileState.data?.profile;
-      visitProfile = userProfileState.visitUserProfileState.data;
-    }
-    if (userProfileState.getUserRecentActivityState.data != null) {
-      theActivity = userProfileState.getUserRecentActivityState.data?.data;
-    }
 
     if (theUser != null) {
-      carouselCount = theUser.userCarousels?.length ?? 1;
+      carouselCount = theUser?.userCarousels?.length ?? 1;
     }
-    // DateFormat inputFormat = DateFormat('dd-MM-yyyy hh:mm:ss a');
-    // DateTime input = inputFormat.parse(theUser?.profile?.dateOfBirth);
-    // String datee = DateFormat('yyyy-MM-dd').format(input);
-    // var theDate = DateTime.parse(datee);
-    // final theAge = AgeCalculator.age(theDate);
+
     controller.addListener(() {
       if (controller.offset > 450) {
         setState(() {
@@ -88,14 +76,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         });
       }
     });
-    return userProfileState.visitUserProfileState.isLoading ||
-            userProfileState.getSingleUserProfileState.isLoading ||
-            userProfileState.getUserRecentActivityState.isLoading
-        ? LoadingScreen()
-        : widget.profileId != null &&
-                !userProfileState.visitUserProfileState.data!.canViewProfile
-            ? BlockedUserContent()
-            : Scaffold(
+    return widget.profileId != null &&
+            !userProfileViewModel.visitProfilePage!.canViewProfile
+        ? BlockedUserContent()
+        : BlocConsumer(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Scaffold(
                 backgroundColor: AppColors.secondaryLight,
                 body: CustomScrollView(
                   controller: controller,
@@ -212,7 +199,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             ),
                             if (widget.profileId != null)
                               ProfileAddOrLike(
-                                visitProfile: visitProfile,
+                                visitProfile:
+                                    userProfileViewModel.visitProfilePage,
                               ),
                           ],
                         ),
@@ -790,7 +778,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                                         ],
                                       )
                                     : PostsWidget(
-                                        medias: theActivity,
+                                        medias: userProfileViewModel
+                                            .userActivityModel?.data,
                                       ),
                                 SizedBox(height: 200),
                               ],
@@ -802,6 +791,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ],
                 ),
               );
+            });
   }
 }
 

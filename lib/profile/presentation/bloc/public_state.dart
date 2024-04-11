@@ -15,7 +15,13 @@ class ProfileEnabledUserState extends ProfileState {}
 
 class ProfileDisabledUserState extends ProfileState {}
 
-class ProfileGotAddressLocationState extends ProfileState {}
+class ProfileGotAddressLocationState extends ProfileState {
+  AddressFromLocationModel data;
+  ProfileGotAddressLocationState(this.data);
+
+  @override
+  List<Object?> get props => [data];
+}
 
 class ProfileGotLocationCoordinateState extends ProfileState {}
 
@@ -24,11 +30,17 @@ class ProfileCreatedBankAccountState extends ProfileState {}
 class ProfileGotBankAccountState extends ProfileState {
   BankAccountDetailModel data;
   ProfileGotBankAccountState(this.data);
+
+  @override
+  List<Object?> get props => [data];
 }
 
 class ProfileGotUserInterests extends ProfileState {
   UserInterestListModel data;
   ProfileGotUserInterests(this.data);
+
+  @override
+  List<Object?> get props => [data];
 }
 
 class ProfileUpdatedInterestState extends ProfileState {}
