@@ -1,39 +1,25 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
-import 'package:zheeta/app/common/notify/notify_user.dart';
-import 'package:zheeta/app/injection/di.dart';
-import 'package:zheeta/authentication/presentation/state/state.dart';
-import 'package:zheeta/discover/domain/usecase/friend_request_usecase.dart';
-import 'package:zheeta/discover/presentation/state/friend_request_state.dart';
+import 'package:zheeta/discover/presentation/bloc/matches_cubit.dart';
 
-final friendRequestViewModelProvider = StateNotifierProvider<FriendRequestViewModel, FriendRequestState>(
-  (ref) {
-    final _useCase = locator<FriendRequestUseCase>();
-    return FriendRequestViewModel(_useCase);
-  },
-);
+// final friendRequestViewModelProvider = StateNotifierProvider<FriendRequestViewModel, FriendRequestState>(
+//   (ref) {
+//     final _useCase = locator<FriendRequestUseCase>();
+//     return FriendRequestViewModel(_useCase);
+//   },
+// );
 
-class FriendRequestViewModel extends StateNotifier<FriendRequestState> {
-  final FriendRequestUseCase _friendRequestUseCase;
-  FriendRequestViewModel(this._friendRequestUseCase)
-      : super(FriendRequestState(
-          sendFriendRequestState: State.init(),
-        ));
+class FriendRequestViewModel {
+  FriendRequestViewModel();
 
-  Future<bool> sendFriendRequest({required String receiverId, required TypeOfRequest typeOfRequest}) async {
-    state = state.setSendFriendRequestState(State.loading());
-    try {
-      final result = await _friendRequestUseCase.sendFriendRequestUseCase(
-        recieverId: receiverId,
-        typeOfRequest: typeOfRequest,
-      );
-
-      state = state.setSendFriendRequestState(State.success(result));
-      return true;
-    } on Exception catch (e) {
-      state = state.setSendFriendRequestState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
+  Future<void> sendFriendRequest(
+    BuildContext context, {
+    required String receiverId,
+    required TypeOfRequest typeOfRequest,
+  }) async {
+    await context
+        .read<MatchesCubit>()
+        .sendFriendRequestCubit(receiverId: receiverId, type: typeOfRequest);
   }
 }
