@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/activity/data/models/activity_model.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
@@ -9,6 +10,8 @@ import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_profile_request.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_repository.dart';
 
+@prod
+@LazySingleton()
 class CreateProfile extends UsecaseWithParams<void, CreateUserProfileRequest> {
   const CreateProfile(this._repo);
 
@@ -19,6 +22,8 @@ class CreateProfile extends UsecaseWithParams<void, CreateUserProfileRequest> {
       await _repo.createUserProfileRepo(param);
 }
 
+@prod
+@LazySingleton()
 class GetAllUsersProfile
     extends UsecaseWithParams<AllUserProfileListModel, GetAllUserParams> {
   const GetAllUsersProfile(this._repo);
@@ -33,6 +38,8 @@ class GetAllUsersProfile
           roleType: param.roleType);
 }
 
+@prod
+@LazySingleton()
 class GetSingleUserProfile extends UsecaseWithoutParams<UserProfileModel> {
   const GetSingleUserProfile(this._repo);
 
@@ -43,6 +50,8 @@ class GetSingleUserProfile extends UsecaseWithoutParams<UserProfileModel> {
       await _repo.getSingleUserProfileRepo();
 }
 
+@prod
+@LazySingleton()
 class GetUserRecentActivity extends UsecaseWithoutParams<ActivityListModel> {
   const GetUserRecentActivity(this._repo);
 
@@ -53,6 +62,8 @@ class GetUserRecentActivity extends UsecaseWithoutParams<ActivityListModel> {
       await _repo.getUserRecentActivity();
 }
 
+@prod
+@LazySingleton()
 class UpdateUserProfilePicture
     extends UsecaseWithParams<void, UploadProfilePictureParam> {
   const UpdateUserProfilePicture(this._repo);
@@ -64,6 +75,8 @@ class UpdateUserProfilePicture
       .updateUserProfilePictureRepo(userId: param.userId, file: param.file);
 }
 
+@prod
+@LazySingleton()
 class UpdateUserProfile
     extends UsecaseWithParams<void, UpdateUserProfileRequest> {
   const UpdateUserProfile(this._repo);
@@ -75,6 +88,8 @@ class UpdateUserProfile
       await _repo.updateUserProfileRepo(param);
 }
 
+@prod
+@LazySingleton()
 class VisitUserProfile extends UsecaseWithParams<ViewProfileModel, String> {
   const VisitUserProfile(this._repo);
 

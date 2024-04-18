@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
@@ -9,33 +8,32 @@ import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.
 import 'package:zheeta/discover/presentation/views/discover_screen.dart';
 import 'package:zheeta/feeds/presentation/views/feed_screen.dart';
 import 'package:zheeta/messages/presentation/views/messages.dart';
-import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
 import 'package:zheeta/profile/presentation/views/profile.dart';
 import 'package:zheeta/widgets/drawer.dart';
 import 'package:zheeta/widgets/top_nav.dart';
 
 @RoutePage()
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   late MatchCriteriaViewModel matchCriteriaViewModel;
-  late NotificationViewModel notificationViewModel;
+  //late NotificationViewModel notificationViewModel;
 
   @override
   void initState() {
-    matchCriteriaViewModel = ref.read(matchCriteriaViewModelProvider.notifier);
-    notificationViewModel = ref.read(notificationViewModelProvider.notifier);
+    matchCriteriaViewModel = MatchCriteriaViewModel();
+    //notificationViewModel = ref.read(notificationViewModelProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      matchCriteriaViewModel.getMatchCriteria();
-      notificationViewModel.getNotifications();
+      matchCriteriaViewModel.getMatchCriteria(context);
+      //notificationViewModel.getNotifications();
     });
     super.initState();
   }

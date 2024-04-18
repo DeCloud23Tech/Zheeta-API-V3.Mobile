@@ -12,7 +12,7 @@ import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
 class BioDataScreen extends StatefulWidget {
-  BioDataScreen({super.key});
+  const BioDataScreen({super.key});
 
   @override
   State<BioDataScreen> createState() => _BioDataScreenState();

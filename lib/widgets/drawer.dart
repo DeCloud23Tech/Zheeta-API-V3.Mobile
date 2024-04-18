@@ -9,18 +9,19 @@ import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
-class SideDrawer extends ConsumerStatefulWidget {
+class SideDrawer extends StatefulWidget {
   const SideDrawer({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SideDrawerState();
+  State<SideDrawer> createState() => _SideDrawerState();
 }
 
-class _SideDrawerState extends ConsumerState<SideDrawer> {
+class _SideDrawerState extends State<SideDrawer> {
+  UserProfileViewModel vm = UserProfileViewModel();
   @override
   Widget build(BuildContext context) {
-    final userProfileState = ref.watch(userProfileViewModelProvider);
-    final user = userProfileState.getSingleUserProfileState.data?.data;
+    // final userProfileState = ref.watch(userProfileViewModelProvider);
+    final user = vm.userProfileModel?.data;
     return Container(
         width: MediaQuery.of(context).size.width,
         child: Drawer(
@@ -55,11 +56,16 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                               SizedBox(height: 20),
                               Row(
                                 children: [
-                                  if (user?.user?.isFullyVerified ?? false) Image.asset('assets/images/badge.png', width: 19, height: 19),
+                                  if (user?.user?.isFullyVerified ?? false)
+                                    Image.asset('assets/images/badge.png',
+                                        width: 19, height: 19),
                                   SizedBox(width: 5),
                                   Text(
                                     "${user?.profile?.firstName} ${user?.profile?.lastName}",
-                                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(height: 5),
                                 ],
@@ -68,27 +74,38 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                                 children: [
                                   Text(
                                     "@${user?.user?.userName}",
-                                    style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w400),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   SizedBox(width: 10),
                                   Container(
-                                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 3, horizontal: 6),
                                     decoration: BoxDecoration(
                                       color: AppColors.primaryDark,
                                       gradient: const LinearGradient(
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
-                                        colors: [AppColors.primaryLight, AppColors.primaryDark],
+                                        colors: [
+                                          AppColors.primaryLight,
+                                          AppColors.primaryDark
+                                        ],
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Row(
                                       children: [
-                                        SvgPicture.asset('assets/images/female.svg', width: 10),
+                                        SvgPicture.asset(
+                                            'assets/images/female.svg',
+                                            width: 10),
                                         SizedBox(width: 3),
                                         Text(
                                           '${user?.profile?.dateOfBirth.toString().dateToAge}',
-                                          style: const TextStyle(color: AppColors.white, fontSize: 9),
+                                          style: const TextStyle(
+                                              color: AppColors.white,
+                                              fontSize: 9),
                                         ),
                                       ],
                                     ),
@@ -99,13 +116,20 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                                     height: 19,
                                     padding: EdgeInsets.all(1),
                                     decoration: BoxDecoration(
-                                      color: user?.profile?.gender.toString().getFirstLetter == 'M' ? Color(0xff07C35D) : AppColors.primaryLight,
+                                      color: user?.profile?.gender
+                                                  .toString()
+                                                  .getFirstLetter ==
+                                              'M'
+                                          ? Color(0xff07C35D)
+                                          : AppColors.primaryLight,
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Center(
                                       child: Text(
                                         '${user?.profile?.gender.toString().getFirstLetter}',
-                                        style: const TextStyle(color: AppColors.white, fontSize: 12),
+                                        style: const TextStyle(
+                                            color: AppColors.white,
+                                            fontSize: 12),
                                       ),
                                     ),
                                   ),
@@ -126,7 +150,9 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                               padding: EdgeInsets.all(10),
                               height: 40,
                               width: 40,
-                              decoration: BoxDecoration(color: AppColors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(100)),
+                              decoration: BoxDecoration(
+                                  color: AppColors.white.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(100)),
                               child: SvgPicture.asset(
                                 'assets/images/icons/close.svg',
                                 width: 30,
@@ -148,11 +174,17 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                             children: [
                               Text(
                                 "${user?.profileCounters?.friendsCount}",
-                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400),
                               ),
                               Text(
                                 "Friends",
-                                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
                               ),
                             ],
                           ),
@@ -163,11 +195,17 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                             children: [
                               Text(
                                 "${user?.profileCounters?.refereesCount}",
-                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400),
                               ),
                               Text(
                                 "Referees",
-                                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
                               ),
                             ],
                           ),
@@ -178,11 +216,17 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                             children: [
                               Text(
                                 "${user?.profileCounters?.postCount}",
-                                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400),
                               ),
                               Text(
                                 "Posts",
-                                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
                               ),
                             ],
                           ),
@@ -192,12 +236,27 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                   ),
                   SizedBox(
                     height: 40,
-                    child: PrimaryButton(invert: true, icon: "assets/images/icons/manage.svg", title: 'Manage User', action: () {}),
+                    child: PrimaryButton(
+                        invert: true,
+                        icon: "assets/images/icons/manage.svg",
+                        title: 'Manage User',
+                        action: () {}),
                   ),
                   SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("My Communities", style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500)), Text("View All", style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400))],
+                    children: [
+                      Text("My Communities",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500)),
+                      Text("View All",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400))
+                    ],
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -206,7 +265,9 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                         width: 50,
                         height: 70,
                         padding: EdgeInsets.all(14),
-                        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(8)),
+                        decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(8)),
                         child: SvgPicture.asset("assets/images/icons/plus.svg"),
                       ),
                       SizedBox(width: 10),
@@ -216,7 +277,12 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
-                              for (var i = 0; i < 6; i++) community(context, "Community 1", "assets/images/comm.png", PendingRequestRoute()),
+                              for (var i = 0; i < 6; i++)
+                                community(
+                                    context,
+                                    "Community 1",
+                                    "assets/images/comm.png",
+                                    PendingRequestRoute()),
                             ],
                           ),
                         ),
@@ -228,39 +294,69 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                     runSpacing: 10,
                     spacing: 15,
                     children: [
-                      menu(context, 'Wallet', "assets/images/icons/manage.svg", PendingRequestRoute()),
-                      menu(context, 'My Friend Request', "assets/images/icons/request.svg", PendingRequestRoute()),
-                      menu(context, 'Gift Shop', "assets/images/icons/shop.svg", GiftShopRoute()),
-                      menu(context, 'My Gifts', "assets/images/icons/gifts.svg", MyGiftRoute()),
-                      menu(context, 'Bank Account', "assets/images/icons/bank.svg", BankAccountRoute()),
-                      menu(context, 'Subscription Plan', "assets/images/icons/subscription.svg", PendingRequestRoute()),
-                      menu(context, 'My Referees', "assets/images/icons/referees.svg", RefereeRoute()),
-                      menu(context, 'Nearby Users', "assets/images/icons/nearby.svg", RefereeRoute()),
+                      menu(context, 'Wallet', "assets/images/icons/manage.svg",
+                          PendingRequestRoute()),
+                      menu(
+                          context,
+                          'My Friend Request',
+                          "assets/images/icons/request.svg",
+                          PendingRequestRoute()),
+                      menu(context, 'Gift Shop', "assets/images/icons/shop.svg",
+                          GiftShopRoute()),
+                      menu(context, 'My Gifts', "assets/images/icons/gifts.svg",
+                          MyGiftRoute()),
+                      menu(context, 'Bank Account',
+                          "assets/images/icons/bank.svg", BankAccountRoute()),
+                      menu(
+                          context,
+                          'Subscription Plan',
+                          "assets/images/icons/subscription.svg",
+                          PendingRequestRoute()),
+                      menu(context, 'My Referees',
+                          "assets/images/icons/referees.svg", RefereeRoute()),
+                      menu(context, 'Nearby Users',
+                          "assets/images/icons/nearby.svg", RefereeRoute()),
                     ],
                   ),
                   SizedBox(height: 10),
                   Container(
                     height: 100,
                     padding: EdgeInsets.only(left: 15, top: 15, right: 15),
-                    decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(8)),
+                    decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Z- \$ Rate in my Local Currency", style: TextStyle(color: AppColors.darkText, fontSize: 14, fontWeight: FontWeight.w400)),
+                        Text("Z- \$ Rate in my Local Currency",
+                            style: TextStyle(
+                                color: AppColors.darkText,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400)),
                         SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(color: AppColors.secondaryLight, borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(
+                              color: AppColors.secondaryLight,
+                              borderRadius: BorderRadius.circular(8)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("1 USD", style: TextStyle(color: AppColors.darkText, fontSize: 16, fontWeight: FontWeight.w600)),
+                              Text("1 USD",
+                                  style: TextStyle(
+                                      color: AppColors.darkText,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
                               Container(
                                 color: AppColors.primaryDark,
                                 height: 15,
                                 width: 1,
                               ),
-                              Text("740.00 NGN", style: TextStyle(color: AppColors.darkText, fontSize: 16, fontWeight: FontWeight.w600)),
+                              Text("740.00 NGN",
+                                  style: TextStyle(
+                                      color: AppColors.darkText,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
                             ],
                           ),
                         )
@@ -284,7 +380,8 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
         ));
   }
 
-  GestureDetector menu(BuildContext context, String title, String icon, PageRouteInfo page) {
+  GestureDetector menu(
+      BuildContext context, String title, String icon, PageRouteInfo page) {
     return GestureDetector(
       onTap: () {
         Scaffold.of(context).closeDrawer();
@@ -294,16 +391,26 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
         width: MediaQuery.of(context).size.width * 0.44,
         height: 70,
         padding: EdgeInsets.only(left: 15, top: 15),
-        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(
+            color: AppColors.white, borderRadius: BorderRadius.circular(8)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [SvgPicture.asset(icon), SizedBox(height: 5), Text(title, style: TextStyle(color: AppColors.darkText, fontSize: 14, fontWeight: FontWeight.w400))],
+          children: [
+            SvgPicture.asset(icon),
+            SizedBox(height: 5),
+            Text(title,
+                style: TextStyle(
+                    color: AppColors.darkText,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400))
+          ],
         ),
       ),
     );
   }
 
-  GestureDetector community(BuildContext context, String title, String icon, PageRouteInfo page) {
+  GestureDetector community(
+      BuildContext context, String title, String icon, PageRouteInfo page) {
     return GestureDetector(
       onTap: () {
         Scaffold.of(context).closeDrawer();
@@ -316,11 +423,17 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
             Container(
               width: 50,
               height: 50,
-              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(8)),
               child: Image.asset(icon),
             ),
             SizedBox(height: 5),
-            Text(title, style: TextStyle(color: AppColors.white, fontSize: 10, fontWeight: FontWeight.w400))
+            Text(title,
+                style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400))
           ],
         ),
       ),

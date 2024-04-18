@@ -12,8 +12,7 @@ import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
 class ProfileCarouselScreen extends StatefulWidget {
-  UserProfileViewModel userProfileViewModel;
-  ProfileCarouselScreen({super.key, required this.userProfileViewModel});
+  ProfileCarouselScreen({super.key});
 
   @override
   State<ProfileCarouselScreen> createState() => _ProfileCarouselScreenState();
@@ -22,6 +21,12 @@ class ProfileCarouselScreen extends StatefulWidget {
 class _ProfileCarouselScreenState extends State<ProfileCarouselScreen> {
   late UserProfileViewModel userProfileViewModel;
   List<File?> files = [];
+
+  @override
+  void initState() {
+    userProfileViewModel = UserProfileViewModel();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

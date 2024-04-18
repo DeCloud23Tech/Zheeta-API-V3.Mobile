@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/extensions/num_extension.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
@@ -9,7 +8,6 @@ import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/about_screen_viewmodel.dart';
-import 'package:zheeta/profile/presentation/viewmodel/user_interest_viewmodel.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/input_field.dart';
@@ -18,10 +16,8 @@ import 'package:zheeta/widgets/radio_button.dart';
 
 @RoutePage()
 class AboutScreen extends StatefulWidget {
-  UserProfileViewModel userProfileViewModel;
   AboutScreen({
     super.key,
-    required this.userProfileViewModel,
   });
 
   @override
@@ -35,7 +31,7 @@ class _AboutScreenState extends State<AboutScreen> with ValidationHelperMixin {
   @override
   void initState() {
     vm = AbountScreenViewModel();
-    userProfileViewModel = widget.userProfileViewModel;
+    userProfileViewModel = UserProfileViewModel();
     super.initState();
   }
 

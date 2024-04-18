@@ -1,10 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
-import 'package:zheeta/profile/data/model/user_interest_model.dart';
-import 'package:zheeta/profile/data/request/update_user_interest_request.dart';
-import 'package:zheeta/profile/domain/repository/user_interest_repository.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_access_repository.dart';
 
+@prod
+@LazySingleton()
 class BlockAccount extends UsecaseWithParams<void, BlockUserParams> {
   const BlockAccount(this._repo);
 
@@ -17,6 +17,8 @@ class BlockAccount extends UsecaseWithParams<void, BlockUserParams> {
           blockOrUnblockUserId: param.blockOrUnblockUserId);
 }
 
+@prod
+@LazySingleton()
 class GetBlockedUsers extends UsecaseWithParams<void, PaginationParam> {
   const GetBlockedUsers(this._repo);
 
@@ -28,6 +30,8 @@ class GetBlockedUsers extends UsecaseWithParams<void, PaginationParam> {
           pageNumber: params.pageNo, pageSize: params.pageSize);
 }
 
+@prod
+@LazySingleton()
 class UnBlockAccount extends UsecaseWithParams<void, BlockUserParams> {
   const UnBlockAccount(this._repo);
 

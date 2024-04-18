@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/activity/data/models/activity_model.dart';
 import 'package:zheeta/profile/data/model/address_from_location_model.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
@@ -29,6 +30,8 @@ import 'package:zheeta/profile/domain/usecase/ref_usecases/user_transaction_usec
 
 part 'public_state.dart';
 
+@prod
+@LazySingleton()
 class ProfileCubit extends Cubit<ProfileState> {
   final DisableAccount disableAccount;
   final EnableAccount enableAccount;

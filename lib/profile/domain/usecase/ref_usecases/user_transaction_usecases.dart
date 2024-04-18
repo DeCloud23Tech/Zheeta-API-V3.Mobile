@@ -1,9 +1,12 @@
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
 import 'package:zheeta/profile/data/model/user_transaction_model.dart';
 import 'package:zheeta/profile/domain/repository/user_transaction_repository.dart';
 import 'package:zheeta/profile/domain/usecase/ref_usecases/user_search_usecases.dart';
 
+@prod
+@LazySingleton()
 class GetUserTransactions extends UsecaseWithParams<UserTransactionListModel,
     UserSearchByEmailParam> {
   const GetUserTransactions(this._repo);

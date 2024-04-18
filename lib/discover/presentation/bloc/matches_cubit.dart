@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
@@ -9,6 +10,8 @@ import 'package:zheeta/discover/domain/usecase/ref/match_criteria_usecases.dart'
 
 part 'matches_state.dart';
 
+@prod
+@LazySingleton()
 class MatchesCubit extends Cubit<MatchesState> {
   final SendFriendRequest sendFriendRequest;
   final GetMatchCriteria getMatchCriteria;

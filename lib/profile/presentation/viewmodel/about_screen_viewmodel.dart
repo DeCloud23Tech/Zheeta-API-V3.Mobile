@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/lists.dart';
 import 'package:zheeta/profile/data/model/user_interest_model.dart';
-import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 
+@prod
+@LazySingleton()
 class AbountScreenViewModel {
   double height = 0;
   double weight = 0;

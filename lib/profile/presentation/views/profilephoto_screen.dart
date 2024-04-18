@@ -14,8 +14,7 @@ import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
 class ProfilePhotoScreen extends StatefulWidget {
-  UserProfileViewModel userProfileViewModel;
-  ProfilePhotoScreen({super.key, required this.userProfileViewModel});
+  ProfilePhotoScreen({super.key});
 
   @override
   State<ProfilePhotoScreen> createState() => _ProfilePhotoScreenState();
@@ -39,7 +38,7 @@ class _ProfilePhotoScreenState extends State<ProfilePhotoScreen> {
 
   @override
   void initState() {
-    userProfileViewModel = widget.userProfileViewModel;
+    userProfileViewModel = UserProfileViewModel();
     super.initState();
   }
 

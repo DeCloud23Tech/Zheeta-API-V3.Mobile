@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
@@ -5,6 +6,8 @@ import 'package:zheeta/discover/data/model/match_model.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/domain/repository/match_criteria_repository.dart';
 
+@prod
+@LazySingleton()
 class GetMatchCriteria extends UsecaseWithoutParams<MatchCriteriaModel> {
   const GetMatchCriteria(this._repo);
 
@@ -15,6 +18,8 @@ class GetMatchCriteria extends UsecaseWithoutParams<MatchCriteriaModel> {
       await _repo.getMatchCriteria();
 }
 
+@prod
+@LazySingleton()
 class PopulateMatches extends UsecaseWithoutParams<void> {
   const PopulateMatches(this._repo);
 
@@ -24,6 +29,8 @@ class PopulateMatches extends UsecaseWithoutParams<void> {
   ResultFuture<void> call() async => await _repo.populateMatches();
 }
 
+@prod
+@LazySingleton()
 class GetMatches extends UsecaseWithParams<MatchListModel, String> {
   const GetMatches(this._repo);
 
@@ -34,6 +41,8 @@ class GetMatches extends UsecaseWithParams<MatchListModel, String> {
       await _repo.getMatches(userId: param);
 }
 
+@prod
+@LazySingleton()
 class UpdateMatchCriteria
     extends UsecaseWithParams<void, MatchCriteriaRequest> {
   const UpdateMatchCriteria(this._repo);

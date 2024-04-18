@@ -54,9 +54,11 @@ abstract class $AppRouter extends _i25.RootStackRouter {
   @override
   final Map<String, _i25.PageFactory> pagesMap = {
     AboutRoute.name: (routeData) {
+      final args = routeData.argsAs<AboutRouteArgs>(
+          orElse: () => const AboutRouteArgs());
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.AboutScreen(),
+        child: _i1.AboutScreen(key: args.key),
       );
     },
     BankAccountRoute.name: (routeData) {
@@ -102,9 +104,11 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       );
     },
     LocationRoute.name: (routeData) {
+      final args = routeData.argsAs<LocationRouteArgs>(
+          orElse: () => const LocationRouteArgs());
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.LocationScreen(),
+        child: _i9.LocationScreen(key: args.key),
       );
     },
     MyGiftRoute.name: (routeData) {
@@ -137,15 +141,19 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       );
     },
     ProfileCarouselRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileCarouselRouteArgs>(
+          orElse: () => const ProfileCarouselRouteArgs());
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.ProfileCarouselScreen(),
+        child: _i14.ProfileCarouselScreen(key: args.key),
       );
     },
     ProfilePhotoRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfilePhotoRouteArgs>(
+          orElse: () => const ProfilePhotoRouteArgs());
       return _i25.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i15.ProfilePhotoScreen(),
+        child: _i15.ProfilePhotoScreen(key: args.key),
       );
     },
     ProfileRoute.name: (routeData) {
@@ -231,16 +239,31 @@ abstract class $AppRouter extends _i25.RootStackRouter {
 
 /// generated route for
 /// [_i1.AboutScreen]
-class AboutRoute extends _i25.PageRouteInfo<void> {
-  const AboutRoute({List<_i25.PageRouteInfo>? children})
-      : super(
+class AboutRoute extends _i25.PageRouteInfo<AboutRouteArgs> {
+  AboutRoute({
+    _i27.Key? key,
+    List<_i25.PageRouteInfo>? children,
+  }) : super(
           AboutRoute.name,
+          args: AboutRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'AboutRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+  static const _i25.PageInfo<AboutRouteArgs> page =
+      _i25.PageInfo<AboutRouteArgs>(name);
+}
+
+class AboutRouteArgs {
+  const AboutRouteArgs({this.key});
+
+  final _i27.Key? key;
+
+  @override
+  String toString() {
+    return 'AboutRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -343,16 +366,31 @@ class IntroRoute extends _i25.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.LocationScreen]
-class LocationRoute extends _i25.PageRouteInfo<void> {
-  const LocationRoute({List<_i25.PageRouteInfo>? children})
-      : super(
+class LocationRoute extends _i25.PageRouteInfo<LocationRouteArgs> {
+  LocationRoute({
+    _i27.Key? key,
+    List<_i25.PageRouteInfo>? children,
+  }) : super(
           LocationRoute.name,
+          args: LocationRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LocationRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+  static const _i25.PageInfo<LocationRouteArgs> page =
+      _i25.PageInfo<LocationRouteArgs>(name);
+}
+
+class LocationRouteArgs {
+  const LocationRouteArgs({this.key});
+
+  final _i27.Key? key;
+
+  @override
+  String toString() {
+    return 'LocationRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -437,30 +475,61 @@ class ProductDetailsRouteArgs {
 
 /// generated route for
 /// [_i14.ProfileCarouselScreen]
-class ProfileCarouselRoute extends _i25.PageRouteInfo<void> {
-  const ProfileCarouselRoute({List<_i25.PageRouteInfo>? children})
-      : super(
+class ProfileCarouselRoute
+    extends _i25.PageRouteInfo<ProfileCarouselRouteArgs> {
+  ProfileCarouselRoute({
+    _i27.Key? key,
+    List<_i25.PageRouteInfo>? children,
+  }) : super(
           ProfileCarouselRoute.name,
+          args: ProfileCarouselRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'ProfileCarouselRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+  static const _i25.PageInfo<ProfileCarouselRouteArgs> page =
+      _i25.PageInfo<ProfileCarouselRouteArgs>(name);
+}
+
+class ProfileCarouselRouteArgs {
+  const ProfileCarouselRouteArgs({this.key});
+
+  final _i27.Key? key;
+
+  @override
+  String toString() {
+    return 'ProfileCarouselRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
 /// [_i15.ProfilePhotoScreen]
-class ProfilePhotoRoute extends _i25.PageRouteInfo<void> {
-  const ProfilePhotoRoute({List<_i25.PageRouteInfo>? children})
-      : super(
+class ProfilePhotoRoute extends _i25.PageRouteInfo<ProfilePhotoRouteArgs> {
+  ProfilePhotoRoute({
+    _i27.Key? key,
+    List<_i25.PageRouteInfo>? children,
+  }) : super(
           ProfilePhotoRoute.name,
+          args: ProfilePhotoRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'ProfilePhotoRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+  static const _i25.PageInfo<ProfilePhotoRouteArgs> page =
+      _i25.PageInfo<ProfilePhotoRouteArgs>(name);
+}
+
+class ProfilePhotoRouteArgs {
+  const ProfilePhotoRouteArgs({this.key});
+
+  final _i27.Key? key;
+
+  @override
+  String toString() {
+    return 'ProfilePhotoRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:http_parser/http_parser.dart' show MediaType;
+import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:zheeta/activity/data/models/activity_model.dart';
 
@@ -31,12 +32,8 @@ import 'package:zheeta/profile/domain/usecase/ref_usecases/user_profile_usecases
 
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 
-// final userProfileViewModelProvider =
-//     StateNotifierProvider<UserProfileViewModel, UserProfileState>((ref) {
-//   final _userProfileUseCase = locator<UserProfileUseCase>();
-//   return UserProfileViewModel();
-// });
-
+@prod
+@LazySingleton()
 class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   UserProfileViewModel();
 
@@ -382,8 +379,6 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     final result =
         await context.read<ProfileCubit>().visitUserProfileCubit(visitingId);
     visitProfilePage = result;
-    
-
   }
 
   loadUserRecentActivity(BuildContext context) async {

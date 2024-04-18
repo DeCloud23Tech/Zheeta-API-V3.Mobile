@@ -1,8 +1,11 @@
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
 import 'package:zheeta/discover/domain/repository/friend_request_repository.dart';
 
+@prod
+@LazySingleton()
 class SendFriendRequest extends UsecaseWithParams<void, SendRequestParams> {
   const SendFriendRequest(this._repo);
 

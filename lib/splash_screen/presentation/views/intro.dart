@@ -20,11 +20,11 @@ class IntroScreen extends ConsumerStatefulWidget {
 class _IntroScreenState extends ConsumerState<IntroScreen>
     with TickerProviderStateMixin {
   late AnimationController animationController;
-  late UserAuthViewModel userAuthViewModel;
+  //late UserAuthViewModel userAuthViewModel;
 
   @override
   void initState() {
-    userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
+    //userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       checkForLogin();
       //userProfileViewModel.loadSelectedCountryStates('Nigeria');
@@ -36,7 +36,7 @@ class _IntroScreenState extends ConsumerState<IntroScreen>
   }
 
   checkForLogin() async {
-    await userAuthViewModel.checkIfUserIsLoggedIn();
+    //await userAuthViewModel.checkIfUserIsLoggedIn();
   }
 
   @override

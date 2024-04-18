@@ -16,8 +16,7 @@ import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
 class LocationScreen extends StatefulWidget {
-  UserProfileViewModel userProfileViewModel;
-  LocationScreen({super.key, required this.userProfileViewModel});
+  LocationScreen({super.key});
 
   @override
   State<LocationScreen> createState() => _LocationScreenState();
@@ -37,7 +36,7 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    userProfileViewModel = widget.userProfileViewModel;
+    userProfileViewModel = UserProfileViewModel();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       populateLocationField();
@@ -130,8 +129,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         if (formKey.currentState!.validate()) {
                           final interestIsFetched =
                               await userInterestViewModel.getInterests();
-                          if (interestIsFetched)
-                            router.push(const AboutRoute());
+                          if (interestIsFetched) router.push(AboutRoute());
                         }
                       },
                     ),

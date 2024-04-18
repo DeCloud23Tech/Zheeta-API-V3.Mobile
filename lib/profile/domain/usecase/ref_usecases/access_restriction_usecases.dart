@@ -1,7 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
 import 'package:zheeta/profile/domain/repository/access_restriction_repository.dart';
 
+@prod
+@LazySingleton()
 class DisableAccount extends UsecaseWithParams<void, String> {
   const DisableAccount(this._repo);
 
@@ -12,6 +15,8 @@ class DisableAccount extends UsecaseWithParams<void, String> {
       await _repo.disableAccountRepo(userId: params);
 }
 
+@prod
+@LazySingleton()
 class EnableAccount extends UsecaseWithParams<void, String> {
   const EnableAccount(this._repo);
 

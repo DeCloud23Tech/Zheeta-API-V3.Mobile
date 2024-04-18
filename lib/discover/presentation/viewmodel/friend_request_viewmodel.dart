@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
 import 'package:zheeta/discover/presentation/bloc/matches_cubit.dart';
 
@@ -10,6 +11,8 @@ import 'package:zheeta/discover/presentation/bloc/matches_cubit.dart';
 //   },
 // );
 
+@prod
+@LazySingleton()
 class FriendRequestViewModel {
   FriendRequestViewModel();
 
