@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:injectable/injectable.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -9,9 +10,11 @@ import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
+import 'package:zheeta/app/common/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
+import 'package:zheeta/authentication/data/model/register_user_model.dart';
 import 'package:zheeta/authentication/data/request/login_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
@@ -27,6 +30,8 @@ import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.
 //   return UserAuthViewModel(authUsecase, ref);
 // });
 
+@prod
+@LazySingleton()
 class UserAuthViewModel with ValidationHelperMixin {
   UserAuthViewModel();
 
@@ -98,14 +103,32 @@ class UserAuthViewModel with ValidationHelperMixin {
       final result = await context
           .read<AuthenticationCubit>()
           .registerUserCubit(request: data);
-      ;
+    }
+  }
 
-      // Navigate to verification screen
+  Future<void> navigateToVerificationPage() async {
+    // Navigate to verification screen
+
+    router.popAndPush(VerificationRoute(
+        isPhoneNumber: true,
+        phoneNumber: _phoneNumber.number,
+        countryCode: _phoneNumber.countryCode,
+        email: _email));
+  }
+
+  Future<void> navigateToVerificationPageLogin() async {
+    // Navigate to verification screen
+    IUserStorage userStorage = locator<IUserStorage>();
+
+    RegisterUserModel? user = await userStorage.read();
+    if (user != null) {
       router.popAndPush(VerificationRoute(
           isPhoneNumber: true,
-          phoneNumber: _phoneNumber.number,
-          countryCode: _phoneNumber.countryCode,
-          email: _email));
+          phoneNumber: user.phoneNumber,
+          countryCode: user.phoneCountryCode,
+          email: user.email));
+    } else {
+      NotifyUser.showSnackbar('No Registered User');
     }
   }
 

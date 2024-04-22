@@ -7,6 +7,7 @@ import 'package:zheeta/app/common/mixins/validator_mixin.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/data/request/login_request.dart';
@@ -37,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
 
   @override
   void initState() {
-    //userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
+    userAuthViewModel = locator<UserAuthViewModel>();
     super.initState();
   }
 
@@ -49,7 +50,13 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
     return BlocConsumer<AuthenticationCubit, AuthentcationState>(
         listener: (context, state) {
       if (state is AuthenticationErrorState) {
-        NotifyUser.showSnackbar(state.errorMessage);
+        if (state.errorMessage == "Email is not verified") {
+          userAuthViewModel.navigateToVerificationPageLogin();
+        } else {
+          WidgetsBinding.instance?.addPostFrameCallback((_) async {
+            await NotifyUser.showSnackbar(state.errorMessage);
+          });
+        }
       }
     }, builder: (context, state) {
       return Scaffold(

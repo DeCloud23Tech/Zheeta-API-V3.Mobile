@@ -371,7 +371,7 @@ class __$$RegisterUserModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class _$RegisterUserModelImpl implements _RegisterUserModel {
   _$RegisterUserModelImpl(
       {this.phoneCountryCode,

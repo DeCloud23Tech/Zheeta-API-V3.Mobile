@@ -10,6 +10,7 @@ import 'package:zheeta/app/common/mixins/validator_mixin.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
@@ -43,6 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
   Country? phoneCode;
   @override
   void initState() {
+    userAuthViewModel = locator<UserAuthViewModel>();
     super.initState();
   }
 
@@ -54,6 +56,9 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
         listener: (context, state) {
       if (state is AuthenticationErrorState) {
         NotifyUser.showSnackbar(state.errorMessage);
+      }
+      if (state is AuthenticationRegisteredState) {
+        userAuthViewModel.navigateToVerificationPage();
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -84,6 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                     controller: usernameController,
                     onChanged: (value) {
                       validatorChange.value = value;
+                      userAuthViewModel.setUsername(value);
                     },
                   ),
                   InputField(
@@ -93,6 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                     controller: passwordController,
                     onChanged: (value) {
                       validatorChange.value = value;
+                      userAuthViewModel.setPassword(value);
                     },
                   ),
                   InputField(
@@ -103,6 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                     controller: confirmPasswordController,
                     onChanged: (value) {
                       validatorChange.value = value;
+                      userAuthViewModel.setRetypePassword(value);
                     },
                   ),
                   SizedBox(height: 10),
@@ -112,6 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                     controller: emailController,
                     onChanged: (value) {
                       validatorChange.value = value;
+                      userAuthViewModel.setEmail(value);
                     },
                   ),
                   SizedBox(height: 10),
@@ -143,6 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                     controller: phoneController,
                     onChanged: (phone) {
                       validatorChange.value = phone;
+                      userAuthViewModel.setPhoneNumber(phone);
                       setState(() {
                         _phoneNumber = phone;
                       });
@@ -152,6 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                       setState(() {
                         _phoneNumber.countryCode = '${value.code}';
                       });
+                      userAuthViewModel.setCountryCode(value);
                     },
                     autovalidateMode: AutovalidateMode.disabled,
                   ),
@@ -179,6 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                           setState(() {
                             agree = value!;
                           });
+                          userAuthViewModel.setAgree(value!);
                           //userAuthViewModel.setAgree(agree);
                         },
                       ),
@@ -227,18 +239,19 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                             action: () async {
                               final isValid = formKey.currentState?.validate();
                               if (isValid ?? false) {
-                                context
-                                    .read<AuthenticationCubit>()
-                                    .registerUserCubit(
-                                        request: RegisterUserRequest(
-                                      userName: usernameController.text,
-                                      password: passwordController.text,
-                                      email: emailController.text,
-                                      phoneNumber: _phoneNumber.completeNumber,
-                                      phoneCountryCode:
-                                          _phoneNumber.countryCode,
-                                      referralCode: referralController.text,
-                                    ));
+                                await userAuthViewModel.registerUser(context);
+                                // context
+                                //     .read<AuthenticationCubit>()
+                                //     .registerUserCubit(
+                                //         request: RegisterUserRequest(
+                                //       userName: usernameController.text,
+                                //       password: passwordController.text,
+                                //       email: emailController.text,
+                                //       phoneNumber: _phoneNumber.completeNumber,
+                                //       phoneCountryCode:
+                                //           _phoneNumber.countryCode,
+                                //       referralCode: referralController.text,
+                                //     ));
                               }
                             },
                           );

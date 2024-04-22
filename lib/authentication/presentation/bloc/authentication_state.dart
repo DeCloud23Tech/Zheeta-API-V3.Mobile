@@ -63,3 +63,11 @@ class AuthenticationResetPasswordState extends AuthentcationState {}
 class AuthenticationLoggedInOAuthState extends AuthentcationState {}
 
 class AuthenticationSentResetPasswordState extends AuthentcationState {}
+
+class AuthenticationSentEmailOtpState extends AuthentcationState {}
+
+class AuthenticationSentPhoneOtpState extends AuthentcationState {}
+
+class AuthenticationVerifiedPhoneOtpState extends AuthentcationState {}
+
+class AuthenticationVerifiedEmailOtpState extends AuthentcationState {}

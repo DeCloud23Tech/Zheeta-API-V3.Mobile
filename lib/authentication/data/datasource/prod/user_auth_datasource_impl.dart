@@ -125,16 +125,25 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
 
   @override
   Future<LoginUserModel> loginNew(LoginRequest request) async {
-    var response = await _api.dio.post('/userauth/change-password',
+    var response = await _api.dio.post('/userauth/login',
         options: Options(
           contentType: Headers.jsonContentType,
         ),
         data: jsonEncode(request.toJson()));
     if (response.statusCode == 200) {
-      return LoginUserModel.fromJson(response.data['data']);
+      if (response.data?['statusCode'] == 200) {
+        return LoginUserModel.fromJson(response.data['data']);
+      } else {
+        throw DioException.badResponse(
+            statusCode: response.data?['statusCode'] ?? 400,
+            requestOptions: response.requestOptions,
+            response: response);
+      }
     } else {
-      throw ApiException(
-          message: response.statusMessage!, statusCode: response.statusCode!);
+      throw DioException.badResponse(
+          statusCode: response.data?['statusCode'] ?? 400,
+          requestOptions: response.requestOptions,
+          response: response);
     }
   }
 
@@ -174,10 +183,19 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
         ),
         data: jsonEncode(request.toJson()));
     if (response.statusCode == 200) {
-      return RegisterUserModel.fromJson(response.data['data']);
+      if (response.data?['statusCode'] == 201) {
+        return RegisterUserModel.fromJson(response.data['data']);
+      } else {
+        throw DioException.badResponse(
+            statusCode: response.data?['statusCode'] ?? 400,
+            requestOptions: response.requestOptions,
+            response: response);
+      }
     } else {
-      throw ApiException(
-          message: response.statusMessage!, statusCode: response.statusCode!);
+      throw DioException.badResponse(
+          statusCode: response.data?['statusCode'] ?? 400,
+          requestOptions: response.requestOptions,
+          response: response);
     }
   }
 

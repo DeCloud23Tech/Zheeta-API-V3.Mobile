@@ -12,6 +12,8 @@ import 'package:zheeta/authentication/data/request/register_staff_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
 import 'package:zheeta/authentication/data/request/user_roles_request.dart';
+import 'package:zheeta/authentication/data/request/verify_email_otp_request.dart';
+import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart';
 import 'package:zheeta/authentication/domain/usecase/ref_usecase/country/country_usecases.dart';
 import 'package:zheeta/authentication/domain/usecase/ref_usecase/identity/identity_usecases.dart';
 import 'package:zheeta/authentication/domain/usecase/ref_usecase/user_auth/user_auth_usecases.dart';
@@ -33,6 +35,10 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
   final ResetPassword resetPassword;
   final LoginOAuth loginOAuth;
   final SendPasswordResetOtp sendPasswordResetOtp;
+  final SendEmailVerifyOtp sendEmailVerifyOtp;
+  final SendPhoneVerifyOtp sendPhoneVerifyOtp;
+  final VerifyPhoneOtp verifyPhoneOtp;
+  final VerifyEmailOtp verifyEmailOtp;
 
   AuthenticationCubit({
     required this.getAllCountries,
@@ -46,6 +52,10 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
     required this.resetPassword,
     required this.loginOAuth,
     required this.sendPasswordResetOtp,
+    required this.sendEmailVerifyOtp,
+    required this.sendPhoneVerifyOtp,
+    required this.verifyPhoneOtp,
+    required this.verifyEmailOtp,
   }) : super(AuthenticationInitialState());
 
   Future<void> getAllCountriesCubit() async {
@@ -139,6 +149,79 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
       (fail) => emit(AuthenticationErrorState(fail.message)),
       (success) => emit(AuthenticationSentResetPasswordState()),
     );
+  }
+
+  Future<bool> sendEmailVerifyOtpCubit({required String email}) async {
+    emit(AuthenticationLoadingState());
+    var result = await sendEmailVerifyOtp(email);
+    bool sendResult = false;
+    result.fold(
+      (fail) {
+        emit(AuthenticationErrorState(fail.message));
+        sendResult = false;
+      },
+      (success) {
+        emit(AuthenticationSentEmailOtpState());
+        sendResult = true;
+      },
+    );
+    return sendResult;
+  }
+
+  Future<bool> sendPhoneVerifyOtpCubit({required String phone}) async {
+    emit(AuthenticationLoadingState());
+    var result = await sendPhoneVerifyOtp(phone);
+    bool sendResult = false;
+    result.fold(
+      (fail) {
+        emit(AuthenticationErrorState(fail.message));
+        sendResult = false;
+      },
+      (success) {
+        emit(AuthenticationSentPhoneOtpState());
+        sendResult = true;
+      },
+    );
+
+    return sendResult;
+  }
+
+  Future<bool> verifyPhoneOtpCubit(
+      {required VerifyPhoneOtpRequest request}) async {
+    emit(AuthenticationLoadingState());
+    var result = await verifyPhoneOtp(request);
+    bool sendResult = false;
+    result.fold(
+      (fail) {
+        emit(AuthenticationErrorState(fail.message));
+        sendResult = false;
+      },
+      (success) {
+        emit(AuthenticationVerifiedPhoneOtpState());
+        sendResult = true;
+      },
+    );
+
+    return sendResult;
+  }
+
+  Future<bool> verifyEmailOtpCubit(
+      {required VerifyEmailOtpRequest request}) async {
+    emit(AuthenticationLoadingState());
+    var result = await verifyEmailOtp(request);
+    bool sendResult = false;
+    result.fold(
+      (fail) {
+        emit(AuthenticationErrorState(fail.message));
+        sendResult = false;
+      },
+      (success) {
+        emit(AuthenticationVerifiedEmailOtpState());
+        sendResult = true;
+      },
+    );
+
+    return sendResult;
   }
 
   Future<void> loginOAuthCubit({required LoginOAuthRequest request}) async {

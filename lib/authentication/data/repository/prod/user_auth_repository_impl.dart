@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/api/errors/error.dart';
 import 'package:zheeta/app/api/errors/exception.dart';
 import 'package:zheeta/app/common/exceptions/custom_exception.dart';
+import 'package:zheeta/app/common/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
 import 'package:zheeta/authentication/data/model/login_user_model.dart';
@@ -20,7 +21,8 @@ import 'package:zheeta/authentication/domain/repository/user_auth_repository.dar
 @LazySingleton(as: UserAuthRepository)
 class UserAuthRepositoryImpl implements UserAuthRepository {
   final UserAuthDataSource _datasource;
-  UserAuthRepositoryImpl(this._datasource);
+  final IUserStorage userStorage;
+  UserAuthRepositoryImpl(this._datasource, this.userStorage);
 
   @override
   ResultVoid changePasswordRepo(ChangePasswordRequest data) async {
@@ -56,8 +58,12 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+      String errorMessage = "Error Logging In";
+      if (ex.response?.data?["message"] != null) {
+        errorMessage = ex.response?.data?["message"];
+      }
+      return left(ApiError(
+          message: errorMessage, statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -79,12 +85,17 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
       RegisterUserRequest data) async {
     try {
       final result = await _datasource.registerUserNew(data);
+      await userStorage.save(result);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+      String errorMessage = "Error Logging In";
+      if (ex.response?.data?["message"] != null) {
+        errorMessage = ex.response?.data?["message"];
+      }
+      return left(ApiError(
+          message: errorMessage, statusCode: ex.response!.statusCode!));
     }
     // return result.fold(
     //   (error) {

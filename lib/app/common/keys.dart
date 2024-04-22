@@ -13,6 +13,6 @@ const bitSecKey = "test_pk_MrKPtG8McKfSBflS24uO";
 
 const googleAPI = "AIzaSyDWijmMYqAgaaHeyYynqLoSaHpqRna_kOc";
 
-const baseUrl = "";
+const baseUrl = "https://test-api.zheeta.com/api";
 
 // const googleAPICloud23 = "AIzaSyAyMTZ7cL7W_FeepnMQKu8QDWd9norRijE";

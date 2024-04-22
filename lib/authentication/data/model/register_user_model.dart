@@ -6,7 +6,7 @@ part 'register_user_model.g.dart';
 
 @freezed
 class RegisterUserModel with _$RegisterUserModel {
-  @JsonSerializable()
+  @JsonSerializable(explicitToJson: true)
   factory RegisterUserModel({
     dynamic phoneCountryCode,
     dynamic rolesCSV,
@@ -32,5 +32,6 @@ class RegisterUserModel with _$RegisterUserModel {
     dynamic accessFailedCount,
   }) = _RegisterUserModel;
 
-  factory RegisterUserModel.fromJson(MappedResponse json) => _$RegisterUserModelFromJson(json);
+  factory RegisterUserModel.fromJson(MappedResponse json) =>
+      _$RegisterUserModelFromJson(json);
 }

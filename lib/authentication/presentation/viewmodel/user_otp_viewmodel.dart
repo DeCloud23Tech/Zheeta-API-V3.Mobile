@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/injection/di.dart';
@@ -9,28 +12,20 @@ import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/data/request/verify_email_otp_request.dart';
 import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart';
 import 'package:zheeta/authentication/domain/usecase/user_otp_usecase.dart';
+import 'package:zheeta/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_otp_state.dart';
 
-final userOtpViewModelProvider =
-    StateNotifierProvider<UserOtpViewModel, UserOtpState>((ref) {
-  final otpUsecase = locator<UserOtpUseCase>();
-  return UserOtpViewModel(otpUsecase);
-});
+// final userOtpViewModelProvider =
+//     StateNotifierProvider<UserOtpViewModel, UserOtpState>((ref) {
+//   final otpUsecase = locator<UserOtpUseCase>();
+//   return UserOtpViewModel(otpUsecase);
+// });
 
-class UserOtpViewModel extends StateNotifier<UserOtpState>
-    with ValidationHelperMixin {
-  final UserOtpUseCase _otpUsecase;
-  UserOtpViewModel(this._otpUsecase)
-      : super(UserOtpState(
-          resetPasswordState: State.init(),
-          sendEmailVerifyOtpState: State.init(),
-          sendPhoneVerifyOtpState: State.init(),
-          sendPasswordResetOtpState: State.init(),
-          verifyEmailOtpState: State.init(),
-          verifyPhoneOtpState: State.init(),
-          counterState: 0,
-        ));
+@prod
+@LazySingleton()
+class UserOtpViewModel with ValidationHelperMixin {
+  UserOtpViewModel();
 
   String _phoneNumber = '';
 
@@ -52,17 +47,10 @@ class UserOtpViewModel extends StateNotifier<UserOtpState>
   late Timer _timer;
 
   void startTimer() {
-    state = state.setCounter(59);
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-      (Timer timer) {
-        if (state.counterState == 0) {
-          timer.cancel();
-        } else {
-          state = state.setCounter(state.counterState - 1);
-        }
-      },
+      (Timer timer) {},
     );
   }
 
@@ -78,24 +66,24 @@ class UserOtpViewModel extends StateNotifier<UserOtpState>
     _email = email;
   }
 
-  reSendPhoneOrEmailOtp() async {
+  reSendPhoneOrEmailOtp(BuildContext context) async {
     late bool haveResentOtp;
     if (_isPhoneNumberVerification) {
-      haveResentOtp = await sendPhoneVerifyOtp();
+      haveResentOtp = await sendPhoneVerifyOtp(context);
     } else {
-      haveResentOtp = await sendEmailVerifyOtp();
+      haveResentOtp = await sendEmailVerifyOtp(context);
     }
     if (haveResentOtp) {
       startTimer();
     }
   }
 
-  verifyPhoneOrEmail() async {
+  verifyPhoneOrEmail(BuildContext context) async {
     late bool canGoNext;
     if (_isPhoneNumberVerification) {
-      canGoNext = await verifyPhoneNumber();
+      canGoNext = await verifyPhoneNumber(context);
       if (canGoNext) {
-        final emailSent = await sendEmailVerifyOtp();
+        final emailSent = await sendEmailVerifyOtp(context);
         if (emailSent) {
           setOtp = '';
           router.popAndPush(
@@ -108,94 +96,90 @@ class UserOtpViewModel extends StateNotifier<UserOtpState>
         }
       }
     } else {
-      canGoNext = await verifyEmail();
+      canGoNext = await verifyEmail(context);
       if (canGoNext)
         router.pushAndPopUntil(SignInRoute(), predicate: (route) => false);
     }
   }
 
-  Future<bool> sendPhoneVerifyOtp() async {
-    state = state.setSendPhoneVerifyOtpState(State.loading());
-    try {
-      final result = await _otpUsecase.sendPhoneVerifyOtpUsecase(_phoneNumber);
-      state = state.setSendPhoneVerifyOtpState(State.success(result));
-      return true;
-    } on Exception catch (e) {
-      state = state.setSendPhoneVerifyOtpState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
+  Future<bool> sendPhoneVerifyOtp(BuildContext context) async {
+    // state = state.setSendPhoneVerifyOtpState(State.loading());
+    // try {
+    return await context
+        .read<AuthenticationCubit>()
+        .sendPhoneVerifyOtpCubit(phone: _phoneNumber);
+
+    // } on Exception catch (e) {
+    //   state = state.setSendPhoneVerifyOtpState(State.error(e));
+    //   NotifyUser.showSnackbar(e.toString());
+    //   return false;
+    // }
   }
 
-  Future<bool> sendEmailVerifyOtp() async {
-    state = state.setSendEmailVerifyOtpState(State.loading());
-    try {
-      final result = await _otpUsecase.sendEmailVerifyOtpUsecase(_email);
-      state = state.setSendEmailVerifyOtpState(State.success(result));
-      return true;
-    } on Exception catch (e) {
-      state = state.setSendEmailVerifyOtpState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
+  Future<bool> sendEmailVerifyOtp(BuildContext context) async {
+    // state = state.setSendEmailVerifyOtpState(State.loading());
+    // try {
+    return await context
+        .read<AuthenticationCubit>()
+        .sendEmailVerifyOtpCubit(email: _email);
+    // state = state.setSendEmailVerifyOtpState(State.success(result));
+    // return true;
+    // } on Exception catch (e) {
+    //   state = state.setSendEmailVerifyOtpState(State.error(e));
+    //   NotifyUser.showSnackbar(e.toString());
+    //   return false;
+    // }
   }
 
-  Future<bool> verifyPhoneNumber() async {
-    state = state.setVerifyPhoneOtpState(State.loading());
-    try {
-      final data = VerifyPhoneOtpRequest(phoneNumber: _phoneNumber, otp: _otp);
-      final result = await _otpUsecase.verifyPhoneOtpUsecase(data);
-      state = state.setVerifyPhoneOtpState(State.success(result));
-      return true;
-    } on Exception catch (e) {
-      state = state.setVerifyPhoneOtpState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
+  Future<bool> verifyPhoneNumber(BuildContext context) async {
+    //state = state.setVerifyPhoneOtpState(State.loading());
+    //try {
+    final data = VerifyPhoneOtpRequest(phoneNumber: _phoneNumber, otp: _otp);
+    return await context
+        .read<AuthenticationCubit>()
+        .verifyPhoneOtpCubit(request: data);
+
+    // } on Exception catch (e) {
+    //   state = state.setVerifyPhoneOtpState(State.error(e));
+    //   NotifyUser.showSnackbar(e.toString());
+    //   return false;
+    // }
   }
 
-  Future<bool> verifyEmail() async {
-    state = state.setVerifyEmailOtpState(State.loading());
-    try {
-      final data = VerifyEmailOtpRequest(email: _email, otp: _otp);
-      final result = await _otpUsecase.verifyEmailOtpUsecase(data);
-      state = state.setVerifyEmailOtpState(State.success(result));
-      return true;
-    } on Exception catch (e) {
-      state = state.setVerifyEmailOtpState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
+  Future<bool> verifyEmail(BuildContext context) async {
+    //state = state.setVerifyEmailOtpState(State.loading());
+    //try {
+    final data = VerifyEmailOtpRequest(email: _email, otp: _otp);
+    return await context
+        .read<AuthenticationCubit>()
+        .verifyEmailOtpCubit(request: data);
+
+    // } on Exception catch (e) {
+    //   state = state.setVerifyEmailOtpState(State.error(e));
+    //   NotifyUser.showSnackbar(e.toString());
+    //   return false;
+    // }
   }
 
-  Future<bool> sendPasswordResetOtp() async {
-    state = state.setSendPasswordResetOtpState(State.loading());
-    try {
-      final isValidEmailOrMessage = validateEmail();
-      if (isValidEmailOrMessage == null) {
-        final result = await _otpUsecase.sendPasswordResetOtpUsecase(_email);
-        state = state.setSendPasswordResetOtpState(State.success(result));
-        //router.popAndPush(ResetPasswordOtpRoute());
-        return true;
-      } else {
-        NotifyUser.showSnackbar(isValidEmailOrMessage);
-        state = state.setSendPasswordResetOtpState(
-            State.error(Exception(isValidEmailOrMessage)));
-        return false;
-      }
-    } on Exception catch (e) {
-      state = state.setSendPasswordResetOtpState(State.error(e));
-      NotifyUser.showSnackbar(e.toString());
-      return false;
-    }
-  }
-
-  @override
-  void dispose() {
-    _phoneNumber = '';
-    _email = '';
-    _otp = '';
-    _timer.cancel();
-    super.dispose();
+  Future<void> sendPasswordResetOtp() async {
+    // state = state.setSendPasswordResetOtpState(State.loading());
+    // try {
+    //   final isValidEmailOrMessage = validateEmail();
+    //   if (isValidEmailOrMessage == null) {
+    //     final result = await _otpUsecase.sendPasswordResetOtpUsecase(_email);
+    //     state = state.setSendPasswordResetOtpState(State.success(result));
+    //     //router.popAndPush(ResetPasswordOtpRoute());
+    //     return true;
+    //   } else {
+    //     NotifyUser.showSnackbar(isValidEmailOrMessage);
+    //     state = state.setSendPasswordResetOtpState(
+    //         State.error(Exception(isValidEmailOrMessage)));
+    //     return false;
+    //   }
+    // } on Exception catch (e) {
+    //   state = state.setSendPasswordResetOtpState(State.error(e));
+    //   NotifyUser.showSnackbar(e.toString());
+    //   return false;
+    // }
   }
 }

@@ -8,6 +8,7 @@ import 'package:zheeta/app/common/mixins/validator_mixin.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/presentation/bloc/authentication_bloc.dart';
@@ -44,7 +45,7 @@ class _VerificationScreenState extends State<VerificationScreen>
   @override
   void initState() {
     super.initState();
-    //userOtpViewModel = ref.read(userOtpViewModelProvider.notifier);
+    userOtpViewModel = locator<UserOtpViewModel>();
     userOtpViewModel.setPhoneNumberOrEmail(
         isPhoneNumber: widget.isPhoneNumber,
         phoneNumber: widget.phoneNumber,
