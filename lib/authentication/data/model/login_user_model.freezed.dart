@@ -21,6 +21,7 @@ LoginUserModel _$LoginUserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$LoginUserModel {
   dynamic get token => throw _privateConstructorUsedError;
+  dynamic get refreshToken => throw _privateConstructorUsedError;
   dynamic get username => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +36,7 @@ abstract class $LoginUserModelCopyWith<$Res> {
           LoginUserModel value, $Res Function(LoginUserModel) then) =
       _$LoginUserModelCopyWithImpl<$Res, LoginUserModel>;
   @useResult
-  $Res call({dynamic token, dynamic username});
+  $Res call({dynamic token, dynamic refreshToken, dynamic username});
 }
 
 /// @nodoc
@@ -52,12 +53,17 @@ class _$LoginUserModelCopyWithImpl<$Res, $Val extends LoginUserModel>
   @override
   $Res call({
     Object? token = freezed,
+    Object? refreshToken = freezed,
     Object? username = freezed,
   }) {
     return _then(_value.copyWith(
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      refreshToken: freezed == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
               as dynamic,
       username: freezed == username
           ? _value.username
@@ -75,7 +81,7 @@ abstract class _$$LoginUserModelImplCopyWith<$Res>
       __$$LoginUserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic token, dynamic username});
+  $Res call({dynamic token, dynamic refreshToken, dynamic username});
 }
 
 /// @nodoc
@@ -90,12 +96,17 @@ class __$$LoginUserModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? token = freezed,
+    Object? refreshToken = freezed,
     Object? username = freezed,
   }) {
     return _then(_$LoginUserModelImpl(
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      refreshToken: freezed == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
               as dynamic,
       username: freezed == username
           ? _value.username
@@ -109,7 +120,7 @@ class __$$LoginUserModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$LoginUserModelImpl implements _LoginUserModel {
-  _$LoginUserModelImpl({this.token, this.username});
+  _$LoginUserModelImpl({this.token, this.refreshToken, this.username});
 
   factory _$LoginUserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoginUserModelImplFromJson(json);
@@ -117,11 +128,13 @@ class _$LoginUserModelImpl implements _LoginUserModel {
   @override
   final dynamic token;
   @override
+  final dynamic refreshToken;
+  @override
   final dynamic username;
 
   @override
   String toString() {
-    return 'LoginUserModel(token: $token, username: $username)';
+    return 'LoginUserModel(token: $token, refreshToken: $refreshToken, username: $username)';
   }
 
   @override
@@ -130,6 +143,8 @@ class _$LoginUserModelImpl implements _LoginUserModel {
         (other.runtimeType == runtimeType &&
             other is _$LoginUserModelImpl &&
             const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality()
+                .equals(other.refreshToken, refreshToken) &&
             const DeepCollectionEquality().equals(other.username, username));
   }
 
@@ -138,6 +153,7 @@ class _$LoginUserModelImpl implements _LoginUserModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(refreshToken),
       const DeepCollectionEquality().hash(username));
 
   @JsonKey(ignore: true)
@@ -156,14 +172,18 @@ class _$LoginUserModelImpl implements _LoginUserModel {
 }
 
 abstract class _LoginUserModel implements LoginUserModel {
-  factory _LoginUserModel({final dynamic token, final dynamic username}) =
-      _$LoginUserModelImpl;
+  factory _LoginUserModel(
+      {final dynamic token,
+      final dynamic refreshToken,
+      final dynamic username}) = _$LoginUserModelImpl;
 
   factory _LoginUserModel.fromJson(Map<String, dynamic> json) =
       _$LoginUserModelImpl.fromJson;
 
   @override
   dynamic get token;
+  @override
+  dynamic get refreshToken;
   @override
   dynamic get username;
   @override

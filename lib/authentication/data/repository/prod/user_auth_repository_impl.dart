@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/api/errors/error.dart';
 import 'package:zheeta/app/api/errors/exception.dart';
 import 'package:zheeta/app/common/exceptions/custom_exception.dart';
+import 'package:zheeta/app/common/storage/token_storage/i_token_storage.dart';
 import 'package:zheeta/app/common/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/authentication/data/datasource/user_auth_datasource.dart';
@@ -22,7 +23,8 @@ import 'package:zheeta/authentication/domain/repository/user_auth_repository.dar
 class UserAuthRepositoryImpl implements UserAuthRepository {
   final UserAuthDataSource _datasource;
   final IUserStorage userStorage;
-  UserAuthRepositoryImpl(this._datasource, this.userStorage);
+  final ITokenStorage tokenStorage;
+  UserAuthRepositoryImpl(this._datasource, this.userStorage, this.tokenStorage);
 
   @override
   ResultVoid changePasswordRepo(ChangePasswordRequest data) async {
@@ -54,6 +56,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   ResultFuture<LoginUserModel> loginRepo(LoginRequest data) async {
     try {
       final result = await _datasource.loginNew(data);
+      await tokenStorage.save(result);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

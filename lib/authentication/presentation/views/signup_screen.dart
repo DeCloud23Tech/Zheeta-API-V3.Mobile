@@ -58,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
         NotifyUser.showSnackbar(state.errorMessage);
       }
       if (state is AuthenticationRegisteredState) {
-        userAuthViewModel.navigateToVerificationPage();
+        userAuthViewModel.navigateToVerificationPageLogin();
       }
     }, builder: (context, state) {
       return Scaffold(

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/extensions/num_extension.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
@@ -30,16 +31,15 @@ class _AboutScreenState extends State<AboutScreen> with ValidationHelperMixin {
 
   @override
   void initState() {
-    vm = AbountScreenViewModel();
-    userProfileViewModel = UserProfileViewModel();
+    vm = locator<AbountScreenViewModel>();
+    userProfileViewModel = locator<UserProfileViewModel>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final userInterestState = ref.watch(userInterestViewModelProvider);
-    // final userProfileState = ref.watch(userProfileViewModelProvider);
-    return BlocBuilder(builder: (context, state) {
+    
+    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.secondaryLight,
         appBar: AppBar(

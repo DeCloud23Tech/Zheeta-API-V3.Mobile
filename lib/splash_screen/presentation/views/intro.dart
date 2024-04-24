@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/user_auth_viewmodel.dart';
@@ -20,11 +21,11 @@ class IntroScreen extends ConsumerStatefulWidget {
 class _IntroScreenState extends ConsumerState<IntroScreen>
     with TickerProviderStateMixin {
   late AnimationController animationController;
-  //late UserAuthViewModel userAuthViewModel;
+  late UserAuthViewModel userAuthViewModel;
 
   @override
   void initState() {
-    //userAuthViewModel = ref.read(userAuthViewModelProvider.notifier);
+    userAuthViewModel = locator<UserAuthViewModel>();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       checkForLogin();
       //userProfileViewModel.loadSelectedCountryStates('Nigeria');
@@ -36,7 +37,7 @@ class _IntroScreenState extends ConsumerState<IntroScreen>
   }
 
   checkForLogin() async {
-    //await userAuthViewModel.checkIfUserIsLoggedIn();
+    await userAuthViewModel.checkIfUserIsLoggedIn();
   }
 
   @override

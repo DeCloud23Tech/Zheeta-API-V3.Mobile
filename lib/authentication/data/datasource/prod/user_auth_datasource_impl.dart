@@ -131,7 +131,7 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
         ),
         data: jsonEncode(request.toJson()));
     if (response.statusCode == 200) {
-      if (response.data?['statusCode'] == 200) {
+      if (response.data?['statusCode'] == 201) {
         return LoginUserModel.fromJson(response.data['data']);
       } else {
         throw DioException.badResponse(

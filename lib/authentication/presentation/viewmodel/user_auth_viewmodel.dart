@@ -10,6 +10,7 @@ import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
+import 'package:zheeta/app/common/storage/token_storage/i_token_storage.dart';
 import 'package:zheeta/app/common/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
@@ -133,6 +134,11 @@ class UserAuthViewModel with ValidationHelperMixin {
   }
 
   Future<void> checkIfUserIsLoggedIn() async {
+    ITokenStorage tokenStorage = locator<ITokenStorage>();
+    var result = await tokenStorage.read();
+    if (result != null) {
+      router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
+    }
     // state = state.setLoginUserState(State.loading());
     // var check = await sessionManager.get(SessionManagerKeys.isLoggedInBool);
     // state = state.setLoginUserState(State.init());

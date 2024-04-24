@@ -52,7 +52,11 @@ class _VerificationScreenState extends State<VerificationScreen>
         countryCode: widget.countryCode,
         email: widget.email);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //userOtpViewModel.startTimer();
+      if (widget.isPhoneNumber) {
+        userOtpViewModel.sendPhoneVerifyOtp(context);
+      } else {
+        userOtpViewModel.sendEmailVerifyOtp(context);
+      }
     });
   }
 
@@ -146,7 +150,7 @@ class _VerificationScreenState extends State<VerificationScreen>
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
                           validatorChange.value = value;
-                          //userOtpViewModel.setOtp = value;
+                          userOtpViewModel.setOtp = value;
                           setState(() {
                             _otp = value;
                           });
@@ -158,7 +162,7 @@ class _VerificationScreenState extends State<VerificationScreen>
                       child: sendAgain
                           ? GestureDetector(
                               onTap: () async {
-                                //userOtpViewModel.reSendPhoneOrEmailOtp();
+                                userOtpViewModel.reSendPhoneOrEmailOtp(context);
                               },
                               child: Text(
                                 'Resend OTP',
@@ -202,13 +206,13 @@ class _VerificationScreenState extends State<VerificationScreen>
                         listenable: validatorChange,
                         builder: (context, _) {
                           return PrimaryButton(
-                            disabled: userOtpViewModel.validateOtp() != null,
+                            //disabled: userOtpViewModel.validateOtp() != null,
                             state: state is AuthenticationLoadingState,
                             title: 'Continue',
                             action: () async {
                               final isValid = formKey.currentState?.validate();
                               if (isValid ?? false) {
-                                //userOtpViewModel.verifyPhoneOrEmail();
+                                userOtpViewModel.verifyPhoneOrEmail(context);
                               }
                             },
                           );

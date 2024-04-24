@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
@@ -27,7 +28,7 @@ class _LocationScreenState extends State<LocationScreen> {
   final _city = TextEditingController();
   final _postcode = TextEditingController();
   late UserProfileViewModel userProfileViewModel;
-  late UserInterestViewModel userInterestViewModel;
+  //late UserInterestViewModel userInterestViewModel;
 
   String selectedState = '';
   String selectedCountry = '';
@@ -36,7 +37,7 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    userProfileViewModel = UserProfileViewModel();
+    userProfileViewModel = locator<UserProfileViewModel>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       populateLocationField();
@@ -65,7 +66,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(builder: (context, state) {
+    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.secondaryLight,
         body: Padding(
@@ -128,7 +129,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       action: () async {
                         if (formKey.currentState!.validate()) {
                           final interestIsFetched =
-                              await userInterestViewModel.getInterests();
+                              await userProfileViewModel.getInterests(context);
                           if (interestIsFetched) router.push(AboutRoute());
                         }
                       },

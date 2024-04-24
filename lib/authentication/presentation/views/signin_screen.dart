@@ -58,6 +58,9 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
           });
         }
       }
+      if (state is AuthenticationLoggedInState) {
+        router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
+      }
     }, builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.secondaryLight,

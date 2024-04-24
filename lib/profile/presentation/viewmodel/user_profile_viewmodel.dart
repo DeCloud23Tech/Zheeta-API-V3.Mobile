@@ -268,17 +268,19 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     }
   }
 
-  Future<bool> getSingleUserProfile(BuildContext context) async {
+  Future<void> getSingleUserProfile(BuildContext context) async {
     final result =
         await context.read<ProfileCubit>().getSingleUserProfileCubit();
     userProfileModel = result;
-    if (result?.data.profile?.profilePhotoURL == null) {
+    if (result == null) {
+      router.push(BioDataRoute());
+    } else if (result?.data.profile?.profilePhotoURL == null) {
       router.push(ProfilePhotoRoute());
     } else {
       router.popUntil((route) => route.isFirst);
       router.replace(HomeRoute());
     }
-    return true;
+    //return true;
   }
 
   Future<bool> updateUserProfilePicture(BuildContext context) async {
@@ -372,6 +374,20 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     } else {
       NotifyUser.showSnackbar('Invalid Latitude and Longitude');
       return null;
+    }
+  }
+
+  Future<bool> getCurrentLocation(BuildContext context) async {
+    final result = await getLocation();
+
+    if (result != null) {
+      _latitude = result.latitude;
+      _longitude = result.longitude;
+
+      await getAddressFromLocationCoordinate(context);
+      return true;
+    } else {
+      return false;
     }
   }
 

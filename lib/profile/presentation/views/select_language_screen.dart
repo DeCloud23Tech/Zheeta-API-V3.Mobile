@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -27,7 +29,7 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
 
   @override
   void initState() {
-    userProfileViewModel = UserProfileViewModel();
+    userProfileViewModel = locator<UserProfileViewModel>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         selectedLanguages = widget.languages;
@@ -38,7 +40,7 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(builder: (context, state) {
+    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.secondaryLight,
         body: Padding(

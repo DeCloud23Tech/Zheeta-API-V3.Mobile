@@ -187,10 +187,19 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return UserProfileModel.fromJson(response.data['data']);
+      if (response.data['statusCode'] == 200) {
+        return UserProfileModel.fromJson(response.data['data']);
+      } else {
+        throw DioException.badResponse(
+            statusCode: response.data?['statusCode'] ?? 400,
+            requestOptions: response.requestOptions,
+            response: response);
+      }
     } else {
-      throw ApiException(
-          message: response.statusMessage!, statusCode: response.statusCode!);
+      throw DioException.badResponse(
+          statusCode: response.data?['statusCode'] ?? 400,
+          requestOptions: response.requestOptions,
+          response: response);
     }
   }
 

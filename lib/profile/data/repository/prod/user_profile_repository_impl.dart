@@ -80,8 +80,12 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+      String errorMessage = "Error Logging In";
+      if (ex.response?.data?["message"] != null) {
+        errorMessage = ex.response?.data?["message"];
+      }
+      return left(ApiError(
+          message: errorMessage, statusCode: ex.response!.statusCode!));
     }
   }
 

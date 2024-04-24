@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:zheeta/app/common/storage/token_storage/i_token_storage.dart';
 
 class AppInterceptors extends Interceptor {
   final Dio dio;
-  final dynamic _authenticator;
-  final dynamic _credentialStorage;
+  
+  final ITokenStorage _credentialStorage;
 
   AppInterceptors(
-    this.dio,
-    this._authenticator,
+    this.dio, 
     this._credentialStorage,
   );
 
@@ -19,7 +19,7 @@ class AppInterceptors extends Interceptor {
       ..headers.addAll(
         credentials == null
             ? {}
-            : {'Authorization': 'bearer ${credentials.accessToken}'},
+            : {'Authorization': 'bearer ${credentials.token}'},
       );
     handler.next(modifiedOptions);
   }

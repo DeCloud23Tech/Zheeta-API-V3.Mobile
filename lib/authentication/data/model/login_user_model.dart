@@ -9,8 +9,10 @@ class LoginUserModel with _$LoginUserModel {
   @JsonSerializable()
   factory LoginUserModel({
     dynamic token,
+    dynamic refreshToken,
     dynamic username,
   }) = _LoginUserModel;
 
-  factory LoginUserModel.fromJson(MappedResponse json) => _$LoginUserModelFromJson(json);
+  factory LoginUserModel.fromJson(MappedResponse json) =>
+      _$LoginUserModelFromJson(json);
 }

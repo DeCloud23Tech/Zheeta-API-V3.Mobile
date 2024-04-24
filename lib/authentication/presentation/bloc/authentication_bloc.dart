@@ -108,7 +108,12 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
     var result = await loginUser(request);
     result.fold(
       (fail) => emit(AuthenticationErrorState(fail.message)),
-      (success) => emit(AuthenticationLoggedInState(success)),
+      (success) {
+        emit(AuthenticationLoggedInState(success));
+
+
+        
+      },
     );
   }
 

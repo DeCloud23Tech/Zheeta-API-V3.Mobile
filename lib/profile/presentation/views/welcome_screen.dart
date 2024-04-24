@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/strings.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
@@ -21,13 +22,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   void initState() {
-    userProfileViewModel = UserProfileViewModel();
+    userProfileViewModel = locator<UserProfileViewModel>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(builder: (context, state) {
+    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.primaryDark,
         body: Container(
