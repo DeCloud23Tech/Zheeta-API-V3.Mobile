@@ -65,7 +65,7 @@ class UserInterestDataSourceImpl implements UserInterestDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return UserInterestListModel.fromJson(response.data['data']);
+      return UserInterestListModel.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);

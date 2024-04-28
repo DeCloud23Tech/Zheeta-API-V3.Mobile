@@ -31,37 +31,52 @@ class _LocationScreenState extends State<LocationScreen> {
   //late UserInterestViewModel userInterestViewModel;
 
   String selectedState = '';
-  String selectedCountry = '';
+  String selectedCountry = 'Nigeria';
   final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
     userProfileViewModel = locator<UserProfileViewModel>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      populateLocationField();
-      userProfileViewModel.loadCountry();
-      //userProfileViewModel.loadSelectedCountryStates('Nigeria');
+      await populateLocationField();
+      setState(() {
+        userProfileViewModel.loadCountry();
+      });
+
+      userProfileViewModel.loadSelectedCountryStates(selectedCountry);
     });
+    super.didChangeDependencies();
   }
 
   populateLocationField() async {
     await locationBottomSheet(context);
     final addressState =
         await userProfileViewModel.getAddressFromLocationCoordinate(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (addressState != null) {
+        _address.text = addressState.address ?? '';
+        userProfileViewModel.setAddress(addressState.address ?? '');
+        _city.text = addressState.city ?? '';
+        userProfileViewModel.setCity(addressState.city ?? '');
+        _postcode.text = addressState.postalCode ?? '';
+        userProfileViewModel.setPostcode(addressState.postalCode ?? '');
+        await userProfileViewModel
+            .loadSelectedCountryStates(addressState.country);
+        setState(() {
+          selectedCountry = addressState.country;
+          selectedState = userProfileViewModel.allStates[0];
+        });
 
-    if (addressState != null) {
-      _address.text = addressState.address ?? '';
-      userProfileViewModel.setAddress(addressState.address ?? '');
-      _city.text = addressState.city ?? '';
-      userProfileViewModel.setCity(addressState.city ?? '');
-      _postcode.text = addressState.postalCode ?? '';
-      userProfileViewModel.setPostcode(addressState.postalCode ?? '');
-      userProfileViewModel.loadSelectedCountryStates(addressState.country);
-      //userProfileViewModel.setState(addressState.data!.state);
-      userProfileViewModel.setCountry(addressState.country);
-    }
+        userProfileViewModel.setState(userProfileViewModel.allStates[0]);
+        userProfileViewModel.setCountry(addressState.country);
+      }
+    });
   }
 
   @override
@@ -91,20 +106,36 @@ class _LocationScreenState extends State<LocationScreen> {
                   DropdownInputField(
                     value: selectedCountry,
                     hintText: 'Country',
-                    onChanged: (value) {
-                      userProfileViewModel.setCountry(value);
-                      userProfileViewModel.loadSelectedCountryStates(value!,
-                          clearState: true);
+                    onChanged: (value) async {
+                      await new Future.delayed(Duration(seconds: 1), () {
+                        setState(() {
+                          userProfileViewModel.setCountry(value);
+
+                          userProfileViewModel.loadSelectedCountryStates(value!,
+                              clearState: true);
+                        });
+                      });
+
+                      Future.delayed(Duration(seconds: 1), () {
+                        setState(() {
+                          selectedState = userProfileViewModel.allStates[0];
+                          userProfileViewModel.setState(selectedState);
+                        });
+                      });
                     },
                     validator: (data) => userProfileViewModel.validateCountry(),
-                    items: userProfileViewModel.allCountries ?? [],
+                    items: userProfileViewModel.allCountries.length > 0
+                        ? userProfileViewModel.allCountries
+                        : [],
                   ),
                   DropdownInputField(
                     value: selectedState,
                     hintText: 'State',
                     onChanged: (value) => userProfileViewModel.setState(value),
                     validator: (data) => userProfileViewModel.validateState(),
-                    items: userProfileViewModel.allStates ?? [],
+                    items: userProfileViewModel.allStates.length > 0
+                        ? userProfileViewModel.allStates
+                        : [],
                   ),
                   InputField(
                     controller: _city,

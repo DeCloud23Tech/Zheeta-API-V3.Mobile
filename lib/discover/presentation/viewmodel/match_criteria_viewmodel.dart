@@ -5,10 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/presentation/bloc/matches_cubit.dart';
+import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 
 @prod
 @LazySingleton()
@@ -114,8 +116,9 @@ class MatchCriteriaViewModel {
   }
 
   Future<void> getMatches(BuildContext context, {bool loadState = true}) async {
-    final result =
-        await context.read<MatchesCubit>().getMatchCubit(userId: _userId);
+    var userViewModel = locator<UserProfileViewModel>();
+    final result = await context.read<MatchesCubit>().getMatchCubit(
+        userId: userViewModel.userProfileModel?.data.user?.userId);
     matchListModel = result;
   }
 

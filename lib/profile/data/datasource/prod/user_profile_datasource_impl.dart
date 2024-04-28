@@ -188,7 +188,7 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
     );
     if (response.statusCode == 200) {
       if (response.data['statusCode'] == 200) {
-        return UserProfileModel.fromJson(response.data['data']);
+        return UserProfileModel.fromJson(response.data);
       } else {
         throw DioException.badResponse(
             statusCode: response.data?['statusCode'] ?? 400,
@@ -236,10 +236,11 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   @override
   Future<void> updateUserProfilePictureNew(
       {required String userId, required MultipartFile file}) async {
-    Map<String, dynamic> payload = {'userId': userId, 'file': file};
+    dynamic payload = {'userId': userId, 'file': file};
+    payload = FormData.fromMap(payload as Map<String, dynamic>);
     var response = await _api.dio.put('/user/picture',
         options: Options(
-          contentType: Headers.jsonContentType,
+          contentType: 'multipart/form-data',
         ),
         data: payload);
     if (response.statusCode == 200) {

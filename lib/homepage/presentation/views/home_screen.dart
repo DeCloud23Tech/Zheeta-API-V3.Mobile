@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
 import 'package:zheeta/discover/presentation/views/discover_screen.dart';
 import 'package:zheeta/feeds/presentation/views/feed_screen.dart';
 import 'package:zheeta/messages/presentation/views/messages.dart';
+import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
 import 'package:zheeta/profile/presentation/views/profile.dart';
 import 'package:zheeta/widgets/drawer.dart';
 import 'package:zheeta/widgets/top_nav.dart';
@@ -29,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    matchCriteriaViewModel = MatchCriteriaViewModel();
+    matchCriteriaViewModel = locator<MatchCriteriaViewModel>();
     //notificationViewModel = ref.read(notificationViewModelProvider.notifier);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       matchCriteriaViewModel.getMatchCriteria(context);

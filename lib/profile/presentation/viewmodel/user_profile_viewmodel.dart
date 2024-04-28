@@ -1,26 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart' show MultipartFile;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:zheeta/activity/data/models/activity_model.dart';
-
 import 'package:zheeta/app/common/lists.dart';
 import 'package:zheeta/app/common/mixins/location_helper.dart';
 import 'package:zheeta/app/common/mixins/validation_helper.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
-import 'package:zheeta/app/common/storage/local_storage_impl.dart';
-import 'package:zheeta/app/common/storage/storage_keys.dart';
-
+import 'package:zheeta/app/common/storage/token_storage/i_token_storage.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-
+import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
 import 'package:zheeta/profile/data/model/address_from_location_model.dart';
 import 'package:zheeta/profile/data/model/country_states_model.dart';
 import 'package:zheeta/profile/data/model/user_interest_model.dart';
@@ -29,8 +25,8 @@ import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_interest_request.dart';
 import 'package:zheeta/profile/domain/usecase/ref_usecases/user_profile_usecases.dart';
-
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 @prod
 @LazySingleton()
@@ -274,9 +270,12 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     userProfileModel = result;
     if (result == null) {
       router.push(BioDataRoute());
-    } else if (result?.data.profile?.profilePhotoURL == null) {
-      router.push(ProfilePhotoRoute());
+    } else if (result.data.profile?.profilePhotoURL == null) {
+      router.push(ProfilePhotoRoute(username: result.data.user!.userName));
     } else {
+      var matchesViewModel = locator<MatchCriteriaViewModel>();
+      await matchesViewModel.populateMatches(context);
+      await matchesViewModel.getMatches(context);
       router.popUntil((route) => route.isFirst);
       router.replace(HomeRoute());
     }
@@ -286,12 +285,15 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   Future<bool> updateUserProfilePicture(BuildContext context) async {
     final profilePictureIsValidOrMessage = validateProfilePicture();
     if (profilePictureIsValidOrMessage == null) {
-      final userId =
-          await sessionManager.get(SessionManagerKeys.authUserIdString);
+      final tokenStorage = locator<ITokenStorage>();
+      final token = await tokenStorage.read();
+      Map<String, dynamic> payload = Jwt.parseJwt(token!.token);
+
+      final _userId = payload['nameid'];
       final result = await context
           .read<ProfileCubit>()
           .updateUserProfilePictureCubit(UploadProfilePictureParam(
-            userId: userId,
+            userId: _userId,
             file: await MultipartFile.fromFile(_profilePicture!.path,
                 contentType: MediaType('image', 'jpg')),
           ));
@@ -307,17 +309,23 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   }
 
   Future<void> updateUserInterest(BuildContext context) async {
-    final userId = (await sessionManager
-        .get(SessionManagerKeys.authUserIdString)) as String;
+    final tokenStorage = locator<ITokenStorage>();
+    final token = await tokenStorage.read();
+    Map<String, dynamic> payload = Jwt.parseJwt(token!.token);
+
+    final _userId = payload['nameid'];
     await context.read<ProfileCubit>().updateUserInterest(
-        UpdateUserUnterestRequest(userId: userId, interestIds: _interest));
+        UpdateUserUnterestRequest(userId: _userId, interestIds: _interest));
   }
 
   Future<void> createUserProfile(BuildContext context) async {
     String? isValidFormOrErrorMessage = validateLetsKnowYouForm();
     if (isValidFormOrErrorMessage == null) {
-      final _userId =
-          await sessionManager.get(SessionManagerKeys.authUserIdString);
+      final tokenStorage = locator<ITokenStorage>();
+      final token = await tokenStorage.read();
+      Map<String, dynamic> payload = Jwt.parseJwt(token!.token);
+
+      final _userId = payload['nameid'];
 
       //final _locationState = ref.watch(locationViewModelProvider);
       final locationResult = await getLocation();
@@ -359,7 +367,7 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
 
       await updateUserInterest(context);
       //Navigate to profile
-      router.push(ProfilePhotoRoute());
+      router.push(ProfilePhotoRoute(username: payload['unique_name']));
     }
   }
 

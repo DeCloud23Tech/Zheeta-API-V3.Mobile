@@ -3,18 +3,18 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/strings.dart';
-import 'package:zheeta/authentication/presentation/viewmodel/user_auth_viewmodel.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
-@RoutePage()
+@RoutePage<String>()
 class ProfilePhotoScreen extends StatefulWidget {
-  ProfilePhotoScreen({super.key});
+  String username;
+  ProfilePhotoScreen({super.key, required this.username});
 
   @override
   State<ProfilePhotoScreen> createState() => _ProfilePhotoScreenState();
@@ -38,13 +38,13 @@ class _ProfilePhotoScreenState extends State<ProfilePhotoScreen> {
 
   @override
   void initState() {
-    userProfileViewModel = UserProfileViewModel();
+    userProfileViewModel = locator<UserProfileViewModel>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(builder: (context, state) {
+    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
       return Scaffold(
         backgroundColor: AppColors.primaryDark,
         body: Container(
@@ -92,7 +92,7 @@ class _ProfilePhotoScreenState extends State<ProfilePhotoScreen> {
                 SizedBox(height: 20),
                 Center(
                   child: Text(
-                    "Username",
+                    widget.username,
                     textAlign: TextAlign.start,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,

@@ -85,7 +85,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
         errorMessage = ex.response?.data?["message"];
       }
       return left(ApiError(
-          message: errorMessage, statusCode: ex.response!.statusCode!));
+          message: errorMessage, statusCode: ex.response?.statusCode ?? 500));
     }
   }
 

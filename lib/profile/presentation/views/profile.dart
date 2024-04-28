@@ -7,8 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/activity/data/models/activity_model.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
+import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/model/view_profile_model.dart';
+import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/empty_content.dart';
@@ -39,17 +41,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    userProfileViewModel = UserProfileViewModel();
+    userProfileViewModel = locator<UserProfileViewModel>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      setState(() async {
-        if (widget.profileId != null)
-          await userProfileViewModel.visitUserProfile(
-              context, widget.profileId!);
-
-        await userProfileViewModel.loadUserRecentActivity(context);
-        theUser = userProfileViewModel.visitProfilePage?.profile;
-      });
+      if (widget.profileId != null) {
+        await userProfileViewModel.visitUserProfile(context, widget.profileId!);
+        setState(() {
+          theUser = userProfileViewModel.visitProfilePage?.profile;
+        });
+      } else {
+        theUser = userProfileViewModel.userProfileModel?.data;
+      }
+      await userProfileViewModel.loadUserRecentActivity(context);
 
       //userProfileViewModel.loadSelectedCountryStates('Nigeria');
     });
@@ -79,7 +82,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     return widget.profileId != null &&
             !userProfileViewModel.visitProfilePage!.canViewProfile
         ? BlockedUserContent()
-        : BlocConsumer(
+        : BlocConsumer<ProfileCubit, ProfileState>(
             listener: (context, state) {},
             builder: (context, state) {
               return Scaffold(

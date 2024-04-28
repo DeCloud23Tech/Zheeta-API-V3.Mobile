@@ -149,11 +149,13 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       );
     },
     ProfilePhotoRoute.name: (routeData) {
-      final args = routeData.argsAs<ProfilePhotoRouteArgs>(
-          orElse: () => const ProfilePhotoRouteArgs());
-      return _i25.AutoRoutePage<dynamic>(
+      final args = routeData.argsAs<ProfilePhotoRouteArgs>();
+      return _i25.AutoRoutePage<String>(
         routeData: routeData,
-        child: _i15.ProfilePhotoScreen(key: args.key),
+        child: _i15.ProfilePhotoScreen(
+          key: args.key,
+          username: args.username,
+        ),
       );
     },
     ProfileRoute.name: (routeData) {
@@ -508,10 +510,14 @@ class ProfileCarouselRouteArgs {
 class ProfilePhotoRoute extends _i25.PageRouteInfo<ProfilePhotoRouteArgs> {
   ProfilePhotoRoute({
     _i27.Key? key,
+    required String username,
     List<_i25.PageRouteInfo>? children,
   }) : super(
           ProfilePhotoRoute.name,
-          args: ProfilePhotoRouteArgs(key: key),
+          args: ProfilePhotoRouteArgs(
+            key: key,
+            username: username,
+          ),
           initialChildren: children,
         );
 
@@ -522,13 +528,18 @@ class ProfilePhotoRoute extends _i25.PageRouteInfo<ProfilePhotoRouteArgs> {
 }
 
 class ProfilePhotoRouteArgs {
-  const ProfilePhotoRouteArgs({this.key});
+  const ProfilePhotoRouteArgs({
+    this.key,
+    required this.username,
+  });
 
   final _i27.Key? key;
 
+  final String username;
+
   @override
   String toString() {
-    return 'ProfilePhotoRouteArgs{key: $key}';
+    return 'ProfilePhotoRouteArgs{key: $key, username: $username}';
   }
 }
 

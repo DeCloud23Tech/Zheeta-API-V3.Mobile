@@ -110,7 +110,7 @@ class MatchCriteriaDataSourceImpl implements MatchCriteriaDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return MatchListModel.fromJson(response.data['data']);
+      return MatchListModel.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
