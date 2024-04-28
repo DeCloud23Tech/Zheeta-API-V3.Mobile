@@ -30,4 +30,9 @@ const photoSubtitle =
     "Explore the world by discovering people and creating something beautiful";
 
 const carouselTitle = 'Add Carousel Photos';
-const carouselSubtitle = 'Select 3 to 6 pictures for your carousel to help people discover more about you';
+const carouselSubtitle =
+    'Select 3 to 6 pictures for your carousel to help people discover more about you';
+
+const matchesEmptyTitle = "You are out of likes";
+const matchesEmptySubTitle =
+    "You are out of likes for today. If you need more likes you can upgrade to get more.";

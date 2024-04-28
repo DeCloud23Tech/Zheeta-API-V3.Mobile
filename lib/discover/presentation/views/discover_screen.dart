@@ -6,14 +6,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/constansts.dart';
+import 'package:zheeta/app/common/enums/type_of_request.dart';
+import 'package:zheeta/app/common/strings.dart';
+import 'package:zheeta/app/common/text_style.dart';
 
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/discover/presentation/bloc/matches_cubit.dart';
 import 'package:zheeta/discover/presentation/viewmodel/friend_request_viewmodel.dart';
 import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
+import 'package:zheeta/discover/presentation/widgets/card_ui.dart';
 
 import 'package:zheeta/widgets/empty_content.dart';
+import 'package:zheeta/widgets/empty_matches.dart';
 import 'package:zheeta/widgets/loading_screen.dart';
+import 'package:zheeta/widgets/primary_button.dart';
 
 class DiscoverPage extends ConsumerStatefulWidget {
   const DiscoverPage({super.key});
@@ -110,108 +117,114 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
                         SizedBox(height: 10),
                         if (matchCriteriaViewModel.matchListModel?.data != null)
                           if (matchCriteriaViewModel
-                                  .matchListModel!.data!.length ==
+                                  .matchListModel!.data!.length >
                               0)
-                            // SizedBox(
-                            //   height: MediaQuery.of(context).size.height * 0.65,
-                            //   child: AppinioSwiper(
-                            //     backgroundCardCount: 1,
-                            //     backgroundCardScale: 0.9,
-                            //     swipeOptions: SwipeOptions.only(
-                            //         up: true, left: true, right: true),
-                            //     allowUnlimitedUnSwipe: true,
-                            //     allowUnSwipe: true,
-                            //     controller: controller,
-                            //     onSwipeEnd: (prevIndex, nextIndex, activity) {
-                            //       final match = matchCriteriaViewModel
-                            //           .matchListModel?.data![prevIndex];
-                            //       if (activity.direction ==
-                            //           AxisDirection.right) {
-                            //         friendRequestViewModel.sendFriendRequest(
-                            //           context,
-                            //           receiverId: match?.id,
-                            //           typeOfRequest:
-                            //               TypeOfRequest.friendRequest,
-                            //         );
-                            //       } else if (activity.direction ==
-                            //           AxisDirection.up) {
-                            //         friendRequestViewModel.sendFriendRequest(
-                            //           context,
-                            //           receiverId: match?.id,
-                            //           typeOfRequest: TypeOfRequest.superLike,
-                            //         );
-                            //       }
-                            //     },
-                            //     cardCount: matchCriteriaViewModel
-                            //             .matchListModel?.data?.length ??
-                            //         0,
-                            //     cardBuilder: (BuildContext context, int index) {
-                            //       final match = matchCriteriaViewModel
-                            //           .matchListModel?.data?[index];
-                            //       return ExampleCard(
-                            //           match: match!, controller: controller);
-                            //     },
-                            //   ),
-                            // )
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.65,
-                              child: SwipeCards(
-                                matchEngine: _matchEngine!,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    alignment: Alignment.center,
-                                    color: _swipeItems[index].content.color,
-                                    child: Text(
-                                      _swipeItems[index].content.text,
-                                      style: TextStyle(fontSize: 100),
-                                    ),
-                                  );
+                              child: AppinioSwiper(
+                                backgroundCardCount: 1,
+                                backgroundCardScale: 0.9,
+                                swipeOptions: SwipeOptions.only(
+                                    up: true, left: true, right: true),
+                                allowUnlimitedUnSwipe: true,
+                                allowUnSwipe: true,
+                                controller: controller,
+                                onSwipeEnd: (prevIndex, nextIndex, activity) {
+                                  final match = matchCriteriaViewModel
+                                      .matchListModel?.data![prevIndex];
+                                  if (activity.direction ==
+                                      AxisDirection.right) {
+                                    friendRequestViewModel.sendFriendRequest(
+                                      context,
+                                      receiverId: match?.id,
+                                      typeOfRequest:
+                                          TypeOfRequest.friendRequest,
+                                    );
+                                  } else if (activity.direction ==
+                                      AxisDirection.up) {
+                                    friendRequestViewModel.sendFriendRequest(
+                                      context,
+                                      receiverId: match?.id,
+                                      typeOfRequest: TypeOfRequest.superLike,
+                                    );
+                                  }
                                 },
-                                onStackFinished: () {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text("Stack Finished"),
-                                    duration: Duration(milliseconds: 500),
-                                  ));
+                                cardCount: matchCriteriaViewModel
+                                        .matchListModel?.data?.length ??
+                                    0,
+                                cardBuilder: (BuildContext context, int index) {
+                                  final match = matchCriteriaViewModel
+                                      .matchListModel?.data?[index];
+                                  return ExampleCard(
+                                      match: match!, controller: controller);
                                 },
-                                itemChanged: (SwipeItem item, int index) {
-                                  // print(
-                                  //     "item: ${item.content.text}, index: $index");
-                                },
-                                leftSwipeAllowed: true,
-                                rightSwipeAllowed: true,
-                                upSwipeAllowed: true,
-                                fillSpace: true,
-                                likeTag: Container(
-                                  margin: const EdgeInsets.all(15.0),
-                                  padding: const EdgeInsets.all(3.0),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.green)),
-                                  child: Text('Like'),
-                                ),
-                                nopeTag: Container(
-                                  margin: const EdgeInsets.all(15.0),
-                                  padding: const EdgeInsets.all(3.0),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.red)),
-                                  child: Text('Nope'),
-                                ),
-                                superLikeTag: Container(
-                                  margin: const EdgeInsets.all(15.0),
-                                  padding: const EdgeInsets.all(3.0),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.orange)),
-                                  child: Text('Super Like'),
-                                ),
                               ),
                             )
+                          // SizedBox(
+                          //   height: MediaQuery.of(context).size.height * 0.65,
+                          //   child: SwipeCards(
+                          //     matchEngine: _matchEngine!,
+                          //     itemBuilder: (BuildContext context, int index) {
+                          //       return Container(
+                          //         alignment: Alignment.center,
+                          //         color: _swipeItems[index].content.color,
+                          //         child: Text(
+                          //           _swipeItems[index].content.text,
+                          //           style: TextStyle(fontSize: 100),
+                          //         ),
+                          //       );
+                          //     },
+                          //     onStackFinished: () {
+                          //       ScaffoldMessenger.of(context)
+                          //           .showSnackBar(SnackBar(
+                          //         content: Text("Stack Finished"),
+                          //         duration: Duration(milliseconds: 500),
+                          //       ));
+                          //     },
+                          //     itemChanged: (SwipeItem item, int index) {
+                          //       // print(
+                          //       //     "item: ${item.content.text}, index: $index");
+                          //     },
+                          //     leftSwipeAllowed: true,
+                          //     rightSwipeAllowed: true,
+                          //     upSwipeAllowed: true,
+                          //     fillSpace: true,
+                          //     likeTag: Container(
+                          //       margin: const EdgeInsets.all(15.0),
+                          //       padding: const EdgeInsets.all(3.0),
+                          //       decoration: BoxDecoration(
+                          //           border: Border.all(color: Colors.green)),
+                          //       child: Text('Like'),
+                          //     ),
+                          //     nopeTag: Container(
+                          //       margin: const EdgeInsets.all(15.0),
+                          //       padding: const EdgeInsets.all(3.0),
+                          //       decoration: BoxDecoration(
+                          //           border: Border.all(color: Colors.red)),
+                          //       child: Text('Nope'),
+                          //     ),
+                          //     superLikeTag: Container(
+                          //       margin: const EdgeInsets.all(15.0),
+                          //       padding: const EdgeInsets.all(3.0),
+                          //       decoration: BoxDecoration(
+                          //           border: Border.all(color: Colors.orange)),
+                          //       child: Text('Super Like'),
+                          //     ),
+                          //   ),
+                          // )
                           else
-                            SizedBox(
-                              child: Center(child: Text('Hello Empty')),
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.70,
+                              child: EmptyMatches(
+                                action: () {},
+                              ),
                             )
                         else
-                          SizedBox(
-                            child: Center(child: Text('Hello Empty')),
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.70,
+                            child: EmptyMatches(
+                              action: () {},
+                            ),
                           ),
                       ],
                     ),
