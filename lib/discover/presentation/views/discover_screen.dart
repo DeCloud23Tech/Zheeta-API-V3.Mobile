@@ -12,7 +12,7 @@ import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
 
 import 'package:zheeta/app/injection/di.dart';
-import 'package:zheeta/discover/presentation/bloc/matches_cubit.dart';
+import 'package:zheeta/discover/presentation/bloc/matches_bloc/matches_cubit.dart';
 import 'package:zheeta/discover/presentation/viewmodel/friend_request_viewmodel.dart';
 import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
 import 'package:zheeta/discover/presentation/widgets/card_ui.dart';
