@@ -17,7 +17,7 @@ class AppCloseButton extends StatelessWidget {
         width: 40,
         height: 40,
         alignment: Alignment.center,
-        margin: EdgeInsets.only(left: 20, right: 5, bottom: 5, top: 5),
+        margin: EdgeInsets.only(left: 5, right: 5, bottom: 5, top: 5),
         decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(100)),
         child: Center(
           child: Icon(Icons.close, size: 25, color: AppColors.grey.withOpacity(0.4)),

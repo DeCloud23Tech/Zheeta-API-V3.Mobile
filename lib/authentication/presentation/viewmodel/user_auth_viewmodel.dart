@@ -25,6 +25,8 @@ import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_auth_state.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
 
+import '../../../profile/presentation/viewmodel/user_profile_viewmodel.dart';
+
 // final userAuthViewModelProvider =
 //     StateNotifierProvider<UserAuthViewModel, UserAuthState>((ref) {
 //   final authUsecase = locator<UserAuthUseCase>();
@@ -137,8 +139,9 @@ class UserAuthViewModel with ValidationHelperMixin {
     ITokenStorage tokenStorage = locator<ITokenStorage>();
     var result = await tokenStorage.read();
     if (result != null) {
-      router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
+      router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
     }
+    router.pushAndPopUntil(SignInRoute(), predicate: (route) => false);
     // state = state.setLoginUserState(State.loading());
     // var check = await sessionManager.get(SessionManagerKeys.isLoggedInBool);
     // state = state.setLoginUserState(State.init());

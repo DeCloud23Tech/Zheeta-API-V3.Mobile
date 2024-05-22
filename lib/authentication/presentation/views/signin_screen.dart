@@ -53,13 +53,13 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
         if (state.errorMessage == "Email is not verified") {
           userAuthViewModel.navigateToVerificationPageLogin();
         } else {
-          WidgetsBinding.instance?.addPostFrameCallback((_) async {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
             await NotifyUser.showSnackbar(state.errorMessage);
           });
         }
       }
       if (state is AuthenticationLoggedInState) {
-        router.pushAndPopUntil(WelcomeRoute(), predicate: (route) => false);
+        router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
       }
     }, builder: (context, state) {
       return Scaffold(

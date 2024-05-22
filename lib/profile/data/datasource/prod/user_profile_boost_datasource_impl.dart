@@ -91,6 +91,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
           contentType: Headers.jsonContentType,
         ),
         data: jsonEncode(request.toJson()));
+
     if (response.statusCode == 200) {
     } else {
       throw ApiException(
@@ -124,7 +125,13 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return MatchedProfileBoostListModel.fromJson(response.data['data']);
+      if (response.data['data'] == null) {
+        // If null, return an empty list
+        return MatchedProfileBoostListModel(data: []);
+      } else {
+        // If not null, parse the data into MatchedProfileBoostListModel
+        return MatchedProfileBoostListModel.fromJson(response.data['data']);
+      }
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);

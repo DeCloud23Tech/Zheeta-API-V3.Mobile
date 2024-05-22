@@ -206,13 +206,13 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   @override
   Future<ActivityListModel> getUserActivityNew() async {
     var response = await _api.dio.get(
-      '/user/get-single-user-profile',
+      '/activity-post/get-posts-by-loggedin-user?PageNumber=1&PageSize=10',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
     if (response.statusCode == 200) {
-      return ActivityListModel.fromJson(response.data['data']);
+      return ActivityListModel.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
@@ -252,14 +252,21 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
 
   @override
   Future<ViewProfileModel> visitUserProfileNew({required String userId}) async {
+    print('ffff');
+    print(userId);
+
     var response = await _api.dio.get(
-      '/activity-post/get-posts-by-loggedin-user?PageNumber=1&PageSize=10',
+      '/user/view-profile/$userId',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
+    print('userId');
+    print(userId);
+    print(response);
+
     if (response.statusCode == 200) {
-      return ViewProfileModel.fromJson(response.data['data']);
+      return ViewProfileModel.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);

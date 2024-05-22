@@ -58,6 +58,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final FindUserByAdminUsername findUserByAdminUsername;
   final SearchUserByCustomer searchUserByCustomer;
   final GetUserTransactions getUserTransactions;
+
   ProfileCubit({
     required this.disableAccount,
     required this.enableAccount,
@@ -112,6 +113,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
+
   //Enable and Disable Account End
 
   //Profile Location Section
@@ -148,6 +150,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
+
   //Profile Location Section End
 
   //Profile Bank Section
@@ -177,6 +180,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
+
   //Profile Bank Section
 
   //Profile Interests
@@ -209,6 +213,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
+
   //Profile Interests Ends
 
   //Profile Block And UnBlock User Section
@@ -254,6 +259,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
+
   //Profile Block And UnBlock User Section Ends
 
   //Profile Boosts
@@ -266,6 +272,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         emit(ProfileErrorState(fail.message));
       },
       (success) {
+        print(result);
         emit(ProfileCreatedProfileBoostState());
       },
     );
@@ -285,9 +292,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  Future<void> getMatchedProfileBoostCubit(
-      CreateProfileBoostRequest request) async {
+  Future<int?> getMatchedProfileBoostCubit() async {
     emit(ProfileLoadingState());
+    int? matchedProfileBoostLength;
     var result = await getMatchedProfileBoost();
     result.fold(
       (fail) {
@@ -295,9 +302,12 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
       (success) {
         emit(ProfileGotMathcedProfileBoostState(success));
+        matchedProfileBoostLength = success.data!.length;
       },
     );
+    return matchedProfileBoostLength;
   }
+
   //Profile Boosts Ends
 
   //User Profile
@@ -394,6 +404,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoadingState());
     ViewProfileModel? data;
     var result = await visitUserProfile(request);
+    print(result);
+
     result.fold(
       (fail) {
         emit(ProfileErrorState(fail.message));
@@ -405,6 +417,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
     return data;
   }
+
   //User Profile Ends
 
   //Profile Search
@@ -464,5 +477,5 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     );
   }
-  //Profile Transaction Ends
+//Profile Transaction Ends
 }
