@@ -494,10 +494,10 @@ class _ProfileBoostScreenState extends State<ProfileBoostScreen> {
 }
 
 class UserPostsBottomSheetView extends StatefulWidget {
-  final List<ActivityModel> selectedMedias;
   final Function(List<ActivityModel>) onSelect;
+  List<ActivityModel> selectedMedias;
 
-  const UserPostsBottomSheetView({
+   UserPostsBottomSheetView({
     Key? key,
     required this.selectedMedias,
     required this.onSelect,
@@ -516,7 +516,6 @@ class _UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
     userProfileViewModel = locator<UserProfileViewModel>();
 
     return Container(
-      padding: EdgeInsets.all(20),
       decoration: const BoxDecoration(
         color: Color(0xffFFF1F7),
         borderRadius: BorderRadius.only(
@@ -537,7 +536,7 @@ class _UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
             ),
             SizedBox(height: 8),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AppCloseButton(),
                 Flexible(
@@ -547,19 +546,75 @@ class _UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    widget.onSelect(widget.selectedMedias);
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(Icons.check),
-                ),
+                SizedBox(width: 20),
               ],
             ),
-            SizedBox(height: 10),
-            SelectPostsWidget(
-              medias: userProfileViewModel.userActivityModel?.data,
-              selectedMedias: widget.selectedMedias,
+            SizedBox(height: 5),
+            Divider(color: AppColors.grey.withOpacity(0.5)),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              child: SelectPostsWidget(
+                medias: userProfileViewModel.userActivityModel?.data,
+                selectedMedias: widget.selectedMedias,
+                onSelectionChanged: (selectedMedias) {
+                  setState(() {
+                    widget.selectedMedias = selectedMedias;
+                  });
+                },
+              ),
+            ),
+            Visibility(
+              visible: widget.selectedMedias.length != 0,
+              child: Container(
+                color: AppColors.secondarySwirl,
+                height: 70,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.selectedMedias.length,
+                            itemBuilder: (context, index) {
+                              final media = widget.selectedMedias[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    media.mediaCollectionURL.isNotEmpty
+                                        ? media.mediaCollectionURL[0]
+                                        : 'assets/images/placeholder.png',
+                                    height: 54,
+                                    width: 54,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          widget.onSelect(widget.selectedMedias);
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(
+                          size: 48,
+                          Icons.check_circle,
+                          color: AppColors.primaryDark,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             SizedBox(height: 20),
           ],
@@ -573,12 +628,15 @@ class SelectPostsWidget extends StatefulWidget {
   final bool isVideo;
   final List<ActivityModel>? medias;
   final List<ActivityModel> selectedMedias;
+  final Function(List<ActivityModel>) onSelectionChanged;
+
 
   const SelectPostsWidget({
     Key? key,
     this.isVideo = false,
     required this.medias,
     required this.selectedMedias,
+    required this.onSelectionChanged,
   }) : super(key: key);
 
   @override
@@ -605,24 +663,35 @@ class _SelectPostsWidgetState extends State<SelectPostsWidget> {
                       } else {
                         widget.selectedMedias.add(e);
                       }
+                      widget.onSelectionChanged(widget.selectedMedias);
                     });
                   },
                   child: Stack(
                     children: [
-                      MediaContainer(mediaPath: e.mediaCollectionURL[0]),
+                      if (e.mediaCollectionURL != null &&
+                          e.mediaCollectionURL.isNotEmpty)
+                        MediaContainer(mediaPath: e.mediaCollectionURL[0]),
                       if (widget.selectedMedias.contains(e))
                         Positioned(
-                          top: 0,
-                          right: 0,
+                          bottom: 0,
+                          right: 8,
                           child: Container(
                             padding: EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: AppColors.primaryDark,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
-                              Icons.check,
-                              color: Colors.green,
+                            child: Padding(
+                              padding: const EdgeInsets.all(7.0),
+                              child: Text(
+                                // Show the selection order
+                                (widget.selectedMedias.indexOf(e) + 1)
+                                    .toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ),

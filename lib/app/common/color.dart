@@ -7,7 +7,7 @@ class AppColors {
   static const Color primaryLight = Color.fromRGBO(245, 95, 163, 1);
   static const Color secondaryLight = Color.fromRGBO(255, 241, 247, 1);
   static const Color primarySwirl = Color.fromRGBO(253, 93, 160, 1);
-  static const Color secondarySwirl = Color.fromRGBO(244, 144, 184, 1);
+  static const Color secondarySwirl = Color.fromRGBO(246, 184, 205, 1);
   static const Color hintText = Color.fromRGBO(218, 218, 218, 1);
   static const Color inputField = Color.fromRGBO(255, 241, 247, 1);
   static const Color darkText = Color.fromRGBO(85, 85, 85, 1);
