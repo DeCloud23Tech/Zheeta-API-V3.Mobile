@@ -267,6 +267,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       CreateProfileBoostRequest request) async {
     emit(ProfileLoadingState());
     var result = await createProfileBoost(request);
+    print(result);
+
     result.fold(
       (fail) {
         emit(ProfileErrorState(fail.message));

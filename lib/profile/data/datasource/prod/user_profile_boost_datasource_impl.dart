@@ -39,7 +39,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
     late Map<String, dynamic> payload;
     payload = request.toJson();
     List<MultipartFile> fileList = [];
-    request.profileUrlForAds.forEach((filePath) async {
+    request.photoUrlForAds.forEach((filePath) async {
       final file = await MultipartFile.fromFile(File(filePath).path,
           contentType: MediaType('image', 'jpg'));
       fileList.add(file);
@@ -86,10 +86,12 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
 
   @override
   Future<void> createProfileBoostNew(CreateProfileBoostRequest request) async {
+    print(request.toJson());
     var response = await _api.dio.post('/profile-boost/create',
         options: Options(
           contentType: Headers.jsonContentType,
         ),
+
         data: jsonEncode(request.toJson()));
 
     if (response.statusCode == 200) {

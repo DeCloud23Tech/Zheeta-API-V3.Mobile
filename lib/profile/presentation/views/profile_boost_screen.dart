@@ -12,8 +12,6 @@ import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 import '../../../activity/data/models/activity_model.dart';
-import '../../../app/common/storage/local_storage_impl.dart';
-import '../../../app/common/storage/storage_keys.dart';
 import '../../../app/injection/di.dart';
 import '../../../widgets/close_button.dart';
 import '../../../widgets/media_container.dart';
@@ -461,24 +459,26 @@ class _ProfileBoostScreenState extends State<ProfileBoostScreen> {
                       if (formKey.currentState!.validate()) {
                         context.read<ProfileCubit>().createProfileBoostCubit(
                               CreateProfileBoostRequest(
-                                userId: userProfileViewModel.userId!,
-                                targetCountry: selectedCountry,
-                                targetGender: selectedGender,
-                                targetCity: targetCityController.text,
-                                minAge: int.tryParse(minAgeController.text)!,
-                                maxAge: int.tryParse(maxAgeController.text)!,
-                                maritalStatus: selectedMaritalStatus,
-                                targetNumber:
-                                    int.tryParse(manualNumberController.text)!,
-                                duration:
-                                    int.tryParse(durationController.text)!,
-                                adsCost: calculatedCost.toDouble(),
-                                // Assuming a fixed cost for simplicity
-                                profileUrlForAds: selectedMedias
-                                    .map((media) =>
-                                        media.mediaCollectionURL[0] as String)
-                                    .toList(), // Explicitly cast to String
-                              ),
+                                  userId: userProfileViewModel.userId!,
+                                  targetCountry: selectedCountry,
+                                  targetGender: selectedGender,
+                                  targetCity: targetCityController.text,
+                                  minAge: int.tryParse(minAgeController.text)!,
+                                  maxAge: int.tryParse(maxAgeController.text)!,
+                                  maritalStatus: selectedMaritalStatus,
+                                  targetUsersNumber: int.tryParse(
+                                      manualNumberController.text)!,
+                                  duration:
+                                      int.tryParse(durationController.text)!,
+                                  adsCost: calculatedCost.toDouble(),
+                                  photoUrlForAds: selectedMedias
+                                      .map((media) =>
+                                          media.mediaCollectionURL[0] as String)
+                                      .toList(),
+                                  userCount: 10,
+                                  caption: captionController
+                                      .text // Explicitly cast to String
+                                  ),
                             );
                       }
                     },
@@ -497,7 +497,7 @@ class UserPostsBottomSheetView extends StatefulWidget {
   final Function(List<ActivityModel>) onSelect;
   List<ActivityModel> selectedMedias;
 
-   UserPostsBottomSheetView({
+  UserPostsBottomSheetView({
     Key? key,
     required this.selectedMedias,
     required this.onSelect,
@@ -583,7 +583,8 @@ class _UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
                             itemBuilder: (context, index) {
                               final media = widget.selectedMedias[index];
                               return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.network(
@@ -629,7 +630,6 @@ class SelectPostsWidget extends StatefulWidget {
   final List<ActivityModel>? medias;
   final List<ActivityModel> selectedMedias;
   final Function(List<ActivityModel>) onSelectionChanged;
-
 
   const SelectPostsWidget({
     Key? key,

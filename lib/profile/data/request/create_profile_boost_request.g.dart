@@ -10,16 +10,18 @@ CreateProfileBoostRequest _$CreateProfileBoostRequestFromJson(
         Map<String, dynamic> json) =>
     CreateProfileBoostRequest(
       userId: json['UserId'] as String,
+      caption: json['Caption'] as String?,
       targetCountry: json['TargetCountry'] as String,
       targetGender: json['TargetGender'] as String,
       targetCity: json['TargetCity'] as String,
       minAge: json['MinAge'] as int,
       maxAge: json['MaxAge'] as int,
       maritalStatus: json['MaritalStatus'] as String,
-      targetNumber: json['TargetNumber'] as int,
+      targetUsersNumber: json['TargetUsersNumber'] as int,
+      userCount: json['UserCount'] as int,
       duration: json['Duration'] as int,
       adsCost: (json['AdsCost'] as num).toDouble(),
-      profileUrlForAds: (json['ProfileUrlForAds'] as List<dynamic>)
+      photoUrlForAds: (json['PhotoUrlForAds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );
@@ -28,14 +30,16 @@ Map<String, dynamic> _$CreateProfileBoostRequestToJson(
         CreateProfileBoostRequest instance) =>
     <String, dynamic>{
       'UserId': instance.userId,
+      'Caption': instance.caption,
       'TargetCountry': instance.targetCountry,
       'TargetGender': instance.targetGender,
       'TargetCity': instance.targetCity,
       'MinAge': instance.minAge,
       'MaxAge': instance.maxAge,
       'MaritalStatus': instance.maritalStatus,
-      'TargetNumber': instance.targetNumber,
+      'TargetUsersNumber': instance.targetUsersNumber,
+      'UserCount': instance.userCount,
       'Duration': instance.duration,
       'AdsCost': instance.adsCost,
-      'ProfileUrlForAds': instance.profileUrlForAds,
+      'PhotoUrlForAds': instance.photoUrlForAds,
     };

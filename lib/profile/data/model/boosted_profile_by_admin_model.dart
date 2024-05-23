@@ -13,7 +13,7 @@ class BoostedProfileByAdminModel with _$BoostedProfileByAdminModel {
     dynamic targetCity,
     dynamic minAge,
     dynamic maxAge,
-    dynamic targetNumber,
+    dynamic targetUsersNumber,
     dynamic duration,
     dynamic adsCost,
     dynamic profileUrlForAds,
