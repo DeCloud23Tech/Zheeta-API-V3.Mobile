@@ -13,7 +13,7 @@ import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage<String>()
 class ProfilePhotoScreen extends StatefulWidget {
-  String username;
+  final String username;
   ProfilePhotoScreen({super.key, required this.username});
 
   @override
@@ -58,7 +58,7 @@ class _ProfilePhotoScreenState extends State<ProfilePhotoScreen> {
                   photoTitle,
                   style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       fontSize: 28),
                 ),
                 SizedBox(height: 20),

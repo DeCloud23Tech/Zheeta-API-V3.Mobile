@@ -36,3 +36,6 @@ const carouselSubtitle =
 const matchesEmptyTitle = "You are out of likes";
 const matchesEmptySubTitle =
     "You are out of likes for today. If you need more likes you can upgrade to get more.";
+
+const feedsEmptyTitle = "No feeds to display yet";
+const feedEmptySubTitle = "You presently have no feeds to display, kindly send your first friend request to start seeing feeds";

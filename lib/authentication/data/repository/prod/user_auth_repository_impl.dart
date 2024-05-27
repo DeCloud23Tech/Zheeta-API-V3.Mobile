@@ -13,6 +13,7 @@ import 'package:zheeta/authentication/data/model/register_user_model.dart';
 import 'package:zheeta/authentication/data/request/change_password_request.dart';
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart';
 import 'package:zheeta/authentication/data/request/login_request.dart';
+import 'package:zheeta/authentication/data/request/refresh_token_request.dart';
 import 'package:zheeta/authentication/data/request/register_staff_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
@@ -141,6 +142,24 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on DioException catch (ex) {
       return left(
           ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+  }
+
+  @override
+  ResultFuture<LoginUserModel> refreshToken(RefreshTokenRequest data) async {
+    try {
+      final result = await _datasource.refreshToken(data);
+      await tokenStorage.save(result);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      String errorMessage = "Error Logging In";
+      if (ex.response?.data?["message"] != null) {
+        errorMessage = ex.response?.data?["message"];
+      }
+      return left(ApiError(
+          message: errorMessage, statusCode: ex.response!.statusCode!));
     }
   }
 }

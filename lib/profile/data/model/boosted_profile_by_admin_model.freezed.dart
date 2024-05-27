@@ -27,7 +27,7 @@ mixin _$BoostedProfileByAdminModel {
   dynamic get targetCity => throw _privateConstructorUsedError;
   dynamic get minAge => throw _privateConstructorUsedError;
   dynamic get maxAge => throw _privateConstructorUsedError;
-  dynamic get targetNumber => throw _privateConstructorUsedError;
+  dynamic get targetUsersNumber => throw _privateConstructorUsedError;
   dynamic get duration => throw _privateConstructorUsedError;
   dynamic get adsCost => throw _privateConstructorUsedError;
   dynamic get profileUrlForAds => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $BoostedProfileByAdminModelCopyWith<$Res> {
       dynamic targetCity,
       dynamic minAge,
       dynamic maxAge,
-      dynamic targetNumber,
+      dynamic targetUsersNumber,
       dynamic duration,
       dynamic adsCost,
       dynamic profileUrlForAds,
@@ -84,7 +84,7 @@ class _$BoostedProfileByAdminModelCopyWithImpl<$Res,
     Object? targetCity = freezed,
     Object? minAge = freezed,
     Object? maxAge = freezed,
-    Object? targetNumber = freezed,
+    Object? targetUsersNumber = freezed,
     Object? duration = freezed,
     Object? adsCost = freezed,
     Object? profileUrlForAds = freezed,
@@ -117,9 +117,9 @@ class _$BoostedProfileByAdminModelCopyWithImpl<$Res,
           ? _value.maxAge
           : maxAge // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      targetNumber: freezed == targetNumber
-          ? _value.targetNumber
-          : targetNumber // ignore: cast_nullable_to_non_nullable
+      targetUsersNumber: freezed == targetUsersNumber
+          ? _value.targetUsersNumber
+          : targetUsersNumber // ignore: cast_nullable_to_non_nullable
               as dynamic,
       duration: freezed == duration
           ? _value.duration
@@ -165,7 +165,7 @@ abstract class _$$BoostedProfileByAdminModelImplCopyWith<$Res>
       dynamic targetCity,
       dynamic minAge,
       dynamic maxAge,
-      dynamic targetNumber,
+      dynamic targetUsersNumber,
       dynamic duration,
       dynamic adsCost,
       dynamic profileUrlForAds,
@@ -193,7 +193,7 @@ class __$$BoostedProfileByAdminModelImplCopyWithImpl<$Res>
     Object? targetCity = freezed,
     Object? minAge = freezed,
     Object? maxAge = freezed,
-    Object? targetNumber = freezed,
+    Object? targetUsersNumber = freezed,
     Object? duration = freezed,
     Object? adsCost = freezed,
     Object? profileUrlForAds = freezed,
@@ -226,9 +226,9 @@ class __$$BoostedProfileByAdminModelImplCopyWithImpl<$Res>
           ? _value.maxAge
           : maxAge // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      targetNumber: freezed == targetNumber
-          ? _value.targetNumber
-          : targetNumber // ignore: cast_nullable_to_non_nullable
+      targetUsersNumber: freezed == targetUsersNumber
+          ? _value.targetUsersNumber
+          : targetUsersNumber // ignore: cast_nullable_to_non_nullable
               as dynamic,
       duration: freezed == duration
           ? _value.duration
@@ -269,7 +269,7 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
       this.targetCity,
       this.minAge,
       this.maxAge,
-      this.targetNumber,
+      this.targetUsersNumber,
       this.duration,
       this.adsCost,
       this.profileUrlForAds,
@@ -294,7 +294,7 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
   @override
   final dynamic maxAge;
   @override
-  final dynamic targetNumber;
+  final dynamic targetUsersNumber;
   @override
   final dynamic duration;
   @override
@@ -310,7 +310,7 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
 
   @override
   String toString() {
-    return 'BoostedProfileByAdminModel(userId: $userId, targetCountry: $targetCountry, targetGender: $targetGender, targetCity: $targetCity, minAge: $minAge, maxAge: $maxAge, targetNumber: $targetNumber, duration: $duration, adsCost: $adsCost, profileUrlForAds: $profileUrlForAds, startDate: $startDate, endDate: $endDate, userProfileUrl: $userProfileUrl)';
+    return 'BoostedProfileByAdminModel(userId: $userId, targetCountry: $targetCountry, targetGender: $targetGender, targetCity: $targetCity, minAge: $minAge, maxAge: $maxAge, targetUsersNumber: $targetUsersNumber, duration: $duration, adsCost: $adsCost, profileUrlForAds: $profileUrlForAds, startDate: $startDate, endDate: $endDate, userProfileUrl: $userProfileUrl)';
   }
 
   @override
@@ -328,7 +328,7 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
             const DeepCollectionEquality().equals(other.minAge, minAge) &&
             const DeepCollectionEquality().equals(other.maxAge, maxAge) &&
             const DeepCollectionEquality()
-                .equals(other.targetNumber, targetNumber) &&
+                .equals(other.targetUsersNumber, targetUsersNumber) &&
             const DeepCollectionEquality().equals(other.duration, duration) &&
             const DeepCollectionEquality().equals(other.adsCost, adsCost) &&
             const DeepCollectionEquality()
@@ -349,7 +349,7 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
       const DeepCollectionEquality().hash(targetCity),
       const DeepCollectionEquality().hash(minAge),
       const DeepCollectionEquality().hash(maxAge),
-      const DeepCollectionEquality().hash(targetNumber),
+      const DeepCollectionEquality().hash(targetUsersNumber),
       const DeepCollectionEquality().hash(duration),
       const DeepCollectionEquality().hash(adsCost),
       const DeepCollectionEquality().hash(profileUrlForAds),
@@ -381,7 +381,7 @@ abstract class _BoostedProfileByAdminModel
       final dynamic targetCity,
       final dynamic minAge,
       final dynamic maxAge,
-      final dynamic targetNumber,
+      final dynamic targetUsersNumber,
       final dynamic duration,
       final dynamic adsCost,
       final dynamic profileUrlForAds,
@@ -405,7 +405,7 @@ abstract class _BoostedProfileByAdminModel
   @override
   dynamic get maxAge;
   @override
-  dynamic get targetNumber;
+  dynamic get targetUsersNumber;
   @override
   dynamic get duration;
   @override

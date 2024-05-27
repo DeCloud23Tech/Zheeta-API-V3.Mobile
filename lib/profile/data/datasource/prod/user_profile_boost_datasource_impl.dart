@@ -39,7 +39,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
     late Map<String, dynamic> payload;
     payload = request.toJson();
     List<MultipartFile> fileList = [];
-    request.profileUrlForAds.forEach((filePath) async {
+    request.photoUrlForAds.forEach((filePath) async {
       final file = await MultipartFile.fromFile(File(filePath).path,
           contentType: MediaType('image', 'jpg'));
       fileList.add(file);
@@ -86,11 +86,14 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
 
   @override
   Future<void> createProfileBoostNew(CreateProfileBoostRequest request) async {
+    print(request.toJson());
     var response = await _api.dio.post('/profile-boost/create',
         options: Options(
           contentType: Headers.jsonContentType,
         ),
+
         data: jsonEncode(request.toJson()));
+
     if (response.statusCode == 200) {
     } else {
       throw ApiException(
@@ -124,7 +127,13 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return MatchedProfileBoostListModel.fromJson(response.data['data']);
+      if (response.data['data'] == null) {
+        // If null, return an empty list
+        return MatchedProfileBoostListModel(data: []);
+      } else {
+        // If not null, parse the data into MatchedProfileBoostListModel
+        return MatchedProfileBoostListModel.fromJson(response.data['data']);
+      }
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);

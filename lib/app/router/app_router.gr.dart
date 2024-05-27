@@ -8,97 +8,180 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i25;
-import 'package:flutter/material.dart' as _i27;
+<<<<<<< HEAD
+import 'package:auto_route/auto_route.dart' as _i28;
+import 'package:flutter/material.dart' as _i30;
 import 'package:zheeta/authentication/data/request/reset_password_request.dart'
-    as _i26;
+    as _i29;
 import 'package:zheeta/authentication/presentation/views/forgot_screen.dart'
     as _i4;
 import 'package:zheeta/authentication/presentation/views/reset_password_otp_screen.dart'
-    as _i18;
-import 'package:zheeta/authentication/presentation/views/reset_password_screen.dart'
-    as _i19;
-import 'package:zheeta/authentication/presentation/views/signin_screen.dart'
     as _i21;
-import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
+import 'package:zheeta/authentication/presentation/views/reset_password_screen.dart'
     as _i22;
+import 'package:zheeta/authentication/presentation/views/signin_screen.dart'
+    as _i24;
+import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
+    as _i25;
 import 'package:zheeta/authentication/presentation/views/verification_screen.dart'
+    as _i26;
+import 'package:zheeta/discover/presentation/views/nearby_search_screen.dart'
+    as _i11;
+import 'package:zheeta/feeds/presentation/views/product_screen.dart' as _i14;
+=======
+import 'package:auto_route/auto_route.dart' as _i26;
+import 'package:flutter/material.dart' as _i28;
+import 'package:zheeta/authentication/data/request/reset_password_request.dart'
+    as _i27;
+import 'package:zheeta/authentication/presentation/views/forgot_screen.dart'
+    as _i4;
+import 'package:zheeta/authentication/presentation/views/reset_password_otp_screen.dart'
+    as _i19;
+import 'package:zheeta/authentication/presentation/views/reset_password_screen.dart'
+    as _i20;
+import 'package:zheeta/authentication/presentation/views/signin_screen.dart'
+    as _i22;
+import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
     as _i23;
+import 'package:zheeta/authentication/presentation/views/verification_screen.dart'
+    as _i24;
 import 'package:zheeta/feeds/presentation/views/product_screen.dart' as _i13;
+>>>>>>> fc211bf (premerge)
 import 'package:zheeta/homepage/presentation/views/bank_screen.dart' as _i2;
 import 'package:zheeta/homepage/presentation/views/giftshop_screen.dart' as _i6;
 import 'package:zheeta/homepage/presentation/views/home_screen.dart' as _i7;
 import 'package:zheeta/homepage/presentation/views/mygift_screen.dart' as _i10;
 import 'package:zheeta/homepage/presentation/views/referees_screen.dart'
-    as _i17;
+<<<<<<< HEAD
+    as _i20;
+=======
+    as _i18;
+>>>>>>> fc211bf (premerge)
 import 'package:zheeta/notification/presentation/views/notification_screen.dart'
-    as _i11;
+    as _i12;
 import 'package:zheeta/profile/presentation/views/about_screen.dart' as _i1;
 import 'package:zheeta/profile/presentation/views/bio_screen.dart' as _i3;
 import 'package:zheeta/profile/presentation/views/friend_screen.dart' as _i5;
 import 'package:zheeta/profile/presentation/views/location_screen.dart' as _i9;
+<<<<<<< HEAD
+import 'package:zheeta/profile/presentation/views/pending_screen.dart' as _i13;
+import 'package:zheeta/profile/presentation/views/profile.dart' as _i19;
+import 'package:zheeta/profile/presentation/views/profile_boost_screen.dart'
+=======
 import 'package:zheeta/profile/presentation/views/pending_screen.dart' as _i12;
 import 'package:zheeta/profile/presentation/views/profile.dart' as _i16;
 import 'package:zheeta/profile/presentation/views/profile_carousel_screen.dart'
     as _i14;
+import 'package:zheeta/profile/presentation/views/profile_view.dart' as _i17;
 import 'package:zheeta/profile/presentation/views/profilephoto_screen.dart'
+>>>>>>> fc211bf (premerge)
     as _i15;
+import 'package:zheeta/profile/presentation/views/profile_carousel_screen.dart'
+    as _i16;
+import 'package:zheeta/profile/presentation/views/profile_edit_screen.dart'
+    as _i17;
+import 'package:zheeta/profile/presentation/views/profilephoto_screen.dart'
+    as _i18;
 import 'package:zheeta/profile/presentation/views/select_language_screen.dart'
-    as _i20;
-import 'package:zheeta/profile/presentation/views/welcome_screen.dart' as _i24;
+<<<<<<< HEAD
+    as _i23;
+import 'package:zheeta/profile/presentation/views/welcome_screen.dart' as _i27;
 import 'package:zheeta/splash_screen/presentation/views/intro.dart' as _i8;
 
-abstract class $AppRouter extends _i25.RootStackRouter {
+abstract class $AppRouter extends _i28.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i25.PageFactory> pagesMap = {
+  final Map<String, _i28.PageFactory> pagesMap = {
     AboutRoute.name: (routeData) {
       final args = routeData.argsAs<AboutRouteArgs>(
           orElse: () => const AboutRouteArgs());
-      return _i25.AutoRoutePage<dynamic>(
+      return _i28.AutoRoutePage<dynamic>(
+=======
+    as _i21;
+import 'package:zheeta/profile/presentation/views/welcome_screen.dart' as _i25;
+import 'package:zheeta/splash_screen/presentation/views/intro.dart' as _i8;
+
+abstract class $AppRouter extends _i26.RootStackRouter {
+  $AppRouter({super.navigatorKey});
+
+  @override
+  final Map<String, _i26.PageFactory> pagesMap = {
+    AboutRoute.name: (routeData) {
+      final args = routeData.argsAs<AboutRouteArgs>(
+          orElse: () => const AboutRouteArgs());
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: _i1.AboutScreen(key: args.key),
       );
     },
     BankAccountRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i2.BankAccountScreen(),
       );
     },
     BioDataRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i3.BioDataScreen(),
       );
     },
     ForgotPasswordRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i4.ForgotPasswordScreen(),
       );
     },
     FriendRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i5.FriendScreen(),
       );
     },
     GiftShopRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i6.GiftShopScreen(),
       );
     },
     HomeRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i7.HomeScreen(),
       );
     },
     IntroRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i8.IntroScreen(),
       );
@@ -106,53 +189,100 @@ abstract class $AppRouter extends _i25.RootStackRouter {
     LocationRoute.name: (routeData) {
       final args = routeData.argsAs<LocationRouteArgs>(
           orElse: () => const LocationRouteArgs());
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: _i9.LocationScreen(key: args.key),
       );
     },
     MyGiftRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
         child: const _i10.MyGiftScreen(),
       );
     },
+<<<<<<< HEAD
+    NearbySearchRoute.name: (routeData) {
+      return _i28.AutoRoutePage<dynamic>(
+=======
     NotificationRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
-        child: const _i11.NotificationScreen(),
+        child: const _i11.NearbySearchScreen(),
+      );
+    },
+    NotificationRoute.name: (routeData) {
+      return _i28.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i12.NotificationScreen(),
       );
     },
     PendingRequestRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
-        child: const _i12.PendingRequestScreen(),
+        child: const _i13.PendingRequestScreen(),
       );
     },
     ProductDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<ProductDetailsRouteArgs>(
           orElse: () => const ProductDetailsRouteArgs());
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
-        child: _i13.ProductDetailsScreen(
+        child: _i14.ProductDetailsScreen(
           key: args.key,
           product: args.product,
         ),
       );
     },
+    ProfileBoostRoute.name: (routeData) {
+      return _i28.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i15.ProfileBoostScreen(),
+      );
+    },
     ProfileCarouselRoute.name: (routeData) {
       final args = routeData.argsAs<ProfileCarouselRouteArgs>(
           orElse: () => const ProfileCarouselRouteArgs());
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
-        child: _i14.ProfileCarouselScreen(key: args.key),
+        child: _i16.ProfileCarouselScreen(key: args.key),
+      );
+    },
+    ProfileEditRoute.name: (routeData) {
+      return _i28.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i17.ProfileEditScreen(),
       );
     },
     ProfilePhotoRoute.name: (routeData) {
       final args = routeData.argsAs<ProfilePhotoRouteArgs>();
-      return _i25.AutoRoutePage<String>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<String>(
+=======
+      return _i26.AutoRoutePage<String>(
+>>>>>>> fc211bf (premerge)
         routeData: routeData,
-        child: _i15.ProfilePhotoScreen(
+        child: _i18.ProfilePhotoScreen(
           key: args.key,
           username: args.username,
         ),
@@ -161,25 +291,50 @@ abstract class $AppRouter extends _i25.RootStackRouter {
     ProfileRoute.name: (routeData) {
       final args = routeData.argsAs<ProfileRouteArgs>(
           orElse: () => const ProfileRouteArgs());
-      return _i25.AutoRoutePage<String?>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<String?>(
         routeData: routeData,
-        child: _i16.ProfileScreen(
+        child: _i19.ProfileScreen(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i16.ProfileScreen(key: args.key),
+      );
+    },
+    ProfileViewRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileViewRouteArgs>();
+      return _i26.AutoRoutePage<String>(
+        routeData: routeData,
+        child: _i17.ProfileViewScreen(
+>>>>>>> fc211bf (premerge)
           key: args.key,
           profileId: args.profileId,
         ),
       );
     },
     RefereeRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.RefereeScreen(),
+        child: const _i20.RefereeScreen(),
+=======
+      return _i26.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i18.RefereeScreen(),
+>>>>>>> fc211bf (premerge)
       );
     },
     ResetPasswordOtpRoute.name: (routeData) {
       final args = routeData.argsAs<ResetPasswordOtpRouteArgs>();
-      return _i25.AutoRoutePage<String>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<String>(
         routeData: routeData,
-        child: _i18.ResetPasswordOtpScreen(
+        child: _i21.ResetPasswordOtpScreen(
+=======
+      return _i26.AutoRoutePage<String>(
+        routeData: routeData,
+        child: _i19.ResetPasswordOtpScreen(
+>>>>>>> fc211bf (premerge)
           key: args.key,
           email: args.email,
         ),
@@ -187,9 +342,15 @@ abstract class $AppRouter extends _i25.RootStackRouter {
     },
     ResetPasswordRoute.name: (routeData) {
       final args = routeData.argsAs<ResetPasswordRouteArgs>();
-      return _i25.AutoRoutePage<_i26.ResetPasswordRequest>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<_i29.ResetPasswordRequest>(
         routeData: routeData,
-        child: _i19.ResetPasswordScreen(
+        child: _i22.ResetPasswordScreen(
+=======
+      return _i26.AutoRoutePage<_i27.ResetPasswordRequest>(
+        routeData: routeData,
+        child: _i20.ResetPasswordScreen(
+>>>>>>> fc211bf (premerge)
           key: args.key,
           request: args.request,
         ),
@@ -197,31 +358,55 @@ abstract class $AppRouter extends _i25.RootStackRouter {
     },
     SelectLanguageRoute.name: (routeData) {
       final args = routeData.argsAs<SelectLanguageRouteArgs>();
-      return _i25.AutoRoutePage<List<String>>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<List<String>>(
         routeData: routeData,
-        child: _i20.SelectLanguageScreen(
+        child: _i23.SelectLanguageScreen(
+=======
+      return _i26.AutoRoutePage<List<String>>(
+        routeData: routeData,
+        child: _i21.SelectLanguageScreen(
+>>>>>>> fc211bf (premerge)
           key: args.key,
           languages: args.languages,
         ),
       );
     },
     SignInRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i21.SignInScreen(),
+        child: const _i24.SignInScreen(),
       );
     },
     SignUpRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+      return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i22.SignUpScreen(),
+        child: const _i25.SignUpScreen(),
+=======
+      return _i26.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i22.SignInScreen(),
+      );
+    },
+    SignUpRoute.name: (routeData) {
+      return _i26.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i23.SignUpScreen(),
+>>>>>>> fc211bf (premerge)
       );
     },
     VerificationRoute.name: (routeData) {
       final args = routeData.argsAs<VerificationRouteArgs>();
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i23.VerificationScreen(
+        child: _i26.VerificationScreen(
+=======
+      return _i26.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i24.VerificationScreen(
+>>>>>>> fc211bf (premerge)
           key: args.key,
           isPhoneNumber: args.isPhoneNumber,
           phoneNumber: args.phoneNumber,
@@ -231,9 +416,15 @@ abstract class $AppRouter extends _i25.RootStackRouter {
       );
     },
     WelcomeRoute.name: (routeData) {
-      return _i25.AutoRoutePage<dynamic>(
+<<<<<<< HEAD
+      return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i24.WelcomeScreen(),
+        child: const _i27.WelcomeScreen(),
+=======
+      return _i26.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i25.WelcomeScreen(),
+>>>>>>> fc211bf (premerge)
       );
     },
   };
@@ -241,10 +432,17 @@ abstract class $AppRouter extends _i25.RootStackRouter {
 
 /// generated route for
 /// [_i1.AboutScreen]
-class AboutRoute extends _i25.PageRouteInfo<AboutRouteArgs> {
+<<<<<<< HEAD
+class AboutRoute extends _i28.PageRouteInfo<AboutRouteArgs> {
   AboutRoute({
-    _i27.Key? key,
-    List<_i25.PageRouteInfo>? children,
+    _i30.Key? key,
+    List<_i28.PageRouteInfo>? children,
+=======
+class AboutRoute extends _i26.PageRouteInfo<AboutRouteArgs> {
+  AboutRoute({
+    _i28.Key? key,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           AboutRoute.name,
           args: AboutRouteArgs(key: key),
@@ -253,14 +451,23 @@ class AboutRoute extends _i25.PageRouteInfo<AboutRouteArgs> {
 
   static const String name = 'AboutRoute';
 
-  static const _i25.PageInfo<AboutRouteArgs> page =
-      _i25.PageInfo<AboutRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<AboutRouteArgs> page =
+      _i28.PageInfo<AboutRouteArgs>(name);
+=======
+  static const _i26.PageInfo<AboutRouteArgs> page =
+      _i26.PageInfo<AboutRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class AboutRouteArgs {
   const AboutRouteArgs({this.key});
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   @override
   String toString() {
@@ -270,8 +477,13 @@ class AboutRouteArgs {
 
 /// generated route for
 /// [_i2.BankAccountScreen]
-class BankAccountRoute extends _i25.PageRouteInfo<void> {
-  const BankAccountRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class BankAccountRoute extends _i28.PageRouteInfo<void> {
+  const BankAccountRoute({List<_i28.PageRouteInfo>? children})
+=======
+class BankAccountRoute extends _i26.PageRouteInfo<void> {
+  const BankAccountRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           BankAccountRoute.name,
           initialChildren: children,
@@ -279,13 +491,22 @@ class BankAccountRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'BankAccountRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 /// generated route for
 /// [_i3.BioDataScreen]
-class BioDataRoute extends _i25.PageRouteInfo<void> {
-  const BioDataRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class BioDataRoute extends _i28.PageRouteInfo<void> {
+  const BioDataRoute({List<_i28.PageRouteInfo>? children})
+=======
+class BioDataRoute extends _i26.PageRouteInfo<void> {
+  const BioDataRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           BioDataRoute.name,
           initialChildren: children,
@@ -293,13 +514,22 @@ class BioDataRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'BioDataRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 /// generated route for
 /// [_i4.ForgotPasswordScreen]
-class ForgotPasswordRoute extends _i25.PageRouteInfo<void> {
-  const ForgotPasswordRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class ForgotPasswordRoute extends _i28.PageRouteInfo<void> {
+  const ForgotPasswordRoute({List<_i28.PageRouteInfo>? children})
+=======
+class ForgotPasswordRoute extends _i26.PageRouteInfo<void> {
+  const ForgotPasswordRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           ForgotPasswordRoute.name,
           initialChildren: children,
@@ -307,13 +537,22 @@ class ForgotPasswordRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'ForgotPasswordRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 /// generated route for
 /// [_i5.FriendScreen]
-class FriendRoute extends _i25.PageRouteInfo<void> {
-  const FriendRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class FriendRoute extends _i28.PageRouteInfo<void> {
+  const FriendRoute({List<_i28.PageRouteInfo>? children})
+=======
+class FriendRoute extends _i26.PageRouteInfo<void> {
+  const FriendRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           FriendRoute.name,
           initialChildren: children,
@@ -321,13 +560,22 @@ class FriendRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'FriendRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 /// generated route for
 /// [_i6.GiftShopScreen]
-class GiftShopRoute extends _i25.PageRouteInfo<void> {
-  const GiftShopRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class GiftShopRoute extends _i28.PageRouteInfo<void> {
+  const GiftShopRoute({List<_i28.PageRouteInfo>? children})
+=======
+class GiftShopRoute extends _i26.PageRouteInfo<void> {
+  const GiftShopRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           GiftShopRoute.name,
           initialChildren: children,
@@ -335,13 +583,22 @@ class GiftShopRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'GiftShopRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 /// generated route for
 /// [_i7.HomeScreen]
-class HomeRoute extends _i25.PageRouteInfo<void> {
-  const HomeRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class HomeRoute extends _i28.PageRouteInfo<void> {
+  const HomeRoute({List<_i28.PageRouteInfo>? children})
+=======
+class HomeRoute extends _i26.PageRouteInfo<void> {
+  const HomeRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           HomeRoute.name,
           initialChildren: children,
@@ -349,13 +606,22 @@ class HomeRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 /// generated route for
 /// [_i8.IntroScreen]
-class IntroRoute extends _i25.PageRouteInfo<void> {
-  const IntroRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class IntroRoute extends _i28.PageRouteInfo<void> {
+  const IntroRoute({List<_i28.PageRouteInfo>? children})
+=======
+class IntroRoute extends _i26.PageRouteInfo<void> {
+  const IntroRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           IntroRoute.name,
           initialChildren: children,
@@ -363,15 +629,26 @@ class IntroRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'IntroRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 /// generated route for
 /// [_i9.LocationScreen]
-class LocationRoute extends _i25.PageRouteInfo<LocationRouteArgs> {
+<<<<<<< HEAD
+class LocationRoute extends _i28.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
-    _i27.Key? key,
-    List<_i25.PageRouteInfo>? children,
+    _i30.Key? key,
+    List<_i28.PageRouteInfo>? children,
+=======
+class LocationRoute extends _i26.PageRouteInfo<LocationRouteArgs> {
+  LocationRoute({
+    _i28.Key? key,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           LocationRoute.name,
           args: LocationRouteArgs(key: key),
@@ -380,14 +657,23 @@ class LocationRoute extends _i25.PageRouteInfo<LocationRouteArgs> {
 
   static const String name = 'LocationRoute';
 
-  static const _i25.PageInfo<LocationRouteArgs> page =
-      _i25.PageInfo<LocationRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<LocationRouteArgs> page =
+      _i28.PageInfo<LocationRouteArgs>(name);
+=======
+  static const _i26.PageInfo<LocationRouteArgs> page =
+      _i26.PageInfo<LocationRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class LocationRouteArgs {
   const LocationRouteArgs({this.key});
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   @override
   String toString() {
@@ -397,8 +683,13 @@ class LocationRouteArgs {
 
 /// generated route for
 /// [_i10.MyGiftScreen]
-class MyGiftRoute extends _i25.PageRouteInfo<void> {
-  const MyGiftRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+class MyGiftRoute extends _i28.PageRouteInfo<void> {
+  const MyGiftRoute({List<_i28.PageRouteInfo>? children})
+=======
+class MyGiftRoute extends _i26.PageRouteInfo<void> {
+  const MyGiftRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           MyGiftRoute.name,
           initialChildren: children,
@@ -406,13 +697,37 @@ class MyGiftRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'MyGiftRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i11.NearbySearchScreen]
+class NearbySearchRoute extends _i28.PageRouteInfo<void> {
+  const NearbySearchRoute({List<_i28.PageRouteInfo>? children})
+      : super(
+          NearbySearchRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NearbySearchRoute';
+
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i12.NotificationScreen]
+class NotificationRoute extends _i28.PageRouteInfo<void> {
+  const NotificationRoute({List<_i28.PageRouteInfo>? children})
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i11.NotificationScreen]
-class NotificationRoute extends _i25.PageRouteInfo<void> {
-  const NotificationRoute({List<_i25.PageRouteInfo>? children})
+class NotificationRoute extends _i26.PageRouteInfo<void> {
+  const NotificationRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           NotificationRoute.name,
           initialChildren: children,
@@ -420,13 +735,23 @@ class NotificationRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'NotificationRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i13.PendingRequestScreen]
+class PendingRequestRoute extends _i28.PageRouteInfo<void> {
+  const PendingRequestRoute({List<_i28.PageRouteInfo>? children})
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i12.PendingRequestScreen]
-class PendingRequestRoute extends _i25.PageRouteInfo<void> {
-  const PendingRequestRoute({List<_i25.PageRouteInfo>? children})
+class PendingRequestRoute extends _i26.PageRouteInfo<void> {
+  const PendingRequestRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           PendingRequestRoute.name,
           initialChildren: children,
@@ -434,16 +759,29 @@ class PendingRequestRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'PendingRequestRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i14.ProductDetailsScreen]
+class ProductDetailsRoute extends _i28.PageRouteInfo<ProductDetailsRouteArgs> {
+  ProductDetailsRoute({
+    _i30.Key? key,
+    dynamic product,
+    List<_i28.PageRouteInfo>? children,
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i13.ProductDetailsScreen]
-class ProductDetailsRoute extends _i25.PageRouteInfo<ProductDetailsRouteArgs> {
+class ProductDetailsRoute extends _i26.PageRouteInfo<ProductDetailsRouteArgs> {
   ProductDetailsRoute({
-    _i27.Key? key,
+    _i28.Key? key,
     dynamic product,
-    List<_i25.PageRouteInfo>? children,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           ProductDetailsRoute.name,
           args: ProductDetailsRouteArgs(
@@ -455,8 +793,13 @@ class ProductDetailsRoute extends _i25.PageRouteInfo<ProductDetailsRouteArgs> {
 
   static const String name = 'ProductDetailsRoute';
 
-  static const _i25.PageInfo<ProductDetailsRouteArgs> page =
-      _i25.PageInfo<ProductDetailsRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<ProductDetailsRouteArgs> page =
+      _i28.PageInfo<ProductDetailsRouteArgs>(name);
+=======
+  static const _i26.PageInfo<ProductDetailsRouteArgs> page =
+      _i26.PageInfo<ProductDetailsRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class ProductDetailsRouteArgs {
@@ -465,7 +808,11 @@ class ProductDetailsRouteArgs {
     this.product,
   });
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   final dynamic product;
 
@@ -476,12 +823,33 @@ class ProductDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i14.ProfileCarouselScreen]
+/// [_i15.ProfileBoostScreen]
+class ProfileBoostRoute extends _i28.PageRouteInfo<void> {
+  const ProfileBoostRoute({List<_i28.PageRouteInfo>? children})
+      : super(
+          ProfileBoostRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileBoostRoute';
+
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i16.ProfileCarouselScreen]
 class ProfileCarouselRoute
-    extends _i25.PageRouteInfo<ProfileCarouselRouteArgs> {
+<<<<<<< HEAD
+    extends _i28.PageRouteInfo<ProfileCarouselRouteArgs> {
   ProfileCarouselRoute({
-    _i27.Key? key,
-    List<_i25.PageRouteInfo>? children,
+    _i30.Key? key,
+    List<_i28.PageRouteInfo>? children,
+=======
+    extends _i26.PageRouteInfo<ProfileCarouselRouteArgs> {
+  ProfileCarouselRoute({
+    _i28.Key? key,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           ProfileCarouselRoute.name,
           args: ProfileCarouselRouteArgs(key: key),
@@ -490,14 +858,23 @@ class ProfileCarouselRoute
 
   static const String name = 'ProfileCarouselRoute';
 
-  static const _i25.PageInfo<ProfileCarouselRouteArgs> page =
-      _i25.PageInfo<ProfileCarouselRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<ProfileCarouselRouteArgs> page =
+      _i28.PageInfo<ProfileCarouselRouteArgs>(name);
+=======
+  static const _i26.PageInfo<ProfileCarouselRouteArgs> page =
+      _i26.PageInfo<ProfileCarouselRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class ProfileCarouselRouteArgs {
   const ProfileCarouselRouteArgs({this.key});
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   @override
   String toString() {
@@ -506,12 +883,35 @@ class ProfileCarouselRouteArgs {
 }
 
 /// generated route for
-/// [_i15.ProfilePhotoScreen]
-class ProfilePhotoRoute extends _i25.PageRouteInfo<ProfilePhotoRouteArgs> {
+<<<<<<< HEAD
+/// [_i17.ProfileEditScreen]
+class ProfileEditRoute extends _i28.PageRouteInfo<void> {
+  const ProfileEditRoute({List<_i28.PageRouteInfo>? children})
+      : super(
+          ProfileEditRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileEditRoute';
+
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i18.ProfilePhotoScreen]
+class ProfilePhotoRoute extends _i28.PageRouteInfo<ProfilePhotoRouteArgs> {
   ProfilePhotoRoute({
-    _i27.Key? key,
+    _i30.Key? key,
     required String username,
-    List<_i25.PageRouteInfo>? children,
+    List<_i28.PageRouteInfo>? children,
+=======
+/// [_i15.ProfilePhotoScreen]
+class ProfilePhotoRoute extends _i26.PageRouteInfo<ProfilePhotoRouteArgs> {
+  ProfilePhotoRoute({
+    _i28.Key? key,
+    required String username,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           ProfilePhotoRoute.name,
           args: ProfilePhotoRouteArgs(
@@ -523,8 +923,13 @@ class ProfilePhotoRoute extends _i25.PageRouteInfo<ProfilePhotoRouteArgs> {
 
   static const String name = 'ProfilePhotoRoute';
 
-  static const _i25.PageInfo<ProfilePhotoRouteArgs> page =
-      _i25.PageInfo<ProfilePhotoRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<ProfilePhotoRouteArgs> page =
+      _i28.PageInfo<ProfilePhotoRouteArgs>(name);
+=======
+  static const _i26.PageInfo<ProfilePhotoRouteArgs> page =
+      _i26.PageInfo<ProfilePhotoRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class ProfilePhotoRouteArgs {
@@ -533,7 +938,11 @@ class ProfilePhotoRouteArgs {
     required this.username,
   });
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   final String username;
 
@@ -544,47 +953,100 @@ class ProfilePhotoRouteArgs {
 }
 
 /// generated route for
-/// [_i16.ProfileScreen]
-class ProfileRoute extends _i25.PageRouteInfo<ProfileRouteArgs> {
+<<<<<<< HEAD
+/// [_i19.ProfileScreen]
+class ProfileRoute extends _i28.PageRouteInfo<ProfileRouteArgs> {
   ProfileRoute({
-    _i27.Key? key,
+    _i30.Key? key,
     String? profileId,
-    List<_i25.PageRouteInfo>? children,
+    List<_i28.PageRouteInfo>? children,
+=======
+/// [_i16.ProfileScreen]
+class ProfileRoute extends _i26.PageRouteInfo<ProfileRouteArgs> {
+  ProfileRoute({
+    _i28.Key? key,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           ProfileRoute.name,
-          args: ProfileRouteArgs(
+          args: ProfileRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileRoute';
+
+  static const _i26.PageInfo<ProfileRouteArgs> page =
+      _i26.PageInfo<ProfileRouteArgs>(name);
+}
+
+class ProfileRouteArgs {
+  const ProfileRouteArgs({this.key});
+
+  final _i28.Key? key;
+
+  @override
+  String toString() {
+    return 'ProfileRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i17.ProfileViewScreen]
+class ProfileViewRoute extends _i26.PageRouteInfo<ProfileViewRouteArgs> {
+  ProfileViewRoute({
+    _i28.Key? key,
+    required String profileId,
+    List<_i26.PageRouteInfo>? children,
+  }) : super(
+          ProfileViewRoute.name,
+          args: ProfileViewRouteArgs(
             key: key,
             profileId: profileId,
           ),
           initialChildren: children,
         );
 
-  static const String name = 'ProfileRoute';
+  static const String name = 'ProfileViewRoute';
 
-  static const _i25.PageInfo<ProfileRouteArgs> page =
-      _i25.PageInfo<ProfileRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<ProfileRouteArgs> page =
+      _i28.PageInfo<ProfileRouteArgs>(name);
+=======
+  static const _i26.PageInfo<ProfileViewRouteArgs> page =
+      _i26.PageInfo<ProfileViewRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
-class ProfileRouteArgs {
-  const ProfileRouteArgs({
+class ProfileViewRouteArgs {
+  const ProfileViewRouteArgs({
     this.key,
-    this.profileId,
+    required this.profileId,
   });
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
-  final String? profileId;
+  final String profileId;
 
   @override
   String toString() {
-    return 'ProfileRouteArgs{key: $key, profileId: $profileId}';
+    return 'ProfileViewRouteArgs{key: $key, profileId: $profileId}';
   }
 }
 
 /// generated route for
-/// [_i17.RefereeScreen]
-class RefereeRoute extends _i25.PageRouteInfo<void> {
-  const RefereeRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+/// [_i20.RefereeScreen]
+class RefereeRoute extends _i28.PageRouteInfo<void> {
+  const RefereeRoute({List<_i28.PageRouteInfo>? children})
+=======
+/// [_i18.RefereeScreen]
+class RefereeRoute extends _i26.PageRouteInfo<void> {
+  const RefereeRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           RefereeRoute.name,
           initialChildren: children,
@@ -592,17 +1054,31 @@ class RefereeRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'RefereeRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i18.ResetPasswordOtpScreen]
+/// [_i21.ResetPasswordOtpScreen]
 class ResetPasswordOtpRoute
-    extends _i25.PageRouteInfo<ResetPasswordOtpRouteArgs> {
+    extends _i28.PageRouteInfo<ResetPasswordOtpRouteArgs> {
   ResetPasswordOtpRoute({
-    _i27.Key? key,
+    _i30.Key? key,
     required String email,
-    List<_i25.PageRouteInfo>? children,
+    List<_i28.PageRouteInfo>? children,
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i19.ResetPasswordOtpScreen]
+class ResetPasswordOtpRoute
+    extends _i26.PageRouteInfo<ResetPasswordOtpRouteArgs> {
+  ResetPasswordOtpRoute({
+    _i28.Key? key,
+    required String email,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           ResetPasswordOtpRoute.name,
           args: ResetPasswordOtpRouteArgs(
@@ -614,8 +1090,13 @@ class ResetPasswordOtpRoute
 
   static const String name = 'ResetPasswordOtpRoute';
 
-  static const _i25.PageInfo<ResetPasswordOtpRouteArgs> page =
-      _i25.PageInfo<ResetPasswordOtpRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<ResetPasswordOtpRouteArgs> page =
+      _i28.PageInfo<ResetPasswordOtpRouteArgs>(name);
+=======
+  static const _i26.PageInfo<ResetPasswordOtpRouteArgs> page =
+      _i26.PageInfo<ResetPasswordOtpRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class ResetPasswordOtpRouteArgs {
@@ -624,7 +1105,11 @@ class ResetPasswordOtpRouteArgs {
     required this.email,
   });
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   final String email;
 
@@ -635,12 +1120,21 @@ class ResetPasswordOtpRouteArgs {
 }
 
 /// generated route for
-/// [_i19.ResetPasswordScreen]
-class ResetPasswordRoute extends _i25.PageRouteInfo<ResetPasswordRouteArgs> {
+<<<<<<< HEAD
+/// [_i22.ResetPasswordScreen]
+class ResetPasswordRoute extends _i28.PageRouteInfo<ResetPasswordRouteArgs> {
   ResetPasswordRoute({
-    _i27.Key? key,
-    required _i26.ResetPasswordRequest request,
-    List<_i25.PageRouteInfo>? children,
+    _i30.Key? key,
+    required _i29.ResetPasswordRequest request,
+    List<_i28.PageRouteInfo>? children,
+=======
+/// [_i20.ResetPasswordScreen]
+class ResetPasswordRoute extends _i26.PageRouteInfo<ResetPasswordRouteArgs> {
+  ResetPasswordRoute({
+    _i28.Key? key,
+    required _i27.ResetPasswordRequest request,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           ResetPasswordRoute.name,
           args: ResetPasswordRouteArgs(
@@ -652,8 +1146,13 @@ class ResetPasswordRoute extends _i25.PageRouteInfo<ResetPasswordRouteArgs> {
 
   static const String name = 'ResetPasswordRoute';
 
-  static const _i25.PageInfo<ResetPasswordRouteArgs> page =
-      _i25.PageInfo<ResetPasswordRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<ResetPasswordRouteArgs> page =
+      _i28.PageInfo<ResetPasswordRouteArgs>(name);
+=======
+  static const _i26.PageInfo<ResetPasswordRouteArgs> page =
+      _i26.PageInfo<ResetPasswordRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class ResetPasswordRouteArgs {
@@ -662,9 +1161,15 @@ class ResetPasswordRouteArgs {
     required this.request,
   });
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
 
-  final _i26.ResetPasswordRequest request;
+  final _i29.ResetPasswordRequest request;
+=======
+  final _i28.Key? key;
+
+  final _i27.ResetPasswordRequest request;
+>>>>>>> fc211bf (premerge)
 
   @override
   String toString() {
@@ -673,12 +1178,21 @@ class ResetPasswordRouteArgs {
 }
 
 /// generated route for
-/// [_i20.SelectLanguageScreen]
-class SelectLanguageRoute extends _i25.PageRouteInfo<SelectLanguageRouteArgs> {
+<<<<<<< HEAD
+/// [_i23.SelectLanguageScreen]
+class SelectLanguageRoute extends _i28.PageRouteInfo<SelectLanguageRouteArgs> {
   SelectLanguageRoute({
-    _i27.Key? key,
+    _i30.Key? key,
     required List<String> languages,
-    List<_i25.PageRouteInfo>? children,
+    List<_i28.PageRouteInfo>? children,
+=======
+/// [_i21.SelectLanguageScreen]
+class SelectLanguageRoute extends _i26.PageRouteInfo<SelectLanguageRouteArgs> {
+  SelectLanguageRoute({
+    _i28.Key? key,
+    required List<String> languages,
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           SelectLanguageRoute.name,
           args: SelectLanguageRouteArgs(
@@ -690,8 +1204,13 @@ class SelectLanguageRoute extends _i25.PageRouteInfo<SelectLanguageRouteArgs> {
 
   static const String name = 'SelectLanguageRoute';
 
-  static const _i25.PageInfo<SelectLanguageRouteArgs> page =
-      _i25.PageInfo<SelectLanguageRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<SelectLanguageRouteArgs> page =
+      _i28.PageInfo<SelectLanguageRouteArgs>(name);
+=======
+  static const _i26.PageInfo<SelectLanguageRouteArgs> page =
+      _i26.PageInfo<SelectLanguageRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class SelectLanguageRouteArgs {
@@ -700,7 +1219,11 @@ class SelectLanguageRouteArgs {
     required this.languages,
   });
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   final List<String> languages;
 
@@ -711,9 +1234,15 @@ class SelectLanguageRouteArgs {
 }
 
 /// generated route for
-/// [_i21.SignInScreen]
-class SignInRoute extends _i25.PageRouteInfo<void> {
-  const SignInRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+/// [_i24.SignInScreen]
+class SignInRoute extends _i28.PageRouteInfo<void> {
+  const SignInRoute({List<_i28.PageRouteInfo>? children})
+=======
+/// [_i22.SignInScreen]
+class SignInRoute extends _i26.PageRouteInfo<void> {
+  const SignInRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           SignInRoute.name,
           initialChildren: children,
@@ -721,13 +1250,23 @@ class SignInRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'SignInRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i22.SignUpScreen]
-class SignUpRoute extends _i25.PageRouteInfo<void> {
-  const SignUpRoute({List<_i25.PageRouteInfo>? children})
+/// [_i25.SignUpScreen]
+class SignUpRoute extends _i28.PageRouteInfo<void> {
+  const SignUpRoute({List<_i28.PageRouteInfo>? children})
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i23.SignUpScreen]
+class SignUpRoute extends _i26.PageRouteInfo<void> {
+  const SignUpRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           SignUpRoute.name,
           initialChildren: children,
@@ -735,19 +1274,34 @@ class SignUpRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'SignUpRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i23.VerificationScreen]
-class VerificationRoute extends _i25.PageRouteInfo<VerificationRouteArgs> {
+/// [_i26.VerificationScreen]
+class VerificationRoute extends _i28.PageRouteInfo<VerificationRouteArgs> {
   VerificationRoute({
-    _i27.Key? key,
+    _i30.Key? key,
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i24.VerificationScreen]
+class VerificationRoute extends _i26.PageRouteInfo<VerificationRouteArgs> {
+  VerificationRoute({
+    _i28.Key? key,
+>>>>>>> fc211bf (premerge)
     required bool isPhoneNumber,
     required String phoneNumber,
     required String countryCode,
     required String email,
-    List<_i25.PageRouteInfo>? children,
+<<<<<<< HEAD
+    List<_i28.PageRouteInfo>? children,
+=======
+    List<_i26.PageRouteInfo>? children,
+>>>>>>> fc211bf (premerge)
   }) : super(
           VerificationRoute.name,
           args: VerificationRouteArgs(
@@ -762,8 +1316,13 @@ class VerificationRoute extends _i25.PageRouteInfo<VerificationRouteArgs> {
 
   static const String name = 'VerificationRoute';
 
-  static const _i25.PageInfo<VerificationRouteArgs> page =
-      _i25.PageInfo<VerificationRouteArgs>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<VerificationRouteArgs> page =
+      _i28.PageInfo<VerificationRouteArgs>(name);
+=======
+  static const _i26.PageInfo<VerificationRouteArgs> page =
+      _i26.PageInfo<VerificationRouteArgs>(name);
+>>>>>>> fc211bf (premerge)
 }
 
 class VerificationRouteArgs {
@@ -775,7 +1334,11 @@ class VerificationRouteArgs {
     required this.email,
   });
 
-  final _i27.Key? key;
+<<<<<<< HEAD
+  final _i30.Key? key;
+=======
+  final _i28.Key? key;
+>>>>>>> fc211bf (premerge)
 
   final bool isPhoneNumber;
 
@@ -792,9 +1355,15 @@ class VerificationRouteArgs {
 }
 
 /// generated route for
-/// [_i24.WelcomeScreen]
-class WelcomeRoute extends _i25.PageRouteInfo<void> {
-  const WelcomeRoute({List<_i25.PageRouteInfo>? children})
+<<<<<<< HEAD
+/// [_i27.WelcomeScreen]
+class WelcomeRoute extends _i28.PageRouteInfo<void> {
+  const WelcomeRoute({List<_i28.PageRouteInfo>? children})
+=======
+/// [_i25.WelcomeScreen]
+class WelcomeRoute extends _i26.PageRouteInfo<void> {
+  const WelcomeRoute({List<_i26.PageRouteInfo>? children})
+>>>>>>> fc211bf (premerge)
       : super(
           WelcomeRoute.name,
           initialChildren: children,
@@ -802,5 +1371,9 @@ class WelcomeRoute extends _i25.PageRouteInfo<void> {
 
   static const String name = 'WelcomeRoute';
 
-  static const _i25.PageInfo<void> page = _i25.PageInfo<void>(name);
+<<<<<<< HEAD
+  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+=======
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
+>>>>>>> fc211bf (premerge)
 }
