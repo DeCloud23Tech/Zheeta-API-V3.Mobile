@@ -28,6 +28,10 @@ import 'package:zheeta/profile/domain/usecase/ref_usecases/user_profile_usecases
 import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
+import '../../../app/common/storage/local_storage_impl.dart';
+import '../../../app/common/storage/storage_keys.dart';
+import '../../data/request/create_profile_boost_request.dart';
+
 @prod
 @LazySingleton()
 class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
@@ -50,6 +54,8 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
 
   List<String> allStates = [];
   List<String> allCountries = [];
+
+  String? userId;
 
   String _firstName = '';
   String _lastName = '';
@@ -81,6 +87,8 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
 
   List<int> _interest = [];
 
+  int? matchedProfileBoostCount;
+
   setInterest(int value) {
     if (_interest.contains(value)) {
       _interest.remove(value);
@@ -93,7 +101,9 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
       _interest.isEmpty ? 'Please select at least one interest' : null;
 
   setFirstName(String value) => _firstName = value;
+
   setLastName(String value) => _lastName = value;
+
   setGender(String value) {
     switch (value.toLowerCase()) {
       case 'male':
@@ -119,7 +129,9 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   get getDob => _dob;
 
   setAddress(String value) => _address = value;
+
   setCity(String value) => _city = value;
+
   setPostcode(String value) => _postcode = value;
 
   setState(String? value) {
@@ -131,22 +143,29 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   }
 
   setHeight(double value) => _height = value;
+
   setWeight(double value) => _weight = value;
 
   setBodyType(String value) => _bodyType = value;
+
   setComplexion(String value) => _complexion = value;
+
   setReligion(String value) => _religion = value;
 
   setLanguage(List<String> value) => _languages = value;
 
   setOccupation(String value) => _occupation = value;
+
   setAbout(String value) => _aboutMe = value;
+
   setTagline(String value) => _tagline = value;
 
   setProfilePicture(File file) => _profilePicture = file;
 
   String? validateFirstName() => this.isValidInput(_firstName);
+
   String? validateLastName() => this.isValidInput(_lastName);
+
   bool isValidGender() {
     if (_gender != -1) {
       return true;
@@ -166,14 +185,21 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   String? validateDob() => this.isValidInput(_dob);
 
   String? validateAddress() => this.isValidInput(_address);
+
   String? validateCity() => this.isValidInput(_city);
+
   String? validatePostcode() => this.isValidInput(_postcode);
+
   String? validateState() => this.isValidInput(_state);
+
   String? validateCountry() => this.isValidInput(_country);
 
   String? validateOccupation() => this.isValidInput(_occupation);
+
   String? validateAboutMe() => this.isValidInput(_aboutMe);
+
   String? validateLanguage() => this.isValidInput(_languages.join(', '));
+
   String? validateTagline() => this.isValidInput(_tagline);
 
   String? validateLetsKnowYouForm() {
@@ -198,6 +224,10 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     } else {
       return null;
     }
+  }
+
+  void getUserId() async {
+    userId = (await sessionManager.get(SessionManagerKeys.authUserIdString)) as String;
   }
 
   String? validateProfilePicture() {
@@ -276,8 +306,10 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
       var matchesViewModel = locator<MatchCriteriaViewModel>();
       await matchesViewModel.populateMatches(context);
       await matchesViewModel.getMatches(context);
-      router.popUntil((route) => route.isFirst);
-      router.replace(HomeRoute());
+      // Save user ID to session
+      sessionManager.set(SessionManagerKeys.authUserIdString, result.data.user?.userId);
+      // router.popUntil((route) => route.isFirst);
+      // router.replace(HomeRoute());
     }
     //return true;
   }
@@ -402,6 +434,7 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   visitUserProfile(BuildContext context, String visitingId) async {
     final result =
         await context.read<ProfileCubit>().visitUserProfileCubit(visitingId);
+    print(result);
     visitProfilePage = result;
   }
 
@@ -409,5 +442,11 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     final result =
         await context.read<ProfileCubit>().getUserRecentActivityCubit();
     userActivityModel = result;
+  }
+
+  Future<int> getMatchedProfileBoost(BuildContext context) async {
+    final result = await context.read<ProfileCubit>().getMatchedProfileBoostCubit();
+    matchedProfileBoostCount = result!;
+    return matchedProfileBoostCount!;
   }
 }

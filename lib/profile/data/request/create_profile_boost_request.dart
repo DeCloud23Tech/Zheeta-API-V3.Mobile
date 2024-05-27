@@ -5,29 +5,33 @@ part 'create_profile_boost_request.g.dart';
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.pascal)
 class CreateProfileBoostRequest {
   String userId;
+  String? caption;
   String targetCountry;
   String targetGender;
   String targetCity;
   int minAge;
   int maxAge;
   String maritalStatus;
-  int targetNumber;
+  int targetUsersNumber;
+  int userCount;
   int duration;
   double adsCost;
-  List<String> profileUrlForAds;
+  List<String> photoUrlForAds;
 
   CreateProfileBoostRequest({
     required this.userId,
+    this.caption,
     required this.targetCountry,
     required this.targetGender,
     required this.targetCity,
     required this.minAge,
     required this.maxAge,
     required this.maritalStatus,
-    required this.targetNumber,
+    required this.targetUsersNumber,
+    required this.userCount,
     required this.duration,
     required this.adsCost,
-    required this.profileUrlForAds,
+    required this.photoUrlForAds,
   });
 
   factory CreateProfileBoostRequest.fromJson(Map<String, dynamic> json) => _$CreateProfileBoostRequestFromJson(json);

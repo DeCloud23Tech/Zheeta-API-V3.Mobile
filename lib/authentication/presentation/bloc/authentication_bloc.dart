@@ -110,9 +110,6 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
       (fail) => emit(AuthenticationErrorState(fail.message)),
       (success) {
         emit(AuthenticationLoggedInState(success));
-
-
-        
       },
     );
   }

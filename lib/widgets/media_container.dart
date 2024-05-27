@@ -25,7 +25,7 @@ class _MediaContainerState extends State<MediaContainer> {
     // videoThumb = mediaType == MediaType.VIDEO && theData != null
     //     ? await Utility.processImage(theData)
     //     : null;
-    if (theData != null) return MemoryImage(theData!);
+    if (theData != null) return MemoryImage(theData);
     throw Exception();
   }
 

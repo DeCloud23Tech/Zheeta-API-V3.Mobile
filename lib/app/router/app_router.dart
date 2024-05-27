@@ -32,6 +32,11 @@ class AppRouter extends $AppRouter {
         // Explore
         AutoRoute(page: HomeRoute.page, guards: [AppGuard()]),
         AutoRoute(page: ProfileRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: ProfileBoostRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: ProfileEditRoute.page, guards: [AppGuard()]),
+
+        // Discover
+        AutoRoute(page: NearbySearchRoute.page, guards: [AppGuard()]),
 
         // Friends
         AutoRoute(page: FriendRoute.page, guards: [AppGuard()]),
