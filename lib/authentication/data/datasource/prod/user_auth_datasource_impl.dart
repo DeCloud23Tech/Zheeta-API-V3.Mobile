@@ -12,6 +12,7 @@ import 'package:zheeta/authentication/data/model/register_user_model.dart';
 import 'package:zheeta/authentication/data/request/change_password_request.dart';
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart';
 import 'package:zheeta/authentication/data/request/login_request.dart';
+import 'package:zheeta/authentication/data/request/refresh_token_request.dart';
 import 'package:zheeta/authentication/data/request/register_staff_request.dart';
 import 'package:zheeta/authentication/data/request/register_user_request.dart';
 import 'package:zheeta/authentication/data/request/reset_password_request.dart';
@@ -210,6 +211,31 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
+    }
+  }
+
+  @override
+  Future<LoginUserModel> refreshToken(RefreshTokenRequest request) async {
+    print(jsonEncode(request.toJson()));
+    var response = await _api.dio.post('/userauth/refresh-token',
+        options: Options(
+          contentType: Headers.jsonContentType,
+        ),
+        data: jsonEncode(request.toJson()));
+    if (response.statusCode == 200) {
+      if (response.data?['statusCode'] == 201) {
+        return LoginUserModel.fromJson(response.data['data']);
+      } else {
+        throw DioException.badResponse(
+            statusCode: response.data?['statusCode'] ?? 400,
+            requestOptions: response.requestOptions,
+            response: response);
+      }
+    } else {
+      throw DioException.badResponse(
+          statusCode: response.data?['statusCode'] ?? 400,
+          requestOptions: response.requestOptions,
+          response: response);
     }
   }
 }

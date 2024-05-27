@@ -16,6 +16,8 @@ import 'package:zheeta/authentication/data/request/change_password_request.dart'
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart'
     as _i13;
 import 'package:zheeta/authentication/data/request/login_request.dart' as _i9;
+import 'package:zheeta/authentication/data/request/refresh_token_request.dart'
+    as _i14;
 import 'package:zheeta/authentication/data/request/register_staff_request.dart'
     as _i10;
 import 'package:zheeta/authentication/data/request/register_user_request.dart'
@@ -165,4 +167,23 @@ class MockUserAuthRepository extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>> refreshToken(
+          _i14.RefreshTokenRequest? data) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #refreshToken,
+          [data],
+        ),
+        returnValue:
+            _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>>.value(
+                _FakeEither_0<_i5.ZheetaError, _i8.LoginUserModel>(
+          this,
+          Invocation.method(
+            #refreshToken,
+            [data],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>>);
 }

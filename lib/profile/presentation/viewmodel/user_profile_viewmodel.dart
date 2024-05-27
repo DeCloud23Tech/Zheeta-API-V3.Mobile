@@ -431,11 +431,13 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     }
   }
 
-  visitUserProfile(BuildContext context, String visitingId) async {
+  Future<ViewProfileModel?> visitUserProfile(
+      BuildContext context, String visitingId) async {
     final result =
         await context.read<ProfileCubit>().visitUserProfileCubit(visitingId);
     print(result);
     visitProfilePage = result;
+    return visitProfilePage;
   }
 
   loadUserRecentActivity(BuildContext context) async {

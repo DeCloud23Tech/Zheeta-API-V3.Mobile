@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
+import 'package:zheeta/feeds/presentation/widgets/empty_feeds.dart';
 
 import '../../../widgets/input_field.dart';
 import '../../../widgets/primary_button.dart';
@@ -19,6 +20,10 @@ class _FeedsState extends State<Feeds> {
   var search;
   static final TextEditingController _searchController =
       TextEditingController();
+<<<<<<< HEAD
+=======
+  var activeTab = 1;
+>>>>>>> fc211bf (premerge)
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,7 @@ class _FeedsState extends State<Feeds> {
           children: [
             Padding(
               padding: const EdgeInsets.all(15),
+<<<<<<< HEAD
               child: Container(
                   decoration: BoxDecoration(
                       color: AppColors.white,
@@ -154,6 +160,223 @@ class _FeedsState extends State<Feeds> {
                           ),
                         ),
                       SizedBox(width: 7)
+=======
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8)),
+                      height: 50,
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {},
+                        onChanged: (value) {},
+                        style: TextStyle(color: Colors.black),
+                        controller: _searchController,
+                        keyboardType: TextInputType.text,
+                        cursorColor: AppColors.primaryDark,
+                        decoration: InputDecoration(
+                            suffixIcon: Padding(
+                                padding: EdgeInsets.all(10),
+                                child: SvgPicture.asset(
+                                  'assets/images/icons/search.svg',
+                                  width: 10,
+                                  height: 10,
+                                )),
+                            border: OutlineInputBorder(),
+                            hintText: 'Search People & Posts',
+                            hintStyle: TextStyle(color: AppColors.hintText)),
+                        // focusNode: _focusNode,
+                        validator: (searchValue) {
+                          if (searchValue!.isEmpty) {
+                            return 'Please enter search keyword';
+                          }
+                          return null;
+                        },
+                      )),
+                  SizedBox(height: 20),
+                  Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: AppColors.white,
+                        border: Border(),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              activeTab = 1;
+                            });
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 3,
+                                width: MediaQuery.of(context).size.width * 0.46,
+                                decoration: BoxDecoration(
+                                    color: activeTab == 1
+                                        ? AppColors.primaryDark
+                                        : Colors.transparent,
+                                    border: Border(),
+                                    borderRadius: BorderRadius.circular(8)),
+                              ),
+                              SizedBox(height: 5),
+                              Text("Activites",
+                                  style: TextStyle(
+                                      color: activeTab == 1
+                                          ? AppColors.grayscale
+                                          : AppColors.grey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600))
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                activeTab = 2;
+                              });
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.46,
+                                  decoration: BoxDecoration(
+                                      color: activeTab == 2
+                                          ? AppColors.primaryDark
+                                          : Colors.transparent,
+                                      border: Border(),
+                                      borderRadius: BorderRadius.circular(8)),
+                                ),
+                                SizedBox(height: 5),
+                                Text("MarketPlace",
+                                    style: TextStyle(
+                                        color: activeTab == 2
+                                            ? AppColors.grayscale
+                                            : AppColors.grey,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600))
+                              ],
+                            ))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            activeTab == 1
+                ? EmptyFeedsWidget()
+                : Column(
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 7),
+                            for (var i = 0; i < 6; i++)
+                              GestureDetector(
+                                onTap: () {},
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8, right: 8),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        height: 48,
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                        decoration: BoxDecoration(
+                                            color: AppColors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              "assets/images/men.png",
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            Container(
+                                                height: 20,
+                                                width: 1,
+                                                color: AppColors.grey),
+                                            SizedBox(width: 5),
+                                            Text("Men Clothing",
+                                                style: TextStyle(
+                                                    color: AppColors.grayscale,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w400))
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            SizedBox(width: 7)
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      SingleChildScrollView(
+                        child: Wrap(
+                          runSpacing: 15,
+                          spacing: 15,
+                          children: [
+                            for (var i = 0; i < 6; i++)
+                              GestureDetector(
+                                onTap: () {
+                                  router.push(ProductDetailsRoute(
+                                      product: 'Plain black t-shirt'));
+                                },
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.56,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.44,
+                                  padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        "assets/images/product.png",
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                0.38,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.38,
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text("\$126",
+                                          style: TextStyle(
+                                              color: AppColors.primaryDark,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600)),
+                                      SizedBox(height: 5),
+                                      Text("Plain black t-shirt",
+                                          style: TextStyle(
+                                              color: AppColors.grayscale,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+>>>>>>> fc211bf (premerge)
                     ],
                   ),
                 ),

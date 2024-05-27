@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: SideDrawer(),
 
       floatingActionButton: Transform.translate(
-        offset: Offset(0, -30),
+        offset: Offset(0, -65),
         child: FloatingActionButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
@@ -519,6 +519,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           pages[index],
           Positioned(
+<<<<<<< HEAD
               child: Stack(
                 children: [
                   Align(
@@ -556,6 +557,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 : AppColors.grey,
                                             BlendMode.srcIn),
                                       ),
+=======
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Image.asset('assets/images/bottom_nav.png',
+                      width: double.infinity),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    child: Container(
+                      // decoration: BoxDecoration(color: Colors.blue),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: List.generate(
+                          icons.length,
+                          (i) {
+                            return Expanded(
+                              child: CupertinoButton(
+                                child: AnimatedOpacity(
+                                  opacity: index == i ? 1 : 0.5,
+                                  duration: const Duration(milliseconds: 200),
+                                  child: SizedBox(
+                                    height: 26,
+                                    width: 26,
+                                    child: SvgPicture.asset(
+                                      icons[i][1],
+                                      colorFilter: ColorFilter.mode(
+                                          index == i
+                                              ? AppColors.primaryDark
+                                              : AppColors.grey,
+                                          BlendMode.srcIn),
+>>>>>>> fc211bf (premerge)
                                     ),
                                   ),
                                   onPressed: () {
@@ -570,15 +609,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                     });
                                   },
                                 ),
+<<<<<<< HEAD
                               );
                             },
                           ),
+=======
+                                onPressed: () {
+                                  setState(() {
+                                    index = i;
+                                    // _pageController.jumpToPage(i);
+                                    // _pageController.animateToPage(
+                                    //   i,
+                                    //   duration: const Duration(milliseconds: 400),
+                                    //   curve: Curves.easeInOut,
+                                    // );
+                                  });
+                                },
+                              ),
+                            );
+                          },
+>>>>>>> fc211bf (premerge)
                         ),
                       ),
                     ),
                   ),
+<<<<<<< HEAD
                 ],
               ))
+=======
+                ),
+              ],
+            ),
+          ),
+>>>>>>> fc211bf (premerge)
         ],
       ),
       // body: pages[index],

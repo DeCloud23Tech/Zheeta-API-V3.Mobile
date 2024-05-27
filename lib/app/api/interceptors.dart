@@ -1,25 +1,46 @@
 import 'package:dio/dio.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:zheeta/app/common/storage/token_storage/i_token_storage.dart';
+import 'package:zheeta/authentication/data/request/refresh_token_request.dart';
+import 'package:zheeta/authentication/domain/repository/user_auth_repository.dart';
 
 class AppInterceptors extends Interceptor {
   final Dio dio;
-  
+  final UserAuthRepository authenticator;
   final ITokenStorage _credentialStorage;
 
   AppInterceptors(
-    this.dio, 
+    this.dio,
     this._credentialStorage,
+    this.authenticator,
   );
+  bool isRefreshing = false;
 
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    final credentials = await _credentialStorage.read();
+    var credentials = await _credentialStorage.read();
+
+    if (credentials != null) {
+      final isTokeExpired = Jwt.isExpired(credentials.token);
+
+      if (isTokeExpired && !isRefreshing) {
+        isRefreshing = true;
+        //refresh
+        var refreshResult = await authenticator.refreshToken(
+            RefreshTokenRequest(
+                accessToken: credentials.token,
+                refreshToken: credentials.refreshToken));
+        refreshResult.fold((l) => null, (r) {
+          credentials = r;
+        });
+      }
+    }
     final modifiedOptions = options
       ..headers.addAll(
         credentials == null
             ? {}
-            : {'Authorization': 'bearer ${credentials.token}'},
+            : {'Authorization': 'bearer ${credentials!.token}'},
       );
     handler.next(modifiedOptions);
   }
@@ -29,6 +50,7 @@ class AppInterceptors extends Interceptor {
     Response response,
     ResponseInterceptorHandler handler,
   ) async {
+    isRefreshing = false;
     handler.next(response);
   }
 
