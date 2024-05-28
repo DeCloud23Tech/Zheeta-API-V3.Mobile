@@ -227,7 +227,8 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   }
 
   void getUserId() async {
-    userId = (await sessionManager.get(SessionManagerKeys.authUserIdString)) as String;
+    userId = (await sessionManager.get(SessionManagerKeys.authUserIdString))
+        as String;
   }
 
   String? validateProfilePicture() {
@@ -307,7 +308,8 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
       await matchesViewModel.populateMatches(context);
       await matchesViewModel.getMatches(context);
       // Save user ID to session
-      sessionManager.set(SessionManagerKeys.authUserIdString, result.data.user?.userId);
+      sessionManager.set(
+          SessionManagerKeys.authUserIdString, result.data.user?.userId);
       // router.popUntil((route) => route.isFirst);
       // router.replace(HomeRoute());
     }
@@ -445,8 +447,23 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   }
 
   Future<int> getMatchedProfileBoost(BuildContext context) async {
-    final result = await context.read<ProfileCubit>().getMatchedProfileBoostCubit();
+    final result =
+        await context.read<ProfileCubit>().getMatchedProfileBoostCubit();
     matchedProfileBoostCount = result!;
     return matchedProfileBoostCount!;
+  }
+
+  Future<void> createProfileBoost(
+      BuildContext context, CreateProfileBoostRequest request) async {
+    await context.read<ProfileCubit>().createProfileBoostCubit(request);
+    final state = context.read<ProfileCubit>().state;
+    if (state is ProfileCreatedProfileBoostState) {
+      NotifyUser.showSnackbar(
+          'successfully created profile boost for ${request.duration} days');
+      router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
+    } else {
+      NotifyUser.showSnackbar(
+          'could not boost profile, please try again later');
+    }
   }
 }
