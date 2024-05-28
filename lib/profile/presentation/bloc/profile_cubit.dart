@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -27,6 +28,9 @@ import 'package:zheeta/profile/domain/usecase/ref_usecases/user_profile_boost_us
 import 'package:zheeta/profile/domain/usecase/ref_usecases/user_profile_usecases.dart';
 import 'package:zheeta/profile/domain/usecase/ref_usecases/user_search_usecases.dart';
 import 'package:zheeta/profile/domain/usecase/ref_usecases/user_transaction_usecases.dart';
+
+import '../../../app/router/app_router.dart';
+import '../../../app/router/app_router.gr.dart';
 
 part 'public_state.dart';
 
@@ -267,14 +271,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       CreateProfileBoostRequest request) async {
     emit(ProfileLoadingState());
     var result = await createProfileBoost(request);
-    print(result);
-
     result.fold(
       (fail) {
         emit(ProfileErrorState(fail.message));
       },
       (success) {
-        print(result);
         emit(ProfileCreatedProfileBoostState());
       },
     );

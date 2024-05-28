@@ -13,7 +13,6 @@ class CreateProfileBoostRequest {
   int maxAge;
   String maritalStatus;
   int targetUsersNumber;
-  int userCount;
   int duration;
   double adsCost;
   List<String> photoUrlForAds;
@@ -28,7 +27,6 @@ class CreateProfileBoostRequest {
     required this.maxAge,
     required this.maritalStatus,
     required this.targetUsersNumber,
-    required this.userCount,
     required this.duration,
     required this.adsCost,
     required this.photoUrlForAds,

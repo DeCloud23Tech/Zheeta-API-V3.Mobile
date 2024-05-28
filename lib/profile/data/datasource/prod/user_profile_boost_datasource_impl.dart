@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart' show Headers, MultipartFile, Options;
+import 'package:dio/dio.dart' show FormData, Headers, MultipartFile, Options;
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/api/api_manager.dart';
@@ -86,13 +86,13 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
 
   @override
   Future<void> createProfileBoostNew(CreateProfileBoostRequest request) async {
-    print(request.toJson());
-    var response = await _api.dio.post('/profile-boost/create',
-        options: Options(
-          contentType: Headers.jsonContentType,
-        ),
-
-        data: jsonEncode(request.toJson()));
+    var response = await _api.dio.post(
+      '/profile-boost/create',
+      options: Options(
+        contentType: Headers.jsonContentType,
+      ),
+      data: FormData.fromMap(request.toJson()),
+    );
 
     if (response.statusCode == 200) {
     } else {

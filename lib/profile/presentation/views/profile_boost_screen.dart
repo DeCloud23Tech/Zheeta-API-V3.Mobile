@@ -13,7 +13,9 @@ import 'package:zheeta/widgets/primary_button.dart';
 
 import '../../../activity/data/models/activity_model.dart';
 import '../../../app/injection/di.dart';
+import '../../../app/router/app_router.gr.dart';
 import '../../../widgets/close_button.dart';
+import '../../../widgets/loading_screen.dart';
 import '../../../widgets/media_container.dart';
 import '../../data/request/create_profile_boost_request.dart';
 import '../viewmodel/user_profile_viewmodel.dart';
@@ -149,345 +151,356 @@ class _ProfileBoostScreenState extends State<ProfileBoostScreen> {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          userPostsBottomSheet(context, selectedMedias,
-                              (List<ActivityModel> selectedImages) {
-                            setState(() {
-                              selectedMedias = selectedImages;
-                            });
-                          });
-                        },
-                        child: DottedBorder(
-                          dashPattern: [8, 4],
-                          strokeWidth: 1.5,
-                          color: AppColors.grey.withOpacity(0.5),
-                          strokeCap: StrokeCap.round,
-                          borderType: BorderType.RRect,
-                          radius: Radius.circular(10),
-                          child: Container(
-                            color: AppColors.white,
-                            width: 100,
-                            height: 100,
-                            padding: EdgeInsets.all(12),
-                            child: Center(
-                              child: RichText(
-                                text: TextSpan(
+                      Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              userPostsBottomSheet(context, selectedMedias,
+                                  (List<ActivityModel> selectedImages) {
+                                setState(() {
+                                  selectedMedias = selectedImages;
+                                });
+                              });
+                            },
+                            child: DottedBorder(
+                              dashPattern: [8, 4],
+                              strokeWidth: 1.5,
+                              color: AppColors.grey.withOpacity(0.5),
+                              strokeCap: StrokeCap.round,
+                              borderType: BorderType.RRect,
+                              radius: Radius.circular(10),
+                              child: Container(
+                                color: AppColors.white,
+                                width: 100,
+                                height: 100,
+                                padding: EdgeInsets.all(12),
+                                child: Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        WidgetSpan(
+                                          child: SvgPicture.asset(
+                                              'assets/images/icons/add-media.svg'),
+                                        ),
+                                        TextSpan(
+                                          text: ' Add',
+                                          style: TextStyle(
+                                              color: AppColors.primaryDark,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        TextSpan(
+                                          text: ' file',
+                                          style: TextStyle(
+                                            color: AppColors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 15),
+                          Expanded(
+                            child: Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children:
+                                  List.generate(selectedMedias.length, (index) {
+                                return Stack(
                                   children: [
-                                    WidgetSpan(
-                                      child: SvgPicture.asset(
-                                          'assets/images/icons/add-media.svg'),
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              selectedMedias[index]
+                                                  .mediaCollectionURL[0]),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
-                                    TextSpan(
-                                      text: ' Add',
-                                      style: TextStyle(
-                                          color: AppColors.primaryDark,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    TextSpan(
-                                      text: ' file',
-                                      style: TextStyle(
-                                        color: AppColors.grey,
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedMedias.removeAt(index);
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(4),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.white,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Icon(
+                                            Icons.close,
+                                            color: AppColors.grey,
+                                            size: 10,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 15),
-                      Expanded(
-                        child: Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          children:
-                              List.generate(selectedMedias.length, (index) {
-                            return Stack(
-                              children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      image: NetworkImage(selectedMedias[index]
-                                          .mediaCollectionURL[0]),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedMedias.removeAt(index);
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        Icons.close,
-                                        color: AppColors.grey,
-                                        size: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  InputField(
-                    controller: captionController,
-                    hintText: 'Write a caption (add hashtags if any)',
-                    minLine: 4,
-                    maxLine: 4,
-                    validator: validateTextField,
-                    onChanged: (value) {},
-                  ),
-                  DropdownInputField(
-                    value: selectedCountry,
-                    hintText: 'Target Country',
-                    onChanged: (value) {
-                      setState(() {
-                        selectedCountry = value!;
-                        userProfileViewModel.setCountry(value);
-                        userProfileViewModel.loadSelectedCountryStates(value,
-                            clearState: true);
-                      });
-                    },
-                    validator: validateCountryField,
-                    items: userProfileViewModel.allCountries.isNotEmpty
-                        ? userProfileViewModel.allCountries
-                        : [],
-                  ),
-                  DropdownInputField(
-                    value: selectedGender,
-                    hintText: 'Target Gender',
-                    onChanged: (value) {
-                      setState(() {
-                        selectedGender = value!;
-                      });
-                    },
-                    validator: validateGenderField,
-                    items: ['Male', 'Female'],
-                  ),
-                  InputField(
-                    controller: targetCityController,
-                    hintText: 'Target City',
-                    validator: validateTextField,
-                    onChanged: (value) {},
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          controller: minAgeController,
-                          hintText: 'Min Age',
-                          validator: validateNumberField,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      Expanded(
-                        child: InputField(
-                          controller: maxAgeController,
-                          hintText: 'Max Age',
-                          validator: validateNumberField,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                    ],
-                  ),
-                  DropdownInputField(
-                    value: selectedMaritalStatus,
-                    hintText: 'Marital Status',
-                    onChanged: (value) {
-                      setState(() {
-                        selectedMaritalStatus = value!;
-                      });
-                    },
-                    validator: validateMaritalStatusField,
-                    items: [
-                      'Single',
-                      'Married',
-                      'Divorced',
-                      'Widowed',
-                      'Separated',
-                      'Other'
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.check_circle_outline,
-                              color: AppColors.primaryDark,
-                              size: 30,
-                            ),
-                            Text(
-                              ' Target all',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.grayscale,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          'Total Matched Users: ${userProfileViewModel.matchedProfileBoostCount}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.primaryDark,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InputField(
-                    controller: manualNumberController,
-                    hintText: 'Manually Enter Number',
-                    validator: validateNumberField,
-                    onChanged: (value) {},
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Boost Charges',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.primaryDark,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/icons/zheeta-coin-light.svg',
-                              height: 12,
-                            ),
-                            Text(
-                              '11/day',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.grayscale,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  InputField(
-                    controller: durationController,
-                    hintText: 'Duration (Days)',
-                    validator: validateNumberField,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: 15),
-                  Divider(color: AppColors.grey.withOpacity(0.5)),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total Promotion cost',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.primaryDark,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/zheeta-coin-bold.svg',
-                            height: 12,
-                          ),
-                          Text(
-                            '${calculatedCost}',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.grayscale,
+                                );
+                              }),
                             ),
                           ),
                         ],
                       ),
+                      SizedBox(height: 20),
+                      InputField(
+                        controller: captionController,
+                        hintText: 'Write a caption (add hashtags if any)',
+                        minLine: 4,
+                        maxLine: 4,
+                        // validator: validateTextField,
+                        onChanged: (value) {},
+                      ),
+                      DropdownInputField(
+                        value: selectedCountry,
+                        hintText: 'Target Country',
+                        onChanged: (value) {
+                          setState(() {
+                            selectedCountry = value!;
+                            userProfileViewModel.setCountry(value);
+                            userProfileViewModel.loadSelectedCountryStates(
+                                value,
+                                clearState: true);
+                          });
+                        },
+                        validator: validateCountryField,
+                        items: userProfileViewModel.allCountries.isNotEmpty
+                            ? userProfileViewModel.allCountries
+                            : [],
+                      ),
+                      DropdownInputField(
+                        value: selectedGender,
+                        hintText: 'Target Gender',
+                        onChanged: (value) {
+                          setState(() {
+                            selectedGender = value!;
+                          });
+                        },
+                        validator: validateGenderField,
+                        items: ['Male', 'Female'],
+                      ),
+                      InputField(
+                        controller: targetCityController,
+                        hintText: 'Target City',
+                        validator: validateTextField,
+                        onChanged: (value) {},
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: InputField(
+                              controller: minAgeController,
+                              hintText: 'Min Age',
+                              validator: validateNumberField,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                          SizedBox(width: 20),
+                          Expanded(
+                            child: InputField(
+                              controller: maxAgeController,
+                              hintText: 'Max Age',
+                              validator: validateNumberField,
+                              onChanged: (value) {},
+                            ),
+                          ),
+                        ],
+                      ),
+                      DropdownInputField(
+                        value: selectedMaritalStatus,
+                        hintText: 'Marital Status',
+                        onChanged: (value) {
+                          setState(() {
+                            selectedMaritalStatus = value!;
+                          });
+                        },
+                        validator: validateMaritalStatusField,
+                        items: [
+                          'Single',
+                          'Married',
+                          'Divorced',
+                          'Widowed',
+                          'Separated',
+                          'Other'
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.check_circle_outline,
+                                  color: AppColors.primaryDark,
+                                  size: 30,
+                                ),
+                                Text(
+                                  ' Target all',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.grayscale,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Total Matched Users: ${userProfileViewModel.matchedProfileBoostCount}',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.primaryDark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InputField(
+                        controller: manualNumberController,
+                        hintText: 'Manually Enter Number',
+                        validator: validateNumberField,
+                        onChanged: (value) {},
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Boost Charges',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.primaryDark,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/icons/zheeta-coin-light.svg',
+                                  height: 12,
+                                ),
+                                Text(
+                                  '11/day',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.grayscale,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      InputField(
+                        controller: durationController,
+                        hintText: 'Duration (Days)',
+                        validator: validateNumberField,
+                        onChanged: (value) {},
+                      ),
+                      SizedBox(height: 15),
+                      Divider(color: AppColors.grey.withOpacity(0.5)),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total Promotion cost',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.primaryDark,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/icons/zheeta-coin-bold.svg',
+                                height: 12,
+                              ),
+                              Text(
+                                '${calculatedCost}',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.grayscale,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      PrimaryButton(
+                        title: 'Boost Profile',
+                        action: () {
+                          if (formKey.currentState!.validate()) {
+                            userProfileViewModel.createProfileBoost(
+                              context,
+                              CreateProfileBoostRequest(
+                                userId: userProfileViewModel.userId!,
+                                targetCountry: selectedCountry,
+                                targetGender: selectedGender,
+                                targetCity: targetCityController.text,
+                                minAge: int.tryParse(minAgeController.text)!,
+                                maxAge: int.tryParse(maxAgeController.text)!,
+                                maritalStatus: selectedMaritalStatus,
+                                targetUsersNumber:
+                                    int.tryParse(manualNumberController.text)!,
+                                duration:
+                                    int.tryParse(durationController.text)!,
+                                adsCost: calculatedCost.toDouble(),
+                                photoUrlForAds: selectedMedias
+                                    .map((media) =>
+                                        media.mediaCollectionURL[0] as String)
+                                    .toList(),
+                                caption: captionController.text,
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  PrimaryButton(
-                    title: 'Boost Profile',
-                    action: () {
-                      if (formKey.currentState!.validate()) {
-                        context.read<ProfileCubit>().createProfileBoostCubit(
-                              CreateProfileBoostRequest(
-                                  userId: userProfileViewModel.userId!,
-                                  targetCountry: selectedCountry,
-                                  targetGender: selectedGender,
-                                  targetCity: targetCityController.text,
-                                  minAge: int.tryParse(minAgeController.text)!,
-                                  maxAge: int.tryParse(maxAgeController.text)!,
-                                  maritalStatus: selectedMaritalStatus,
-                                  targetUsersNumber: int.tryParse(
-                                      manualNumberController.text)!,
-                                  duration:
-                                      int.tryParse(durationController.text)!,
-                                  adsCost: calculatedCost.toDouble(),
-                                  photoUrlForAds: selectedMedias
-                                      .map((media) =>
-                                          media.mediaCollectionURL[0] as String)
-                                      .toList(),
-                                  userCount: 10,
-                                  caption: captionController
-                                      .text // Explicitly cast to String
-                                  ),
-                            );
-                      }
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
