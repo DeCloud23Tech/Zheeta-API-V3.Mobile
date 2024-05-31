@@ -7,12 +7,13 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:zheeta/app/api/formatted_response.dart' as _i5;
 import 'package:zheeta/authentication/data/datasource/user_otp_datasource.dart'
     as _i3;
 import 'package:zheeta/authentication/data/request/verify_email_otp_request.dart'
-    as _i6;
+    as _i7;
 import 'package:zheeta/authentication/data/request/verify_phone_otp_request.dart'
-    as _i5;
+    as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -37,119 +38,165 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-/// A class which mocks [UserOtpDatasource].
+/// A class which mocks [UserOtpDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserOtpDatasource extends _i1.Mock implements _i3.UserOtpDatasource {
-  MockUserOtpDatasource() {
+class MockUserOtpDataSource extends _i1.Mock implements _i3.UserOtpDataSource {
+  MockUserOtpDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> sendEmailVerifyOtp(
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> sendEmailVerifyOtp(
           String? email) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendEmailVerifyOtp,
           [email],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #sendEmailVerifyOtp,
             [email],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> sendPhoneVerifyOtp(
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> sendPhoneVerifyOtp(
           String? phoneNumber) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendPhoneVerifyOtp,
           [phoneNumber],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #sendPhoneVerifyOtp,
             [phoneNumber],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> verifyPhoneOtp(
-          _i5.VerifyPhoneOtpRequest? request) =>
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> verifyPhoneOtp(
+          _i6.VerifyPhoneOtpRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #verifyPhoneOtp,
           [request],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #verifyPhoneOtp,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> verifyEmailOtp(
-          _i6.VerifyEmailOtpRequest? request) =>
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> verifyEmailOtp(
+          _i7.VerifyEmailOtpRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #verifyEmailOtp,
           [request],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #verifyEmailOtp,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> sendResetPasswordOtp(
-          String? phoneNumber) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #sendResetPasswordOtp,
-          [phoneNumber],
-        ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
-          this,
-          Invocation.method(
-            #sendResetPasswordOtp,
-            [phoneNumber],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+  _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>
+      sendPasswordResetOtp(String? email) => (super.noSuchMethod(
+            Invocation.method(
+              #sendPasswordResetOtp,
+              [email],
+            ),
+            returnValue: _i4.Future<
+                    _i2
+                    .Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+                _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
+              this,
+              Invocation.method(
+                #sendPasswordResetOtp,
+                [email],
+              ),
+            )),
+          ) as _i4
+              .Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> resetPassword(
-          String? phoneNumber) =>
+  _i4.Future<void> sendEmailVerifyOtpNew(String? email) => (super.noSuchMethod(
+        Invocation.method(
+          #sendEmailVerifyOtpNew,
+          [email],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> sendPhoneVerifyOtpNew(String? phoneNumber) =>
       (super.noSuchMethod(
         Invocation.method(
-          #resetPassword,
+          #sendPhoneVerifyOtpNew,
           [phoneNumber],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
-          this,
-          Invocation.method(
-            #resetPassword,
-            [phoneNumber],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> verifyPhoneOtpNew(_i6.VerifyPhoneOtpRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyPhoneOtpNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> verifyEmailOtpNew(_i7.VerifyEmailOtpRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyEmailOtpNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> sendPasswordResetOtpNew(String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendPasswordResetOtpNew,
+          [email],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

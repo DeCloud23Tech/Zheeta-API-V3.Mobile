@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class BankAccountScreen extends StatefulWidget {
   const BankAccountScreen({super.key});
 
@@ -27,7 +27,7 @@ class _BankAccountScreenState extends State<BankAccountScreen> {
           backgroundColor: AppColors.secondaryLight,
           elevation: 0.0,
           leading: GestureDetector(
-              onTap: () => context.router.pop(),
+              onTap: () => router.pop(),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(padding: EdgeInsets.all(5), height: 30, width: 30, decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(100)), child: Icon(Icons.arrow_back_ios_new, color: AppColors.grey)),
@@ -43,10 +43,10 @@ class _BankAccountScreenState extends State<BankAccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InputField(controller: _countryController, label: 'Bank Country'),
-              InputField(controller: _bankController, label: 'Select Bank'),
-              InputField(controller: _accNoController, label: 'Account Number'),
-              InputField(controller: _recipientController, label: 'Recipient (autofill)'),
+              InputField(controller: _countryController, hintText: 'Bank Country'),
+              InputField(controller: _bankController, hintText: 'Select Bank'),
+              InputField(controller: _accNoController, hintText: 'Account Number'),
+              InputField(controller: _recipientController, hintText: 'Recipient (autofill)'),
               SizedBox(height: 20),
               SizedBox(width: MediaQuery.of(context).size.width, child: PrimaryButton(title: "Update", action: () {})),
               SizedBox(height: 100),

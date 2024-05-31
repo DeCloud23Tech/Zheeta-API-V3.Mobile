@@ -7,10 +7,11 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:zheeta/app/api/formatted_response.dart' as _i5;
 import 'package:zheeta/authentication/data/datasource/identity_role_datasource.dart'
     as _i3;
 import 'package:zheeta/authentication/data/request/user_roles_request.dart'
-    as _i5;
+    as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,48 +36,74 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-/// A class which mocks [IdentityRoleDatasource].
+/// A class which mocks [IdentityRoleDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIdentityRoleDatasource extends _i1.Mock
-    implements _i3.IdentityRoleDatasource {
-  MockIdentityRoleDatasource() {
+class MockIdentityRoleDataSource extends _i1.Mock
+    implements _i3.IdentityRoleDataSource {
+  MockIdentityRoleDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> upgradeUserRole(
-          _i5.UserRoleRequest? request) =>
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> upgradeUserRole(
+          _i6.UserRoleRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #upgradeUserRole,
           [request],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #upgradeUserRole,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
 
   @override
-  _i4.Future<_i2.Either<String, Map<String, dynamic>>> downgradeUserRole(
-          _i5.UserRoleRequest? request) =>
+  _i4.Future<
+      _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>> downgradeUserRole(
+          _i6.UserRoleRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #downgradeUserRole,
           [request],
         ),
-        returnValue: _i4.Future<_i2.Either<String, Map<String, dynamic>>>.value(
-            _FakeEither_0<String, Map<String, dynamic>>(
+        returnValue: _i4.Future<
+                _i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>.value(
+            _FakeEither_0<_i5.InvalidResponse, Map<String, dynamic>>(
           this,
           Invocation.method(
             #downgradeUserRole,
             [request],
           ),
         )),
-      ) as _i4.Future<_i2.Either<String, Map<String, dynamic>>>);
+      ) as _i4.Future<_i2.Either<_i5.InvalidResponse, Map<String, dynamic>>>);
+
+  @override
+  _i4.Future<void> upgradeUserRoleNew(_i6.UserRoleRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #upgradeUserRoleNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> downgradeUserRoleNew(_i6.UserRoleRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #downgradeUserRoleNew,
+          [request],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

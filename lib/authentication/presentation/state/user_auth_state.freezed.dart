@@ -16,13 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserAuthState {
-  State<RegisterUserModel> get registerUser =>
+  State<RegisterUserModel> get registerUserState =>
       throw _privateConstructorUsedError;
-  State<dynamic> get loginUser => throw _privateConstructorUsedError;
-  State<dynamic> get registerStaff => throw _privateConstructorUsedError;
-  State<dynamic> get changePassword => throw _privateConstructorUsedError;
-  State<dynamic> get resetPassword => throw _privateConstructorUsedError;
-  State<dynamic> get loginOAuth => throw _privateConstructorUsedError;
+  State<LoginUserModel> get loginUserState =>
+      throw _privateConstructorUsedError;
+  State<dynamic> get registerStaffState => throw _privateConstructorUsedError;
+  State<dynamic> get changePasswordState => throw _privateConstructorUsedError;
+  State<dynamic> get resetPasswordState => throw _privateConstructorUsedError;
+  State<dynamic> get loginOAuthState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserAuthStateCopyWith<UserAuthState> get copyWith =>
@@ -36,19 +37,19 @@ abstract class $UserAuthStateCopyWith<$Res> {
       _$UserAuthStateCopyWithImpl<$Res, UserAuthState>;
   @useResult
   $Res call(
-      {State<RegisterUserModel> registerUser,
-      State<dynamic> loginUser,
-      State<dynamic> registerStaff,
-      State<dynamic> changePassword,
-      State<dynamic> resetPassword,
-      State<dynamic> loginOAuth});
+      {State<RegisterUserModel> registerUserState,
+      State<LoginUserModel> loginUserState,
+      State<dynamic> registerStaffState,
+      State<dynamic> changePasswordState,
+      State<dynamic> resetPasswordState,
+      State<dynamic> loginOAuthState});
 
-  $StateCopyWith<RegisterUserModel, $Res> get registerUser;
-  $StateCopyWith<dynamic, $Res> get loginUser;
-  $StateCopyWith<dynamic, $Res> get registerStaff;
-  $StateCopyWith<dynamic, $Res> get changePassword;
-  $StateCopyWith<dynamic, $Res> get resetPassword;
-  $StateCopyWith<dynamic, $Res> get loginOAuth;
+  $StateCopyWith<RegisterUserModel, $Res> get registerUserState;
+  $StateCopyWith<LoginUserModel, $Res> get loginUserState;
+  $StateCopyWith<dynamic, $Res> get registerStaffState;
+  $StateCopyWith<dynamic, $Res> get changePasswordState;
+  $StateCopyWith<dynamic, $Res> get resetPasswordState;
+  $StateCopyWith<dynamic, $Res> get loginOAuthState;
 }
 
 /// @nodoc
@@ -64,87 +65,87 @@ class _$UserAuthStateCopyWithImpl<$Res, $Val extends UserAuthState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? registerUser = null,
-    Object? loginUser = null,
-    Object? registerStaff = null,
-    Object? changePassword = null,
-    Object? resetPassword = null,
-    Object? loginOAuth = null,
+    Object? registerUserState = null,
+    Object? loginUserState = null,
+    Object? registerStaffState = null,
+    Object? changePasswordState = null,
+    Object? resetPasswordState = null,
+    Object? loginOAuthState = null,
   }) {
     return _then(_value.copyWith(
-      registerUser: null == registerUser
-          ? _value.registerUser
-          : registerUser // ignore: cast_nullable_to_non_nullable
+      registerUserState: null == registerUserState
+          ? _value.registerUserState
+          : registerUserState // ignore: cast_nullable_to_non_nullable
               as State<RegisterUserModel>,
-      loginUser: null == loginUser
-          ? _value.loginUser
-          : loginUser // ignore: cast_nullable_to_non_nullable
+      loginUserState: null == loginUserState
+          ? _value.loginUserState
+          : loginUserState // ignore: cast_nullable_to_non_nullable
+              as State<LoginUserModel>,
+      registerStaffState: null == registerStaffState
+          ? _value.registerStaffState
+          : registerStaffState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      registerStaff: null == registerStaff
-          ? _value.registerStaff
-          : registerStaff // ignore: cast_nullable_to_non_nullable
+      changePasswordState: null == changePasswordState
+          ? _value.changePasswordState
+          : changePasswordState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      changePassword: null == changePassword
-          ? _value.changePassword
-          : changePassword // ignore: cast_nullable_to_non_nullable
+      resetPasswordState: null == resetPasswordState
+          ? _value.resetPasswordState
+          : resetPasswordState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      resetPassword: null == resetPassword
-          ? _value.resetPassword
-          : resetPassword // ignore: cast_nullable_to_non_nullable
-              as State<dynamic>,
-      loginOAuth: null == loginOAuth
-          ? _value.loginOAuth
-          : loginOAuth // ignore: cast_nullable_to_non_nullable
+      loginOAuthState: null == loginOAuthState
+          ? _value.loginOAuthState
+          : loginOAuthState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<RegisterUserModel, $Res> get registerUser {
-    return $StateCopyWith<RegisterUserModel, $Res>(_value.registerUser,
+  $StateCopyWith<RegisterUserModel, $Res> get registerUserState {
+    return $StateCopyWith<RegisterUserModel, $Res>(_value.registerUserState,
         (value) {
-      return _then(_value.copyWith(registerUser: value) as $Val);
+      return _then(_value.copyWith(registerUserState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get loginUser {
-    return $StateCopyWith<dynamic, $Res>(_value.loginUser, (value) {
-      return _then(_value.copyWith(loginUser: value) as $Val);
+  $StateCopyWith<LoginUserModel, $Res> get loginUserState {
+    return $StateCopyWith<LoginUserModel, $Res>(_value.loginUserState, (value) {
+      return _then(_value.copyWith(loginUserState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get registerStaff {
-    return $StateCopyWith<dynamic, $Res>(_value.registerStaff, (value) {
-      return _then(_value.copyWith(registerStaff: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get registerStaffState {
+    return $StateCopyWith<dynamic, $Res>(_value.registerStaffState, (value) {
+      return _then(_value.copyWith(registerStaffState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get changePassword {
-    return $StateCopyWith<dynamic, $Res>(_value.changePassword, (value) {
-      return _then(_value.copyWith(changePassword: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get changePasswordState {
+    return $StateCopyWith<dynamic, $Res>(_value.changePasswordState, (value) {
+      return _then(_value.copyWith(changePasswordState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get resetPassword {
-    return $StateCopyWith<dynamic, $Res>(_value.resetPassword, (value) {
-      return _then(_value.copyWith(resetPassword: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get resetPasswordState {
+    return $StateCopyWith<dynamic, $Res>(_value.resetPasswordState, (value) {
+      return _then(_value.copyWith(resetPasswordState: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $StateCopyWith<dynamic, $Res> get loginOAuth {
-    return $StateCopyWith<dynamic, $Res>(_value.loginOAuth, (value) {
-      return _then(_value.copyWith(loginOAuth: value) as $Val);
+  $StateCopyWith<dynamic, $Res> get loginOAuthState {
+    return $StateCopyWith<dynamic, $Res>(_value.loginOAuthState, (value) {
+      return _then(_value.copyWith(loginOAuthState: value) as $Val);
     });
   }
 }
@@ -158,25 +159,25 @@ abstract class _$$UserAuthStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {State<RegisterUserModel> registerUser,
-      State<dynamic> loginUser,
-      State<dynamic> registerStaff,
-      State<dynamic> changePassword,
-      State<dynamic> resetPassword,
-      State<dynamic> loginOAuth});
+      {State<RegisterUserModel> registerUserState,
+      State<LoginUserModel> loginUserState,
+      State<dynamic> registerStaffState,
+      State<dynamic> changePasswordState,
+      State<dynamic> resetPasswordState,
+      State<dynamic> loginOAuthState});
 
   @override
-  $StateCopyWith<RegisterUserModel, $Res> get registerUser;
+  $StateCopyWith<RegisterUserModel, $Res> get registerUserState;
   @override
-  $StateCopyWith<dynamic, $Res> get loginUser;
+  $StateCopyWith<LoginUserModel, $Res> get loginUserState;
   @override
-  $StateCopyWith<dynamic, $Res> get registerStaff;
+  $StateCopyWith<dynamic, $Res> get registerStaffState;
   @override
-  $StateCopyWith<dynamic, $Res> get changePassword;
+  $StateCopyWith<dynamic, $Res> get changePasswordState;
   @override
-  $StateCopyWith<dynamic, $Res> get resetPassword;
+  $StateCopyWith<dynamic, $Res> get resetPasswordState;
   @override
-  $StateCopyWith<dynamic, $Res> get loginOAuth;
+  $StateCopyWith<dynamic, $Res> get loginOAuthState;
 }
 
 /// @nodoc
@@ -190,37 +191,37 @@ class __$$UserAuthStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? registerUser = null,
-    Object? loginUser = null,
-    Object? registerStaff = null,
-    Object? changePassword = null,
-    Object? resetPassword = null,
-    Object? loginOAuth = null,
+    Object? registerUserState = null,
+    Object? loginUserState = null,
+    Object? registerStaffState = null,
+    Object? changePasswordState = null,
+    Object? resetPasswordState = null,
+    Object? loginOAuthState = null,
   }) {
     return _then(_$UserAuthStateImpl(
-      registerUser: null == registerUser
-          ? _value.registerUser
-          : registerUser // ignore: cast_nullable_to_non_nullable
+      registerUserState: null == registerUserState
+          ? _value.registerUserState
+          : registerUserState // ignore: cast_nullable_to_non_nullable
               as State<RegisterUserModel>,
-      loginUser: null == loginUser
-          ? _value.loginUser
-          : loginUser // ignore: cast_nullable_to_non_nullable
+      loginUserState: null == loginUserState
+          ? _value.loginUserState
+          : loginUserState // ignore: cast_nullable_to_non_nullable
+              as State<LoginUserModel>,
+      registerStaffState: null == registerStaffState
+          ? _value.registerStaffState
+          : registerStaffState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      registerStaff: null == registerStaff
-          ? _value.registerStaff
-          : registerStaff // ignore: cast_nullable_to_non_nullable
+      changePasswordState: null == changePasswordState
+          ? _value.changePasswordState
+          : changePasswordState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      changePassword: null == changePassword
-          ? _value.changePassword
-          : changePassword // ignore: cast_nullable_to_non_nullable
+      resetPasswordState: null == resetPasswordState
+          ? _value.resetPasswordState
+          : resetPasswordState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
-      resetPassword: null == resetPassword
-          ? _value.resetPassword
-          : resetPassword // ignore: cast_nullable_to_non_nullable
-              as State<dynamic>,
-      loginOAuth: null == loginOAuth
-          ? _value.loginOAuth
-          : loginOAuth // ignore: cast_nullable_to_non_nullable
+      loginOAuthState: null == loginOAuthState
+          ? _value.loginOAuthState
+          : loginOAuthState // ignore: cast_nullable_to_non_nullable
               as State<dynamic>,
     ));
   }
@@ -228,31 +229,32 @@ class __$$UserAuthStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UserAuthStateImpl implements _UserAuthState {
+class _$UserAuthStateImpl extends _UserAuthState {
   _$UserAuthStateImpl(
-      {required this.registerUser,
-      required this.loginUser,
-      required this.registerStaff,
-      required this.changePassword,
-      required this.resetPassword,
-      required this.loginOAuth});
+      {required this.registerUserState,
+      required this.loginUserState,
+      required this.registerStaffState,
+      required this.changePasswordState,
+      required this.resetPasswordState,
+      required this.loginOAuthState})
+      : super._();
 
   @override
-  final State<RegisterUserModel> registerUser;
+  final State<RegisterUserModel> registerUserState;
   @override
-  final State<dynamic> loginUser;
+  final State<LoginUserModel> loginUserState;
   @override
-  final State<dynamic> registerStaff;
+  final State<dynamic> registerStaffState;
   @override
-  final State<dynamic> changePassword;
+  final State<dynamic> changePasswordState;
   @override
-  final State<dynamic> resetPassword;
+  final State<dynamic> resetPasswordState;
   @override
-  final State<dynamic> loginOAuth;
+  final State<dynamic> loginOAuthState;
 
   @override
   String toString() {
-    return 'UserAuthState(registerUser: $registerUser, loginUser: $loginUser, registerStaff: $registerStaff, changePassword: $changePassword, resetPassword: $resetPassword, loginOAuth: $loginOAuth)';
+    return 'UserAuthState(registerUserState: $registerUserState, loginUserState: $loginUserState, registerStaffState: $registerStaffState, changePasswordState: $changePasswordState, resetPasswordState: $resetPasswordState, loginOAuthState: $loginOAuthState)';
   }
 
   @override
@@ -260,23 +262,29 @@ class _$UserAuthStateImpl implements _UserAuthState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserAuthStateImpl &&
-            (identical(other.registerUser, registerUser) ||
-                other.registerUser == registerUser) &&
-            (identical(other.loginUser, loginUser) ||
-                other.loginUser == loginUser) &&
-            (identical(other.registerStaff, registerStaff) ||
-                other.registerStaff == registerStaff) &&
-            (identical(other.changePassword, changePassword) ||
-                other.changePassword == changePassword) &&
-            (identical(other.resetPassword, resetPassword) ||
-                other.resetPassword == resetPassword) &&
-            (identical(other.loginOAuth, loginOAuth) ||
-                other.loginOAuth == loginOAuth));
+            (identical(other.registerUserState, registerUserState) ||
+                other.registerUserState == registerUserState) &&
+            (identical(other.loginUserState, loginUserState) ||
+                other.loginUserState == loginUserState) &&
+            (identical(other.registerStaffState, registerStaffState) ||
+                other.registerStaffState == registerStaffState) &&
+            (identical(other.changePasswordState, changePasswordState) ||
+                other.changePasswordState == changePasswordState) &&
+            (identical(other.resetPasswordState, resetPasswordState) ||
+                other.resetPasswordState == resetPasswordState) &&
+            (identical(other.loginOAuthState, loginOAuthState) ||
+                other.loginOAuthState == loginOAuthState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, registerUser, loginUser,
-      registerStaff, changePassword, resetPassword, loginOAuth);
+  int get hashCode => Object.hash(
+      runtimeType,
+      registerUserState,
+      loginUserState,
+      registerStaffState,
+      changePasswordState,
+      resetPasswordState,
+      loginOAuthState);
 
   @JsonKey(ignore: true)
   @override
@@ -285,27 +293,28 @@ class _$UserAuthStateImpl implements _UserAuthState {
       __$$UserAuthStateImplCopyWithImpl<_$UserAuthStateImpl>(this, _$identity);
 }
 
-abstract class _UserAuthState implements UserAuthState {
+abstract class _UserAuthState extends UserAuthState {
   factory _UserAuthState(
-      {required final State<RegisterUserModel> registerUser,
-      required final State<dynamic> loginUser,
-      required final State<dynamic> registerStaff,
-      required final State<dynamic> changePassword,
-      required final State<dynamic> resetPassword,
-      required final State<dynamic> loginOAuth}) = _$UserAuthStateImpl;
+      {required final State<RegisterUserModel> registerUserState,
+      required final State<LoginUserModel> loginUserState,
+      required final State<dynamic> registerStaffState,
+      required final State<dynamic> changePasswordState,
+      required final State<dynamic> resetPasswordState,
+      required final State<dynamic> loginOAuthState}) = _$UserAuthStateImpl;
+  _UserAuthState._() : super._();
 
   @override
-  State<RegisterUserModel> get registerUser;
+  State<RegisterUserModel> get registerUserState;
   @override
-  State<dynamic> get loginUser;
+  State<LoginUserModel> get loginUserState;
   @override
-  State<dynamic> get registerStaff;
+  State<dynamic> get registerStaffState;
   @override
-  State<dynamic> get changePassword;
+  State<dynamic> get changePasswordState;
   @override
-  State<dynamic> get resetPassword;
+  State<dynamic> get resetPasswordState;
   @override
-  State<dynamic> get loginOAuth;
+  State<dynamic> get loginOAuthState;
   @override
   @JsonKey(ignore: true)
   _$$UserAuthStateImplCopyWith<_$UserAuthStateImpl> get copyWith =>

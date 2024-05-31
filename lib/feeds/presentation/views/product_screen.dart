@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class ProductDetailsScreen extends StatefulWidget {
   final product;
   const ProductDetailsScreen({super.key, this.product});
@@ -24,7 +24,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         backgroundColor: AppColors.secondaryLight,
         elevation: 0.0,
         leading: GestureDetector(
-            onTap: () => context.router.pop(),
+            onTap: () => router.pop(),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(padding: EdgeInsets.all(5), height: 30, width: 30, decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(100)), child: Icon(Icons.arrow_back_ios_new, color: AppColors.grey)),

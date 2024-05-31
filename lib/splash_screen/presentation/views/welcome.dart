@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/color.dart';
-import 'package:zheeta/app/strings.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 class Welcome extends StatelessWidget {

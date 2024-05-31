@@ -373,29 +373,29 @@ class __$$RegisterUserModelImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$RegisterUserModelImpl implements _RegisterUserModel {
-  const _$RegisterUserModelImpl(
-      {required this.phoneCountryCode,
-      required this.rolesCSV,
-      required this.createdDate,
-      required this.lastSeenDate,
-      required this.isFullyVerified,
-      required this.isBlocked,
-      required this.authType,
-      required this.id,
-      required this.userName,
-      required this.normalizedUserName,
-      required this.email,
-      required this.normalizedEmail,
-      required this.emailConfirmed,
-      required this.passwordHash,
-      required this.securityStamp,
-      required this.concurrencyStamp,
-      required this.phoneNumber,
-      required this.phoneNumberConfirmed,
-      required this.twoFactorEnabled,
-      required this.lockoutEnd,
-      required this.lockoutEnabled,
-      required this.accessFailedCount});
+  _$RegisterUserModelImpl(
+      {this.phoneCountryCode,
+      this.rolesCSV,
+      this.createdDate,
+      this.lastSeenDate,
+      this.isFullyVerified,
+      this.isBlocked,
+      this.authType,
+      this.id,
+      this.userName,
+      this.normalizedUserName,
+      this.email,
+      this.normalizedEmail,
+      this.emailConfirmed,
+      this.passwordHash,
+      this.securityStamp,
+      this.concurrencyStamp,
+      this.phoneNumber,
+      this.phoneNumberConfirmed,
+      this.twoFactorEnabled,
+      this.lockoutEnd,
+      this.lockoutEnabled,
+      this.accessFailedCount});
 
   factory _$RegisterUserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RegisterUserModelImplFromJson(json);
@@ -539,29 +539,29 @@ class _$RegisterUserModelImpl implements _RegisterUserModel {
 }
 
 abstract class _RegisterUserModel implements RegisterUserModel {
-  const factory _RegisterUserModel(
-      {required final dynamic phoneCountryCode,
-      required final dynamic rolesCSV,
-      required final dynamic createdDate,
-      required final dynamic lastSeenDate,
-      required final dynamic isFullyVerified,
-      required final dynamic isBlocked,
-      required final dynamic authType,
-      required final dynamic id,
-      required final dynamic userName,
-      required final dynamic normalizedUserName,
-      required final dynamic email,
-      required final dynamic normalizedEmail,
-      required final dynamic emailConfirmed,
-      required final dynamic passwordHash,
-      required final dynamic securityStamp,
-      required final dynamic concurrencyStamp,
-      required final dynamic phoneNumber,
-      required final dynamic phoneNumberConfirmed,
-      required final dynamic twoFactorEnabled,
-      required final dynamic lockoutEnd,
-      required final dynamic lockoutEnabled,
-      required final dynamic accessFailedCount}) = _$RegisterUserModelImpl;
+  factory _RegisterUserModel(
+      {final dynamic phoneCountryCode,
+      final dynamic rolesCSV,
+      final dynamic createdDate,
+      final dynamic lastSeenDate,
+      final dynamic isFullyVerified,
+      final dynamic isBlocked,
+      final dynamic authType,
+      final dynamic id,
+      final dynamic userName,
+      final dynamic normalizedUserName,
+      final dynamic email,
+      final dynamic normalizedEmail,
+      final dynamic emailConfirmed,
+      final dynamic passwordHash,
+      final dynamic securityStamp,
+      final dynamic concurrencyStamp,
+      final dynamic phoneNumber,
+      final dynamic phoneNumberConfirmed,
+      final dynamic twoFactorEnabled,
+      final dynamic lockoutEnd,
+      final dynamic lockoutEnabled,
+      final dynamic accessFailedCount}) = _$RegisterUserModelImpl;
 
   factory _RegisterUserModel.fromJson(Map<String, dynamic> json) =
       _$RegisterUserModelImpl.fromJson;

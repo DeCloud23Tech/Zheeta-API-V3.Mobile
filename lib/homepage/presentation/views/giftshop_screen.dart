@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/app/color.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/widgets/drawer.dart';
 
 @RoutePage()
-@RouteType.custom(transitionsBuilder: TransitionsBuilders.slideLeft)
 class GiftShopScreen extends StatefulWidget {
   const GiftShopScreen({super.key});
 
@@ -27,7 +27,7 @@ class _GiftShopScreenState extends State<GiftShopScreen> {
           backgroundColor: AppColors.secondaryLight,
           elevation: 0.0,
           leading: GestureDetector(
-            onTap: () => context.router.pop(),
+            onTap: () => router.pop(),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -96,7 +96,7 @@ class _GiftShopScreenState extends State<GiftShopScreen> {
                   for (var i = 0; i < 12; i++)
                     GestureDetector(
                       onTap: () {
-                        context.router.push(ProductDetailsRoute(product: 'Plain black t-shirt'));
+                        router.push(ProductDetailsRoute(product: 'Plain black t-shirt'));
                       },
                       child: Container(
                         height: MediaQuery.of(context).size.width * 0.48,

@@ -5,20 +5,25 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:zheeta/app/api/errors/error.dart' as _i5;
+import 'package:zheeta/authentication/data/model/login_user_model.dart' as _i8;
 import 'package:zheeta/authentication/data/model/register_user_model.dart'
-    as _i2;
+    as _i6;
 import 'package:zheeta/authentication/data/request/change_password_request.dart'
-    as _i8;
+    as _i11;
 import 'package:zheeta/authentication/data/request/login_oauth_request.dart'
-    as _i10;
-import 'package:zheeta/authentication/data/request/login_request.dart' as _i6;
+    as _i13;
+import 'package:zheeta/authentication/data/request/login_request.dart' as _i9;
+import 'package:zheeta/authentication/data/request/refresh_token_request.dart'
+    as _i14;
 import 'package:zheeta/authentication/data/request/register_staff_request.dart'
-    as _i7;
+    as _i10;
 import 'package:zheeta/authentication/data/request/register_user_request.dart'
-    as _i5;
+    as _i7;
 import 'package:zheeta/authentication/data/request/reset_password_request.dart'
-    as _i9;
+    as _i12;
 import 'package:zheeta/authentication/domain/repository/user_auth_repository.dart'
     as _i3;
 
@@ -35,9 +40,8 @@ import 'package:zheeta/authentication/domain/repository/user_auth_repository.dar
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeRegisterUserModel_0 extends _i1.SmartFake
-    implements _i2.RegisterUserModel {
-  _FakeRegisterUserModel_0(
+class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
+  _FakeEither_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -56,55 +60,130 @@ class MockUserAuthRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.RegisterUserModel> registerUserRepo(
-          _i5.RegisterUserRequest? data) =>
+  _i4.Future<_i2.Either<_i5.ZheetaError, _i6.RegisterUserModel>>
+      registerUserRepo(_i7.RegisterUserRequest? data) => (super.noSuchMethod(
+            Invocation.method(
+              #registerUserRepo,
+              [data],
+            ),
+            returnValue: _i4.Future<
+                    _i2.Either<_i5.ZheetaError, _i6.RegisterUserModel>>.value(
+                _FakeEither_0<_i5.ZheetaError, _i6.RegisterUserModel>(
+              this,
+              Invocation.method(
+                #registerUserRepo,
+                [data],
+              ),
+            )),
+          ) as _i4.Future<_i2.Either<_i5.ZheetaError, _i6.RegisterUserModel>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>> loginRepo(
+          _i9.LoginRequest? data) =>
       (super.noSuchMethod(
         Invocation.method(
-          #registerUserRepo,
+          #loginRepo,
           [data],
         ),
         returnValue:
-            _i4.Future<_i2.RegisterUserModel>.value(_FakeRegisterUserModel_0(
+            _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>>.value(
+                _FakeEither_0<_i5.ZheetaError, _i8.LoginUserModel>(
           this,
           Invocation.method(
-            #registerUserRepo,
+            #loginRepo,
             [data],
           ),
         )),
-      ) as _i4.Future<_i2.RegisterUserModel>);
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>>);
 
   @override
-  dynamic loginRepo(_i6.LoginRequest? data) =>
-      super.noSuchMethod(Invocation.method(
-        #loginRepo,
-        [data],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> registerStaffRepo(
+          _i10.RegisterStaffRequest? data) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #registerStaffRepo,
+          [data],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #registerStaffRepo,
+            [data],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic registerStaffRepo(_i7.RegisterStaffRequest? data) =>
-      super.noSuchMethod(Invocation.method(
-        #registerStaffRepo,
-        [data],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> changePasswordRepo(
+          _i11.ChangePasswordRequest? data) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #changePasswordRepo,
+          [data],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #changePasswordRepo,
+            [data],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic changePasswordRepo(_i8.ChangePasswordRequest? data) =>
-      super.noSuchMethod(Invocation.method(
-        #changePasswordRepo,
-        [data],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> resetPasswordRepo(
+          _i12.ResetPasswordRequest? data) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPasswordRepo,
+          [data],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #resetPasswordRepo,
+            [data],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic resetPasswordRepo(_i9.ResetPasswordRequest? data) =>
-      super.noSuchMethod(Invocation.method(
-        #resetPasswordRepo,
-        [data],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, void>> loginOAuthRepo(
+          _i13.LoginOAuthRequest? data) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #loginOAuthRepo,
+          [data],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.ZheetaError, void>>.value(
+            _FakeEither_0<_i5.ZheetaError, void>(
+          this,
+          Invocation.method(
+            #loginOAuthRepo,
+            [data],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, void>>);
 
   @override
-  dynamic loginOAuthRepo(_i10.LoginOAuthRequest? data) =>
-      super.noSuchMethod(Invocation.method(
-        #loginOAuthRepo,
-        [data],
-      ));
+  _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>> refreshToken(
+          _i14.RefreshTokenRequest? data) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #refreshToken,
+          [data],
+        ),
+        returnValue:
+            _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>>.value(
+                _FakeEither_0<_i5.ZheetaError, _i8.LoginUserModel>(
+          this,
+          Invocation.method(
+            #refreshToken,
+            [data],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.ZheetaError, _i8.LoginUserModel>>);
 }
