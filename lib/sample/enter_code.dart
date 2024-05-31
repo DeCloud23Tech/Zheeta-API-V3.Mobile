@@ -28,9 +28,7 @@ class _TwoFAEnterCodeState extends State<TwoFAEnterCode> {
 
   validateCode() {
     final code = inputController.text;
-    final generatedCode = OTP.generateTOTPCodeString(
-        secKey, DateTime.now().millisecondsSinceEpoch,
-        algorithm: Algorithm.SHA1, isGoogle: true);
+    final generatedCode = OTP.generateTOTPCodeString(secKey, DateTime.now().millisecondsSinceEpoch, algorithm: Algorithm.SHA1, isGoogle: true);
     if (code == generatedCode) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Code verified'),
