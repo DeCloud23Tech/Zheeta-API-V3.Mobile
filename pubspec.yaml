@@ -58,12 +58,9 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   flutter_card_swiper: ^7.0.0
   swipe_cards: ^2.0.0+1
-<<<<<<< HEAD
   dotted_border: ^2.1.0
 
-=======
   responsive_sizer: ^3.3.1
->>>>>>> fc211bf (premerge)
 
 dev_dependencies:
   flutter_test:
