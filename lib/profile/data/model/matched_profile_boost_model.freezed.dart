@@ -21,10 +21,12 @@ MatchedProfileBoostModel _$MatchedProfileBoostModelFromJson(
 
 /// @nodoc
 mixin _$MatchedProfileBoostModel {
-  dynamic get userId => throw _privateConstructorUsedError;
-  dynamic get userName => throw _privateConstructorUsedError;
-  dynamic get fullName => throw _privateConstructorUsedError;
-  dynamic get profileUrlForAds => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
+  String get userName => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
+  String get profileUrlForAds => throw _privateConstructorUsedError;
+  String get userProfileUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,10 +41,12 @@ abstract class $MatchedProfileBoostModelCopyWith<$Res> {
       _$MatchedProfileBoostModelCopyWithImpl<$Res, MatchedProfileBoostModel>;
   @useResult
   $Res call(
-      {dynamic userId,
-      dynamic userName,
-      dynamic fullName,
-      dynamic profileUrlForAds});
+      {String id,
+      String userId,
+      String userName,
+      String fullName,
+      String profileUrlForAds,
+      String userProfileUrl});
 }
 
 /// @nodoc
@@ -59,28 +63,38 @@ class _$MatchedProfileBoostModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? userName = freezed,
-    Object? fullName = freezed,
-    Object? profileUrlForAds = freezed,
+    Object? id = null,
+    Object? userId = null,
+    Object? userName = null,
+    Object? fullName = null,
+    Object? profileUrlForAds = null,
+    Object? userProfileUrl = null,
   }) {
     return _then(_value.copyWith(
-      userId: freezed == userId
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      userName: freezed == userName
+              as String,
+      userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      fullName: freezed == fullName
+              as String,
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      profileUrlForAds: freezed == profileUrlForAds
+              as String,
+      profileUrlForAds: null == profileUrlForAds
           ? _value.profileUrlForAds
           : profileUrlForAds // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
+      userProfileUrl: null == userProfileUrl
+          ? _value.userProfileUrl
+          : userProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -95,10 +109,12 @@ abstract class _$$MatchedProfileBoostModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {dynamic userId,
-      dynamic userName,
-      dynamic fullName,
-      dynamic profileUrlForAds});
+      {String id,
+      String userId,
+      String userName,
+      String fullName,
+      String profileUrlForAds,
+      String userProfileUrl});
 }
 
 /// @nodoc
@@ -114,28 +130,38 @@ class __$$MatchedProfileBoostModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? userName = freezed,
-    Object? fullName = freezed,
-    Object? profileUrlForAds = freezed,
+    Object? id = null,
+    Object? userId = null,
+    Object? userName = null,
+    Object? fullName = null,
+    Object? profileUrlForAds = null,
+    Object? userProfileUrl = null,
   }) {
     return _then(_$MatchedProfileBoostModelImpl(
-      userId: freezed == userId
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      userName: freezed == userName
+              as String,
+      userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      fullName: freezed == fullName
+              as String,
+      fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      profileUrlForAds: freezed == profileUrlForAds
+              as String,
+      profileUrlForAds: null == profileUrlForAds
           ? _value.profileUrlForAds
           : profileUrlForAds // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
+      userProfileUrl: null == userProfileUrl
+          ? _value.userProfileUrl
+          : userProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -145,23 +171,32 @@ class __$$MatchedProfileBoostModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MatchedProfileBoostModelImpl implements _MatchedProfileBoostModel {
   _$MatchedProfileBoostModelImpl(
-      {this.userId, this.userName, this.fullName, this.profileUrlForAds});
+      {required this.id,
+      required this.userId,
+      required this.userName,
+      required this.fullName,
+      required this.profileUrlForAds,
+      required this.userProfileUrl});
 
   factory _$MatchedProfileBoostModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MatchedProfileBoostModelImplFromJson(json);
 
   @override
-  final dynamic userId;
+  final String id;
   @override
-  final dynamic userName;
+  final String userId;
   @override
-  final dynamic fullName;
+  final String userName;
   @override
-  final dynamic profileUrlForAds;
+  final String fullName;
+  @override
+  final String profileUrlForAds;
+  @override
+  final String userProfileUrl;
 
   @override
   String toString() {
-    return 'MatchedProfileBoostModel(userId: $userId, userName: $userName, fullName: $fullName, profileUrlForAds: $profileUrlForAds)';
+    return 'MatchedProfileBoostModel(id: $id, userId: $userId, userName: $userName, fullName: $fullName, profileUrlForAds: $profileUrlForAds, userProfileUrl: $userProfileUrl)';
   }
 
   @override
@@ -169,21 +204,22 @@ class _$MatchedProfileBoostModelImpl implements _MatchedProfileBoostModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MatchedProfileBoostModelImpl &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality().equals(other.userName, userName) &&
-            const DeepCollectionEquality().equals(other.fullName, fullName) &&
-            const DeepCollectionEquality()
-                .equals(other.profileUrlForAds, profileUrlForAds));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.profileUrlForAds, profileUrlForAds) ||
+                other.profileUrlForAds == profileUrlForAds) &&
+            (identical(other.userProfileUrl, userProfileUrl) ||
+                other.userProfileUrl == userProfileUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(userName),
-      const DeepCollectionEquality().hash(fullName),
-      const DeepCollectionEquality().hash(profileUrlForAds));
+  int get hashCode => Object.hash(runtimeType, id, userId, userName, fullName,
+      profileUrlForAds, userProfileUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -202,22 +238,28 @@ class _$MatchedProfileBoostModelImpl implements _MatchedProfileBoostModel {
 
 abstract class _MatchedProfileBoostModel implements MatchedProfileBoostModel {
   factory _MatchedProfileBoostModel(
-      {final dynamic userId,
-      final dynamic userName,
-      final dynamic fullName,
-      final dynamic profileUrlForAds}) = _$MatchedProfileBoostModelImpl;
+      {required final String id,
+      required final String userId,
+      required final String userName,
+      required final String fullName,
+      required final String profileUrlForAds,
+      required final String userProfileUrl}) = _$MatchedProfileBoostModelImpl;
 
   factory _MatchedProfileBoostModel.fromJson(Map<String, dynamic> json) =
       _$MatchedProfileBoostModelImpl.fromJson;
 
   @override
-  dynamic get userId;
+  String get id;
   @override
-  dynamic get userName;
+  String get userId;
   @override
-  dynamic get fullName;
+  String get userName;
   @override
-  dynamic get profileUrlForAds;
+  String get fullName;
+  @override
+  String get profileUrlForAds;
+  @override
+  String get userProfileUrl;
   @override
   @JsonKey(ignore: true)
   _$$MatchedProfileBoostModelImplCopyWith<_$MatchedProfileBoostModelImpl>
@@ -231,8 +273,7 @@ MatchedProfileBoostListModel _$MatchedProfileBoostListModelFromJson(
 
 /// @nodoc
 mixin _$MatchedProfileBoostListModel {
-  List<MatchedProfileBoostModel>? get data =>
-      throw _privateConstructorUsedError;
+  List<MatchedProfileBoostModel> get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -248,7 +289,7 @@ abstract class $MatchedProfileBoostListModelCopyWith<$Res> {
       _$MatchedProfileBoostListModelCopyWithImpl<$Res,
           MatchedProfileBoostListModel>;
   @useResult
-  $Res call({List<MatchedProfileBoostModel>? data});
+  $Res call({List<MatchedProfileBoostModel> data});
 }
 
 /// @nodoc
@@ -265,13 +306,13 @@ class _$MatchedProfileBoostListModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
   }) {
     return _then(_value.copyWith(
-      data: freezed == data
+      data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<MatchedProfileBoostModel>?,
+              as List<MatchedProfileBoostModel>,
     ) as $Val);
   }
 }
@@ -285,7 +326,7 @@ abstract class _$$MatchedProfileBoostListModelImplCopyWith<$Res>
       __$$MatchedProfileBoostListModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<MatchedProfileBoostModel>? data});
+  $Res call({List<MatchedProfileBoostModel> data});
 }
 
 /// @nodoc
@@ -301,38 +342,35 @@ class __$$MatchedProfileBoostListModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
   }) {
     return _then(_$MatchedProfileBoostListModelImpl(
-      data: freezed == data
+      data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<MatchedProfileBoostModel>?,
+              as List<MatchedProfileBoostModel>,
     ));
   }
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$MatchedProfileBoostListModelImpl
     implements _MatchedProfileBoostListModel {
   _$MatchedProfileBoostListModelImpl(
-      {final List<MatchedProfileBoostModel>? data})
+      {required final List<MatchedProfileBoostModel> data})
       : _data = data;
 
   factory _$MatchedProfileBoostListModelImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$MatchedProfileBoostListModelImplFromJson(json);
 
-  final List<MatchedProfileBoostModel>? _data;
+  final List<MatchedProfileBoostModel> _data;
   @override
-  List<MatchedProfileBoostModel>? get data {
-    final value = _data;
-    if (value == null) return null;
+  List<MatchedProfileBoostModel> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_data);
   }
 
   @override
@@ -372,14 +410,14 @@ class _$MatchedProfileBoostListModelImpl
 abstract class _MatchedProfileBoostListModel
     implements MatchedProfileBoostListModel {
   factory _MatchedProfileBoostListModel(
-          {final List<MatchedProfileBoostModel>? data}) =
+          {required final List<MatchedProfileBoostModel> data}) =
       _$MatchedProfileBoostListModelImpl;
 
   factory _MatchedProfileBoostListModel.fromJson(Map<String, dynamic> json) =
       _$MatchedProfileBoostListModelImpl.fromJson;
 
   @override
-  List<MatchedProfileBoostModel>? get data;
+  List<MatchedProfileBoostModel> get data;
   @override
   @JsonKey(ignore: true)
   _$$MatchedProfileBoostListModelImplCopyWith<

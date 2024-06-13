@@ -18,7 +18,6 @@ CreateProfileBoostRequest _$CreateProfileBoostRequestFromJson(
       maxAge: json['MaxAge'] as int,
       maritalStatus: json['MaritalStatus'] as String,
       targetUsersNumber: json['TargetUsersNumber'] as int,
-      userCount: json['UserCount'] as int,
       duration: json['Duration'] as int,
       adsCost: (json['AdsCost'] as num).toDouble(),
       photoUrlForAds: (json['PhotoUrlForAds'] as List<dynamic>)
@@ -38,7 +37,6 @@ Map<String, dynamic> _$CreateProfileBoostRequestToJson(
       'MaxAge': instance.maxAge,
       'MaritalStatus': instance.maritalStatus,
       'TargetUsersNumber': instance.targetUsersNumber,
-      'UserCount': instance.userCount,
       'Duration': instance.duration,
       'AdsCost': instance.adsCost,
       'PhotoUrlForAds': instance.photoUrlForAds,

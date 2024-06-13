@@ -14,7 +14,7 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         // Auth
         AutoRoute(page: IntroRoute.page, initial: true),
-        AutoRoute(page: SignInRoute.page),
+        AutoRoute(page: SignInRoute.page, initial: false),
         AutoRoute(page: SignUpRoute.page),
         AutoRoute(page: ForgotPasswordRoute.page),
         AutoRoute(page: ResetPasswordRoute.page),
@@ -37,6 +37,7 @@ class AppRouter extends $AppRouter {
 
         // Discover
         AutoRoute(page: NearbySearchRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: DownLinesRoute.page, guards: [AppGuard()]),
 
         // Friends
         AutoRoute(page: FriendRoute.page, guards: [AppGuard()]),
@@ -45,11 +46,16 @@ class AppRouter extends $AppRouter {
         // Notification
         AutoRoute(page: NotificationRoute.page, guards: [AppGuard()]),
 
-        //
-        AutoRoute(page: ProductDetailsRoute.page, guards: [AppGuard()]),
-        AutoRoute(page: BankAccountRoute.page, guards: [AppGuard()]),
+        // Gift
         AutoRoute(page: GiftShopRoute.page, guards: [AppGuard()]),
         AutoRoute(page: MyGiftRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: ProductDetailsRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: RedeemGiftDetailRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: GiftSuccessRoute.page, guards: [AppGuard()]),
+
+        //
+        AutoRoute(page: BankAccountRoute.page, guards: [AppGuard()]),
         AutoRoute(page: RefereeRoute.page, guards: [AppGuard()]),
+        AutoRoute(page:  MembershipSubscriptionRoute.page, guards: [AppGuard()]),
       ];
 }

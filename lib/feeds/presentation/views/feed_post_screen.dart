@@ -15,19 +15,19 @@ class FeedPost extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.white,
           leading: GestureDetector(
-              onTap: () => router.pop(),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    padding: EdgeInsets.all(5),
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(100)),
-                    child:
-                        Icon(Icons.arrow_back_ios_new, color: AppColors.grey)),
-              )),
+            onTap: () => router.pop(),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  padding: EdgeInsets.all(5),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Icon(Icons.arrow_back_ios_new, color: AppColors.grey)),
+            ),
+          ),
           title: Text(
             'Feed',
             style: TextStyle(
@@ -36,7 +36,6 @@ class FeedPost extends StatelessWidget {
                 fontWeight: FontWeight.w600),
           ),
           centerTitle: false,
-
         ),
         body: Container(
           width: MediaQuery.of(context).size.width,
@@ -83,31 +82,6 @@ class FeedPost extends StatelessWidget {
                         ],
                       ),
                     ],
-                  ),
-                  TextButton(
-                    onPressed: () {},
-
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                      ),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                      backgroundColor: MaterialStateProperty.all(
-                        AppColors.primaryDark,
-                      ),
-                    ),
-                    child: Text(
-                      'Boost Profile',
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
                   ),
                   Row(
                     children: [

@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             todayBackgroundColor:
-                MaterialStateProperty.all(AppColors.primaryDark),
+                WidgetStateProperty.all(AppColors.primaryDark),
             todayBorder: const BorderSide(color: AppColors.primaryDark),
-            dayForegroundColor: MaterialStateProperty.all(Colors.black),
-            yearForegroundColor: MaterialStateProperty.all(Colors.black),
+            dayForegroundColor: WidgetStateProperty.all(Colors.black),
+            yearForegroundColor: WidgetStateProperty.all(Colors.black),
             weekdayStyle: const TextStyle(color: AppColors.primaryDark),
             inputDecorationTheme: InputDecorationTheme(
               border:

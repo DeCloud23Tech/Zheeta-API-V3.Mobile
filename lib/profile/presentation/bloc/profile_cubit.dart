@@ -50,7 +50,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   final UnBlockAccount unBlockAccount;
   final CreateProfileBoost createProfileBoost;
   final GetBoostedProfileByAdmin getBoostedProfileByAdmin;
-  final GetMatchedProfileBoost getMatchedProfileBoost;
   final CreateProfile createProfile;
   final GetAllUsersProfile getAllUsersProfile;
   final GetSingleUserProfile getSingleUserProfile;
@@ -77,7 +76,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.unBlockAccount,
     required this.createProfileBoost,
     required this.getBoostedProfileByAdmin,
-    required this.getMatchedProfileBoost,
     required this.createProfile,
     required this.getAllUsersProfile,
     required this.getSingleUserProfile,
@@ -295,21 +293,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  Future<int?> getMatchedProfileBoostCubit() async {
-    emit(ProfileLoadingState());
-    int? matchedProfileBoostLength;
-    var result = await getMatchedProfileBoost();
-    result.fold(
-      (fail) {
-        emit(ProfileErrorState(fail.message));
-      },
-      (success) {
-        emit(ProfileGotMathcedProfileBoostState(success));
-        matchedProfileBoostLength = success.data!.length;
-      },
-    );
-    return matchedProfileBoostLength;
-  }
+
 
   //Profile Boosts Ends
 
@@ -407,8 +391,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoadingState());
     ViewProfileModel? data;
     var result = await visitUserProfile(request);
-    print(result);
-
     result.fold(
       (fail) {
         emit(ProfileErrorState(fail.message));

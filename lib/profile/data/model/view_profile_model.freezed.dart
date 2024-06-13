@@ -20,11 +20,11 @@ ViewProfileModel _$ViewProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ViewProfileModel {
-  bool get canViewProfile => throw _privateConstructorUsedError;
-  bool get isFriend => throw _privateConstructorUsedError;
-  bool get canMessage => throw _privateConstructorUsedError;
-  bool get canAddFriend => throw _privateConstructorUsedError;
-  UserProfileDataModel get profile => throw _privateConstructorUsedError;
+  int get statusCode => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
+  bool get success => throw _privateConstructorUsedError;
+  int get totalCount => throw _privateConstructorUsedError;
+  ViewProfileModelData get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,6 +39,244 @@ abstract class $ViewProfileModelCopyWith<$Res> {
       _$ViewProfileModelCopyWithImpl<$Res, ViewProfileModel>;
   @useResult
   $Res call(
+      {int statusCode,
+      String message,
+      bool success,
+      int totalCount,
+      ViewProfileModelData data});
+
+  $ViewProfileModelDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
+    implements $ViewProfileModelCopyWith<$Res> {
+  _$ViewProfileModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? statusCode = null,
+    Object? message = null,
+    Object? success = null,
+    Object? totalCount = null,
+    Object? data = null,
+  }) {
+    return _then(_value.copyWith(
+      statusCode: null == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      success: null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool,
+      totalCount: null == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ViewProfileModelData,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ViewProfileModelDataCopyWith<$Res> get data {
+    return $ViewProfileModelDataCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ViewProfileModelImplCopyWith<$Res>
+    implements $ViewProfileModelCopyWith<$Res> {
+  factory _$$ViewProfileModelImplCopyWith(_$ViewProfileModelImpl value,
+          $Res Function(_$ViewProfileModelImpl) then) =
+      __$$ViewProfileModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int statusCode,
+      String message,
+      bool success,
+      int totalCount,
+      ViewProfileModelData data});
+
+  @override
+  $ViewProfileModelDataCopyWith<$Res> get data;
+}
+
+/// @nodoc
+class __$$ViewProfileModelImplCopyWithImpl<$Res>
+    extends _$ViewProfileModelCopyWithImpl<$Res, _$ViewProfileModelImpl>
+    implements _$$ViewProfileModelImplCopyWith<$Res> {
+  __$$ViewProfileModelImplCopyWithImpl(_$ViewProfileModelImpl _value,
+      $Res Function(_$ViewProfileModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? statusCode = null,
+    Object? message = null,
+    Object? success = null,
+    Object? totalCount = null,
+    Object? data = null,
+  }) {
+    return _then(_$ViewProfileModelImpl(
+      statusCode: null == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      success: null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool,
+      totalCount: null == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ViewProfileModelData,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$ViewProfileModelImpl implements _ViewProfileModel {
+  _$ViewProfileModelImpl(
+      {required this.statusCode,
+      required this.message,
+      required this.success,
+      required this.totalCount,
+      required this.data});
+
+  factory _$ViewProfileModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ViewProfileModelImplFromJson(json);
+
+  @override
+  final int statusCode;
+  @override
+  final String message;
+  @override
+  final bool success;
+  @override
+  final int totalCount;
+  @override
+  final ViewProfileModelData data;
+
+  @override
+  String toString() {
+    return 'ViewProfileModel(statusCode: $statusCode, message: $message, success: $success, totalCount: $totalCount, data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ViewProfileModelImpl &&
+            (identical(other.statusCode, statusCode) ||
+                other.statusCode == statusCode) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.success, success) || other.success == success) &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount) &&
+            (identical(other.data, data) || other.data == data));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, statusCode, message, success, totalCount, data);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ViewProfileModelImplCopyWith<_$ViewProfileModelImpl> get copyWith =>
+      __$$ViewProfileModelImplCopyWithImpl<_$ViewProfileModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ViewProfileModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ViewProfileModel implements ViewProfileModel {
+  factory _ViewProfileModel(
+      {required final int statusCode,
+      required final String message,
+      required final bool success,
+      required final int totalCount,
+      required final ViewProfileModelData data}) = _$ViewProfileModelImpl;
+
+  factory _ViewProfileModel.fromJson(Map<String, dynamic> json) =
+      _$ViewProfileModelImpl.fromJson;
+
+  @override
+  int get statusCode;
+  @override
+  String get message;
+  @override
+  bool get success;
+  @override
+  int get totalCount;
+  @override
+  ViewProfileModelData get data;
+  @override
+  @JsonKey(ignore: true)
+  _$$ViewProfileModelImplCopyWith<_$ViewProfileModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ViewProfileModelData _$ViewProfileModelDataFromJson(Map<String, dynamic> json) {
+  return _ViewProfileModelData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ViewProfileModelData {
+  bool get canViewProfile => throw _privateConstructorUsedError;
+  bool get isFriend => throw _privateConstructorUsedError;
+  bool get canMessage => throw _privateConstructorUsedError;
+  bool get canAddFriend => throw _privateConstructorUsedError;
+  UserProfileDataModel get profile => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ViewProfileModelDataCopyWith<ViewProfileModelData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ViewProfileModelDataCopyWith<$Res> {
+  factory $ViewProfileModelDataCopyWith(ViewProfileModelData value,
+          $Res Function(ViewProfileModelData) then) =
+      _$ViewProfileModelDataCopyWithImpl<$Res, ViewProfileModelData>;
+  @useResult
+  $Res call(
       {bool canViewProfile,
       bool isFriend,
       bool canMessage,
@@ -49,9 +287,10 @@ abstract class $ViewProfileModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
-    implements $ViewProfileModelCopyWith<$Res> {
-  _$ViewProfileModelCopyWithImpl(this._value, this._then);
+class _$ViewProfileModelDataCopyWithImpl<$Res,
+        $Val extends ViewProfileModelData>
+    implements $ViewProfileModelDataCopyWith<$Res> {
+  _$ViewProfileModelDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -101,11 +340,11 @@ class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
 }
 
 /// @nodoc
-abstract class _$$ViewProfileModelImplCopyWith<$Res>
-    implements $ViewProfileModelCopyWith<$Res> {
-  factory _$$ViewProfileModelImplCopyWith(_$ViewProfileModelImpl value,
-          $Res Function(_$ViewProfileModelImpl) then) =
-      __$$ViewProfileModelImplCopyWithImpl<$Res>;
+abstract class _$$ViewProfileModelDataImplCopyWith<$Res>
+    implements $ViewProfileModelDataCopyWith<$Res> {
+  factory _$$ViewProfileModelDataImplCopyWith(_$ViewProfileModelDataImpl value,
+          $Res Function(_$ViewProfileModelDataImpl) then) =
+      __$$ViewProfileModelDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -120,11 +359,11 @@ abstract class _$$ViewProfileModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ViewProfileModelImplCopyWithImpl<$Res>
-    extends _$ViewProfileModelCopyWithImpl<$Res, _$ViewProfileModelImpl>
-    implements _$$ViewProfileModelImplCopyWith<$Res> {
-  __$$ViewProfileModelImplCopyWithImpl(_$ViewProfileModelImpl _value,
-      $Res Function(_$ViewProfileModelImpl) _then)
+class __$$ViewProfileModelDataImplCopyWithImpl<$Res>
+    extends _$ViewProfileModelDataCopyWithImpl<$Res, _$ViewProfileModelDataImpl>
+    implements _$$ViewProfileModelDataImplCopyWith<$Res> {
+  __$$ViewProfileModelDataImplCopyWithImpl(_$ViewProfileModelDataImpl _value,
+      $Res Function(_$ViewProfileModelDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -136,7 +375,7 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
     Object? canAddFriend = null,
     Object? profile = null,
   }) {
-    return _then(_$ViewProfileModelImpl(
+    return _then(_$ViewProfileModelDataImpl(
       canViewProfile: null == canViewProfile
           ? _value.canViewProfile
           : canViewProfile // ignore: cast_nullable_to_non_nullable
@@ -164,16 +403,16 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$ViewProfileModelImpl implements _ViewProfileModel {
-  _$ViewProfileModelImpl(
+class _$ViewProfileModelDataImpl implements _ViewProfileModelData {
+  _$ViewProfileModelDataImpl(
       {required this.canViewProfile,
       required this.isFriend,
       required this.canMessage,
       required this.canAddFriend,
       required this.profile});
 
-  factory _$ViewProfileModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ViewProfileModelImplFromJson(json);
+  factory _$ViewProfileModelDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ViewProfileModelDataImplFromJson(json);
 
   @override
   final bool canViewProfile;
@@ -188,14 +427,14 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
 
   @override
   String toString() {
-    return 'ViewProfileModel(canViewProfile: $canViewProfile, isFriend: $isFriend, canMessage: $canMessage, canAddFriend: $canAddFriend, profile: $profile)';
+    return 'ViewProfileModelData(canViewProfile: $canViewProfile, isFriend: $isFriend, canMessage: $canMessage, canAddFriend: $canAddFriend, profile: $profile)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ViewProfileModelImpl &&
+            other is _$ViewProfileModelDataImpl &&
             (identical(other.canViewProfile, canViewProfile) ||
                 other.canViewProfile == canViewProfile) &&
             (identical(other.isFriend, isFriend) ||
@@ -215,28 +454,30 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ViewProfileModelImplCopyWith<_$ViewProfileModelImpl> get copyWith =>
-      __$$ViewProfileModelImplCopyWithImpl<_$ViewProfileModelImpl>(
-          this, _$identity);
+  _$$ViewProfileModelDataImplCopyWith<_$ViewProfileModelDataImpl>
+      get copyWith =>
+          __$$ViewProfileModelDataImplCopyWithImpl<_$ViewProfileModelDataImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ViewProfileModelImplToJson(
+    return _$$ViewProfileModelDataImplToJson(
       this,
     );
   }
 }
 
-abstract class _ViewProfileModel implements ViewProfileModel {
-  factory _ViewProfileModel(
-      {required final bool canViewProfile,
-      required final bool isFriend,
-      required final bool canMessage,
-      required final bool canAddFriend,
-      required final UserProfileDataModel profile}) = _$ViewProfileModelImpl;
+abstract class _ViewProfileModelData implements ViewProfileModelData {
+  factory _ViewProfileModelData(
+          {required final bool canViewProfile,
+          required final bool isFriend,
+          required final bool canMessage,
+          required final bool canAddFriend,
+          required final UserProfileDataModel profile}) =
+      _$ViewProfileModelDataImpl;
 
-  factory _ViewProfileModel.fromJson(Map<String, dynamic> json) =
-      _$ViewProfileModelImpl.fromJson;
+  factory _ViewProfileModelData.fromJson(Map<String, dynamic> json) =
+      _$ViewProfileModelDataImpl.fromJson;
 
   @override
   bool get canViewProfile;
@@ -250,6 +491,6 @@ abstract class _ViewProfileModel implements ViewProfileModel {
   UserProfileDataModel get profile;
   @override
   @JsonKey(ignore: true)
-  _$$ViewProfileModelImplCopyWith<_$ViewProfileModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ViewProfileModelDataImplCopyWith<_$ViewProfileModelDataImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

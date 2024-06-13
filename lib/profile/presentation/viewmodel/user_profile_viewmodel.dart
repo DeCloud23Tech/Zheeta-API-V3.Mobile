@@ -446,13 +446,6 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     userActivityModel = result;
   }
 
-  Future<int> getMatchedProfileBoost(BuildContext context) async {
-    final result =
-        await context.read<ProfileCubit>().getMatchedProfileBoostCubit();
-    matchedProfileBoostCount = result!;
-    return matchedProfileBoostCount!;
-  }
-
   Future<void> createProfileBoost(
       BuildContext context, CreateProfileBoostRequest request) async {
     await context.read<ProfileCubit>().createProfileBoostCubit(request);
@@ -466,4 +459,5 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
           'could not boost profile, please try again later');
     }
   }
+
 }

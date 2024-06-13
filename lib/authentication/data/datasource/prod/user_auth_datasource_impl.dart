@@ -212,4 +212,5 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
           message: response.statusMessage!, statusCode: response.statusCode!);
     }
   }
+
 }
