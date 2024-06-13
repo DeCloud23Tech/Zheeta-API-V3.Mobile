@@ -7,7 +7,6 @@ import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/discover/data/model/nearby_model.dart';
 
 import '../../../app/injection/di.dart';
-import '../../../notification/presentation/widgets/notification_filter_bottomsheet.dart';
 import '../bloc/nearby_bloc/nearby_cubit.dart';
 import '../viewmodel/nearby_viewmodel.dart';
 import '../widgets/pill_container.dart';
@@ -59,15 +58,15 @@ class _NearbySearchScreenState extends State<NearbySearchScreen> {
               fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              notificationFilterBottomSheet(context);
-            },
-            child: SvgPicture.asset('assets/images/icons/filter_mark.svg'),
-          ),
-          SizedBox(width: 24),
-        ],
+        // actions: [
+        //   GestureDetector(
+        //     onTap: () {
+        //       notificationFilterBottomSheet(context);
+        //     },
+        //     child: SvgPicture.asset('assets/images/icons/filter_mark.svg'),
+        //   ),
+        //   SizedBox(width: 24),
+        // ],
       ),
       body: StreamBuilder<NearbyState>(
         stream: nearbyViewModel.stateStream,
@@ -114,7 +113,7 @@ class _NearbySearchScreenState extends State<NearbySearchScreen> {
               ),
             );
           }
-          return Container();
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );

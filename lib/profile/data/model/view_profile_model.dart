@@ -8,13 +8,28 @@ part 'view_profile_model.g.dart';
 class ViewProfileModel with _$ViewProfileModel {
   @JsonSerializable(explicitToJson: true)
   factory ViewProfileModel({
+    required int statusCode,
+    required String message,
+    required bool success,
+    required int totalCount,
+    required ViewProfileModelData data,
+  }) = _ViewProfileModel;
+
+  factory ViewProfileModel.fromJson(Map<String, dynamic> json) =>
+      _$ViewProfileModelFromJson(json);
+}
+
+@freezed
+class ViewProfileModelData with _$ViewProfileModelData {
+  @JsonSerializable(explicitToJson: true)
+  factory ViewProfileModelData({
     required bool canViewProfile,
     required bool isFriend,
     required bool canMessage,
     required bool canAddFriend,
     required UserProfileDataModel profile,
-  }) = _ViewProfileModel;
+  }) = _ViewProfileModelData;
 
-  factory ViewProfileModel.fromJson(Map<String, dynamic> json) =>
-      _$ViewProfileModelFromJson(json);
+  factory ViewProfileModelData.fromJson(Map<String, dynamic> json) =>
+      _$ViewProfileModelDataFromJson(json);
 }

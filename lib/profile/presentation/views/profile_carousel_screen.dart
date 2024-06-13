@@ -10,6 +10,8 @@ import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
+import '../../../app/injection/di.dart';
+
 @RoutePage()
 class ProfileCarouselScreen extends StatefulWidget {
   ProfileCarouselScreen({super.key});
@@ -24,10 +26,10 @@ class _ProfileCarouselScreenState extends State<ProfileCarouselScreen> {
 
   @override
   void initState() {
-    userProfileViewModel = UserProfileViewModel();
+    userProfileViewModel = locator<UserProfileViewModel>();
     super.initState();
   }
-
+  //
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(builder: (context, state) {
