@@ -206,7 +206,7 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
   @override
   Future<ActivityListModel> getUserActivityNew() async {
     var response = await _api.dio.get(
-      '/activity-post/get-posts-by-loggedin-user?PageNumber=1&PageSize=10',
+      '/activity-post/getPostsByUserId?PageNumber=1&PageSize=10',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
@@ -261,9 +261,9 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
         contentType: Headers.jsonContentType,
       ),
     );
-    print('userId');
-    print(userId);
-    print(response);
+    // print('userId');
+    // print(userId);
+    // print(response.data);
 
     if (response.statusCode == 200) {
       return ViewProfileModel.fromJson(response.data);

@@ -121,7 +121,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
   @override
   Future<MatchedProfileBoostListModel> getMatchedProfileBoostNew() async {
     var response = await _api.dio.get(
-      '/profile-boost/get-matched',
+      '/profile-boost/get',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
@@ -132,7 +132,7 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
         return MatchedProfileBoostListModel(data: []);
       } else {
         // If not null, parse the data into MatchedProfileBoostListModel
-        return MatchedProfileBoostListModel.fromJson(response.data['data']);
+        return MatchedProfileBoostListModel.fromJson(response.data);
       }
     } else {
       throw ApiException(

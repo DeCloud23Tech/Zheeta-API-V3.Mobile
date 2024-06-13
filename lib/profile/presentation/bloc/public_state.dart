@@ -16,7 +16,8 @@ class ProfileEnabledUserState extends ProfileState {}
 class ProfileDisabledUserState extends ProfileState {}
 
 class ProfileGotAddressLocationState extends ProfileState {
-  AddressFromLocationModel data;
+  final AddressFromLocationModel data;
+
   ProfileGotAddressLocationState(this.data);
 
   @override
@@ -28,7 +29,8 @@ class ProfileGotLocationCoordinateState extends ProfileState {}
 class ProfileCreatedBankAccountState extends ProfileState {}
 
 class ProfileGotBankAccountState extends ProfileState {
-  BankAccountDetailModel data;
+  final BankAccountDetailModel data;
+
   ProfileGotBankAccountState(this.data);
 
   @override
@@ -36,7 +38,8 @@ class ProfileGotBankAccountState extends ProfileState {
 }
 
 class ProfileGotUserInterests extends ProfileState {
-  UserInterestListModel data;
+  final UserInterestListModel data;
+
   ProfileGotUserInterests(this.data);
 
   @override
@@ -57,25 +60,20 @@ class ProfileGotBlockedUsersState extends ProfileState {
 class ProfileCreatedProfileBoostState extends ProfileState {}
 
 class ProfileGotBoostedProfileAdminUsersState extends ProfileState {
-  BoostedProfileByAdminListModel data;
+  final BoostedProfileByAdminListModel data;
+
   ProfileGotBoostedProfileAdminUsersState(this.data);
 
   @override
   List<Object?> get props => [data];
 }
 
-class ProfileGotMathcedProfileBoostState extends ProfileState {
-  MatchedProfileBoostListModel data;
-  ProfileGotMathcedProfileBoostState(this.data);
-
-  @override
-  List<Object?> get props => [data];
-}
 
 class ProfileCreatedState extends ProfileState {}
 
 class ProfileGotAllUserState extends ProfileState {
-  AllUserProfileListModel data;
+  final AllUserProfileListModel data;
+
   ProfileGotAllUserState(this.data);
 
   @override
@@ -83,7 +81,8 @@ class ProfileGotAllUserState extends ProfileState {
 }
 
 class ProfileGotSingleUserState extends ProfileState {
-  UserProfileModel data;
+  final UserProfileModel data;
+
   ProfileGotSingleUserState(this.data);
 
   @override
@@ -91,7 +90,8 @@ class ProfileGotSingleUserState extends ProfileState {
 }
 
 class ProfileUserActivityState extends ProfileState {
-  ActivityListModel data;
+  final ActivityListModel data;
+
   ProfileUserActivityState(this.data);
 
   @override
@@ -103,7 +103,8 @@ class ProfilePictureUploadedState extends ProfileState {}
 class ProfileUpdatedState extends ProfileState {}
 
 class ProfileVisitedState extends ProfileState {
-  ViewProfileModel data;
+  final ViewProfileModel data;
+
   ProfileVisitedState(this.data);
 
   @override
@@ -111,7 +112,8 @@ class ProfileVisitedState extends ProfileState {
 }
 
 class ProfileSearchedUserByAdminEmailState extends ProfileState {
-  SearchUserByAdminListModel data;
+  final SearchUserByAdminListModel data;
+
   ProfileSearchedUserByAdminEmailState(this.data);
 
   @override
@@ -119,7 +121,8 @@ class ProfileSearchedUserByAdminEmailState extends ProfileState {
 }
 
 class ProfileSearchedUserByAdminUsernameState extends ProfileState {
-  SearchUserByAdminListModel data;
+  final SearchUserByAdminListModel data;
+
   ProfileSearchedUserByAdminUsernameState(this.data);
 
   @override
@@ -127,7 +130,8 @@ class ProfileSearchedUserByAdminUsernameState extends ProfileState {
 }
 
 class ProfileSearchedUserByCustomerState extends ProfileState {
-  SearchUserByCustomerListModel data;
+  final SearchUserByCustomerListModel data;
+
   ProfileSearchedUserByCustomerState(this.data);
 
   @override
@@ -135,7 +139,8 @@ class ProfileSearchedUserByCustomerState extends ProfileState {
 }
 
 class ProfileGotUserTransactionsState extends ProfileState {
-  UserTransactionListModel data;
+  final UserTransactionListModel data;
+
   ProfileGotUserTransactionsState(this.data);
 
   @override
@@ -143,7 +148,8 @@ class ProfileGotUserTransactionsState extends ProfileState {
 }
 
 class ProfileErrorState extends ProfileState {
-  String errorMessage;
+  final String errorMessage;
+
   ProfileErrorState(this.errorMessage);
 
   @override

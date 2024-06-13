@@ -106,6 +106,7 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
   Future<void> loginUserCubit({required LoginRequest request}) async {
     emit(AuthenticationLoadingState());
     var result = await loginUser(request);
+    print(result);
     result.fold(
       (fail) => emit(AuthenticationErrorState(fail.message)),
       (success) {

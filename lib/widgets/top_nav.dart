@@ -123,6 +123,7 @@ class TopNavBtn extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         if (iconType == IconType.menu) {
+          print('menu');
           Scaffold.of(context).openDrawer();
         } else if (iconType == IconType.filter) {
           criteriaFilterBottomSheet(context);

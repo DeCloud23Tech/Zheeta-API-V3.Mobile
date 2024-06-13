@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
     AppBar(backgroundColor: AppColors.secondaryLight, elevation: 0.0)
   ];
 
-  final pages = [DiscoverPage(), Feeds(), Messages(), ProfileScreen()];
+  final pages = [DiscoverPage(), FeedsSection(), Messages(), ProfileScreen()];
 
   final bg = [
     AppColors.primaryDark,

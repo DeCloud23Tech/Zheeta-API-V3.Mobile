@@ -19,7 +19,7 @@ class ProfileAddOrLike extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          if (visitProfile!.canAddFriend)
+          if (visitProfile!.data.canAddFriend)
             Container(
               color: AppColors.primaryDark,
               height: 50,
@@ -39,8 +39,8 @@ class ProfileAddOrLike extends StatelessWidget {
                 ],
               ),
             ),
-          if (visitProfile!.canAddFriend) SizedBox(width: 8),
-          if (visitProfile!.canAddFriend)
+          if (visitProfile!.data.canAddFriend) SizedBox(width: 8),
+          if (visitProfile!.data.canAddFriend)
             Container(
               color: AppColors.primaryDark,
               height: 50,
@@ -60,7 +60,7 @@ class ProfileAddOrLike extends StatelessWidget {
                 ],
               ),
             ),
-          if (visitProfile!.isFriend)
+          if (visitProfile!.data.isFriend)
             Container(
               color: AppColors.primaryDark,
               height: 50,
@@ -80,8 +80,8 @@ class ProfileAddOrLike extends StatelessWidget {
                 ],
               ),
             ),
-          if (visitProfile!.isFriend) SizedBox(width: 8),
-          if (visitProfile!.isFriend && visitProfile!.canMessage)
+          if (visitProfile!.data.isFriend) SizedBox(width: 8),
+          if (visitProfile!.data.isFriend && visitProfile!.data.canMessage)
             Container(
               color: AppColors.primaryDark,
               height: 50,
