@@ -9,27 +9,22 @@ part of 'view_profile_model.dart';
 _$ViewProfileModelImpl _$$ViewProfileModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ViewProfileModelImpl(
-      statusCode: json['statusCode'] as int,
-      message: json['message'] as String,
-      success: json['success'] as bool,
+      canViewProfile: json['canViewProfile'] as bool,
       isFriend: json['isFriend'] as bool,
-      canAddFriend: json['canAddFriend'] as bool,
       canMessage: json['canMessage'] as bool,
-      totalCount: json['totalCount'] as int,
-      data: ViewProfileModelData.fromJson(json['data'] as Map<String, dynamic>),
+      canAddFriend: json['canAddFriend'] as bool,
+      profile: UserProfileDataModel.fromJson(
+          json['profile'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ViewProfileModelImplToJson(
         _$ViewProfileModelImpl instance) =>
     <String, dynamic>{
-      'statusCode': instance.statusCode,
-      'message': instance.message,
-      'success': instance.success,
+      'canViewProfile': instance.canViewProfile,
       'isFriend': instance.isFriend,
-      'canAddFriend': instance.canAddFriend,
       'canMessage': instance.canMessage,
-      'totalCount': instance.totalCount,
-      'data': instance.data.toJson(),
+      'canAddFriend': instance.canAddFriend,
+      'profile': instance.profile.toJson(),
     };
 
 _$ViewProfileModelDataImpl _$$ViewProfileModelDataImplFromJson(

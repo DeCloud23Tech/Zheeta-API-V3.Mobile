@@ -20,14 +20,11 @@ ViewProfileModel _$ViewProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ViewProfileModel {
-  int get statusCode => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
-  bool get success => throw _privateConstructorUsedError;
+  bool get canViewProfile => throw _privateConstructorUsedError;
   bool get isFriend => throw _privateConstructorUsedError;
-  bool get canAddFriend => throw _privateConstructorUsedError;
   bool get canMessage => throw _privateConstructorUsedError;
-  int get totalCount => throw _privateConstructorUsedError;
-  ViewProfileModelData get data => throw _privateConstructorUsedError;
+  bool get canAddFriend => throw _privateConstructorUsedError;
+  UserProfileDataModel get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,16 +39,13 @@ abstract class $ViewProfileModelCopyWith<$Res> {
       _$ViewProfileModelCopyWithImpl<$Res, ViewProfileModel>;
   @useResult
   $Res call(
-      {int statusCode,
-      String message,
-      bool success,
+      {bool canViewProfile,
       bool isFriend,
-      bool canAddFriend,
       bool canMessage,
-      int totalCount,
-      ViewProfileModelData data});
+      bool canAddFriend,
+      UserProfileDataModel profile});
 
-  $ViewProfileModelDataCopyWith<$Res> get data;
+  $UserProfileDataModelCopyWith<$Res> get profile;
 }
 
 /// @nodoc
@@ -67,56 +61,41 @@ class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? statusCode = null,
-    Object? message = null,
-    Object? success = null,
+    Object? canViewProfile = null,
     Object? isFriend = null,
-    Object? canAddFriend = null,
     Object? canMessage = null,
-    Object? totalCount = null,
-    Object? data = null,
+    Object? canAddFriend = null,
+    Object? profile = null,
   }) {
     return _then(_value.copyWith(
-      statusCode: null == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      success: null == success
-          ? _value.success
-          : success // ignore: cast_nullable_to_non_nullable
+      canViewProfile: null == canViewProfile
+          ? _value.canViewProfile
+          : canViewProfile // ignore: cast_nullable_to_non_nullable
               as bool,
       isFriend: null == isFriend
           ? _value.isFriend
           : isFriend // ignore: cast_nullable_to_non_nullable
               as bool,
-      canAddFriend: null == canAddFriend
-          ? _value.canAddFriend
-          : canAddFriend // ignore: cast_nullable_to_non_nullable
-              as bool,
       canMessage: null == canMessage
           ? _value.canMessage
           : canMessage // ignore: cast_nullable_to_non_nullable
               as bool,
-      totalCount: null == totalCount
-          ? _value.totalCount
-          : totalCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as ViewProfileModelData,
+      canAddFriend: null == canAddFriend
+          ? _value.canAddFriend
+          : canAddFriend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      profile: null == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as UserProfileDataModel,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ViewProfileModelDataCopyWith<$Res> get data {
-    return $ViewProfileModelDataCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
+  $UserProfileDataModelCopyWith<$Res> get profile {
+    return $UserProfileDataModelCopyWith<$Res>(_value.profile, (value) {
+      return _then(_value.copyWith(profile: value) as $Val);
     });
   }
 }
@@ -130,17 +109,14 @@ abstract class _$$ViewProfileModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int statusCode,
-      String message,
-      bool success,
+      {bool canViewProfile,
       bool isFriend,
-      bool canAddFriend,
       bool canMessage,
-      int totalCount,
-      ViewProfileModelData data});
+      bool canAddFriend,
+      UserProfileDataModel profile});
 
   @override
-  $ViewProfileModelDataCopyWith<$Res> get data;
+  $UserProfileDataModelCopyWith<$Res> get profile;
 }
 
 /// @nodoc
@@ -154,48 +130,33 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? statusCode = null,
-    Object? message = null,
-    Object? success = null,
+    Object? canViewProfile = null,
     Object? isFriend = null,
-    Object? canAddFriend = null,
     Object? canMessage = null,
-    Object? totalCount = null,
-    Object? data = null,
+    Object? canAddFriend = null,
+    Object? profile = null,
   }) {
     return _then(_$ViewProfileModelImpl(
-      statusCode: null == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      success: null == success
-          ? _value.success
-          : success // ignore: cast_nullable_to_non_nullable
+      canViewProfile: null == canViewProfile
+          ? _value.canViewProfile
+          : canViewProfile // ignore: cast_nullable_to_non_nullable
               as bool,
       isFriend: null == isFriend
           ? _value.isFriend
           : isFriend // ignore: cast_nullable_to_non_nullable
               as bool,
-      canAddFriend: null == canAddFriend
-          ? _value.canAddFriend
-          : canAddFriend // ignore: cast_nullable_to_non_nullable
-              as bool,
       canMessage: null == canMessage
           ? _value.canMessage
           : canMessage // ignore: cast_nullable_to_non_nullable
               as bool,
-      totalCount: null == totalCount
-          ? _value.totalCount
-          : totalCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as ViewProfileModelData,
+      canAddFriend: null == canAddFriend
+          ? _value.canAddFriend
+          : canAddFriend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      profile: null == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as UserProfileDataModel,
     ));
   }
 }
@@ -205,38 +166,29 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$ViewProfileModelImpl implements _ViewProfileModel {
   _$ViewProfileModelImpl(
-      {required this.statusCode,
-      required this.message,
-      required this.success,
+      {required this.canViewProfile,
       required this.isFriend,
-      required this.canAddFriend,
       required this.canMessage,
-      required this.totalCount,
-      required this.data});
+      required this.canAddFriend,
+      required this.profile});
 
   factory _$ViewProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ViewProfileModelImplFromJson(json);
 
   @override
-  final int statusCode;
-  @override
-  final String message;
-  @override
-  final bool success;
+  final bool canViewProfile;
   @override
   final bool isFriend;
   @override
-  final bool canAddFriend;
-  @override
   final bool canMessage;
   @override
-  final int totalCount;
+  final bool canAddFriend;
   @override
-  final ViewProfileModelData data;
+  final UserProfileDataModel profile;
 
   @override
   String toString() {
-    return 'ViewProfileModel(statusCode: $statusCode, message: $message, success: $success, isFriend: $isFriend, canAddFriend: $canAddFriend, canMessage: $canMessage, totalCount: $totalCount, data: $data)';
+    return 'ViewProfileModel(canViewProfile: $canViewProfile, isFriend: $isFriend, canMessage: $canMessage, canAddFriend: $canAddFriend, profile: $profile)';
   }
 
   @override
@@ -244,25 +196,21 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ViewProfileModelImpl &&
-            (identical(other.statusCode, statusCode) ||
-                other.statusCode == statusCode) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.success, success) || other.success == success) &&
+            (identical(other.canViewProfile, canViewProfile) ||
+                other.canViewProfile == canViewProfile) &&
             (identical(other.isFriend, isFriend) ||
                 other.isFriend == isFriend) &&
-            (identical(other.canAddFriend, canAddFriend) ||
-                other.canAddFriend == canAddFriend) &&
             (identical(other.canMessage, canMessage) ||
                 other.canMessage == canMessage) &&
-            (identical(other.totalCount, totalCount) ||
-                other.totalCount == totalCount) &&
-            (identical(other.data, data) || other.data == data));
+            (identical(other.canAddFriend, canAddFriend) ||
+                other.canAddFriend == canAddFriend) &&
+            (identical(other.profile, profile) || other.profile == profile));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, statusCode, message, success,
-      isFriend, canAddFriend, canMessage, totalCount, data);
+  int get hashCode => Object.hash(
+      runtimeType, canViewProfile, isFriend, canMessage, canAddFriend, profile);
 
   @JsonKey(ignore: true)
   @override
@@ -281,34 +229,25 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
 
 abstract class _ViewProfileModel implements ViewProfileModel {
   factory _ViewProfileModel(
-      {required final int statusCode,
-      required final String message,
-      required final bool success,
+      {required final bool canViewProfile,
       required final bool isFriend,
-      required final bool canAddFriend,
       required final bool canMessage,
-      required final int totalCount,
-      required final ViewProfileModelData data}) = _$ViewProfileModelImpl;
+      required final bool canAddFriend,
+      required final UserProfileDataModel profile}) = _$ViewProfileModelImpl;
 
   factory _ViewProfileModel.fromJson(Map<String, dynamic> json) =
       _$ViewProfileModelImpl.fromJson;
 
   @override
-  int get statusCode;
-  @override
-  String get message;
-  @override
-  bool get success;
+  bool get canViewProfile;
   @override
   bool get isFriend;
   @override
-  bool get canAddFriend;
-  @override
   bool get canMessage;
   @override
-  int get totalCount;
+  bool get canAddFriend;
   @override
-  ViewProfileModelData get data;
+  UserProfileDataModel get profile;
   @override
   @JsonKey(ignore: true)
   _$$ViewProfileModelImplCopyWith<_$ViewProfileModelImpl> get copyWith =>
