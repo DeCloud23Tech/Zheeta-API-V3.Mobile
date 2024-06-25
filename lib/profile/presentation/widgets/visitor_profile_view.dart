@@ -5,8 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/profile/presentation/widgets/profile_posts.dart';
 import 'package:zheeta/profile/presentation/widgets/recent-downlines.dart';
 import 'package:zheeta/profile/presentation/widgets/tab_button.dart';
-import 'package:zheeta/profile/presentation/widgets/user_bio.dart';
-
 import '../../../app/common/color.dart';
 import '../../../app/common/enums/others.dart';
 import '../../../app/router/app_router.dart';
@@ -144,8 +142,8 @@ Widget buildVisitorProfileView({
                                 Row(
                                   children: [
                                     // if (theUser?.user?.isFullyVerified)
-                                      Image.asset('assets/images/badge.png',
-                                          width: 19, height: 19),
+                                    Image.asset('assets/images/badge.png',
+                                        width: 19, height: 19),
                                     SizedBox(width: 8),
                                     Image.asset('assets/images/share.png',
                                         width: 19, height: 19),

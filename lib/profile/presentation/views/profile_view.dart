@@ -14,7 +14,6 @@ import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/empty_content.dart';
-import 'package:zheeta/widgets/loading_screen.dart';
 import 'package:zheeta/widgets/media_container.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/widgets/top_nav.dart';

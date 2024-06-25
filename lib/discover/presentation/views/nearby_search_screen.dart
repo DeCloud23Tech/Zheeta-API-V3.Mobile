@@ -142,7 +142,7 @@ class GridBox extends StatelessWidget {
               data[index]; // Access the data at the current index
           return GestureDetector(
             onTap: () {
-              router.push(ProfileRoute(profileId: data[index].id));
+              router.push(ProfileViewRoute(profileId: data[index].id));
             },
             child: Stack(
               children: [
@@ -210,7 +210,9 @@ class GridBox extends StatelessWidget {
                                     text: '${nearbyData.age}',
                                     backgroundColor: AppColors.white,
                                     textColor: AppColors.primaryDark,
-                                    icon: nearbyData.gender == 'Male' ? Icons.male : Icons.female,
+                                    icon: nearbyData.gender == 'Male'
+                                        ? Icons.male
+                                        : Icons.female,
                                   ),
                                   SizedBox(width: 4),
                                   Container(
@@ -234,8 +236,7 @@ class GridBox extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SvgPicture.asset(
-                            'assets/images/icons/add-nearby.svg'),
+                        SvgPicture.asset('assets/images/icons/add-nearby.svg'),
                       ],
                     ),
                   ),
