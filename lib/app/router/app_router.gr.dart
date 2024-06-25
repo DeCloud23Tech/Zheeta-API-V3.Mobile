@@ -8,207 +8,150 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i33;
-import 'package:flutter/cupertino.dart' as _i37;
-import 'package:flutter/material.dart' as _i35;
-import 'package:zheeta/app/common/enums/subscription_type.dart' as _i36;
+import 'package:auto_route/auto_route.dart' as _i26;
+import 'package:flutter/material.dart' as _i28;
 import 'package:zheeta/authentication/data/request/reset_password_request.dart'
-    as _i34;
-import 'package:zheeta/authentication/presentation/views/forgot_screen.dart'
-    as _i5;
-import 'package:zheeta/authentication/presentation/views/reset_password_otp_screen.dart'
-    as _i26;
-import 'package:zheeta/authentication/presentation/views/reset_password_screen.dart'
     as _i27;
-import 'package:zheeta/authentication/presentation/views/signin_screen.dart'
-    as _i29;
-import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
-    as _i30;
-import 'package:zheeta/authentication/presentation/views/verification_screen.dart'
-    as _i31;
-import 'package:zheeta/discover/presentation/views/downlines_screen.dart'
+import 'package:zheeta/authentication/presentation/views/forgot_screen.dart'
     as _i4;
-import 'package:zheeta/discover/presentation/views/nearby_search_screen.dart'
-    as _i14;
-import 'package:zheeta/gifts/data/model/gift_model.dart' as _i38;
-import 'package:zheeta/gifts/presentation/views/gift_sucess_screen.dart' as _i8;
-import 'package:zheeta/gifts/presentation/views/giftshop_screen.dart' as _i7;
-import 'package:zheeta/gifts/presentation/views/mygift_screen.dart' as _i13;
-import 'package:zheeta/gifts/presentation/views/product_screen.dart' as _i17;
-import 'package:zheeta/gifts/presentation/views/redeem_gift_details_screen.dart'
+import 'package:zheeta/authentication/presentation/views/reset_password_otp_screen.dart'
+    as _i19;
+import 'package:zheeta/authentication/presentation/views/reset_password_screen.dart'
+    as _i20;
+import 'package:zheeta/authentication/presentation/views/signin_screen.dart'
+    as _i22;
+import 'package:zheeta/authentication/presentation/views/signup_screen.dart'
+    as _i23;
+import 'package:zheeta/authentication/presentation/views/verification_screen.dart'
     as _i24;
+import 'package:zheeta/discover/presentation/views/nearby_search_screen.dart'
+    as _i9;
 import 'package:zheeta/homepage/presentation/views/bank_screen.dart' as _i2;
-import 'package:zheeta/homepage/presentation/views/home_screen.dart' as _i9;
+import 'package:zheeta/homepage/presentation/views/home_screen.dart' as _i6;
 import 'package:zheeta/homepage/presentation/views/referees_screen.dart'
-    as _i25;
+    as _i18;
 import 'package:zheeta/notification/presentation/views/notification_screen.dart'
-    as _i15;
-import 'package:zheeta/payment_and_subscriptions/presentation/views/membership_upgrade_screen.dart'
-    as _i12;
+    as _i10;
 import 'package:zheeta/profile/presentation/views/about_screen.dart' as _i1;
 import 'package:zheeta/profile/presentation/views/bio_screen.dart' as _i3;
-import 'package:zheeta/profile/presentation/views/friend_screen.dart' as _i6;
-import 'package:zheeta/profile/presentation/views/location_screen.dart' as _i11;
-import 'package:zheeta/profile/presentation/views/pending_screen.dart' as _i16;
-import 'package:zheeta/profile/presentation/views/profile.dart' as _i22;
+import 'package:zheeta/profile/presentation/views/friend_screen.dart' as _i5;
+import 'package:zheeta/profile/presentation/views/location_screen.dart' as _i8;
+import 'package:zheeta/profile/presentation/views/pending_screen.dart' as _i11;
+import 'package:zheeta/profile/presentation/views/profile.dart' as _i16;
 import 'package:zheeta/profile/presentation/views/profile_boost_screen.dart'
-    as _i18;
+    as _i12;
 import 'package:zheeta/profile/presentation/views/profile_carousel_screen.dart'
-    as _i19;
+    as _i13;
 import 'package:zheeta/profile/presentation/views/profile_edit_screen.dart'
-    as _i20;
-import 'package:zheeta/profile/presentation/views/profile_view.dart' as _i23;
+    as _i14;
+import 'package:zheeta/profile/presentation/views/profile_view.dart' as _i17;
 import 'package:zheeta/profile/presentation/views/profilephoto_screen.dart'
-    as _i21;
+    as _i15;
 import 'package:zheeta/profile/presentation/views/select_language_screen.dart'
-    as _i28;
-import 'package:zheeta/profile/presentation/views/welcome_screen.dart' as _i32;
-import 'package:zheeta/splash_screen/presentation/views/intro.dart' as _i10;
+    as _i21;
+import 'package:zheeta/profile/presentation/views/welcome_screen.dart' as _i25;
+import 'package:zheeta/splash_screen/presentation/views/intro.dart' as _i7;
 
-abstract class $AppRouter extends _i33.RootStackRouter {
+abstract class $AppRouter extends _i26.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i33.PageFactory> pagesMap = {
+  final Map<String, _i26.PageFactory> pagesMap = {
     AboutRoute.name: (routeData) {
       final args = routeData.argsAs<AboutRouteArgs>(
           orElse: () => const AboutRouteArgs());
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.AboutScreen(key: args.key),
       );
     },
     BankAccountRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i2.BankAccountScreen(),
       );
     },
     BioDataRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.BioDataScreen(),
       );
     },
-    DownLinesRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i4.DownLinesScreen(),
-      );
-    },
     ForgotPasswordRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.ForgotPasswordScreen(),
+        child: const _i4.ForgotPasswordScreen(),
       );
     },
     FriendRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.FriendScreen(),
-      );
-    },
-    GiftShopRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i7.GiftShopScreen(),
-      );
-    },
-    GiftSuccessRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i8.GiftSuccessScreen(),
+        child: const _i5.FriendScreen(),
       );
     },
     HomeRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.HomeScreen(),
+        child: const _i6.HomeScreen(),
       );
     },
     IntroRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.IntroScreen(),
+        child: const _i7.IntroScreen(),
       );
     },
     LocationRoute.name: (routeData) {
       final args = routeData.argsAs<LocationRouteArgs>(
           orElse: () => const LocationRouteArgs());
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.LocationScreen(key: args.key),
-      );
-    },
-    MembershipSubscriptionRoute.name: (routeData) {
-      final args = routeData.argsAs<MembershipSubscriptionRouteArgs>();
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i12.MembershipSubscriptionScreen(
-          key: args.key,
-          subscriptionId: args.subscriptionId,
-        ),
-      );
-    },
-    MyGiftRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i13.MyGiftScreen(),
+        child: _i8.LocationScreen(key: args.key),
       );
     },
     NearbySearchRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.NearbySearchScreen(),
+        child: const _i9.NearbySearchScreen(),
       );
     },
     NotificationRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i15.NotificationScreen(),
+        child: const _i10.NotificationScreen(),
       );
     },
     PendingRequestRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i16.PendingRequestScreen(),
-      );
-    },
-    ProductDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductDetailsRouteArgs>();
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i17.ProductDetailsScreen(
-          key: args.key,
-          gift: args.gift,
-        ),
+        child: const _i11.PendingRequestScreen(),
       );
     },
     ProfileBoostRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i18.ProfileBoostScreen(),
+        child: const _i12.ProfileBoostScreen(),
       );
     },
     ProfileCarouselRoute.name: (routeData) {
       final args = routeData.argsAs<ProfileCarouselRouteArgs>(
           orElse: () => const ProfileCarouselRouteArgs());
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i19.ProfileCarouselScreen(key: args.key),
+        child: _i13.ProfileCarouselScreen(key: args.key),
       );
     },
     ProfileEditRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i20.ProfileEditScreen(),
+        child: const _i14.ProfileEditScreen(),
       );
     },
     ProfilePhotoRoute.name: (routeData) {
       final args = routeData.argsAs<ProfilePhotoRouteArgs>();
-      return _i33.AutoRoutePage<String>(
+      return _i26.AutoRoutePage<String>(
         routeData: routeData,
-        child: _i21.ProfilePhotoScreen(
+        child: _i15.ProfilePhotoScreen(
           key: args.key,
           username: args.username,
         ),
@@ -217,9 +160,9 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     ProfileRoute.name: (routeData) {
       final args = routeData.argsAs<ProfileRouteArgs>(
           orElse: () => const ProfileRouteArgs());
-      return _i33.AutoRoutePage<String?>(
+      return _i26.AutoRoutePage<String?>(
         routeData: routeData,
-        child: _i22.ProfileScreen(
+        child: _i16.ProfileScreen(
           key: args.key,
           profileId: args.profileId,
         ),
@@ -227,35 +170,25 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     },
     ProfileViewRoute.name: (routeData) {
       final args = routeData.argsAs<ProfileViewRouteArgs>();
-      return _i33.AutoRoutePage<String>(
+      return _i26.AutoRoutePage<String>(
         routeData: routeData,
-        child: _i23.ProfileViewScreen(
+        child: _i17.ProfileViewScreen(
           key: args.key,
           profileId: args.profileId,
         ),
       );
     },
-    RedeemGiftDetailRoute.name: (routeData) {
-      final args = routeData.argsAs<RedeemGiftDetailRouteArgs>();
-      return _i33.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i24.RedeemGiftDetailScreen(
-          key: args.key,
-          totalAmount: args.totalAmount,
-        ),
-      );
-    },
     RefereeRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i25.RefereeScreen(),
+        child: const _i18.RefereeScreen(),
       );
     },
     ResetPasswordOtpRoute.name: (routeData) {
       final args = routeData.argsAs<ResetPasswordOtpRouteArgs>();
-      return _i33.AutoRoutePage<String>(
+      return _i26.AutoRoutePage<String>(
         routeData: routeData,
-        child: _i26.ResetPasswordOtpScreen(
+        child: _i19.ResetPasswordOtpScreen(
           key: args.key,
           email: args.email,
         ),
@@ -263,9 +196,9 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     },
     ResetPasswordRoute.name: (routeData) {
       final args = routeData.argsAs<ResetPasswordRouteArgs>();
-      return _i33.AutoRoutePage<_i34.ResetPasswordRequest>(
+      return _i26.AutoRoutePage<_i27.ResetPasswordRequest>(
         routeData: routeData,
-        child: _i27.ResetPasswordScreen(
+        child: _i20.ResetPasswordScreen(
           key: args.key,
           request: args.request,
         ),
@@ -273,31 +206,31 @@ abstract class $AppRouter extends _i33.RootStackRouter {
     },
     SelectLanguageRoute.name: (routeData) {
       final args = routeData.argsAs<SelectLanguageRouteArgs>();
-      return _i33.AutoRoutePage<List<String>>(
+      return _i26.AutoRoutePage<List<String>>(
         routeData: routeData,
-        child: _i28.SelectLanguageScreen(
+        child: _i21.SelectLanguageScreen(
           key: args.key,
           languages: args.languages,
         ),
       );
     },
     SignInRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i29.SignInScreen(),
+        child: const _i22.SignInScreen(),
       );
     },
     SignUpRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i30.SignUpScreen(),
+        child: const _i23.SignUpScreen(),
       );
     },
     VerificationRoute.name: (routeData) {
       final args = routeData.argsAs<VerificationRouteArgs>();
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i31.VerificationScreen(
+        child: _i24.VerificationScreen(
           key: args.key,
           isPhoneNumber: args.isPhoneNumber,
           phoneNumber: args.phoneNumber,
@@ -307,9 +240,9 @@ abstract class $AppRouter extends _i33.RootStackRouter {
       );
     },
     WelcomeRoute.name: (routeData) {
-      return _i33.AutoRoutePage<dynamic>(
+      return _i26.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i32.WelcomeScreen(),
+        child: const _i25.WelcomeScreen(),
       );
     },
   };
@@ -317,10 +250,10 @@ abstract class $AppRouter extends _i33.RootStackRouter {
 
 /// generated route for
 /// [_i1.AboutScreen]
-class AboutRoute extends _i33.PageRouteInfo<AboutRouteArgs> {
+class AboutRoute extends _i26.PageRouteInfo<AboutRouteArgs> {
   AboutRoute({
-    _i35.Key? key,
-    List<_i33.PageRouteInfo>? children,
+    _i28.Key? key,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           AboutRoute.name,
           args: AboutRouteArgs(key: key),
@@ -329,14 +262,14 @@ class AboutRoute extends _i33.PageRouteInfo<AboutRouteArgs> {
 
   static const String name = 'AboutRoute';
 
-  static const _i33.PageInfo<AboutRouteArgs> page =
-      _i33.PageInfo<AboutRouteArgs>(name);
+  static const _i26.PageInfo<AboutRouteArgs> page =
+      _i26.PageInfo<AboutRouteArgs>(name);
 }
 
 class AboutRouteArgs {
   const AboutRouteArgs({this.key});
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   @override
   String toString() {
@@ -346,8 +279,8 @@ class AboutRouteArgs {
 
 /// generated route for
 /// [_i2.BankAccountScreen]
-class BankAccountRoute extends _i33.PageRouteInfo<void> {
-  const BankAccountRoute({List<_i33.PageRouteInfo>? children})
+class BankAccountRoute extends _i26.PageRouteInfo<void> {
+  const BankAccountRoute({List<_i26.PageRouteInfo>? children})
       : super(
           BankAccountRoute.name,
           initialChildren: children,
@@ -355,13 +288,13 @@ class BankAccountRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'BankAccountRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i3.BioDataScreen]
-class BioDataRoute extends _i33.PageRouteInfo<void> {
-  const BioDataRoute({List<_i33.PageRouteInfo>? children})
+class BioDataRoute extends _i26.PageRouteInfo<void> {
+  const BioDataRoute({List<_i26.PageRouteInfo>? children})
       : super(
           BioDataRoute.name,
           initialChildren: children,
@@ -369,27 +302,13 @@ class BioDataRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'BioDataRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.DownLinesScreen]
-class DownLinesRoute extends _i33.PageRouteInfo<void> {
-  const DownLinesRoute({List<_i33.PageRouteInfo>? children})
-      : super(
-          DownLinesRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'DownLinesRoute';
-
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i5.ForgotPasswordScreen]
-class ForgotPasswordRoute extends _i33.PageRouteInfo<void> {
-  const ForgotPasswordRoute({List<_i33.PageRouteInfo>? children})
+/// [_i4.ForgotPasswordScreen]
+class ForgotPasswordRoute extends _i26.PageRouteInfo<void> {
+  const ForgotPasswordRoute({List<_i26.PageRouteInfo>? children})
       : super(
           ForgotPasswordRoute.name,
           initialChildren: children,
@@ -397,13 +316,13 @@ class ForgotPasswordRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'ForgotPasswordRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i6.FriendScreen]
-class FriendRoute extends _i33.PageRouteInfo<void> {
-  const FriendRoute({List<_i33.PageRouteInfo>? children})
+/// [_i5.FriendScreen]
+class FriendRoute extends _i26.PageRouteInfo<void> {
+  const FriendRoute({List<_i26.PageRouteInfo>? children})
       : super(
           FriendRoute.name,
           initialChildren: children,
@@ -411,41 +330,13 @@ class FriendRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'FriendRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i7.GiftShopScreen]
-class GiftShopRoute extends _i33.PageRouteInfo<void> {
-  const GiftShopRoute({List<_i33.PageRouteInfo>? children})
-      : super(
-          GiftShopRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'GiftShopRoute';
-
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i8.GiftSuccessScreen]
-class GiftSuccessRoute extends _i33.PageRouteInfo<void> {
-  const GiftSuccessRoute({List<_i33.PageRouteInfo>? children})
-      : super(
-          GiftSuccessRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'GiftSuccessRoute';
-
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i9.HomeScreen]
-class HomeRoute extends _i33.PageRouteInfo<void> {
-  const HomeRoute({List<_i33.PageRouteInfo>? children})
+/// [_i6.HomeScreen]
+class HomeRoute extends _i26.PageRouteInfo<void> {
+  const HomeRoute({List<_i26.PageRouteInfo>? children})
       : super(
           HomeRoute.name,
           initialChildren: children,
@@ -453,13 +344,13 @@ class HomeRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i10.IntroScreen]
-class IntroRoute extends _i33.PageRouteInfo<void> {
-  const IntroRoute({List<_i33.PageRouteInfo>? children})
+/// [_i7.IntroScreen]
+class IntroRoute extends _i26.PageRouteInfo<void> {
+  const IntroRoute({List<_i26.PageRouteInfo>? children})
       : super(
           IntroRoute.name,
           initialChildren: children,
@@ -467,15 +358,15 @@ class IntroRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'IntroRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i11.LocationScreen]
-class LocationRoute extends _i33.PageRouteInfo<LocationRouteArgs> {
+/// [_i8.LocationScreen]
+class LocationRoute extends _i26.PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
-    _i35.Key? key,
-    List<_i33.PageRouteInfo>? children,
+    _i28.Key? key,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           LocationRoute.name,
           args: LocationRouteArgs(key: key),
@@ -484,14 +375,14 @@ class LocationRoute extends _i33.PageRouteInfo<LocationRouteArgs> {
 
   static const String name = 'LocationRoute';
 
-  static const _i33.PageInfo<LocationRouteArgs> page =
-      _i33.PageInfo<LocationRouteArgs>(name);
+  static const _i26.PageInfo<LocationRouteArgs> page =
+      _i26.PageInfo<LocationRouteArgs>(name);
 }
 
 class LocationRouteArgs {
   const LocationRouteArgs({this.key});
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   @override
   String toString() {
@@ -500,62 +391,9 @@ class LocationRouteArgs {
 }
 
 /// generated route for
-/// [_i12.MembershipSubscriptionScreen]
-class MembershipSubscriptionRoute
-    extends _i33.PageRouteInfo<MembershipSubscriptionRouteArgs> {
-  MembershipSubscriptionRoute({
-    _i35.Key? key,
-    required _i36.SubscriptionType? subscriptionId,
-    List<_i33.PageRouteInfo>? children,
-  }) : super(
-          MembershipSubscriptionRoute.name,
-          args: MembershipSubscriptionRouteArgs(
-            key: key,
-            subscriptionId: subscriptionId,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'MembershipSubscriptionRoute';
-
-  static const _i33.PageInfo<MembershipSubscriptionRouteArgs> page =
-      _i33.PageInfo<MembershipSubscriptionRouteArgs>(name);
-}
-
-class MembershipSubscriptionRouteArgs {
-  const MembershipSubscriptionRouteArgs({
-    this.key,
-    required this.subscriptionId,
-  });
-
-  final _i35.Key? key;
-
-  final _i36.SubscriptionType? subscriptionId;
-
-  @override
-  String toString() {
-    return 'MembershipSubscriptionRouteArgs{key: $key, subscriptionId: $subscriptionId}';
-  }
-}
-
-/// generated route for
-/// [_i13.MyGiftScreen]
-class MyGiftRoute extends _i33.PageRouteInfo<void> {
-  const MyGiftRoute({List<_i33.PageRouteInfo>? children})
-      : super(
-          MyGiftRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'MyGiftRoute';
-
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i14.NearbySearchScreen]
-class NearbySearchRoute extends _i33.PageRouteInfo<void> {
-  const NearbySearchRoute({List<_i33.PageRouteInfo>? children})
+/// [_i9.NearbySearchScreen]
+class NearbySearchRoute extends _i26.PageRouteInfo<void> {
+  const NearbySearchRoute({List<_i26.PageRouteInfo>? children})
       : super(
           NearbySearchRoute.name,
           initialChildren: children,
@@ -563,13 +401,13 @@ class NearbySearchRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'NearbySearchRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i15.NotificationScreen]
-class NotificationRoute extends _i33.PageRouteInfo<void> {
-  const NotificationRoute({List<_i33.PageRouteInfo>? children})
+/// [_i10.NotificationScreen]
+class NotificationRoute extends _i26.PageRouteInfo<void> {
+  const NotificationRoute({List<_i26.PageRouteInfo>? children})
       : super(
           NotificationRoute.name,
           initialChildren: children,
@@ -577,13 +415,13 @@ class NotificationRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'NotificationRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i16.PendingRequestScreen]
-class PendingRequestRoute extends _i33.PageRouteInfo<void> {
-  const PendingRequestRoute({List<_i33.PageRouteInfo>? children})
+/// [_i11.PendingRequestScreen]
+class PendingRequestRoute extends _i26.PageRouteInfo<void> {
+  const PendingRequestRoute({List<_i26.PageRouteInfo>? children})
       : super(
           PendingRequestRoute.name,
           initialChildren: children,
@@ -591,51 +429,13 @@ class PendingRequestRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'PendingRequestRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i17.ProductDetailsScreen]
-class ProductDetailsRoute extends _i33.PageRouteInfo<ProductDetailsRouteArgs> {
-  ProductDetailsRoute({
-    _i37.Key? key,
-    required _i38.GiftModel gift,
-    List<_i33.PageRouteInfo>? children,
-  }) : super(
-          ProductDetailsRoute.name,
-          args: ProductDetailsRouteArgs(
-            key: key,
-            gift: gift,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'ProductDetailsRoute';
-
-  static const _i33.PageInfo<ProductDetailsRouteArgs> page =
-      _i33.PageInfo<ProductDetailsRouteArgs>(name);
-}
-
-class ProductDetailsRouteArgs {
-  const ProductDetailsRouteArgs({
-    this.key,
-    required this.gift,
-  });
-
-  final _i37.Key? key;
-
-  final _i38.GiftModel gift;
-
-  @override
-  String toString() {
-    return 'ProductDetailsRouteArgs{key: $key, gift: $gift}';
-  }
-}
-
-/// generated route for
-/// [_i18.ProfileBoostScreen]
-class ProfileBoostRoute extends _i33.PageRouteInfo<void> {
-  const ProfileBoostRoute({List<_i33.PageRouteInfo>? children})
+/// [_i12.ProfileBoostScreen]
+class ProfileBoostRoute extends _i26.PageRouteInfo<void> {
+  const ProfileBoostRoute({List<_i26.PageRouteInfo>? children})
       : super(
           ProfileBoostRoute.name,
           initialChildren: children,
@@ -643,16 +443,16 @@ class ProfileBoostRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'ProfileBoostRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i19.ProfileCarouselScreen]
+/// [_i13.ProfileCarouselScreen]
 class ProfileCarouselRoute
-    extends _i33.PageRouteInfo<ProfileCarouselRouteArgs> {
+    extends _i26.PageRouteInfo<ProfileCarouselRouteArgs> {
   ProfileCarouselRoute({
-    _i35.Key? key,
-    List<_i33.PageRouteInfo>? children,
+    _i28.Key? key,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           ProfileCarouselRoute.name,
           args: ProfileCarouselRouteArgs(key: key),
@@ -661,14 +461,14 @@ class ProfileCarouselRoute
 
   static const String name = 'ProfileCarouselRoute';
 
-  static const _i33.PageInfo<ProfileCarouselRouteArgs> page =
-      _i33.PageInfo<ProfileCarouselRouteArgs>(name);
+  static const _i26.PageInfo<ProfileCarouselRouteArgs> page =
+      _i26.PageInfo<ProfileCarouselRouteArgs>(name);
 }
 
 class ProfileCarouselRouteArgs {
   const ProfileCarouselRouteArgs({this.key});
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   @override
   String toString() {
@@ -677,9 +477,9 @@ class ProfileCarouselRouteArgs {
 }
 
 /// generated route for
-/// [_i20.ProfileEditScreen]
-class ProfileEditRoute extends _i33.PageRouteInfo<void> {
-  const ProfileEditRoute({List<_i33.PageRouteInfo>? children})
+/// [_i14.ProfileEditScreen]
+class ProfileEditRoute extends _i26.PageRouteInfo<void> {
+  const ProfileEditRoute({List<_i26.PageRouteInfo>? children})
       : super(
           ProfileEditRoute.name,
           initialChildren: children,
@@ -687,16 +487,16 @@ class ProfileEditRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'ProfileEditRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i21.ProfilePhotoScreen]
-class ProfilePhotoRoute extends _i33.PageRouteInfo<ProfilePhotoRouteArgs> {
+/// [_i15.ProfilePhotoScreen]
+class ProfilePhotoRoute extends _i26.PageRouteInfo<ProfilePhotoRouteArgs> {
   ProfilePhotoRoute({
-    _i35.Key? key,
+    _i28.Key? key,
     required String username,
-    List<_i33.PageRouteInfo>? children,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           ProfilePhotoRoute.name,
           args: ProfilePhotoRouteArgs(
@@ -708,8 +508,8 @@ class ProfilePhotoRoute extends _i33.PageRouteInfo<ProfilePhotoRouteArgs> {
 
   static const String name = 'ProfilePhotoRoute';
 
-  static const _i33.PageInfo<ProfilePhotoRouteArgs> page =
-      _i33.PageInfo<ProfilePhotoRouteArgs>(name);
+  static const _i26.PageInfo<ProfilePhotoRouteArgs> page =
+      _i26.PageInfo<ProfilePhotoRouteArgs>(name);
 }
 
 class ProfilePhotoRouteArgs {
@@ -718,7 +518,7 @@ class ProfilePhotoRouteArgs {
     required this.username,
   });
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   final String username;
 
@@ -729,12 +529,12 @@ class ProfilePhotoRouteArgs {
 }
 
 /// generated route for
-/// [_i22.ProfileScreen]
-class ProfileRoute extends _i33.PageRouteInfo<ProfileRouteArgs> {
+/// [_i16.ProfileScreen]
+class ProfileRoute extends _i26.PageRouteInfo<ProfileRouteArgs> {
   ProfileRoute({
-    _i35.Key? key,
+    _i28.Key? key,
     String? profileId,
-    List<_i33.PageRouteInfo>? children,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           ProfileRoute.name,
           args: ProfileRouteArgs(
@@ -746,8 +546,8 @@ class ProfileRoute extends _i33.PageRouteInfo<ProfileRouteArgs> {
 
   static const String name = 'ProfileRoute';
 
-  static const _i33.PageInfo<ProfileRouteArgs> page =
-      _i33.PageInfo<ProfileRouteArgs>(name);
+  static const _i26.PageInfo<ProfileRouteArgs> page =
+      _i26.PageInfo<ProfileRouteArgs>(name);
 }
 
 class ProfileRouteArgs {
@@ -756,7 +556,7 @@ class ProfileRouteArgs {
     this.profileId,
   });
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   final String? profileId;
 
@@ -767,12 +567,12 @@ class ProfileRouteArgs {
 }
 
 /// generated route for
-/// [_i23.ProfileViewScreen]
-class ProfileViewRoute extends _i33.PageRouteInfo<ProfileViewRouteArgs> {
+/// [_i17.ProfileViewScreen]
+class ProfileViewRoute extends _i26.PageRouteInfo<ProfileViewRouteArgs> {
   ProfileViewRoute({
-    _i35.Key? key,
+    _i28.Key? key,
     required String profileId,
-    List<_i33.PageRouteInfo>? children,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           ProfileViewRoute.name,
           args: ProfileViewRouteArgs(
@@ -784,8 +584,8 @@ class ProfileViewRoute extends _i33.PageRouteInfo<ProfileViewRouteArgs> {
 
   static const String name = 'ProfileViewRoute';
 
-  static const _i33.PageInfo<ProfileViewRouteArgs> page =
-      _i33.PageInfo<ProfileViewRouteArgs>(name);
+  static const _i26.PageInfo<ProfileViewRouteArgs> page =
+      _i26.PageInfo<ProfileViewRouteArgs>(name);
 }
 
 class ProfileViewRouteArgs {
@@ -794,7 +594,7 @@ class ProfileViewRouteArgs {
     required this.profileId,
   });
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   final String profileId;
 
@@ -805,48 +605,9 @@ class ProfileViewRouteArgs {
 }
 
 /// generated route for
-/// [_i24.RedeemGiftDetailScreen]
-class RedeemGiftDetailRoute
-    extends _i33.PageRouteInfo<RedeemGiftDetailRouteArgs> {
-  RedeemGiftDetailRoute({
-    _i35.Key? key,
-    required double totalAmount,
-    List<_i33.PageRouteInfo>? children,
-  }) : super(
-          RedeemGiftDetailRoute.name,
-          args: RedeemGiftDetailRouteArgs(
-            key: key,
-            totalAmount: totalAmount,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'RedeemGiftDetailRoute';
-
-  static const _i33.PageInfo<RedeemGiftDetailRouteArgs> page =
-      _i33.PageInfo<RedeemGiftDetailRouteArgs>(name);
-}
-
-class RedeemGiftDetailRouteArgs {
-  const RedeemGiftDetailRouteArgs({
-    this.key,
-    required this.totalAmount,
-  });
-
-  final _i35.Key? key;
-
-  final double totalAmount;
-
-  @override
-  String toString() {
-    return 'RedeemGiftDetailRouteArgs{key: $key, totalAmount: $totalAmount}';
-  }
-}
-
-/// generated route for
-/// [_i25.RefereeScreen]
-class RefereeRoute extends _i33.PageRouteInfo<void> {
-  const RefereeRoute({List<_i33.PageRouteInfo>? children})
+/// [_i18.RefereeScreen]
+class RefereeRoute extends _i26.PageRouteInfo<void> {
+  const RefereeRoute({List<_i26.PageRouteInfo>? children})
       : super(
           RefereeRoute.name,
           initialChildren: children,
@@ -854,17 +615,17 @@ class RefereeRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'RefereeRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i26.ResetPasswordOtpScreen]
+/// [_i19.ResetPasswordOtpScreen]
 class ResetPasswordOtpRoute
-    extends _i33.PageRouteInfo<ResetPasswordOtpRouteArgs> {
+    extends _i26.PageRouteInfo<ResetPasswordOtpRouteArgs> {
   ResetPasswordOtpRoute({
-    _i35.Key? key,
+    _i28.Key? key,
     required String email,
-    List<_i33.PageRouteInfo>? children,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           ResetPasswordOtpRoute.name,
           args: ResetPasswordOtpRouteArgs(
@@ -876,8 +637,8 @@ class ResetPasswordOtpRoute
 
   static const String name = 'ResetPasswordOtpRoute';
 
-  static const _i33.PageInfo<ResetPasswordOtpRouteArgs> page =
-      _i33.PageInfo<ResetPasswordOtpRouteArgs>(name);
+  static const _i26.PageInfo<ResetPasswordOtpRouteArgs> page =
+      _i26.PageInfo<ResetPasswordOtpRouteArgs>(name);
 }
 
 class ResetPasswordOtpRouteArgs {
@@ -886,7 +647,7 @@ class ResetPasswordOtpRouteArgs {
     required this.email,
   });
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   final String email;
 
@@ -897,12 +658,12 @@ class ResetPasswordOtpRouteArgs {
 }
 
 /// generated route for
-/// [_i27.ResetPasswordScreen]
-class ResetPasswordRoute extends _i33.PageRouteInfo<ResetPasswordRouteArgs> {
+/// [_i20.ResetPasswordScreen]
+class ResetPasswordRoute extends _i26.PageRouteInfo<ResetPasswordRouteArgs> {
   ResetPasswordRoute({
-    _i35.Key? key,
-    required _i34.ResetPasswordRequest request,
-    List<_i33.PageRouteInfo>? children,
+    _i28.Key? key,
+    required _i27.ResetPasswordRequest request,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           ResetPasswordRoute.name,
           args: ResetPasswordRouteArgs(
@@ -914,8 +675,8 @@ class ResetPasswordRoute extends _i33.PageRouteInfo<ResetPasswordRouteArgs> {
 
   static const String name = 'ResetPasswordRoute';
 
-  static const _i33.PageInfo<ResetPasswordRouteArgs> page =
-      _i33.PageInfo<ResetPasswordRouteArgs>(name);
+  static const _i26.PageInfo<ResetPasswordRouteArgs> page =
+      _i26.PageInfo<ResetPasswordRouteArgs>(name);
 }
 
 class ResetPasswordRouteArgs {
@@ -924,9 +685,9 @@ class ResetPasswordRouteArgs {
     required this.request,
   });
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
-  final _i34.ResetPasswordRequest request;
+  final _i27.ResetPasswordRequest request;
 
   @override
   String toString() {
@@ -935,12 +696,12 @@ class ResetPasswordRouteArgs {
 }
 
 /// generated route for
-/// [_i28.SelectLanguageScreen]
-class SelectLanguageRoute extends _i33.PageRouteInfo<SelectLanguageRouteArgs> {
+/// [_i21.SelectLanguageScreen]
+class SelectLanguageRoute extends _i26.PageRouteInfo<SelectLanguageRouteArgs> {
   SelectLanguageRoute({
-    _i35.Key? key,
+    _i28.Key? key,
     required List<String> languages,
-    List<_i33.PageRouteInfo>? children,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           SelectLanguageRoute.name,
           args: SelectLanguageRouteArgs(
@@ -952,8 +713,8 @@ class SelectLanguageRoute extends _i33.PageRouteInfo<SelectLanguageRouteArgs> {
 
   static const String name = 'SelectLanguageRoute';
 
-  static const _i33.PageInfo<SelectLanguageRouteArgs> page =
-      _i33.PageInfo<SelectLanguageRouteArgs>(name);
+  static const _i26.PageInfo<SelectLanguageRouteArgs> page =
+      _i26.PageInfo<SelectLanguageRouteArgs>(name);
 }
 
 class SelectLanguageRouteArgs {
@@ -962,7 +723,7 @@ class SelectLanguageRouteArgs {
     required this.languages,
   });
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   final List<String> languages;
 
@@ -973,9 +734,9 @@ class SelectLanguageRouteArgs {
 }
 
 /// generated route for
-/// [_i29.SignInScreen]
-class SignInRoute extends _i33.PageRouteInfo<void> {
-  const SignInRoute({List<_i33.PageRouteInfo>? children})
+/// [_i22.SignInScreen]
+class SignInRoute extends _i26.PageRouteInfo<void> {
+  const SignInRoute({List<_i26.PageRouteInfo>? children})
       : super(
           SignInRoute.name,
           initialChildren: children,
@@ -983,13 +744,13 @@ class SignInRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'SignInRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i30.SignUpScreen]
-class SignUpRoute extends _i33.PageRouteInfo<void> {
-  const SignUpRoute({List<_i33.PageRouteInfo>? children})
+/// [_i23.SignUpScreen]
+class SignUpRoute extends _i26.PageRouteInfo<void> {
+  const SignUpRoute({List<_i26.PageRouteInfo>? children})
       : super(
           SignUpRoute.name,
           initialChildren: children,
@@ -997,19 +758,19 @@ class SignUpRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'SignUpRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i31.VerificationScreen]
-class VerificationRoute extends _i33.PageRouteInfo<VerificationRouteArgs> {
+/// [_i24.VerificationScreen]
+class VerificationRoute extends _i26.PageRouteInfo<VerificationRouteArgs> {
   VerificationRoute({
-    _i35.Key? key,
+    _i28.Key? key,
     required bool isPhoneNumber,
     required String phoneNumber,
     required String countryCode,
     required String email,
-    List<_i33.PageRouteInfo>? children,
+    List<_i26.PageRouteInfo>? children,
   }) : super(
           VerificationRoute.name,
           args: VerificationRouteArgs(
@@ -1024,8 +785,8 @@ class VerificationRoute extends _i33.PageRouteInfo<VerificationRouteArgs> {
 
   static const String name = 'VerificationRoute';
 
-  static const _i33.PageInfo<VerificationRouteArgs> page =
-      _i33.PageInfo<VerificationRouteArgs>(name);
+  static const _i26.PageInfo<VerificationRouteArgs> page =
+      _i26.PageInfo<VerificationRouteArgs>(name);
 }
 
 class VerificationRouteArgs {
@@ -1037,7 +798,7 @@ class VerificationRouteArgs {
     required this.email,
   });
 
-  final _i35.Key? key;
+  final _i28.Key? key;
 
   final bool isPhoneNumber;
 
@@ -1054,9 +815,9 @@ class VerificationRouteArgs {
 }
 
 /// generated route for
-/// [_i32.WelcomeScreen]
-class WelcomeRoute extends _i33.PageRouteInfo<void> {
-  const WelcomeRoute({List<_i33.PageRouteInfo>? children})
+/// [_i25.WelcomeScreen]
+class WelcomeRoute extends _i26.PageRouteInfo<void> {
+  const WelcomeRoute({List<_i26.PageRouteInfo>? children})
       : super(
           WelcomeRoute.name,
           initialChildren: children,
@@ -1064,5 +825,5 @@ class WelcomeRoute extends _i33.PageRouteInfo<void> {
 
   static const String name = 'WelcomeRoute';
 
-  static const _i33.PageInfo<void> page = _i33.PageInfo<void>(name);
+  static const _i26.PageInfo<void> page = _i26.PageInfo<void>(name);
 }
