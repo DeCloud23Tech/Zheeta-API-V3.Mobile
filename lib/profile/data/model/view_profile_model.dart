@@ -11,6 +11,9 @@ class ViewProfileModel with _$ViewProfileModel {
     required int statusCode,
     required String message,
     required bool success,
+    required bool isFriend,
+    required bool canAddFriend,
+    required bool canMessage,
     required int totalCount,
     required ViewProfileModelData data,
   }) = _ViewProfileModel;

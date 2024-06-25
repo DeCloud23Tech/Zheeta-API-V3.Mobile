@@ -12,6 +12,9 @@ _$ViewProfileModelImpl _$$ViewProfileModelImplFromJson(
       statusCode: json['statusCode'] as int,
       message: json['message'] as String,
       success: json['success'] as bool,
+      isFriend: json['isFriend'] as bool,
+      canAddFriend: json['canAddFriend'] as bool,
+      canMessage: json['canMessage'] as bool,
       totalCount: json['totalCount'] as int,
       data: ViewProfileModelData.fromJson(json['data'] as Map<String, dynamic>),
     );
@@ -22,6 +25,9 @@ Map<String, dynamic> _$$ViewProfileModelImplToJson(
       'statusCode': instance.statusCode,
       'message': instance.message,
       'success': instance.success,
+      'isFriend': instance.isFriend,
+      'canAddFriend': instance.canAddFriend,
+      'canMessage': instance.canMessage,
       'totalCount': instance.totalCount,
       'data': instance.data.toJson(),
     };

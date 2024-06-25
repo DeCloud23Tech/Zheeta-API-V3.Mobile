@@ -23,6 +23,9 @@ mixin _$ViewProfileModel {
   int get statusCode => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get success => throw _privateConstructorUsedError;
+  bool get isFriend => throw _privateConstructorUsedError;
+  bool get canAddFriend => throw _privateConstructorUsedError;
+  bool get canMessage => throw _privateConstructorUsedError;
   int get totalCount => throw _privateConstructorUsedError;
   ViewProfileModelData get data => throw _privateConstructorUsedError;
 
@@ -42,6 +45,9 @@ abstract class $ViewProfileModelCopyWith<$Res> {
       {int statusCode,
       String message,
       bool success,
+      bool isFriend,
+      bool canAddFriend,
+      bool canMessage,
       int totalCount,
       ViewProfileModelData data});
 
@@ -64,6 +70,9 @@ class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
     Object? statusCode = null,
     Object? message = null,
     Object? success = null,
+    Object? isFriend = null,
+    Object? canAddFriend = null,
+    Object? canMessage = null,
     Object? totalCount = null,
     Object? data = null,
   }) {
@@ -79,6 +88,18 @@ class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
       success: null == success
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFriend: null == isFriend
+          ? _value.isFriend
+          : isFriend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canAddFriend: null == canAddFriend
+          ? _value.canAddFriend
+          : canAddFriend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canMessage: null == canMessage
+          ? _value.canMessage
+          : canMessage // ignore: cast_nullable_to_non_nullable
               as bool,
       totalCount: null == totalCount
           ? _value.totalCount
@@ -112,6 +133,9 @@ abstract class _$$ViewProfileModelImplCopyWith<$Res>
       {int statusCode,
       String message,
       bool success,
+      bool isFriend,
+      bool canAddFriend,
+      bool canMessage,
       int totalCount,
       ViewProfileModelData data});
 
@@ -133,6 +157,9 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
     Object? statusCode = null,
     Object? message = null,
     Object? success = null,
+    Object? isFriend = null,
+    Object? canAddFriend = null,
+    Object? canMessage = null,
     Object? totalCount = null,
     Object? data = null,
   }) {
@@ -148,6 +175,18 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
       success: null == success
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFriend: null == isFriend
+          ? _value.isFriend
+          : isFriend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canAddFriend: null == canAddFriend
+          ? _value.canAddFriend
+          : canAddFriend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      canMessage: null == canMessage
+          ? _value.canMessage
+          : canMessage // ignore: cast_nullable_to_non_nullable
               as bool,
       totalCount: null == totalCount
           ? _value.totalCount
@@ -169,6 +208,9 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
       {required this.statusCode,
       required this.message,
       required this.success,
+      required this.isFriend,
+      required this.canAddFriend,
+      required this.canMessage,
       required this.totalCount,
       required this.data});
 
@@ -182,13 +224,19 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
   @override
   final bool success;
   @override
+  final bool isFriend;
+  @override
+  final bool canAddFriend;
+  @override
+  final bool canMessage;
+  @override
   final int totalCount;
   @override
   final ViewProfileModelData data;
 
   @override
   String toString() {
-    return 'ViewProfileModel(statusCode: $statusCode, message: $message, success: $success, totalCount: $totalCount, data: $data)';
+    return 'ViewProfileModel(statusCode: $statusCode, message: $message, success: $success, isFriend: $isFriend, canAddFriend: $canAddFriend, canMessage: $canMessage, totalCount: $totalCount, data: $data)';
   }
 
   @override
@@ -200,6 +248,12 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
                 other.statusCode == statusCode) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.success, success) || other.success == success) &&
+            (identical(other.isFriend, isFriend) ||
+                other.isFriend == isFriend) &&
+            (identical(other.canAddFriend, canAddFriend) ||
+                other.canAddFriend == canAddFriend) &&
+            (identical(other.canMessage, canMessage) ||
+                other.canMessage == canMessage) &&
             (identical(other.totalCount, totalCount) ||
                 other.totalCount == totalCount) &&
             (identical(other.data, data) || other.data == data));
@@ -207,8 +261,8 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, statusCode, message, success, totalCount, data);
+  int get hashCode => Object.hash(runtimeType, statusCode, message, success,
+      isFriend, canAddFriend, canMessage, totalCount, data);
 
   @JsonKey(ignore: true)
   @override
@@ -230,6 +284,9 @@ abstract class _ViewProfileModel implements ViewProfileModel {
       {required final int statusCode,
       required final String message,
       required final bool success,
+      required final bool isFriend,
+      required final bool canAddFriend,
+      required final bool canMessage,
       required final int totalCount,
       required final ViewProfileModelData data}) = _$ViewProfileModelImpl;
 
@@ -242,6 +299,12 @@ abstract class _ViewProfileModel implements ViewProfileModel {
   String get message;
   @override
   bool get success;
+  @override
+  bool get isFriend;
+  @override
+  bool get canAddFriend;
+  @override
+  bool get canMessage;
   @override
   int get totalCount;
   @override
