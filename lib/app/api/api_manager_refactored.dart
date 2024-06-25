@@ -4,6 +4,7 @@ import 'package:zheeta/app/api/interceptors.dart';
 import 'package:zheeta/app/common/keys.dart';
 import 'package:zheeta/app/common/storage/token_storage/i_token_storage.dart';
 import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/authentication/domain/repository/user_auth_repository.dart';
 
 @prod
 @Injectable()
@@ -28,7 +29,10 @@ class Api {
       sendTimeout: Duration(seconds: 30),
     ));
 
-    dio.interceptors.addAll({AppInterceptors(dio, locator<ITokenStorage>())});
+    dio.interceptors.addAll({
+      AppInterceptors(
+          dio, locator<ITokenStorage>(), locator<UserAuthRepository>())
+    });
     return dio;
   }
 }
