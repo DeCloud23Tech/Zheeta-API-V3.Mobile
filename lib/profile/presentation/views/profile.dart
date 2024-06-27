@@ -1,34 +1,18 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/common/enums/others.dart';
 import 'package:zheeta/app/injection/di.dart';
-import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
-import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/empty_content.dart';
 import 'package:zheeta/widgets/primary_button.dart';
-import 'package:zheeta/widgets/top_nav.dart';
-import 'package:zheeta/widgets/transparent_button.dart';
-
 import '../../../app/router/app_router.dart';
-import '../widgets/basic_profile_prop.dart';
 import '../widgets/friend_profile_view.dart';
-import '../widgets/intrests_tile.dart';
-import '../widgets/profile_add_or_like.dart';
-import '../widgets/profile_posts.dart';
 import '../widgets/user_profile_view.dart';
 import '../widgets/visitor_profile_view.dart';
 
-@RoutePage<String?>()
+@RoutePage()
 class ProfileScreen extends StatefulWidget {
-  final String? profileId;
-
-  ProfileScreen({super.key, this.profileId});
+  ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -73,17 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> loadUserProfile() async {
-    print(widget.profileId);
-    if (widget.profileId != null) {
-      await userProfileViewModel.visitUserProfile(context, widget.profileId!);
-      setState(() {
-        theUser = userProfileViewModel.visitProfilePage?.data.profile;
-      });
-    } else {
+   
+   
       setState(() {
         theUser = userProfileViewModel.userProfileModel?.data;
       });
-    }
+    
   }
 
   @override
@@ -110,8 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             )
-          : widget.profileId == null
-              ? buildLoggedInUserProfileView(
+          : buildLoggedInUserProfileView(
                   controller: controller,
                   theUser: theUser,
                   userProfileViewModel: userProfileViewModel,
@@ -123,38 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   updateCurrentIndex: updateCurrentIndex,
                   toggleBio: toggleBio,
                 )
-              : userProfileViewModel.visitProfilePage != null &&
-                      userProfileViewModel.visitProfilePage!.data.isFriend
-                  ? buildFriendProfileView(
-                      controller: controller,
-                      theUser: theUser,
-                      userProfileViewModel: userProfileViewModel,
-                      current: _current,
-                      carouselCount: carouselCount,
-                      activeTab: _activeTab,
-                      showFullBio: showFullBio,
-                      updateActiveTab: updateActiveTab,
-                      updateCurrentIndex: updateCurrentIndex,
-                      toggleBio: toggleBio,
-                    )
-                  : userProfileViewModel.visitProfilePage != null &&
-                          !userProfileViewModel
-                              .visitProfilePage!.data.isFriend &&
-                          !userProfileViewModel
-                              .visitProfilePage!.data.canViewProfile
-                      ? _buildBlockedView()
-                      : buildVisitorProfileView(
-                          controller: controller,
-                          theUser: theUser,
-                          userProfileViewModel: userProfileViewModel,
-                          current: _current,
-                          carouselCount: carouselCount,
-                          activeTab: _activeTab,
-                          showFullBio: showFullBio,
-                          updateActiveTab: updateActiveTab,
-                          updateCurrentIndex: updateCurrentIndex,
-                          toggleBio: toggleBio,
-                        ),
+              
     );
   }
 }

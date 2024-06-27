@@ -41,4 +41,5 @@ abstract class UserProfileDataSource {
   Future<void> updateUserProfileNew(UpdateUserProfileRequest request);
   Future<ViewProfileModel> visitUserProfileNew({required String userId});
   Future<ActivityListModel> getUserActivityNew();
+  Future<ActivityListModel> getVisitedUserActivity(String userId);
 }

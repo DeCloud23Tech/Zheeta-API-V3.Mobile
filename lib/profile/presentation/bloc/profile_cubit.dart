@@ -54,6 +54,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final GetAllUsersProfile getAllUsersProfile;
   final GetSingleUserProfile getSingleUserProfile;
   final GetUserRecentActivity getUserRecentActivity;
+  final GetVisitedUserRecentActivity getVisitedUserRecentActivity;
   final UpdateUserProfilePicture updateUserProfilePicture;
   final UpdateUserProfile updateUserProfile;
   final VisitUserProfile visitUserProfile;
@@ -80,6 +81,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.getAllUsersProfile,
     required this.getSingleUserProfile,
     required this.getUserRecentActivity,
+    required this.getVisitedUserRecentActivity,
     required this.updateUserProfilePicture,
     required this.updateUserProfile,
     required this.visitUserProfile,
@@ -293,8 +295,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-
-
   //Profile Boosts Ends
 
   //User Profile
@@ -347,6 +347,24 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoadingState());
     ActivityListModel? data;
     var result = await getUserRecentActivity();
+    result.fold(
+      (fail) {
+        emit(ProfileErrorState(fail.message));
+      },
+      (success) {
+        emit(ProfileUserActivityState(success));
+        data = success;
+      },
+    );
+
+    return data;
+  }
+
+  Future<ActivityListModel?> getVisitedUserRecentActivityCubit(
+      String userId) async {
+    emit(ProfileLoadingState());
+    ActivityListModel? data;
+    var result = await getVisitedUserRecentActivity(userId);
     result.fold(
       (fail) {
         emit(ProfileErrorState(fail.message));

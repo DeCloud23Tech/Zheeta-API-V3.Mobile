@@ -28,6 +28,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AboutRoute.page, guards: [AppGuard()]),
         AutoRoute(page: ProfilePhotoRoute.page, guards: [AppGuard()]),
         AutoRoute(page: SelectLanguageRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: ProfileViewRoute.page, guards: [AppGuard()]),
 
         // Explore
         AutoRoute(page: HomeRoute.page, guards: [AppGuard()]),
@@ -56,6 +57,6 @@ class AppRouter extends $AppRouter {
         //
         AutoRoute(page: BankAccountRoute.page, guards: [AppGuard()]),
         AutoRoute(page: RefereeRoute.page, guards: [AppGuard()]),
-        AutoRoute(page:  MembershipSubscriptionRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: MembershipSubscriptionRoute.page, guards: [AppGuard()]),
       ];
 }

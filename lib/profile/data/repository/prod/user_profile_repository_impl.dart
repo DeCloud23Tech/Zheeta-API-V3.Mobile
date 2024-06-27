@@ -139,11 +139,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       return left(
           ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
     }
-
-    // return result.fold(
-    //   (error) => throw new Exception(error.message),
-    //   (value) => ViewProfileModel.fromJson(value),
-    // );
   }
 
   @override
@@ -157,15 +152,19 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       return left(
           ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
     }
-    // return result.fold(
-    //   (error) => throw new Exception(error.message),
-    //   (value) {
-    //     //var theData = value['data'];
-    //     //theData.map(activity => ActivityModel.fromJson(activity)).toList();
-    //     var theList = ActivityListModel.fromJson(value);
+  }
 
-    //     return theList;
-    //   },
-    // );
+  @override
+  ResultFuture<ActivityListModel> getVisitedUserRecentActivity(
+      String userId) async {
+    try {
+      final result = await _datasource.getUserActivityNew();
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
   }
 }

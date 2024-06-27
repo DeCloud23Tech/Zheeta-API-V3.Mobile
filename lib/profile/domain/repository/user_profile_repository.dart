@@ -23,4 +23,5 @@ abstract class UserProfileRepository {
   ResultFuture<ViewProfileModel> visitUserProfileRepo({required String userId});
 
   ResultFuture<ActivityListModel> getUserRecentActivity();
+  ResultFuture<ActivityListModel> getVisitedUserRecentActivity(String userId);
 }
