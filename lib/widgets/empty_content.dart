@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zheeta/app/common/color.dart';
 
 class EmptyContent extends StatelessWidget {
   final Color? backgroundColor;
@@ -37,19 +38,25 @@ class LoadingContent extends StatelessWidget {
       children: [
         ModalBarrier(
           dismissible: false,
-          color: Colors.transparent,
+          color: backgroundColor ?? AppColors.primaryDark.withOpacity(0.7),
           semanticsLabel: 'Loading',
           barrierSemanticsDismissible: false,
         ),
         Align(
           alignment: Alignment.center,
-          child: Text('No Content'),
+          child: SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              color: indicatorColor ?? Colors.white,
+              strokeWidth: 2,
+            ),
+          ),
         ),
       ],
     );
   }
 }
-
 
 class BlockedUserContent extends StatelessWidget {
   final Color? backgroundColor;

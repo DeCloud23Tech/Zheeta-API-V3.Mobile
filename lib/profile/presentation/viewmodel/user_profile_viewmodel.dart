@@ -51,6 +51,7 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
   ViewProfileModel? visitProfilePage;
   UserProfileModel? userProfileModel;
   ActivityListModel? userActivityModel;
+  ActivityListModel? visitedUserActivityModel = ActivityListModel(data: []);
 
   List<String> allStates = [];
   List<String> allCountries = [];
@@ -446,6 +447,21 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     userActivityModel = result;
   }
 
+  loadVisitedUserRecentActivity(BuildContext context, String userId) async {
+    final result = await context
+        .read<ProfileCubit>()
+        .getVisitedUserRecentActivityCubit(userId);
+    userActivityModel = result;
+  }
+
+  void setProfileUserActivity(ActivityListModel? data) {
+    visitedUserActivityModel = data;
+  }
+
+  void setVisitedProfileUserActivity(ActivityListModel? data) {
+    visitedUserActivityModel = data;
+  }
+
   Future<void> createProfileBoost(
       BuildContext context, CreateProfileBoostRequest request) async {
     await context.read<ProfileCubit>().createProfileBoostCubit(request);
@@ -459,5 +475,4 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
           'could not boost profile, please try again later');
     }
   }
-
 }

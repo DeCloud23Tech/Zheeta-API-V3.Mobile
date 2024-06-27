@@ -64,6 +64,19 @@ class GetUserRecentActivity extends UsecaseWithoutParams<ActivityListModel> {
 
 @prod
 @LazySingleton()
+class GetVisitedUserRecentActivity
+    extends UsecaseWithParams<ActivityListModel, String> {
+  const GetVisitedUserRecentActivity(this._repo);
+
+  final UserProfileRepository _repo;
+
+  @override
+  ResultFuture<ActivityListModel> call(String param) async =>
+      await _repo.getVisitedUserRecentActivity(param);
+}
+
+@prod
+@LazySingleton()
 class UpdateUserProfilePicture
     extends UsecaseWithParams<void, UploadProfilePictureParam> {
   const UpdateUserProfilePicture(this._repo);

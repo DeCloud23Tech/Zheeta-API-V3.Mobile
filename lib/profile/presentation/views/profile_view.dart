@@ -14,8 +14,10 @@ import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
 import 'package:zheeta/widgets/empty_content.dart';
+import 'package:zheeta/widgets/loading_screen.dart';
 import 'package:zheeta/widgets/media_container.dart';
 import 'package:zheeta/widgets/primary_button.dart';
+import 'package:zheeta/widgets/snackbar.dart';
 import 'package:zheeta/widgets/top_nav.dart';
 import 'package:zheeta/widgets/transparent_button.dart';
 
@@ -50,7 +52,8 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
         theUser = userProfileViewModel.visitProfilePage?.profile;
       });
 
-      await userProfileViewModel.loadUserRecentActivity(context);
+      await userProfileViewModel.loadVisitedUserRecentActivity(
+          context, widget.profileId);
 
       //userProfileViewModel.loadSelectedCountryStates('Nigeria');
     });
@@ -77,25 +80,33 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
         });
       }
     });
-    return BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          if (theUser == null)
-            return EmptyContent();
-          else if (!viewProfileData!.canViewProfile)
-            return BlockedUserContent();
-          else
-            return Stack(
-              children: [
-                newMethod(context, carouselCount),
-                if (state is ProfileLoadingState)
-                  LoadingContent(
-                    backgroundColor: Colors.white,
-                    indicatorColor: AppColors.primaryLight,
-                  )
-              ],
-            );
+    return BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
+      if (state is ProfileErrorState) {
+        //notify(context, NotificationType., message)
+      }
+      if (state is ProfileUserActivityState) {
+        setState(() {
+          userProfileViewModel.setVisitedProfileUserActivity(state.data);
         });
+      }
+    }, builder: (context, state) {
+      if (theUser == null)
+        return LoadingContent(
+          backgroundColor: Colors.white,
+          indicatorColor: AppColors.primaryLight,
+        );
+      else
+        return Stack(
+          children: [
+            newMethod(context, carouselCount),
+            if (state is ProfileLoadingState)
+              LoadingContent(
+                backgroundColor: Colors.white,
+                indicatorColor: AppColors.primaryLight,
+              )
+          ],
+        );
+    });
   }
 
   Scaffold newMethod(BuildContext context, int carouselCount) {
@@ -178,13 +189,6 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
                       },
                     ),
                   ),
-                  if (widget.profileId == null &&
-                      theUser!.userCarousels!.length > 0)
-                    Positioned(
-                      bottom: 75,
-                      left: 10,
-                      child: TopNavBtn(iconType: IconType.photo),
-                    ),
                   Positioned(
                     bottom: 30,
                     child: Row(
@@ -206,10 +210,9 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
                       ],
                     ),
                   ),
-                  if (widget.profileId != null)
-                    ProfileAddOrLike(
-                      visitProfile: userProfileViewModel.visitProfilePage,
-                    ),
+                  ProfileAddOrLike(
+                    visitProfile: userProfileViewModel.visitProfilePage,
+                  ),
                 ],
               ),
             ),
@@ -224,20 +227,18 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
                     children: [
                       Row(
                         children: [
-                          if (widget.profileId != null)
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          theUser?.profile!.profilePhotoURL))),
-                              width: 50,
-                              height: 50,
-                            ),
-                          if (widget.profileId != null)
-                            SizedBox(
-                              width: 10,
-                            ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        theUser?.profile!.profilePhotoURL))),
+                            width: 50,
+                            height: 50,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -357,28 +358,6 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
                               ],
                             ),
                           ),
-                          if (widget.profileId == null)
-                            GestureDetector(
-                              onTap: () {
-                                // Scaffold.of(context).openDrawer();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: SvgPicture.asset(
-                                    'assets/images/icons/dots.svg',
-                                    width: 30,
-                                  ),
-                                ),
-                              ),
-                            )
                         ],
                       ),
                       SizedBox(height: 20),
@@ -460,14 +439,6 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
                           ],
                         ),
                       ),
-                      if (widget.profileId == null) SizedBox(height: 15),
-                      if (widget.profileId == null)
-                        PrimaryButton(
-                          icon: 'assets/images/icons/rocket.svg',
-                          invert: false,
-                          title: 'Boost Profile',
-                          action: () {},
-                        ),
                       SizedBox(height: 20),
                       Container(
                         height: 40,
@@ -646,26 +617,7 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
                                               ),
                                             );
                                           }).toList() ??
-                                          []
-                                      // children: [
-                                      //   for (var i = 0; i < 5; i++)
-                                      //     GestureDetector(
-                                      //       onTap: () {},
-                                      //       child: Padding(
-                                      //         padding: EdgeInsets.only(right: 10),
-                                      //         child: ClipRRect(
-                                      //           borderRadius:
-                                      //               BorderRadius.circular(8),
-                                      //           child: Image.asset(
-                                      //               "assets/images/ref.png",
-                                      //               height: 42,
-                                      //               width: 42,
-                                      //               fit: BoxFit.cover),
-                                      //         ),
-                                      //       ),
-                                      //     )
-                                      // ],
-                                      ),
+                                          []),
                                 ),
                                 SizedBox(height: 20),
                                 Text(
@@ -716,24 +668,12 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
                                     children: theUser?.interests!.map((e) {
                                           return InterestWidget(title: e.title);
                                         }).toList() ??
-                                        []
-                                    // children: [
-                                    //   InterestWidget(title: 'Friend WB'),
-                                    //   InterestWidget(title: 'Hangout'),
-                                    //   InterestWidget(title: 'Dating'),
-                                    //   InterestWidget(title: 'Body Massage'),
-                                    //   InterestWidget(title: 'Friends'),
-                                    //   InterestWidget(
-                                    //       title: 'Serious Relationships'),
-                                    //   InterestWidget(title: 'Massage Plus'),
-                                    //   InterestWidget(title: 'Networking'),
-                                    // ],
-                                    ),
+                                        []),
                               ],
                             )
                           : PostsWidget(
-                              medias:
-                                  userProfileViewModel.userActivityModel?.data,
+                              medias: userProfileViewModel
+                                  .visitedUserActivityModel?.data,
                             ),
                       SizedBox(height: 200),
                     ],

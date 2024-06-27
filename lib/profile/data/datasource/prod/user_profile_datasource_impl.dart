@@ -252,21 +252,31 @@ class UserProfileDataSourceImpl implements UserProfileDataSource {
 
   @override
   Future<ViewProfileModel> visitUserProfileNew({required String userId}) async {
-    print('ffff');
-    print(userId);
-
     var response = await _api.dio.get(
       '/user/view-profile/$userId',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
-    // print('userId');
-    // print(userId);
-    // print(response.data);
 
     if (response.statusCode == 200) {
-      return ViewProfileModel.fromJson(response.data);
+      return ViewProfileModel.fromJson(response.data['data']);
+    } else {
+      throw ApiException(
+          message: response.statusMessage!, statusCode: response.statusCode!);
+    }
+  }
+
+  @override
+  Future<ActivityListModel> getVisitedUserActivity(String userId) async {
+    var response = await _api.dio.get(
+      '/activity-post/getPostsByUserId?userId=$userId&PageNumber=1&PageSize=10',
+      options: Options(
+        contentType: Headers.jsonContentType,
+      ),
+    );
+    if (response.statusCode == 200) {
+      return ActivityListModel.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);

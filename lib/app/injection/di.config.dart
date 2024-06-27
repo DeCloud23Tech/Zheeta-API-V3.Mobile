@@ -726,6 +726,11 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i128.GetUserTransactions(gh<_i108.UserTransactionRepository>()),
       registerFor: {_prod},
     );
+    gh.lazySingleton<_i111.GetVisitedUserRecentActivity>(
+      () =>
+          _i111.GetVisitedUserRecentActivity(gh<_i100.UserProfileRepository>()),
+      registerFor: {_prod},
+    );
     gh.lazySingleton<_i119.LoginOAuth>(
       () => _i119.LoginOAuth(gh<_i76.UserAuthRepository>()),
       registerFor: {_prod},
@@ -849,6 +854,7 @@ extension GetItInjectableX on _i1.GetIt {
         getAllUsersProfile: gh<_i111.GetAllUsersProfile>(),
         getSingleUserProfile: gh<_i111.GetSingleUserProfile>(),
         getUserRecentActivity: gh<_i111.GetUserRecentActivity>(),
+        getVisitedUserRecentActivity: gh<_i111.GetVisitedUserRecentActivity>(),
         updateUserProfilePicture: gh<_i111.UpdateUserProfilePicture>(),
         updateUserProfile: gh<_i111.UpdateUserProfile>(),
         visitUserProfile: gh<_i111.VisitUserProfile>(),
