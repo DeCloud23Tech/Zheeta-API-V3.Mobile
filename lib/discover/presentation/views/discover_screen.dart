@@ -100,6 +100,7 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
     return BlocBuilder<MatchesCubit, MatchesState>(
       builder: (context, state) {
         if (state is MatchesLoadingState) {
+          //load gif
           return LoadingScreen();
         } else if (state is MatchesEmptyState) {
           return EmptyContent();
