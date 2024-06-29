@@ -54,8 +54,6 @@ class _ProfileScreenState extends State<ProfileViewScreen> {
 
       await userProfileViewModel.loadVisitedUserRecentActivity(
           context, widget.profileId);
-
-      //userProfileViewModel.loadSelectedCountryStates('Nigeria');
     });
   }
 
