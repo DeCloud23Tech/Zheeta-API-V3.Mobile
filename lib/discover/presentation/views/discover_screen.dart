@@ -1,26 +1,20 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/common/constansts.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
-import 'package:zheeta/app/common/strings.dart';
-import 'package:zheeta/app/common/text_style.dart';
-
 import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/discover/data/request/send_bulk_request.dart';
 import 'package:zheeta/discover/presentation/bloc/matches_bloc/matches_cubit.dart';
 import 'package:zheeta/discover/presentation/viewmodel/friend_request_viewmodel.dart';
 import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
 import 'package:zheeta/discover/presentation/widgets/card_ui.dart';
-
 import 'package:zheeta/widgets/empty_content.dart';
 import 'package:zheeta/widgets/empty_matches.dart';
 import 'package:zheeta/widgets/loading_screen.dart';
-import 'package:zheeta/widgets/primary_button.dart';
 
 class DiscoverPage extends ConsumerStatefulWidget {
   const DiscoverPage({super.key});
@@ -36,8 +30,6 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
   late FriendRequestViewModel friendRequestViewModel;
 
   List<SwipeItem> _swipeItems = <SwipeItem>[];
-  MatchEngine? _matchEngine;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<String> _names = [
     "Red",
     "Blue",
@@ -86,9 +78,6 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
             print("Region $region");
           }));
     }
-
-    _matchEngine = MatchEngine(swipeItems: _swipeItems);
-
     controller = AppinioSwiperController();
     matchCriteriaViewModel = locator<MatchCriteriaViewModel>();
     friendRequestViewModel = locator<FriendRequestViewModel>();
@@ -100,6 +89,7 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
     return BlocBuilder<MatchesCubit, MatchesState>(
       builder: (context, state) {
         if (state is MatchesLoadingState) {
+          //load gif
           return LoadingScreen();
         } else if (state is MatchesEmptyState) {
           return EmptyContent();
@@ -134,19 +124,25 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
                                       .matchListModel?.data![prevIndex];
                                   if (activity.direction ==
                                       AxisDirection.right) {
-                                    friendRequestViewModel.sendFriendRequest(
-                                      context,
-                                      receiverId: match?.id,
+                                    friendRequestViewModel
+                                        .addToList(FriendListRequest(
+                                      recieverId: match?.id,
                                       typeOfRequest:
-                                          TypeOfRequest.friendRequest,
-                                    );
+                                          TypeOfRequest.friendRequest.index,
+                                    ));
                                   } else if (activity.direction ==
                                       AxisDirection.up) {
-                                    friendRequestViewModel.sendFriendRequest(
-                                      context,
-                                      receiverId: match?.id,
-                                      typeOfRequest: TypeOfRequest.superLike,
-                                    );
+                                    friendRequestViewModel
+                                        .addToList(FriendListRequest(
+                                      recieverId: match?.id,
+                                      typeOfRequest:
+                                          TypeOfRequest.superLike.index,
+                                    ));
+                                  } else if (activity.direction ==
+                                      AxisDirection.left) {
+                                    //add bulk ignore
+                                    matchCriteriaViewModel
+                                        .addToIgnoreList(match?.id);
                                   }
                                 },
                                 cardCount: matchCriteriaViewModel

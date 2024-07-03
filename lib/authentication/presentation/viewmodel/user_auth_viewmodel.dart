@@ -24,6 +24,7 @@ import 'package:zheeta/authentication/presentation/bloc/authentication_bloc.dart
 import 'package:zheeta/authentication/presentation/state/state.dart';
 import 'package:zheeta/authentication/presentation/state/user_auth_state.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
+import 'package:zheeta/main.dart';
 
 import '../../../profile/presentation/viewmodel/user_profile_viewmodel.dart';
 
@@ -139,6 +140,10 @@ class UserAuthViewModel with ValidationHelperMixin {
     ITokenStorage tokenStorage = locator<ITokenStorage>();
     var result = await tokenStorage.read();
     if (result != null) {
+      //load user profile
+      UserProfileViewModel vm = locator<UserProfileViewModel>();
+      final context = scaffoldMessengerKey.currentContext!;
+      await vm.getSingleUserProfile(context);
       router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
     }
     router.pushAndPopUntil(SignInRoute(), predicate: (route) => false);

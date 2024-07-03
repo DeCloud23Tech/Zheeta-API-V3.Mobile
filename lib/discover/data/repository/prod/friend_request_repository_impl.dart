@@ -6,6 +6,7 @@ import 'package:zheeta/app/api/errors/exception.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/discover/data/datasource/friend_request_datasource.dart';
+import 'package:zheeta/discover/data/request/send_bulk_request.dart';
 import 'package:zheeta/discover/domain/repository/friend_request_repository.dart';
 
 @prod
@@ -34,6 +35,19 @@ class FriendRequestRepositoryImpl implements FriendRequestRepository {
     try {
       final result = await _datasource.sendFriendRequestNew(
           recieverId: recieverId, typeOfRequest: typeOfRequest);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+  }
+
+  @override
+  ResultVoid sendBulkFriendRequest({required SendBulkRequest request}) async {
+    try {
+      final result = await _datasource.sendBulkFriendRequest(request: request);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

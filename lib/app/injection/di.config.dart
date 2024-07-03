@@ -466,6 +466,10 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i69.PopulateMatches(gh<_i57.MatchCriteriaRepository>()),
       registerFor: {_prod},
     );
+    gh.lazySingleton<_i70.SendBulkFriendRequest>(
+      () => _i70.SendBulkFriendRequest(gh<_i36.FriendRequestRepository>()),
+      registerFor: {_prod},
+    );
     gh.lazySingleton<_i70.SendFriendRequest>(
       () => _i70.SendFriendRequest(gh<_i36.FriendRequestRepository>()),
       registerFor: {_prod},
@@ -627,6 +631,10 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i118.BlockAccount(gh<_i92.UserProfileAccessRepository>()),
       registerFor: {_prod},
     );
+    gh.lazySingleton<_i69.BulkIgnoreMatches>(
+      () => _i69.BulkIgnoreMatches(gh<_i57.MatchCriteriaRepository>()),
+      registerFor: {_prod},
+    );
     gh.lazySingleton<_i119.ChangePassword>(
       () => _i119.ChangePassword(gh<_i76.UserAuthRepository>()),
       registerFor: {_prod},
@@ -742,6 +750,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i129.MatchesCubit>(
       () => _i129.MatchesCubit(
         sendFriendRequest: gh<_i70.SendFriendRequest>(),
+        sendBulkFriendRequest: gh<_i70.SendBulkFriendRequest>(),
+        bulkIgnoreMatches: gh<_i69.BulkIgnoreMatches>(),
         getMatchCriteria: gh<_i69.GetMatchCriteria>(),
         getMatches: gh<_i69.GetMatches>(),
         populateMatches: gh<_i69.PopulateMatches>(),

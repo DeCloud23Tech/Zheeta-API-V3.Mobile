@@ -348,8 +348,8 @@ Widget buildLoggedInUserProfileView({
                                   runSpacing: 10,
                                   spacing: 10,
                                   children: theUser?.interests
-                                          ?.map((e) =>
-                                              InterestWidget(title: e.title))
+                                          ?.map((e) => InterestWidget(
+                                              title: e.title ?? ""))
                                           .toList() ??
                                       [],
                                 ),

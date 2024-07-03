@@ -6,3 +6,9 @@ void main() async {
   await initializeApp();
   runApp(ProviderScope(child: MyApp()));
 }
+
+final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
+class NavigationService {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+}

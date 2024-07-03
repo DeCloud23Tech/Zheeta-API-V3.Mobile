@@ -3,6 +3,7 @@ import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
+import 'package:zheeta/discover/data/request/bulk_ignore_request.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/domain/repository/match_criteria_repository.dart';
 
@@ -52,4 +53,16 @@ class UpdateMatchCriteria
   @override
   ResultFuture<void> call(MatchCriteriaRequest params) async =>
       await _repo.updateMatchCriteria(params);
+}
+
+@prod
+@LazySingleton()
+class BulkIgnoreMatches extends UsecaseWithParams<void, BulkIgnoreRequest> {
+  const BulkIgnoreMatches(this._repo);
+
+  final MatchCriteriaRepository _repo;
+
+  @override
+  ResultFuture<void> call(BulkIgnoreRequest params) async =>
+      await _repo.bulkIgnoreRequest(params);
 }
