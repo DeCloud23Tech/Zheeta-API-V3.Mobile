@@ -12,6 +12,7 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 import 'package:zheeta/discover/data/datasource/match_criteria_datasource.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
+import 'package:zheeta/discover/data/request/bulk_ignore_request.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 
 @prod
@@ -140,6 +141,20 @@ class MatchCriteriaDataSourceImpl implements MatchCriteriaDataSource {
           contentType: Headers.jsonContentType,
         ),
         data: jsonEncode(matchCreteriaRequest.toJson()));
+    if (response.statusCode == 200) {
+    } else {
+      throw ApiException(
+          message: response.statusMessage!, statusCode: response.statusCode!);
+    }
+  }
+
+  @override
+  Future<void> bulkIgnoreMatches(BulkIgnoreRequest request) async {
+    var response = await _api.dio.post('/friends/matches/ignore-bulk-matches',
+        options: Options(
+          contentType: Headers.jsonContentType,
+        ),
+        data: jsonEncode(request.toJson()));
     if (response.statusCode == 200) {
     } else {
       throw ApiException(

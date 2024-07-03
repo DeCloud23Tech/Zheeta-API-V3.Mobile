@@ -6,7 +6,9 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/bloc_providers.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/app/router/app_observer.dart';
 import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/main.dart';
 
 initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,13 +22,15 @@ initializeApp() async {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-
+  static final RouteObserver<PageRoute> routeObserver =
+      RouteObserver<PageRoute>();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: AppBlocsProvider.allBlocProviders,
       child: MaterialApp.router(
-        routerConfig: router.config(),
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        routerConfig: router.config(navigatorObservers: () => [MyObserver()]),
         title: 'Zheeta',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.dark,

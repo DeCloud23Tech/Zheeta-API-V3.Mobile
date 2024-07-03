@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -9,6 +11,7 @@ import 'package:zheeta/app/common/storage/local_storage_impl.dart';
 import 'package:zheeta/app/common/storage/storage_keys.dart';
 import 'package:zheeta/authentication/domain/entity/types.dart';
 import 'package:zheeta/discover/data/datasource/friend_request_datasource.dart';
+import 'package:zheeta/discover/data/request/send_bulk_request.dart';
 
 @prod
 @Singleton(as: FriendRequestDataSource)
@@ -54,6 +57,20 @@ class FriendRequestDataSourceImpl implements FriendRequestDataSource {
           contentType: Headers.jsonContentType,
         ),
         data: null);
+    if (response.statusCode == 200) {
+    } else {
+      throw ApiException(
+          message: response.statusMessage!, statusCode: response.statusCode!);
+    }
+  }
+
+  @override
+  Future<void> sendBulkFriendRequest({required SendBulkRequest request}) async {
+    var response = await _api.dio.post('/friends/send-bulk-friend-request',
+        options: Options(
+          contentType: Headers.jsonContentType,
+        ),
+        data: jsonEncode(request.toJson()));
     if (response.statusCode == 200) {
     } else {
       throw ApiException(

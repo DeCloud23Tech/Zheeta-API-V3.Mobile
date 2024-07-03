@@ -4,7 +4,9 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
+import 'package:zheeta/discover/data/request/bulk_ignore_request.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
+import 'package:zheeta/discover/data/request/send_bulk_request.dart';
 import 'package:zheeta/discover/domain/usecase/ref/friend_usecases.dart';
 import 'package:zheeta/discover/domain/usecase/ref/match_criteria_usecases.dart';
 
@@ -14,12 +16,16 @@ part 'matches_state.dart';
 @LazySingleton()
 class MatchesCubit extends Cubit<MatchesState> {
   final SendFriendRequest sendFriendRequest;
+  final SendBulkFriendRequest sendBulkFriendRequest;
+  final BulkIgnoreMatches bulkIgnoreMatches;
   final GetMatchCriteria getMatchCriteria;
   final GetMatches getMatches;
   final PopulateMatches populateMatches;
   final UpdateMatchCriteria updateMatchCriteria;
   MatchesCubit({
     required this.sendFriendRequest,
+    required this.sendBulkFriendRequest,
+    required this.bulkIgnoreMatches,
     required this.getMatchCriteria,
     required this.getMatches,
     required this.populateMatches,
@@ -31,6 +37,21 @@ class MatchesCubit extends Cubit<MatchesState> {
     emit(MatchesLoadingState());
     var result = await sendFriendRequest(
         SendRequestParams(recieverId: receiverId, typeOfRequest: type));
+
+    result.fold(
+      (fail) {
+        emit(MatchesErrorState(fail.message));
+      },
+      (success) {
+        emit(MatchesFriendRequestSentState());
+      },
+    );
+  }
+
+  Future<void> sendBulkFriendRequestCubit(
+      {required SendBulkRequest request}) async {
+    emit(MatchesLoadingState());
+    var result = await sendBulkFriendRequest(request);
 
     result.fold(
       (fail) {
@@ -102,6 +123,17 @@ class MatchesCubit extends Cubit<MatchesState> {
     );
   }
 
-
+  Future<void> bulkIgnoreMatchesCubit(
+      {required BulkIgnoreRequest request}) async {
+    emit(MatchesLoadingState());
+    var result = await bulkIgnoreMatches(request);
+    result.fold(
+      (fail) {
+        emit(MatchesErrorState(fail.message));
+      },
+      (success) {
+        emit(BulkIgnoreMathcesDone());
+      },
+    );
+  }
 }
-

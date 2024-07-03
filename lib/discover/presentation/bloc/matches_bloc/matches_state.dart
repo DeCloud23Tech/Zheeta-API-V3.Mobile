@@ -34,6 +34,8 @@ class MatchesLoadingState extends MatchesState {}
 
 class MatchesEmptyState extends MatchesState {}
 
+class BulkIgnoreMathcesDone extends MatchesState {}
+
 class MatchesErrorState extends MatchesState {
   String errorMessage;
   MatchesErrorState(this.errorMessage);

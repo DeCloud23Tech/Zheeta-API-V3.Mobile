@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
+import 'package:zheeta/discover/data/request/bulk_ignore_request.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/presentation/bloc/matches_bloc/matches_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
@@ -29,6 +30,7 @@ class MatchCriteriaViewModel {
 
   MatchCriteriaModel? matchCriteriaModel;
   MatchListModel? matchListModel;
+  List<String> _ignoredList = [];
 
   setGender(String value) {
     gender = value;
@@ -125,5 +127,19 @@ class MatchCriteriaViewModel {
   Future<void> populateMatches(BuildContext context,
       {bool getMatches = false}) async {
     await context.read<MatchesCubit>().populateMatchesCubit();
+  }
+
+  void addToIgnoreList(String value) => _ignoredList!.add(value);
+  void clearIgnoredList() => _ignoredList.clear();
+
+  Future<void> bulkIgnoreMatches(BuildContext context) async {
+    if (_ignoredList.length > 0) {
+      BulkIgnoreRequest request =
+          BulkIgnoreRequest(ignoreUsersList: _ignoredList);
+      await context
+          .read<MatchesCubit>()
+          .bulkIgnoreMatchesCubit(request: request);
+      clearIgnoredList();
+    }
   }
 }

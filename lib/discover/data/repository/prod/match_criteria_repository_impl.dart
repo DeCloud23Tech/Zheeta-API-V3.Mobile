@@ -8,6 +8,7 @@ import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/discover/data/datasource/match_criteria_datasource.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
+import 'package:zheeta/discover/data/request/bulk_ignore_request.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
 import 'package:zheeta/discover/domain/repository/match_criteria_repository.dart';
 
@@ -110,6 +111,19 @@ class MatchCriteriaRepositoryImpl implements MatchCriteriaRepository {
     try {
       final result =
           await _datasource.updateMatchCriteriaNew(matchCreteriaRequest);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+  }
+
+  @override
+  ResultVoid bulkIgnoreRequest(BulkIgnoreRequest request) async {
+    try {
+      final result = await _datasource.bulkIgnoreMatches(request);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

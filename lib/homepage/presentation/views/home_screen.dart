@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
 import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/discover/presentation/viewmodel/friend_request_viewmodel.dart';
+import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
 import 'package:zheeta/discover/presentation/views/discover_screen.dart';
 import 'package:zheeta/feeds/presentation/views/feed_screen.dart';
 import 'package:zheeta/messages/presentation/views/messages.dart';
@@ -32,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   //late NotificationViewModel notificationViewModel;
 
   int activeTab = 1;
-
 
   @override
   void initState() {
@@ -236,8 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         String searchQuery = '';
                                         return Container(
                                           height: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.7,
                                           decoration: BoxDecoration(
                                             color: AppColors.secondaryLight,
@@ -251,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.all(24.0),
+                                                    const EdgeInsets.all(24.0),
                                                 child: Row(
                                                   children: [
                                                     GestureDetector(
@@ -260,17 +261,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .pop(),
                                                       child: Container(
                                                         padding:
-                                                        EdgeInsets.all(5),
+                                                            EdgeInsets.all(5),
                                                         height: 30,
                                                         width: 30,
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           color:
-                                                          AppColors.white,
+                                                              AppColors.white,
                                                           borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              100),
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      100),
                                                         ),
                                                         child: Icon(
                                                           Icons.close,
@@ -284,10 +285,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       'Search',
                                                       style: TextStyle(
                                                         color:
-                                                        AppColors.grayscale,
+                                                            AppColors.grayscale,
                                                         fontSize: 24,
                                                         fontWeight:
-                                                        FontWeight.w600,
+                                                            FontWeight.w600,
                                                       ),
                                                     ),
                                                     Spacer(),
@@ -296,18 +297,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.all(15),
+                                                    const EdgeInsets.all(15),
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     // Search field
                                                     Container(
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                        BorderRadius
-                                                            .circular(8),
+                                                            BorderRadius
+                                                                .circular(8),
                                                       ),
                                                       child: TextField(
                                                         onChanged: (value) {
@@ -316,15 +317,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           });
                                                         },
                                                         decoration:
-                                                        InputDecoration(
+                                                            InputDecoration(
                                                           prefixIcon: Icon(
                                                               Icons.search),
                                                           hintText: 'Search',
                                                           border:
-                                                          InputBorder.none,
+                                                              InputBorder.none,
                                                           contentPadding:
-                                                          EdgeInsets.all(
-                                                              15),
+                                                              EdgeInsets.all(
+                                                                  15),
                                                         ),
                                                       ),
                                                     ),
@@ -333,14 +334,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Container(
                                                       height: 40,
                                                       width:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width,
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
                                                       decoration: BoxDecoration(
                                                         color: AppColors.white,
                                                         borderRadius:
-                                                        BorderRadius
-                                                            .circular(8),
+                                                            BorderRadius
+                                                                .circular(8),
                                                       ),
                                                       child: Row(
                                                         children: [
@@ -355,21 +356,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 Container(
                                                                   height: 3,
                                                                   width: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
+                                                                              context)
+                                                                          .size
+                                                                          .width *
                                                                       0.46,
                                                                   decoration:
-                                                                  BoxDecoration(
+                                                                      BoxDecoration(
                                                                     color: activeTab ==
-                                                                        1
+                                                                            1
                                                                         ? AppColors
-                                                                        .primaryDark
+                                                                            .primaryDark
                                                                         : Colors
-                                                                        .transparent,
+                                                                            .transparent,
                                                                     borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(8),
+                                                                        BorderRadius
+                                                                            .circular(8),
                                                                   ),
                                                                 ),
                                                                 SizedBox(
@@ -377,18 +378,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 Text(
                                                                   "People",
                                                                   style:
-                                                                  TextStyle(
+                                                                      TextStyle(
                                                                     color: activeTab ==
-                                                                        1
+                                                                            1
                                                                         ? AppColors
-                                                                        .grayscale
+                                                                            .grayscale
                                                                         : AppColors
-                                                                        .grey,
+                                                                            .grey,
                                                                     fontSize:
-                                                                    16,
+                                                                        16,
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                        FontWeight
+                                                                            .w600,
                                                                   ),
                                                                 ),
                                                               ],
@@ -405,21 +406,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 Container(
                                                                   height: 3,
                                                                   width: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
+                                                                              context)
+                                                                          .size
+                                                                          .width *
                                                                       0.46,
                                                                   decoration:
-                                                                  BoxDecoration(
+                                                                      BoxDecoration(
                                                                     color: activeTab ==
-                                                                        2
+                                                                            2
                                                                         ? AppColors
-                                                                        .primaryDark
+                                                                            .primaryDark
                                                                         : Colors
-                                                                        .transparent,
+                                                                            .transparent,
                                                                     borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(8),
+                                                                        BorderRadius
+                                                                            .circular(8),
                                                                   ),
                                                                 ),
                                                                 SizedBox(
@@ -427,18 +428,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 Text(
                                                                   "Hashtag",
                                                                   style:
-                                                                  TextStyle(
+                                                                      TextStyle(
                                                                     color: activeTab ==
-                                                                        2
+                                                                            2
                                                                         ? AppColors
-                                                                        .grayscale
+                                                                            .grayscale
                                                                         : AppColors
-                                                                        .grey,
+                                                                            .grey,
                                                                     fontSize:
-                                                                    16,
+                                                                        16,
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                        FontWeight
+                                                                            .w600,
                                                                   ),
                                                                 ),
                                                               ],
@@ -451,11 +452,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     // Content based on active tab
                                                     activeTab == 1
                                                         ? PeopleTabContent(
-                                                        searchQuery:
-                                                        searchQuery)
+                                                            searchQuery:
+                                                                searchQuery)
                                                         : HashtagTabContent(
-                                                        searchQuery:
-                                                        searchQuery),
+                                                            searchQuery:
+                                                                searchQuery),
                                                   ],
                                                 ),
                                               ),
@@ -475,7 +476,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SizedBox(width: 20),
                                   Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Post Activity',
@@ -520,65 +521,76 @@ class _HomeScreenState extends State<HomeScreen> {
           pages[index],
           Positioned(
               child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Image.asset('assets/images/bottom_nav.png',
-                        width: double.infinity),
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Image.asset('assets/images/bottom_nav.png',
+                    width: double.infinity),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: Container(
-                        // decoration: BoxDecoration(color: Colors.blue),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: List.generate(
-                            icons.length,
-                                (i) {
-                              return Expanded(
-                                child: CupertinoButton(
-                                  child: AnimatedOpacity(
-                                    opacity: index == i ? 1 : 0.5,
-                                    duration: const Duration(milliseconds: 200),
-                                    child: SizedBox(
-                                      height: 26,
-                                      width: 26,
-                                      child: SvgPicture.asset(
-                                        icons[i][1],
-                                        colorFilter: ColorFilter.mode(
-                                            index == i
-                                                ? AppColors.primaryDark
-                                                : AppColors.grey,
-                                            BlendMode.srcIn),
-                                      ),
-                                    ),
+                  child: Container(
+                    // decoration: BoxDecoration(color: Colors.blue),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: List.generate(
+                        icons.length,
+                        (i) {
+                          return Expanded(
+                            child: CupertinoButton(
+                              child: AnimatedOpacity(
+                                opacity: index == i ? 1 : 0.5,
+                                duration: const Duration(milliseconds: 200),
+                                child: SizedBox(
+                                  height: 26,
+                                  width: 26,
+                                  child: SvgPicture.asset(
+                                    icons[i][1],
+                                    colorFilter: ColorFilter.mode(
+                                        index == i
+                                            ? AppColors.primaryDark
+                                            : AppColors.grey,
+                                        BlendMode.srcIn),
                                   ),
-                                  onPressed: () {
-                                    setState(() {
-                                      index = i;
-                                      // _pageController.jumpToPage(i);
-                                      // _pageController.animateToPage(
-                                      //   i,
-                                      //   duration: const Duration(milliseconds: 400),
-                                      //   curve: Curves.easeInOut,
-                                      // );
-                                    });
-                                  },
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
+                              onPressed: () async {
+                                if (index == 0 && i != 0) {
+                                  //print("you're leaving Home");
+                                  var matchCriteriaViewModel =
+                                      locator<MatchCriteriaViewModel>();
+                                  var friendRequestViewModel =
+                                      locator<FriendRequestViewModel>();
+                                  await matchCriteriaViewModel
+                                      .bulkIgnoreMatches(context);
+                                  await friendRequestViewModel
+                                      .sendBulkFriendRequest(context);
+                                }
+                                setState(() {
+                                  index = i;
+                                  // _pageController.jumpToPage(i);
+                                  // _pageController.animateToPage(
+                                  //   i,
+                                  //   duration: const Duration(milliseconds: 400),
+                                  //   curve: Curves.easeInOut,
+                                  // );
+                                });
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
-                ],
-              ))
+                ),
+              ),
+            ],
+          ))
         ],
       ),
       // body: pages[index],
@@ -607,7 +619,7 @@ class PeopleTabContent extends StatelessWidget {
       child: ListView(
         children: List.generate(
           filteredNames.length,
-              (index) => Padding(
+          (index) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -643,7 +655,7 @@ class HashtagTabContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> hashtags =
-    List.generate(10, (index) => '#Hashtag ${index + 1}');
+        List.generate(10, (index) => '#Hashtag ${index + 1}');
 
     // Filtered list based on search query
     List<String> filteredHashtags = hashtags.where((hashtag) {
@@ -656,7 +668,7 @@ class HashtagTabContent extends StatelessWidget {
       child: ListView(
         children: List.generate(
           filteredHashtags.length,
-              (index) => Padding(
+          (index) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
