@@ -25,7 +25,7 @@ import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
 import 'package:zheeta/profile/data/request/update_user_interest_request.dart';
 import 'package:zheeta/profile/domain/usecase/ref_usecases/user_profile_usecases.dart';
-import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
+import 'package:zheeta/profile/presentation/bloc/profile_cubit/profile_cubit.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../../app/common/storage/local_storage_impl.dart';
@@ -295,27 +295,27 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
       return false;
     }
   }
-
-  Future<void> getSingleUserProfile(BuildContext context) async {
-    final result =
-        await context.read<ProfileCubit>().getSingleUserProfileCubit();
-    userProfileModel = result;
-    if (result == null) {
-      router.push(BioDataRoute());
-    } else if (result.data.profile?.profilePhotoURL == null) {
-      router.push(ProfilePhotoRoute(username: result.data.user!.userName));
-    } else {
-      var matchesViewModel = locator<MatchCriteriaViewModel>();
-      await matchesViewModel.populateMatches(context);
-      await matchesViewModel.getMatches(context);
-      // Save user ID to session
-      sessionManager.set(
-          SessionManagerKeys.authUserIdString, result.data.user?.userId);
-      // router.popUntil((route) => route.isFirst);
-      // router.replace(HomeRoute());
-    }
-    //return true;
-  }
+  //
+  // Future<void> getSingleUserProfile(BuildContext context) async {
+  //   final result =
+  //       await context.read<ProfileCubit>().getSingleUserProfileCubit();
+  //   userProfileModel = result;
+  //   if (result == null) {
+  //     router.push(BioDataRoute());
+  //   } else if (result.data.profile?.profilePhotoURL == null) {
+  //     router.push(ProfilePhotoRoute(username: result.data.user!.userName));
+  //   } else {
+  //     var matchesViewModel = locator<MatchCriteriaViewModel>();
+  //     await matchesViewModel.populateMatches(context);
+  //     await matchesViewModel.getMatches(context);
+  //     // Save user ID to session
+  //     sessionManager.set(
+  //         SessionManagerKeys.authUserIdString, result.data.user?.userId);
+  //     // router.popUntil((route) => route.isFirst);
+  //     // router.replace(HomeRoute());
+  //   }
+  //   //return true;
+  // }
 
   Future<bool> updateUserProfilePicture(BuildContext context) async {
     final profilePictureIsValidOrMessage = validateProfilePicture();
@@ -434,25 +434,24 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     }
   }
 
-  visitUserProfile(BuildContext context, String visitingId) async {
-    final result =
-        await context.read<ProfileCubit>().visitUserProfileCubit(visitingId);
-    print(result);
-    visitProfilePage = result;
-  }
+  // visitUserProfile(BuildContext context, String visitingId) async {
+  //   final result =
+  //       await context.read<ProfileCubit>().visitUserProfileCubit(visitingId);
+  //       visitProfilePage = result;
+  // }
 
-  loadUserRecentActivity(BuildContext context) async {
-    final result =
-        await context.read<ProfileCubit>().getUserRecentActivityCubit();
-    userActivityModel = result;
-  }
+  // loadUserRecentActivity(BuildContext context) async {
+  //   final result =
+  //       await context.read<ProfileCubit>().getUserRecentActivityCubit();
+  //   userActivityModel = result;
+  // }
 
-  loadVisitedUserRecentActivity(BuildContext context, String userId) async {
-    final result = await context
-        .read<ProfileCubit>()
-        .getVisitedUserRecentActivityCubit(userId);
-    userActivityModel = result;
-  }
+  // loadVisitedUserRecentActivity(BuildContext context, String userId) async {
+  //   final result = await context
+  //       .read<ProfileCubit>()
+  //       .getVisitedUserRecentActivityCubit(userId);
+  //   userActivityModel = result;
+  // }
 
   void setProfileUserActivity(ActivityListModel? data) {
     visitedUserActivityModel = data;
@@ -462,17 +461,24 @@ class UserProfileViewModel with ValidationHelperMixin, LocationHelperMixin {
     visitedUserActivityModel = data;
   }
 
-  Future<void> createProfileBoost(
-      BuildContext context, CreateProfileBoostRequest request) async {
-    await context.read<ProfileCubit>().createProfileBoostCubit(request);
-    final state = context.read<ProfileCubit>().state;
-    if (state is ProfileCreatedProfileBoostState) {
-      NotifyUser.showSnackbar(
-          'successfully created profile boost for ${request.duration} days');
-      router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
-    } else {
-      NotifyUser.showSnackbar(
-          'could not boost profile, please try again later');
-    }
+  // Future<void> createProfileBoost(
+  //     BuildContext context, CreateProfileBoostRequest request) async {
+  //   await context.read<ProfileCubit>().createProfileBoostCubit(request);
+  //   final state = context.read<ProfileCubit>().state;
+  //   if (state is ProfileCreatedProfileBoostState) {
+  //     NotifyUser.showSnackbar(
+  //         'successfully created profile boost for ${request.duration} days');
+  //     router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
+  //   } else {
+  //     NotifyUser.showSnackbar(
+  //         'could not boost profile, please try again later');
+  //   }
+  // }
+
+  Future<void> getMatchedProfileBoostCount(BuildContext context) async {
+    var count = await context.read<ProfileCubit>().getTotalMatchCountCubit();
+    print('count');
+    print(count);
+    matchedProfileBoostCount = count?.data;
   }
 }

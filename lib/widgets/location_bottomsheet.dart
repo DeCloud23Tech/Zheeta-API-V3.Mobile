@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
-import 'package:zheeta/profile/presentation/bloc/profile_cubit.dart';
+import 'package:zheeta/profile/presentation/bloc/profile_cubit/profile_cubit.dart';
 import 'package:zheeta/profile/presentation/viewmodel/location_viewmodel.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';

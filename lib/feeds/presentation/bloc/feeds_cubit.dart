@@ -11,21 +11,31 @@ part 'feeds_state.dart';
 @LazySingleton()
 class FeedsCubit extends Cubit<FeedsState> {
   final GetMatchedProfileBoost getMatchedProfileBoost;
+  bool _isDataLoaded = false;
 
   FeedsCubit({
     required this.getMatchedProfileBoost,
   }) : super(FeedsInitial());
 
+  bool get isDataLoaded => _isDataLoaded;
+
   Future<void> getMatchedProfileBoostCubit() async {
+    if (_isDataLoaded) return;
     emit(MatchedProfilesLoadingState());
     var result = await getMatchedProfileBoost();
     result.fold(
-      (fail) {
+          (fail) {
         emit(MatchedProfilesErrorState(fail.message));
       },
-      (success) {
+          (success) {
+        _isDataLoaded = true;
         emit(MatchedProfileBoostState(success));
       },
     );
+  }
+
+  Future<void> refreshMatchedProfileBoostCubit() async {
+    _isDataLoaded = false;
+    await getMatchedProfileBoostCubit();
   }
 }

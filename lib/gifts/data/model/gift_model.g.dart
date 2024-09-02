@@ -27,15 +27,3 @@ Map<String, dynamic> _$$GiftModelImplToJson(_$GiftModelImpl instance) =>
       'lastModifiedDate': instance.lastModifiedDate,
       'createdDate': instance.createdDate,
     };
-
-_$GiftListModelImpl _$$GiftListModelImplFromJson(Map<String, dynamic> json) =>
-    _$GiftListModelImpl(
-      data: (json['data'] as List<dynamic>)
-          .map((e) => GiftModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$GiftListModelImplToJson(_$GiftListModelImpl instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-    };

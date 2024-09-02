@@ -49,6 +49,10 @@ _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
       wallet: json['wallet'] == null
           ? null
           : WalletModel.fromJson(json['wallet'] as Map<String, dynamic>),
+      referralInfo: json['referralInfo'] == null
+          ? null
+          : ReferralInfoModel.fromJson(
+              json['referralInfo'] as Map<String, dynamic>),
       interests: (json['interests'] as List<dynamic>?)
           ?.map((e) => InterestModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -75,6 +79,7 @@ Map<String, dynamic> _$$UserProfileDataModelImplToJson(
       'profileCounters': instance.profileCounters?.toJson(),
       'subscription': instance.subscription?.toJson(),
       'wallet': instance.wallet?.toJson(),
+      'referralInfo': instance.referralInfo?.toJson(),
       'interests': instance.interests?.map((e) => e.toJson()).toList(),
       'bankAccountDetails': instance.bankAccountDetails?.toJson(),
       'userDownlines': instance.userDownlines?.map((e) => e.toJson()).toList(),
@@ -265,14 +270,28 @@ Map<String, dynamic> _$$WalletModelImplToJson(_$WalletModelImpl instance) =>
 
 _$InterestModelImpl _$$InterestModelImplFromJson(Map<String, dynamic> json) =>
     _$InterestModelImpl(
-      id: json['id'],
+      interestId: json['interestId'],
       title: json['title'],
     );
 
 Map<String, dynamic> _$$InterestModelImplToJson(_$InterestModelImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'interestId': instance.interestId,
       'title': instance.title,
+    };
+
+_$ReferralInfoModelImpl _$$ReferralInfoModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ReferralInfoModelImpl(
+      referralCode: json['referralCode'] as String,
+      referralLink: json['referralLink'] as String,
+    );
+
+Map<String, dynamic> _$$ReferralInfoModelImplToJson(
+        _$ReferralInfoModelImpl instance) =>
+    <String, dynamic>{
+      'referralCode': instance.referralCode,
+      'referralLink': instance.referralLink,
     };
 
 _$UserDownlinesImpl _$$UserDownlinesImplFromJson(Map<String, dynamic> json) =>
@@ -282,6 +301,7 @@ _$UserDownlinesImpl _$$UserDownlinesImplFromJson(Map<String, dynamic> json) =>
       json['lastName'],
       json['userName'],
       json['profilePhotoURL'],
+      json['createdDate'],
     );
 
 Map<String, dynamic> _$$UserDownlinesImplToJson(_$UserDownlinesImpl instance) =>
@@ -291,6 +311,7 @@ Map<String, dynamic> _$$UserDownlinesImplToJson(_$UserDownlinesImpl instance) =>
       'lastName': instance.lastName,
       'userName': instance.userName,
       'profilePhotoURL': instance.profilePhotoURL,
+      'createdDate': instance.createdDate,
     };
 
 _$UserCarouselsImpl _$$UserCarouselsImplFromJson(Map<String, dynamic> json) =>

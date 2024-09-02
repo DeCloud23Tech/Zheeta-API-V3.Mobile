@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/common/extensions/string_extension.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/profile/presentation/viewmodel/user_profile_viewmodel.dart';
 import 'package:zheeta/widgets/primary_button.dart';
+import '../app/common/storage/token_storage/i_token_storage.dart';
 import '../app/injection/di.dart';
 import '../app/router/app_router.dart';
-import '../profile/presentation/bloc/profile_cubit.dart';
+import '../profile/presentation/bloc/profile_cubit/profile_cubit.dart';
 
 class SideDrawer extends StatefulWidget {
   const SideDrawer({super.key});
@@ -19,186 +19,220 @@ class SideDrawer extends StatefulWidget {
 }
 
 class _SideDrawerState extends State<SideDrawer> {
-  late UserProfileViewModel userProfileViewModel;
+  final ITokenStorage tokenStorage = locator<ITokenStorage>();
+  final userProfileViewModel = locator<UserProfileViewModel>();
+
+  void _logout(BuildContext context) {
+    tokenStorage.clear().then((_) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      router.replaceAll([const SignInRoute()]);
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to logout. Please try again.'),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
-      builder: (context, state) {
-        if (state is! ProfileGotSingleUserState) {
-          userProfileViewModel = locator<UserProfileViewModel>();
-          userProfileViewModel.getSingleUserProfile(context);
-          return Center(
-            child: CircularProgressIndicator(color: AppColors.primaryDark),
-          );
-        }
-        final data = state.data.data;
-
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          child: Drawer(
-            elevation: 0.0,
-            child: Container(
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(color: AppColors.primaryDark),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  SizedBox(height: 30),
-                  _buildUserProfile(context, data),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: _buildProfileCounters(context, data),
-                  ),
-                  SizedBox(
-                    height: 35,
-                    child: PrimaryButton(
-                      invert: true,
-                      icon: "assets/images/icons/manage.svg",
-                      title: 'Manage User',
-                      action: () {
-                        router.push(ProfileEditRoute());
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  _buildCommunitiesSection(context),
-                  SizedBox(height: 12),
-                  _buildCommunities(context),
-                  SizedBox(height: 15),
-                  _buildMenuItems(context, data),
-                  SizedBox(height: 15),
-                  _buildCurrencyInfo(),
-                  SizedBox(height: 30),
-                  SizedBox(
-                    height: 40,
-                    child: PrimaryButton(
-                      invert: true,
-                      icon: "assets/images/icons/logout.svg",
-                      title: 'Logout',
-                      action: () {
-                        Scaffold.of(context).closeDrawer();
-                        router.replace(SignInRoute());
-                      },
-                    ),
-                  ),
-                ],
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Drawer(
+        elevation: 0.0,
+        child: Container(
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(color: AppColors.primaryDark),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              SizedBox(height: 30),
+              _buildUserProfile(context),
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: _buildProfileCounters(context),
               ),
-            ),
+              SizedBox(
+                height: 35,
+                child: PrimaryButton(
+                  invert: true,
+                  icon: "assets/images/icons/manage.svg",
+                  title: 'Manage User',
+                  action: () {
+                    router.push(ProfileEditRoute());
+                  },
+                ),
+              ),
+              SizedBox(height: 15),
+              _buildCommunitiesSection(context),
+              SizedBox(height: 12),
+              _buildCommunities(context),
+              SizedBox(height: 15),
+              _buildMenuItems(context),
+              SizedBox(height: 15),
+              _buildCurrencyInfo(),
+              SizedBox(height: 30),
+              SizedBox(
+                height: 40,
+                child: PrimaryButton(
+                    invert: true,
+                    icon: "assets/images/icons/logout.svg",
+                    title: 'Logout',
+                    action: () {
+                      _logout(context);
+                    }),
+              ),
+              SizedBox(height: 30),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
-  Widget _buildUserProfile(BuildContext context, dynamic data) {
+  Widget _buildUserProfile(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(19),
-                child: Image.network(
-                  '${data.profile?.profilePhotoURL}',
-                  height: 57,
-                  width: 57,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      if (data.user?.isFullyVerified ?? false)
-                        Image.asset(
-                          'assets/images/badge.png',
-                          height: 18,
-                          width: 18,
-                        ),
-                      if (data.user?.isFullyVerified ?? false)
-                        SizedBox(width: 8),
-                      Text(
-                        "${data.profile?.firstName} ${data.profile?.lastName}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+          BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileCompositeState) {
+                final data = state.userProfile!.data;
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(19),
+                      child: Image.network(
+                        '${data.profile?.profilePhotoURL}',
+                        height: 57,
+                        width: 57,
+                        fit: BoxFit.cover,
                       ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Text(
-                        "@${data.user?.userName}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryDark,
-                          gradient: const LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              AppColors.primaryLight,
-                              AppColors.primaryDark,
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Row(
+                    ),
+                    SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
                           children: [
+                            if (data.user?.isFullyVerified ?? false)
+                              Image.asset(
+                                'assets/images/badge.png',
+                                height: 18,
+                                width: 18,
+                              ),
+                            if (data.user?.isFullyVerified ?? false)
+                              SizedBox(width: 8),
                             Text(
-                              '${data.profile?.age}',
-                              style: const TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
+                              "${data.profile?.firstName} ${data.profile?.lastName}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(width: 6),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-                        decoration: BoxDecoration(
-                          color: data.profile?.gender == 1
-                              ? Color(0xff07C35D)
-                              : AppColors.primaryLight,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${data.profile?.gender == 1 ? 'M' : 'F'}',
-                            style: const TextStyle(
-                              color: AppColors.white,
-                              fontSize: 12,
+                        SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              "@${data.user?.userName}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
+                            SizedBox(width: 10),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 3, horizontal: 6),
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryDark,
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    AppColors.primaryLight,
+                                    AppColors.primaryDark,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '${data.profile?.age}',
+                                    style: const TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 6),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 3, horizontal: 6),
+                              decoration: BoxDecoration(
+                                color: data.profile?.gender == 1
+                                    ? Color(0xff07C35D)
+                                    : AppColors.primaryLight,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '${data.profile?.gender == 1 ? 'M' : 'F'}',
+                                  style: const TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              margin: EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Color(0xffFEB237),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 1),
+                                  ),
+                                ],
+                              ),
+                              child: Text(
+                                data.subscription?.name,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                      ],
+                    ),
+                  ],
+                );
+              } else {
+                return SizedBox.shrink();
+              }
+            },
           ),
           GestureDetector(
             onTap: () {
@@ -226,24 +260,38 @@ class _SideDrawerState extends State<SideDrawer> {
     );
   }
 
-  Widget _buildProfileCounters(BuildContext context, dynamic data) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildCounter(context, "Friends",
-            "${data.profileCounters?.friendsCount}", FriendRoute()),
-        _buildCounter(context, "Referees",
-            "${data.profileCounters?.refereesCount}", null),
-        _buildCounter(
-            context, "Posts", "${data.profileCounters?.postCount}", null),
-      ],
+  Widget _buildProfileCounters(BuildContext context) {
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, state) {
+        if (state is ProfileCompositeState) {
+          final data = state.userProfile!.data;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildCounter(context, "Friends",
+                  "${data.profileCounters?.friendsCount}", FriendRoute()),
+              _buildCounter(context, "Referees",
+                  "${data.profileCounters?.refereesCount}", null),
+              _buildCounter(
+                  context, "Posts", "${data.profileCounters?.postCount}", null),
+            ],
+          );
+        } else {
+          return SizedBox.shrink();
+        }
+      },
     );
   }
 
   GestureDetector _buildCounter(
       BuildContext context, String title, String count, PageRouteInfo? route) {
     return GestureDetector(
-      onTap: route != null ? () => router.push(route) : null,
+      onTap: route != null
+          ? () {
+              Scaffold.of(context).closeDrawer();
+              router.push(route);
+            }
+          : null,
       child: Column(
         children: [
           Text(
@@ -356,13 +404,13 @@ class _SideDrawerState extends State<SideDrawer> {
     );
   }
 
-  Widget _buildMenuItems(BuildContext context, dynamic data) {
+  Widget _buildMenuItems(BuildContext context) {
     final menuItems = [
       _buildMenuItem(
         context,
         'Wallet',
         "assets/images/icons/manage.svg",
-        PendingRequestRoute(),
+        WalletRoute(),
       ),
       _buildMenuItem(
         context,
@@ -392,14 +440,13 @@ class _SideDrawerState extends State<SideDrawer> {
         context,
         'Subscription Plan',
         "assets/images/icons/subscription.svg",
-        MembershipSubscriptionRoute(
-            subscriptionId: data.subscription?.subscriptionId),
+        MembershipSubscriptionRoute(),
       ),
       _buildMenuItem(
         context,
         'My Downlines',
         "assets/images/icons/referees.svg",
-        DownLinesRoute(),
+        RefereeListRoute(),
       ),
       _buildMenuItem(
         context,

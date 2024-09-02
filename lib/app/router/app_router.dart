@@ -14,7 +14,7 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         // Auth
         AutoRoute(page: IntroRoute.page, initial: true),
-        AutoRoute(page: SignInRoute.page, initial: false),
+        AutoRoute(page: SignInRoute.page),
         AutoRoute(page: SignUpRoute.page),
         AutoRoute(page: ForgotPasswordRoute.page),
         AutoRoute(page: ResetPasswordRoute.page),
@@ -38,7 +38,17 @@ class AppRouter extends $AppRouter {
 
         // Discover
         AutoRoute(page: NearbySearchRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: RefereeListRoute.page, guards: [AppGuard()]),
         AutoRoute(page: DownLinesRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: GetMoreLikesRoute.page, guards: [AppGuard()]),
+
+        // Feeds
+        AutoRoute(page: FeedPostRoute.page, guards: [AppGuard()]),
+
+
+        // Feeds
+        AutoRoute(page: WalletRoute.page, guards: [AppGuard()]),
+
 
         // Friends
         AutoRoute(page: FriendRoute.page, guards: [AppGuard()]),
@@ -52,6 +62,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: MyGiftRoute.page, guards: [AppGuard()]),
         AutoRoute(page: ProductDetailsRoute.page, guards: [AppGuard()]),
         AutoRoute(page: RedeemGiftDetailRoute.page, guards: [AppGuard()]),
+        AutoRoute(page: RedeemGiftSuccessRoute.page, guards: [AppGuard()]),
         AutoRoute(page: GiftSuccessRoute.page, guards: [AppGuard()]),
 
         //

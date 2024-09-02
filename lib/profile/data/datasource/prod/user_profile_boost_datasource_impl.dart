@@ -14,6 +14,7 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_boost_datasource.dart';
 import 'package:zheeta/profile/data/model/boosted_profile_by_admin_model.dart';
 import 'package:zheeta/profile/data/model/matched_profile_boost_model.dart';
+import 'package:zheeta/profile/data/model/total_matched_count_model.dart';
 import 'package:zheeta/profile/data/request/create_profile_boost_request.dart';
 import 'package:zheeta/profile/domain/entity/type.dart';
 
@@ -134,6 +135,26 @@ class UserProfileBoostDataSourceImpl implements UserProfileBoostDataSource {
         // If not null, parse the data into MatchedProfileBoostListModel
         return MatchedProfileBoostListModel.fromJson(response.data);
       }
+    } else {
+      throw ApiException(
+          message: response.statusMessage!, statusCode: response.statusCode!);
+    }
+  }
+
+  @override
+  Future<GetTotalMatchedCountResponse> getTotalMatchedCount() async {
+    print('kkffkf');
+
+    var response = await _api.dio.get(
+      '/profile-boost/get-profile-count',
+      options: Options(
+        contentType: Headers.jsonContentType,
+      ),
+    );
+    print('fff');
+    print(response);
+    if (response.statusCode == 200) {
+      return GetTotalMatchedCountResponse.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);

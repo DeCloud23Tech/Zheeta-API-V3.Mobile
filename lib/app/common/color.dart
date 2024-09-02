@@ -17,6 +17,9 @@ class AppColors {
 // static const Color grey = Color.fromARGB(204, 18, 19, 20);
   static const Color red = Color.fromARGB(255, 227, 12, 12);
   static const Color green = Color.fromARGB(181, 3, 159, 8);
+  static const Color greenAccent = Color.fromARGB(255, 75, 229, 178);
   static const Color grayscale = Color.fromRGBO(78, 75, 102, 1);
   static const Color grey = Color.fromRGBO(151, 151, 151, 1);
+  static const Color greyscaleLight = Color.fromRGBO(239, 240, 246, 1);
+
 }

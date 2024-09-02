@@ -6,6 +6,8 @@ import 'package:zheeta/profile/data/model/matched_profile_boost_model.dart';
 import 'package:zheeta/profile/data/request/create_profile_boost_request.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_boost_repository.dart';
 
+import '../../../data/model/total_matched_count_model.dart';
+
 @prod
 @LazySingleton()
 class CreateProfileBoost
@@ -44,4 +46,17 @@ class GetMatchedProfileBoost
   @override
   ResultFuture<MatchedProfileBoostListModel> call() async =>
       await _repo.getMatchedProfileBoostRepo();
+}
+
+@prod
+@LazySingleton()
+class GetTotalMatchCount
+    extends UsecaseWithoutParams<GetTotalMatchedCountResponse> {
+  const GetTotalMatchCount(this._repo);
+
+  final UserProfileBoostRepository _repo;
+
+  @override
+  ResultFuture<GetTotalMatchedCountResponse> call() async =>
+      await _repo.getTotalMatchedCount();
 }

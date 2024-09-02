@@ -1,0 +1,258 @@
+{
+  "statusCode": 200,
+  "message": "Fetch Operation Successful",
+  "success": true,
+  "totalCount": 0,
+  "data": {
+    "user": {
+      "userId": "c4eb5953-6250-41c1-9e17-b46342ae1229",
+      "isFullyVerified": false,
+      "userName": "SeedUser-1",
+      "rolesCSV": "Customers",
+      "createdDate": "2024-04-12T11:30:48.160982",
+      "lastSeenDate": "2024-07-30T03:18:12.754208",
+      "normalizedEmail": "SEEDUSER1@GMAIL.COM",
+      "emailConfirmed": true,
+      "phoneCountryCode": "+234",
+      "phoneNumber": "70311262",
+      "phoneNumberConfirmed": false
+    },
+    "profile": {
+      "id": "c4eb5953-6250-41c1-9e17-b46342ae1229",
+      "firstName": "Olayinka 2",
+      "lastName": "Kareem 2",
+      "dateOfBirth": "07/23/1997 00:00:00",
+      "age": 27,
+      "gender": 2,
+      "languageCSV": "English,Yoruba",
+      "aboutMe": "I'm an interesting dude you need around you 2",
+      "bodyType": "Slim 2",
+      "complexion": "Dark 2",
+      "height": 5.1,
+      "occupation": "Computer Engineer 2",
+      "religion": "Islam 2",
+      "weight": 74.7,
+      "tagline": "Trying this out 2",
+      "maritalStatus": 3,
+      "profilePhotoURL": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/7/73ee9f08-0f26-4e4c-a1ea-d5710cbb361a",
+      "profileStatus": 1,
+      "lastSeenTime": "2024-07-30T07:06:20.0061593Z",
+      "isOnline": false,
+      "lastModifiedDate": "2024-07-30T07:06:20.0061592Z",
+      "createdDate": "2024-07-30T07:06:20.0061592Z"
+    },
+    "residentialAddress": {
+      "city": "Leeds",
+      "country": "United Kingdom"
+    },
+    "originAddress": {
+      "city": "Ibadan",
+      "country": "Nigeria"
+    },
+    "location": {
+      "latitude": 53.822368,
+      "longitude": -1.443144
+    },
+    "matchCriteria": {
+      "gender": "Female",
+      "minAge": 0,
+      "maxAge": 0,
+      "distance": 0,
+      "country": null,
+      "city": null
+    },
+    "profileCounters": {
+      "friendsCount": 13,
+      "refereesCount": 0,
+      "postCount": 12
+    },
+    "subscription": {
+      "subscriptionId": 3,
+      "name": "Gold ",
+      "amount": 0.0,
+      "startdate": "2024-04-12T11:30:55.096974",
+      "enddate": null,
+      "status": 1,
+      "paymentmethod": null,
+      "subscriptionFeature": {
+        "id": 3,
+        "name": "Gold ",
+        "description": "All features of Silver , plus ability to send friend request to anyone and send messages to anymore. More matches and nearby , ability to create a Community",
+        "fee": 30,
+        "allowMessaging": true,
+        "noMatchesPerDay": 50,
+        "noOfPostPerDay": 15,
+        "noNearbyPerWeek": 50,
+        "allowWithdrawal": true,
+        "allowMultipleMediaInPost": true,
+        "maxNumberOfMediaInPost": 5,
+        "allowVideoMediaCategoryInPost": false,
+        "allowCreateCommunity": false,
+        "accessPeopleNearby": true
+      }
+    },
+    "wallet": {
+      "availableBalance": 17397.472,
+      "lastTransactionDate": "2024-04-12T11:30:55.096979"
+    },
+    "referralInfo": {
+      "referralCode": "YH947039",
+      "referralLink": "https://zheeta.com/referral/YH947039"
+    },
+    "interests": [
+      {
+        "interestId": 8,
+        "title": "Massage-Plus "
+      },
+      {
+        "interestId": 10,
+        "title": "Serious Relationship "
+      },
+      {
+        "interestId": 5,
+        "title": "Short Term,But Long Term OK "
+      },
+      {
+        "interestId": 6,
+        "title": "Short Term Fun "
+      },
+      {
+        "interestId": 4,
+        "title": "Long Term,But Short Term OK"
+      },
+      {
+        "interestId": 7,
+        "title": "Massage "
+      },
+      {
+        "interestId": 12,
+        "title": "Still Figuring Out "
+      }
+    ],
+    "bankAccountDetails": null,
+    "userDownlines": [
+      {
+        "id": "d1cd6155-f77e-43ab-8168-86b3de1a59cf",
+        "firstName": "Ola-10",
+        "lastName": "Fada - 10",
+        "userName": "SeedUser-10",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/women/27.jpg",
+        "createdDate": "2024-07-30T07:06:20.0712225Z"
+      },
+      {
+        "id": "94548c4a-75d3-40b8-961c-c38ba362c29e",
+        "firstName": "Ola-9",
+        "lastName": "Fada - 9",
+        "userName": "SeedUser-9",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/men/29.jpg",
+        "createdDate": "2024-07-30T07:06:20.077483Z"
+      },
+      {
+        "id": "80be89a6-59e4-46c1-aa91-3183a921a92c",
+        "firstName": "Ola-8",
+        "lastName": "Fada - 8",
+        "userName": "SeedUser-8",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/men/11.jpg",
+        "createdDate": "2024-07-30T07:06:20.0815138Z"
+      },
+      {
+        "id": "0b066796-1b48-40a4-ac67-a4a834c65bd7",
+        "firstName": "Ola-7",
+        "lastName": "Fada - 7",
+        "userName": "SeedUser-7",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/women/27.jpg",
+        "createdDate": "2024-07-30T07:06:20.0864862Z"
+      },
+      {
+        "id": "79ed1ed6-e98f-47e6-86f3-1f052e3dd042",
+        "firstName": "Ola-6",
+        "lastName": "Fada - 6",
+        "userName": "SeedUser-6",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/men/78.jpg",
+        "createdDate": "2024-07-30T07:06:20.0911135Z"
+      },
+      {
+        "id": "ca711615-33e2-4f02-9033-21fe55893fc7",
+        "firstName": "Ola-5",
+        "lastName": "Fada - 5",
+        "userName": "SeedUser-5",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/women/26.jpg",
+        "createdDate": "2024-07-30T07:06:20.0952653Z"
+      },
+      {
+        "id": "9dc486d1-f0bd-4954-87d0-c295c1b037e9",
+        "firstName": "Ola-4",
+        "lastName": "Fada - 4",
+        "userName": "SeedUser-4",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/women/61.jpg",
+        "createdDate": "2024-07-30T07:06:20.1010561Z"
+      },
+      {
+        "id": "8d68fa00-398e-4c84-ae72-b5e6167e0689",
+        "firstName": "Ola-3",
+        "lastName": "Fada - 3",
+        "userName": "SeedUser-3",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/women/47.jpg",
+        "createdDate": "2024-07-30T07:06:20.1066312Z"
+      },
+      {
+        "id": "3938e0c0-3b4b-4c78-a12a-d0068deb21f9",
+        "firstName": "Ola-2",
+        "lastName": "Fada - 2",
+        "userName": "SeedUser-2",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/men/11.jpg",
+        "createdDate": "2024-07-30T07:06:20.1113331Z"
+      },
+      {
+        "id": "7d935253-8a1d-4634-bf8d-25920005f219",
+        "firstName": "Ola-0",
+        "lastName": "Fada - 0",
+        "userName": "SeedUser-0",
+        "profilePhotoURL": "https://randomuser.me/api/portraits/women/12.jpg",
+        "createdDate": "2024-07-30T07:06:20.116915Z"
+      }
+    ],
+    "userCarousels": [
+      {
+        "id": "6c99030d-ae68-4aa7-b862-8a0e3c8d6f8e",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/5/c6abda5a-f4ef-48be-8313-9677c9ba16cf"
+      },
+      {
+        "id": "a260c9ee-815d-4342-aee5-3935172eadbd",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/5/833ec25b-9724-4a29-bb9b-562a007a0a7d"
+      },
+      {
+        "id": "bc9061f0-2346-4eca-9641-943c0d56b4f0",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/5/5db7b2e9-d9e4-4cf4-af20-581920cc16fa"
+      },
+      {
+        "id": "6625a759-f189-4380-8edd-c88e621afac3",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/5/d144ae7b-01a0-448f-bd68-bea7cb04ed01"
+      },
+      {
+        "id": "67ba7000-2260-40ac-a975-d77b84898c79",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/5/3ef12a0e-4f87-4cf9-9cde-a0c6b19eea48"
+      },
+      {
+        "id": "e1efce12-1cf9-445d-9bb4-015136e73073",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/5/4f2339d8-ccfa-4f1a-8a14-00cfe5383db3"
+      },
+      {
+        "id": "e44af189-b304-4815-a018-ac3bd784665f",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024/7/bcf503ee-e40c-4867-914e-8c7fc56d5d36"
+      },
+      {
+        "id": "189a86ea-17e0-444f-90a7-e81c012b37f7",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024%5C7%5C08614e8d-3f02-4267-b548-e869799486c8"
+      },
+      {
+        "id": "2b1d5159-3f81-4b8a-bbbe-cdc03ed74fca",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024%5C7%5C8c8ba220-d96a-44f3-9a1a-6492d9f8e1d7"
+      },
+      {
+        "id": "51fed629-6306-42c8-b72f-b7ee1f0d1340",
+        "carouselPhotoUrl": "https://zheetargaa95.blob.core.windows.net/profile-picture-container/2024%5C7%5Cb68f2519-d8de-41e2-9380-ed1de6bb3696"
+      }
+    ]
+  }
+}

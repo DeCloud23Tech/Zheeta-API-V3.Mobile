@@ -3,40 +3,283 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/widgets/reusable_container.dart';
+
+import 'chat_texts_screen.dart';
 
 class Messages extends StatefulWidget {
-  const Messages({super.key});
+  const Messages({Key? key}) : super(key: key);
 
   @override
   State<Messages> createState() => _MessagesState();
 }
 
 class _MessagesState extends State<Messages> {
+  final List<Message> messages = [
+    Message(
+        userName: 'John Doe',
+        message: 'Smart businesses today are…',
+        time: '10:00',
+        opened: false),
+    Message(
+        userName: 'Jane Smith',
+        message: 'Smart businesses today are…',
+        time: '11:30',
+        opened: true),
+    Message(
+        userName: 'Jane Smith',
+        message: 'Smart businesses today are…',
+        time: '11:30',
+        opened: false),
+    Message(
+        userName: 'Jane Smith',
+        message: 'Smart businesses today are…',
+        time: '11:30',
+        opened: false),
+    Message(
+        userName: 'Jane Smith',
+        message: 'Smart businesses today are…',
+        time: '11:30',
+        opened: true),
+    Message(
+        userName: 'Jane Smith',
+        message: 'Smart businesses today are…',
+        time: '11:30',
+        opened: false),
+    Message(
+        userName: 'Jane Smith',
+        message: 'Smart businesses today are…',
+        time: '11:30',
+        opened: false),
+    Message(
+        userName: 'Jane Smith',
+        message: 'Smart businesses today are…',
+        time: '11:30',
+        opened: false),
+  ];
+
+  late List<Message> filteredMessages;
+
+  @override
+  void initState() {
+    super.initState();
+    filteredMessages = List.from(messages);
+  }
+
+  void searchMessages(String query) {
+    setState(() {
+      filteredMessages = messages
+          .where((message) =>
+              message.userName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.secondaryLight,
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: Platform.isIOS ? 60.0 : 120.0),
-        child: SizedBox(
-          height: 65,
-          width: 65,
-          child: ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all<Color>(AppColors.black.withOpacity(0.7)),
-                  elevation: MaterialStateProperty.all(10),
-                  backgroundColor: MaterialStateProperty.all<Color>(AppColors.primaryDark),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                  ))),
-              child: SvgPicture.asset('assets/images/icons/chat.svg')),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+        child: Column(
+          children: [
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+            //   child: Row(
+            //     children: [
+            //       Expanded(
+            //         child: Padding(
+            //           padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            //           child: TextField(
+            //             style: TextStyle(color: AppColors.grayscale),
+            //             decoration: InputDecoration(
+            //               hintText: 'Search',
+            //               hintStyle: TextStyle(color: Colors.grey),
+            //               prefixIcon: Icon(
+            //                 Icons.search,
+            //                 color: AppColors.grayscale,
+            //               ),
+            //               border: OutlineInputBorder(
+            //                 borderRadius: BorderRadius.all(
+            //                   Radius.circular(20),
+            //                 ),
+            //               ),
+            //               focusedBorder: OutlineInputBorder(
+            //                 borderRadius: BorderRadius.all(
+            //                   Radius.circular(20),
+            //                 ),
+            //                 borderSide:
+            //                 BorderSide(color: AppColors.primaryDark),
+            //               ),
+            //             ),
+            //             onChanged: (value) {
+            //               searchMessages(value);
+            //             },
+            //           ),
+            //         ),
+            //       ),
+            //       IconButton(
+            //         icon: Icon(Icons.filter_list),
+            //         color: Colors.grey,
+            //         onPressed: () {},
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredMessages.length,
+                itemBuilder: (context, index) {
+                  final message = filteredMessages[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: Dismissible(
+                      direction: DismissDirection.endToStart,
+                      key: Key(message.userName),
+                      background: Container(
+                        width: 50,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryDark,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.0),
+                            bottomLeft: Radius.circular(10.0),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(Icons.close, color: Colors.white), // X icon
+                          ],
+                        ),
+                      ),
+                      onDismissed: (direction) {
+                        setState(() {
+                          messages.removeAt(index);
+                        });
+                      },
+                      child: ReusableCustomContainer(
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          onTap: () {
+                            // Open chat screen for this message
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ChatScreen(userName: message.userName),
+                              ),
+                            );
+                          },
+                          leading: SizedBox(
+                            width: 60,
+                            height: 100,
+                            child: CircleAvatar(
+                              child: Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 40,
+                                    backgroundImage:
+                                    AssetImage('assets/images/User.png'),
+                                  ),
+                                  if (!message.opened)
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: CircleAvatar(
+                                        radius: 10,
+                                        backgroundColor:
+                                        AppColors.secondaryLight,
+                                        child: Container(
+                                          width: 14,
+                                          height: 14,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.primaryDark,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                message.userName,
+                                style: TextStyle(
+                                    color: AppColors.grayscale,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                message.message,
+                                style: TextStyle(
+                                    color: AppColors.grey,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                message.time,
+                                style: TextStyle(
+                                  color: AppColors.grey,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(width: 8),
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.primaryDark,
+                                ),
+                                child: Text(
+                                  '1',
+                                  style: TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      body: SingleChildScrollView(
-        child: Column(),
       ),
     );
   }
+}
+
+class Message {
+  final String userName;
+  final String message;
+  final String time;
+  final bool opened;
+
+  Message({
+    required this.userName,
+    required this.message,
+    required this.time,
+    required this.opened,
+  });
 }

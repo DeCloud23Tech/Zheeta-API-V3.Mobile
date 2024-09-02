@@ -1,14 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:zheeta/app/common/enums/notification_filter.dart';
-import 'package:zheeta/authentication/domain/entity/types.dart';
+import '../model/notification_model.dart';
 
 abstract class NotificationDataSource {
-  Future<Either<ErrorResponse, MappedResponse>> getNotifications({
-    int? pageNumber,
-    int? pageSize,
-    required NotificationType notificationType,
-    required NotificationDate notificationDurationInDays,
-  });
-  Future<Either<ErrorResponse, MappedResponse>> markNotification({required List<String> notificationIds});
-  Future<Either<ErrorResponse, MappedResponse>> markAllNotificationsRead();
+  Future<List<NotificationModel>> getNotifications(
+  {required int pageNumber, required int pageSize});
+
 }

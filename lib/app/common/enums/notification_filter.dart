@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 enum NotificationType {
   all,
+  @JsonValue('Activity')
+  activity,
   @JsonValue('ActivityPost')
   activityPost,
   @JsonValue('ActivityComment')
@@ -32,11 +35,10 @@ extension NotificationTypeExtension on NotificationType {
   int get value {
     switch (this) {
       case NotificationType.activityPost:
-        return 1;
       case NotificationType.activityComment:
-        return 2;
       case NotificationType.activityLike:
-        return 3;
+      case NotificationType.activity:
+        return 1; // Assign a common value for all activity types
       case NotificationType.activityPayment:
         return 4;
       case NotificationType.receiveFriendRequest:
@@ -63,10 +65,9 @@ extension NotificationTypeExtension on NotificationType {
   String get name {
     switch (this) {
       case NotificationType.activityPost:
-        return 'Activity';
       case NotificationType.activityComment:
-        return 'Activity';
       case NotificationType.activityLike:
+      case NotificationType.activity:
         return 'Activity';
       case NotificationType.activityPayment:
         return 'Payment';
@@ -88,6 +89,36 @@ extension NotificationTypeExtension on NotificationType {
         return 'Come Back';
       default:
         return 'All';
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case NotificationType.activityPost:
+      case NotificationType.activityComment:
+      case NotificationType.activityLike:
+      case NotificationType.activity:
+        return Colors.white;
+      case NotificationType.activityPayment:
+        return Color(0xffFAA1D1);
+      case NotificationType.receiveFriendRequest:
+        return Color(0xff8FF187);
+      case NotificationType.receiveMoney:
+        return Color(0xffFAA1D1);
+      case NotificationType.receiveGift:
+        return Color(0xff8DBBFF);
+      case NotificationType.transaction:
+        return Color(0xffFAA1D1);
+      case NotificationType.referralRegistration:
+        return Colors.white;
+      case NotificationType.sharedActivityPost:
+        return Color(0xffFF8960);
+      case NotificationType.communityPost:
+        return Color(0xffFBFF4F);
+      case NotificationType.comeBack:
+        return Colors.white;
+      default:
+        return Colors.grey;
     }
   }
 }

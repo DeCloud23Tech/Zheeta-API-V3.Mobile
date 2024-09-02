@@ -39,6 +39,7 @@ Map<String, dynamic> _$$NotificationModelImplToJson(
 
 const _$NotificationTypeEnumMap = {
   NotificationType.all: 'all',
+  NotificationType.activity: 'Activity',
   NotificationType.activityPost: 'ActivityPost',
   NotificationType.activityComment: 'ActivityComment',
   NotificationType.activityLike: 'ActivityLike',
@@ -52,17 +53,3 @@ const _$NotificationTypeEnumMap = {
   NotificationType.communityPost: 'CommunityPost',
   NotificationType.comeBack: 'ComeBack',
 };
-
-_$NotificationListModelImpl _$$NotificationListModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationListModelImpl(
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => NotificationModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$NotificationListModelImplToJson(
-        _$NotificationListModelImpl instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-    };

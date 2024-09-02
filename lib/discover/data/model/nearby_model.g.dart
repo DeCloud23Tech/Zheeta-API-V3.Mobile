@@ -6,20 +6,6 @@ part of 'nearby_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NearbyListModelImpl _$$NearbyListModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NearbyListModelImpl(
-      data: (json['data'] as List<dynamic>)
-          .map((e) => NearbyDataModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$NearbyListModelImplToJson(
-        _$NearbyListModelImpl instance) =>
-    <String, dynamic>{
-      'data': instance.data.map((e) => e.toJson()).toList(),
-    };
-
 _$NearbyDataModelImpl _$$NearbyDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$NearbyDataModelImpl(
@@ -27,10 +13,10 @@ _$NearbyDataModelImpl _$$NearbyDataModelImplFromJson(
       username: json['username'] as String,
       profilePhotoURL: json['profilePhotoURL'] as String,
       location: json['location'] as String,
-      distance: json['distance'] as int,
-      age: json['age'] as int,
+      distance: (json['distance'] as num).toDouble(),
+      age: (json['age'] as num).toInt(),
       gender: json['gender'] as String,
-      totalWeight: json['totalWeight'] as int,
+      totalWeight: (json['totalWeight'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$NearbyDataModelImplToJson(

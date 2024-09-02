@@ -142,9 +142,9 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  ResultFuture<ActivityListModel> getUserRecentActivity() async {
+  ResultFuture<ActivityListModel> getUserRecentActivity({required int pageNumber, required int pageSize}) async {
     try {
-      final result = await _datasource.getUserActivityNew();
+      final result = await _datasource.getUserActivityNew(pageNumber: pageNumber, pageSize: pageSize);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
@@ -155,10 +155,9 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  ResultFuture<ActivityListModel> getVisitedUserRecentActivity(
-      String userId) async {
+  ResultFuture<ActivityListModel> getVisitedUserRecentActivity({required String userId, required int pageNumber, required int pageSize}) async {
     try {
-      final result = await _datasource.getUserActivityNew();
+      final result = await _datasource.getVisitedUserActivity(userId: userId, pageNumber: pageNumber, pageSize: pageSize);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

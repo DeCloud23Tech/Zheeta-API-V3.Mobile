@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:zheeta/app/bloc_providers.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/app/router/app_router.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 
 initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,8 +21,58 @@ initializeApp() async {
   );
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late AppLinks _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDeepLinks();
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
+  }
+
+  Future<void> initializeDeepLinks() async {
+    _appLinks = AppLinks();
+
+    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
+      debugPrint('Received deep link: $uri');
+      _handleReferralLink(uri);
+    });
+  }
+
+  void _handleReferralLink(Uri uri) {
+    final referralCode = _extractReferralCode(uri);
+    if (referralCode != null) {
+      // Handle referral code, e.g., navigate to the signup page with referral code
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SignupPage(referralCode: referralCode),
+        ),
+      );
+    }
+  }
+
+  String? _extractReferralCode(Uri uri) {
+    if (uri.path.startsWith('/referral/')) {
+      return uri.pathSegments.last;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +88,16 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.white,
             headerBackgroundColor: AppColors.primaryDark,
             headerForegroundColor: Colors.white,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            todayBackgroundColor:
-                WidgetStateProperty.all(AppColors.primaryDark),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            todayBackgroundColor: MaterialStateProperty.all(AppColors.primaryDark),
             todayBorder: const BorderSide(color: AppColors.primaryDark),
-            dayForegroundColor: WidgetStateProperty.all(Colors.black),
-            yearForegroundColor: WidgetStateProperty.all(Colors.black),
+            dayForegroundColor: MaterialStateProperty.all(Colors.black),
+            yearForegroundColor: MaterialStateProperty.all(Colors.black),
             weekdayStyle: const TextStyle(color: AppColors.primaryDark),
             inputDecorationTheme: InputDecorationTheme(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              enabledBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              focusedBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
           ),
           pageTransitionsTheme: PageTransitionsTheme(
@@ -64,7 +112,6 @@ class MyApp extends StatelessWidget {
             trackShape: RoundedRectSliderTrackShape(),
             thumbColor: Color(0xeeA0A3BD),
             inactiveTrackColor: Color(0xffD9DBE9),
-            // thumbShape: SliderComponentShape.noOverlay,
             overlayShape: SliderComponentShape.noOverlay,
             showValueIndicator: ShowValueIndicator.always,
             valueIndicatorColor: AppColors.primaryDark,
@@ -87,6 +134,20 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
       ),
+    );
+  }
+}
+
+class SignupPage extends StatelessWidget {
+  final String referralCode;
+
+  const SignupPage({Key? key, required this.referralCode}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Signup')),
+      body: Center(child: Text('Signup with referral code: $referralCode')),
     );
   }
 }

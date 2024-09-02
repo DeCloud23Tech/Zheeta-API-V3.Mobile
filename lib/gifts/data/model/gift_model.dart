@@ -18,11 +18,3 @@ class GiftModel with _$GiftModel {
   factory GiftModel.fromJson(Map<String, dynamic> json) => _$GiftModelFromJson(json);
 }
 
-@freezed
-class GiftListModel with _$GiftListModel {
-  factory GiftListModel({
-    required List<GiftModel> data,
-  }) = _GiftListModel;
-
-  factory GiftListModel.fromJson(Map<String, dynamic> json) => _$GiftListModelFromJson(json);
-}

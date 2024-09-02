@@ -18,9 +18,11 @@ class NearbyDataRepositoryImpl implements NearbyDataRepository {
   NearbyDataRepositoryImpl(this._datasource);
 
   @override
-  ResultFuture<NearbyListModel> getNearbyProfiles() async {
+  ResultFuture<List<NearbyDataModel>> getNearbyProfiles(
+      {required int pageNumber, required int pageSize}) async {
     try {
-      final result = await _datasource.getNearbyProfiles();
+      final result = await _datasource.getNearbyProfiles(
+          pageNumber: pageNumber, pageSize: pageSize);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

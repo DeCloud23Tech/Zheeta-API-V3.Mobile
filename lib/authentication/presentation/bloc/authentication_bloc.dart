@@ -97,6 +97,7 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
   Future<void> registerUserCubit({required RegisterUserRequest request}) async {
     emit(AuthenticationLoadingState());
     var result = await registerUser(request);
+    print(result);
     result.fold(
       (fail) => emit(AuthenticationErrorState(fail.message)),
       (success) => emit(AuthenticationRegisteredState(success)),
@@ -158,6 +159,7 @@ class AuthenticationCubit extends Cubit<AuthentcationState> {
     emit(AuthenticationLoadingState());
     var result = await sendEmailVerifyOtp(email);
     bool sendResult = false;
+    print(result);
     result.fold(
       (fail) {
         emit(AuthenticationErrorState(fail.message));

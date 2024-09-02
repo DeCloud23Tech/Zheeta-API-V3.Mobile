@@ -5,8 +5,10 @@ import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/widgets/reusable_container.dart';
 
+import '../../../app/router/app_router.gr.dart';
 import '../../../widgets/text_row.dart';
 
+@RoutePage()
 class RedeemGiftSuccessScreen extends StatelessWidget {
   const RedeemGiftSuccessScreen ({super.key});
 
@@ -69,7 +71,9 @@ class RedeemGiftSuccessScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              PrimaryButton(title: 'Go to Gift Store', action: () {})
+              PrimaryButton(title: 'Go to Gift Store', action: () {
+                router.popUntil((route) => route.settings.name == HomeRoute.name);
+                router.push(GiftShopRoute());              })
             ],
           ),
         ),

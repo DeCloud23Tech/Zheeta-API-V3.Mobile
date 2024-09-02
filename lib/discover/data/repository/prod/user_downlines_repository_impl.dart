@@ -1,0 +1,30 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/common/type_def.dart';
+import 'package:zheeta/discover/data/model/user_downline_model.dart';
+import 'package:zheeta/app/api/errors/error.dart';
+import 'package:zheeta/app/api/errors/exception.dart';
+import '../../../domain/repository/user_downline_repository.dart';
+import '../../datasource/downline_datasource.dart';
+
+@prod
+@LazySingleton(as: UserDownlineRepository)
+class UserDownlineRepositoryImpl implements UserDownlineRepository {
+  final UserDownlineDataSource _datasource;
+
+  UserDownlineRepositoryImpl(this._datasource);
+
+  @override
+  ResultFuture<List<UserDownlineModel>> getDownlines({required int pageNumber, required int pageSize}) async {
+    try {
+      final result = await _datasource.getDownlines(pageNumber: pageNumber, pageSize: pageSize,);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+  }
+}

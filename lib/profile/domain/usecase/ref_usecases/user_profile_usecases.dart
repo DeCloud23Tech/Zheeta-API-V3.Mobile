@@ -52,27 +52,34 @@ class GetSingleUserProfile extends UsecaseWithoutParams<UserProfileModel> {
 
 @prod
 @LazySingleton()
-class GetUserRecentActivity extends UsecaseWithoutParams<ActivityListModel> {
+class GetUserRecentActivity
+    extends UsecaseWithParams<ActivityListModel, GetUserRecentActivityParams> {
   const GetUserRecentActivity(this._repo);
 
   final UserProfileRepository _repo;
 
   @override
-  ResultFuture<ActivityListModel> call() async =>
-      await _repo.getUserRecentActivity();
+  ResultFuture<ActivityListModel> call(
+          GetUserRecentActivityParams param) async =>
+      await _repo.getUserRecentActivity(
+          pageNumber: param.pageNo, pageSize: param.pageSize);
 }
 
 @prod
 @LazySingleton()
-class GetVisitedUserRecentActivity
-    extends UsecaseWithParams<ActivityListModel, String> {
+class GetVisitedUserRecentActivity extends UsecaseWithParams<ActivityListModel,
+    GetVisitedUserRecentActivityParams> {
   const GetVisitedUserRecentActivity(this._repo);
 
   final UserProfileRepository _repo;
 
   @override
-  ResultFuture<ActivityListModel> call(String param) async =>
-      await _repo.getVisitedUserRecentActivity(param);
+  ResultFuture<ActivityListModel> call(
+          GetVisitedUserRecentActivityParams param) async =>
+      await _repo.getVisitedUserRecentActivity(
+          userId: param.userId,
+          pageNumber: param.pageNo,
+          pageSize: param.pageSize);
 }
 
 @prod
@@ -127,4 +134,20 @@ class UploadProfilePictureParam {
   String userId;
 
   UploadProfilePictureParam({required this.userId, required this.file});
+}
+
+class GetUserRecentActivityParams {
+  int pageNo;
+  int pageSize;
+
+  GetUserRecentActivityParams({required this.pageNo, required this.pageSize});
+}
+
+class GetVisitedUserRecentActivityParams {
+  String userId;
+  int pageNo;
+  int pageSize;
+
+  GetVisitedUserRecentActivityParams(
+      {required this.userId, required this.pageNo, required this.pageSize});
 }

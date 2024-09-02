@@ -5,6 +5,8 @@ import 'package:zheeta/profile/data/model/matched_profile_boost_model.dart';
 import 'package:zheeta/profile/data/request/create_profile_boost_request.dart';
 import 'package:zheeta/profile/domain/entity/type.dart';
 
+import '../model/total_matched_count_model.dart';
+
 abstract class UserProfileBoostDataSource {
   Future<Either<ErrorResponse, MappedResponse>> createProfileBoost(
       CreateProfileBoostRequest request);
@@ -14,6 +16,7 @@ abstract class UserProfileBoostDataSource {
 
   Future<void> createProfileBoostNew(CreateProfileBoostRequest request);
   Future<MatchedProfileBoostListModel> getMatchedProfileBoostNew();
+  Future<GetTotalMatchedCountResponse> getTotalMatchedCount();
   Future<BoostedProfileByAdminListModel> getBoostedProfileByAdminNew(
       GetBoostedProfileByAdminRequest request);
 }

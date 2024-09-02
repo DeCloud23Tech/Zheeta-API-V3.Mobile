@@ -50,6 +50,7 @@ class UserBioWidget extends StatelessWidget {
           child: TransparentButtonNew(
             title: showFullBio ? 'Show More' : 'Show Less',
             action: toggleBio,
+            size: 12,
           ),
         ),
         SizedBox(height: 20),

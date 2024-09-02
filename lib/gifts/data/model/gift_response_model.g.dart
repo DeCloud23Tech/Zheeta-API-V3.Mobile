@@ -9,7 +9,7 @@ part of 'gift_response_model.dart';
 _$GiftResponseModelImpl _$$GiftResponseModelImplFromJson(
         Map<String, dynamic> json) =>
     _$GiftResponseModelImpl(
-      statusCode: json['statusCode'] as int,
+      statusCode: (json['statusCode'] as num).toInt(),
       message: json['message'] as String,
       success: json['success'] as bool,
     );

@@ -9,17 +9,17 @@ part of 'subscription_model.dart';
 _$SubscriptionModelImpl _$$SubscriptionModelImplFromJson(
         Map<String, dynamic> json) =>
     _$SubscriptionModelImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       description: json['description'] as String,
-      fee: json['fee'] as int,
+      fee: (json['fee'] as num).toInt(),
       allowMessaging: json['allowMessaging'] as bool,
-      noMatchesPerDay: json['noMatchesPerDay'] as int,
-      noOfPostPerDay: json['noOfPostPerDay'] as int,
-      noNearbyPerWeek: json['noNearbyPerWeek'] as int,
+      noMatchesPerDay: (json['noMatchesPerDay'] as num).toInt(),
+      noOfPostPerDay: (json['noOfPostPerDay'] as num).toInt(),
+      noNearbyPerWeek: (json['noNearbyPerWeek'] as num).toInt(),
       allowWithdrawal: json['allowWithdrawal'] as bool,
       allowMultipleMediaInPost: json['allowMultipleMediaInPost'] as bool,
-      maxNumberOfMediaInPost: json['maxNumberOfMediaInPost'] as int,
+      maxNumberOfMediaInPost: (json['maxNumberOfMediaInPost'] as num).toInt(),
       allowVideoMediaCategoryInPost:
           json['allowVideoMediaCategoryInPost'] as bool,
       allowCreateCommunity: json['allowCreateCommunity'] as bool,

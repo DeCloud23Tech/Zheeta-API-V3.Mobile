@@ -22,13 +22,3 @@ class ReceivedGiftModel with _$ReceivedGiftModel {
 
   factory ReceivedGiftModel.fromJson(Map<String, dynamic> json) => _$ReceivedGiftModelFromJson(json);
 }
-
-
-@freezed
-class ReceivedGiftListModel with _$ReceivedGiftListModel {
-  factory ReceivedGiftListModel({
-    required List<ReceivedGiftModel> data,
-  }) = _ReceivedGiftListModel;
-
-  factory ReceivedGiftListModel.fromJson(Map<String, dynamic> json) => _$ReceivedGiftListModelFromJson(json);
-}

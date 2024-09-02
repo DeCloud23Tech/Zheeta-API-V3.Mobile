@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,7 +9,8 @@ import '../../../widgets/input_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../../widgets/top_nav.dart';
 
-class FeedPost extends StatelessWidget {
+@RoutePage()
+class FeedPostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zheeta/app/common/enums/subscription_type.dart';
 
 part 'user_profile_model.freezed.dart';
+
 part 'user_profile_model.g.dart';
 
 @freezed
@@ -27,6 +28,7 @@ class UserProfileDataModel with _$UserProfileDataModel {
     ProfileCounterModel? profileCounters,
     SubscriptionModel? subscription,
     WalletModel? wallet,
+    ReferralInfoModel? referralInfo,
     List<InterestModel>? interests,
     BankAccountDetailModel? bankAccountDetails,
     List<UserDownlines>? userDownlines,
@@ -170,12 +172,25 @@ class WalletModel with _$WalletModel {
 class InterestModel with _$InterestModel {
   @JsonSerializable()
   factory InterestModel({
-    dynamic id,
+    dynamic interestId,
     dynamic title,
   }) = _InterestModel;
 
   factory InterestModel.fromJson(Map<String, dynamic> json) =>
       _$InterestModelFromJson(json);
+}
+
+
+@freezed
+class ReferralInfoModel with _$ReferralInfoModel {
+  @JsonSerializable()
+  factory ReferralInfoModel({
+    required String referralCode,
+    required String referralLink,
+  }) = _ReferralInfoModel;
+
+  factory ReferralInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$ReferralInfoModelFromJson(json);
 }
 
 @freezed
@@ -187,6 +202,7 @@ class UserDownlines with _$UserDownlines {
     dynamic lastName,
     dynamic userName,
     dynamic profilePhotoURL,
+    dynamic createdDate,
   ) = _UserDownlines;
 
   factory UserDownlines.fromJson(Map<String, dynamic> json) =>

@@ -11,3 +11,9 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+
+sha256_cert_fingerprints
+
+rename setBundleId --targets android,ios --value "com.decloud23tech.zheeta"
+dart pub global run rename setBundleId --targets android,ios --value "com.decloud23tech.zheeta"

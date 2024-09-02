@@ -1,23 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:story_view/controller/story_controller.dart';
-import 'package:story_view/utils.dart';
-import 'package:story_view/widgets/story_view.dart';
-import 'package:zheeta/feeds/presentation/viewmodel/feeds_viewmodel.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zheeta/feeds/presentation/bloc/feeds_cubit.dart';
 import 'package:zheeta/feeds/presentation/views/profile_boost_screen.dart';
 
 import '../../../app/common/color.dart';
 import '../../../profile/data/model/matched_profile_boost_model.dart';
-import '../../../profile/presentation/bloc/profile_cubit.dart';
-import '../../../profile/presentation/viewmodel/user_profile_viewmodel.dart';
-import '../../../widgets/primary_button.dart';
-import '../bloc/feeds_cubit.dart';
 
 class SponsoredProfilesSection extends StatelessWidget {
-  final FeedsViewModel feedsViewModel;
-
-  const SponsoredProfilesSection({required this.feedsViewModel, Key? key})
-      : super(key: key);
+  const SponsoredProfilesSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,27 +27,16 @@ class SponsoredProfilesSection extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           const Divider(thickness: 2),
-          StreamBuilder<FeedsState>(
-            stream: feedsViewModel.stateStream,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData) {
-                return const Center(child: Text('No data available'));
-              }
-
-              final state = snapshot.data;
-              if (state is MatchedProfilesLoadingState) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is MatchedProfilesErrorState) {
-                return Center(child: Text('Error: ${state.errorMessage}'));
-              } else if (state is MatchedProfileBoostState) {
+          BlocBuilder<FeedsCubit, FeedsState>(
+            builder: (context, state) {
+              if (state is MatchedProfileBoostState) {
                 return ProfilesList(profiles: state.data);
-              } else {
-                return const Center(child: Text('Error loading data'));
+              } else if (state is MatchedProfilesLoadingState) {
+                return const SizedBox.shrink();
+              } else if (state is MatchedProfilesErrorState) {
+                return Center(child: Text(state.errorMessage));
               }
+              return const SizedBox.shrink();
             },
           ),
           const SizedBox(height: 10),
@@ -149,19 +129,21 @@ class ProfileCard extends StatelessWidget {
                         imageUrl: profile.userProfileUrl,
                         fit: BoxFit.cover,
                         placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
+                        const CircularProgressIndicator(),
                         errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                        const Icon(Icons.error),
                       ),
                     ),
                   ),
                   const SizedBox(width: 5),
-                  Text(
-                    profile.fullName,
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
+                  FittedBox(
+                    child: Text(
+                      profile.fullName,
+                      style: const TextStyle(
+                        color: AppColors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                 ],
@@ -173,4 +155,3 @@ class ProfileCard extends StatelessWidget {
     );
   }
 }
-

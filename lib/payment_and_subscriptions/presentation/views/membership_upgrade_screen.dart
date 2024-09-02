@@ -1,21 +1,20 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/payment_and_subscriptions/presentation/bloc/subscription/subscription_cubit.dart';
 import 'package:zheeta/payment_and_subscriptions/data/model/subscription_model.dart';
 
-import '../../../app/common/enums/subscription_type.dart';
 import '../../../app/injection/di.dart';
-import '../viewmodel/subscription_viewmodel.dart';
+import '../../../profile/presentation/bloc/profile_cubit/profile_cubit.dart';
+import '../../../widgets/loading_screen.dart';
 
 @RoutePage()
 class MembershipSubscriptionScreen extends StatefulWidget {
-  final SubscriptionType? subscriptionId;
-
-  const MembershipSubscriptionScreen({super.key, required this.subscriptionId});
+  const MembershipSubscriptionScreen({super.key});
 
   @override
   State<MembershipSubscriptionScreen> createState() =>
@@ -24,21 +23,20 @@ class MembershipSubscriptionScreen extends StatefulWidget {
 
 class _MembershipSubscriptionScreenState
     extends State<MembershipSubscriptionScreen> {
-  late SubscriptionViewmodel _subscriptionViewmodel;
-  String? _activePlan;
   String? _currentDescription;
   String? _currentFeature;
   SubscriptionModel? _selectedSubscription;
+  late SubscriptionCubit _subscriptionCubit;
 
   @override
   void initState() {
     super.initState();
-    _activePlan = widget.subscriptionId?.name;
-    _subscriptionViewmodel = locator<SubscriptionViewmodel>();
-    _subscriptionViewmodel.fetchAllSubscriptions();
+    _subscriptionCubit = locator<SubscriptionCubit>();
+    _subscriptionCubit.getAllSubscriptionCubit();
   }
 
-  void _updateActivePlan(String description, String feature, SubscriptionModel selectedSubscription) {
+  void _updateActivePlan(String description, String feature,
+      SubscriptionModel selectedSubscription) {
     setState(() {
       _currentDescription = description;
       _currentFeature = feature;
@@ -56,59 +54,28 @@ class _MembershipSubscriptionScreenState
   String describeFeatures(SubscriptionModel subscription) {
     List<String> features = [];
 
-    // Messaging feature
-    if (subscription.allowMessaging) {
-      features.add("Access to messaging");
-    } else {
-      features.add("No messaging access");
-    }
+    features.add(
+        '- Messaging is ${subscription.allowMessaging ? 'enabled' : 'disabled'}.');
+    features.add(
+        '- You can view up to ${subscription.noMatchesPerDay} matches per day.');
+    features.add(
+        '- You can make up to ${subscription.noOfPostPerDay} posts per day.');
+    features.add(
+        '- You can explore nearby users up to ${subscription.noNearbyPerWeek} users per week.');
+    features.add(
+        '- Withdrawals are ${subscription.allowWithdrawal ? 'allowed' : 'not allowed'}.');
+    features.add(subscription.allowMultipleMediaInPost
+        ? '- You can include up to ${subscription.maxNumberOfMediaInPost} media files in a single post.'
+        : '- Multiple media files in a single post are not allowed.');
+    features.add(
+        '- Posting videos is ${subscription.allowVideoMediaCategoryInPost ? 'allowed' : 'not allowed'}.');
+    features.add(
+        '- Creating new communities is ${subscription.allowCreateCommunity ? 'allowed' : 'not allowed'}.');
+    features.add(subscription.accessPeopleNearby
+        ? '- You can access people nearby.'
+        : '- Access to people nearby is not available.');
 
-    // Matches per day
-    features.add("${subscription.noMatchesPerDay} matches per day");
-
-    // Posts per day
-    features.add("${subscription.noOfPostPerDay} posts per day");
-
-    // Nearby per week
-    features.add("${subscription.noNearbyPerWeek} nearby people per week");
-
-    // Withdrawal feature
-    if (subscription.allowWithdrawal) {
-      features.add("Allows withdrawal");
-    } else {
-      features.add("No withdrawal allowed");
-    }
-
-    // Multiple media in post
-    if (subscription.allowMultipleMediaInPost) {
-      features.add(
-          "Allows multiple media in a post (up to ${subscription.maxNumberOfMediaInPost})");
-    } else {
-      features.add("Single media per post");
-    }
-
-    // Video media category in post
-    if (subscription.allowVideoMediaCategoryInPost) {
-      features.add("Allows video media in posts");
-    } else {
-      features.add("No video media in posts");
-    }
-
-    // Create community
-    if (subscription.allowCreateCommunity) {
-      features.add("Allows community creation");
-    } else {
-      features.add("No community creation");
-    }
-
-    // Access people nearby
-    if (subscription.accessPeopleNearby) {
-      features.add("Access to people nearby");
-    } else {
-      features.add("No access to people nearby");
-    }
-
-    return "Features:\n" + features.join(" ");
+    return "Features:\n${features.join('\n')}";
   }
 
   @override
@@ -145,25 +112,19 @@ class _MembershipSubscriptionScreenState
         centerTitle: true,
       ),
       body: SafeArea(
-        child: StreamBuilder<SubscriptionState>(
-          stream: _subscriptionViewmodel.stateStream,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (snapshot.hasData) {
-              final state = snapshot.data!;
-              if (state is SubscriptionsLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is SubscriptionsError) {
-                return Center(child: Text('Error: ${state.errorMessage}'));
-              } else if (state is SubscriptionsSuccess) {
-                final subscriptions = state.subscriptions;
-                return _buildSubscriptionContent(subscriptions);
-              } else {
-                return Center(child: Text('No subscriptions found.'));
-              }
+        child: BlocBuilder<SubscriptionCubit, SubscriptionState>(
+          bloc: _subscriptionCubit,
+          builder: (context, state) {
+            if (state is SubscriptionsLoading) {
+              return LoadingScreen(
+                backgroundColor: AppColors.primaryDark,
+                indicatorColor: AppColors.secondaryLight,
+              );
+            } else if (state is SubscriptionsError) {
+              return Center(child: Text(state.errorMessage));
+            } else if (state is SubscriptionsSuccess) {
+              final subscriptions = state.subscriptions;
+              return _buildSubscriptionContent(subscriptions);
             } else {
               return Center(child: Text('No subscriptions found.'));
             }
@@ -200,13 +161,21 @@ class _MembershipSubscriptionScreenState
                           SvgPicture.asset(
                               'assets/images/icons/gradient-refresh.svg'),
                         if (index == 0)
-                          Text(
-                            'Active: $_activePlan',
-                            style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                            ),
+                          BlocBuilder<ProfileCubit, ProfileState>(
+                            builder: (context, state) {
+                              if (state is ProfileCompositeState) {
+                                return Text(
+                                  'Active: ${state.userProfile?.data.subscription?.name}',
+                                  style: TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                );
+                              } else {
+                                return SizedBox.shrink();
+                              }
+                            },
                           ),
                         if (index == 0) SizedBox(height: 15),
                         if (index == 0)
@@ -221,54 +190,66 @@ class _MembershipSubscriptionScreenState
                           ),
                         if (index == 0) SizedBox(height: 20),
                         if (index == 0)
-                          SubscriptionSelectionWidget(
-                            subscriptions: sortedSubscriptions,
-                            onPlanSelected: (selectedPlan) {
-                              final selectedSubscription =
-                              sortedSubscriptions.firstWhere(
-                                      (plan) => plan.name == selectedPlan);
-                              final description =
-                                  selectedSubscription.description;
-                              final featureDescription =
-                              describeFeatures(selectedSubscription);
-                              _updateActivePlan(
-                                  description, featureDescription, selectedSubscription);
+                          BlocBuilder<ProfileCubit, ProfileState>(
+                            builder: (context, state) {
+                              if (state is ProfileCompositeState) {
+                                // final activeSubscriptionName = state
+                                //         .userProfile?.data.subscription?.name ??
+                                //     '';
+                                return SubscriptionSelectionWidget(
+                                  onPlanSelected: (selectedPlan) {
+                                    final selectedSubscription =
+                                        sortedSubscriptions.firstWhere((plan) =>
+                                            plan.name == selectedPlan);
+                                    final description =
+                                        selectedSubscription.description;
+                                    final featureDescription =
+                                        describeFeatures(selectedSubscription);
+                                    _updateActivePlan(
+                                        description,
+                                        featureDescription,
+                                        selectedSubscription);
+                                  },
+                                  subscriptions: sortedSubscriptions,
+                                  // initialSelection: activeSubscriptionName,
+                                );
+                              } else {
+                                return SizedBox.shrink();
+                              }
                             },
                           ),
                         if (index == 0) SizedBox(height: 30),
                         if (index == 0)
-                          SizedBox(
-                            height: 30,
-                            width: double.infinity,
-                            child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: durations.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 15.0),
+                          Row(
+                            children: durations.map((duration) {
+                              return Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 0.5),
+                                  // Adjust padding to fit items
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
                                         Icons.check_circle_outline,
                                         color: AppColors.white,
-                                        size: 25,
+                                        size: 18,
                                       ),
-                                      SizedBox(width: 6),
+                                      SizedBox(width: 3),
                                       Text(
-                                        durations[index],
+                                        duration,
                                         style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400),
+                                          color: AppColors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                         textAlign: TextAlign.center,
                                       ),
                                     ],
                                   ),
-                                );
-                              },
-                            ),
+                                ),
+                              );
+                            }).toList(),
                           ),
                         if (index == 0) SizedBox(height: 30),
                         if (index == 0)
@@ -287,7 +268,10 @@ class _MembershipSubscriptionScreenState
                             invert: true,
                             action: () {
                               if (_selectedSubscription != null) {
-                                _showUpgradeDialog(context, _selectedSubscription!.name, _selectedSubscription!.fee);
+                                _showUpgradeDialog(
+                                    context,
+                                    _selectedSubscription!.name,
+                                    _selectedSubscription!.fee);
                               }
                             },
                           ),
@@ -321,7 +305,7 @@ void _showUpgradeDialog(BuildContext context, String name, int fee) {
               ),
               TextSpan(
                   text:
-                  ' with your Zheeta wallet. Kindly click on confirm to proceed.'),
+                      ' with your Zheeta wallet. Kindly click on confirm to proceed.'),
             ],
           ),
         ),
@@ -350,14 +334,15 @@ void _showUpgradeDialog(BuildContext context, String name, int fee) {
   );
 }
 
-
 class SubscriptionSelectionWidget extends StatefulWidget {
   final Function(String) onPlanSelected;
   final List<SubscriptionModel> subscriptions;
+  // final String initialSelection;
 
   const SubscriptionSelectionWidget({
     required this.onPlanSelected,
     required this.subscriptions,
+    // required this.initialSelection,
   });
 
   @override
@@ -370,15 +355,21 @@ class _SubscriptionSelectionWidgetState
   int _selectedIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    // // Set the initial selected index based on the initialSelection parameter
+    // _selectedIndex = widget.subscriptions.indexWhere(
+    //     (subscription) => subscription.name == widget.initialSelection);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 85,
-      width: double.infinity,
       child: Center(
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
-          physics: NeverScrollableScrollPhysics(),
           itemCount: widget.subscriptions.length,
           itemBuilder: (context, index) {
             final subscription = widget.subscriptions[index];
@@ -392,7 +383,7 @@ class _SubscriptionSelectionWidgetState
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Container(
-                  width: 115,
+                  width: MediaQuery.of(context).size.width / 3.8,
                   margin: EdgeInsets.symmetric(vertical: 5),
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(

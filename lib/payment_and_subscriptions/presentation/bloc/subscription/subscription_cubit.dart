@@ -12,8 +12,9 @@ part 'subscription_state.dart';
 class SubscriptionCubit extends Cubit<SubscriptionState> {
   GetAllSubscriptions getAllSubscriptions;
 
-  SubscriptionCubit({required this.getAllSubscriptions})
-      : super(SubscriptionInitial());
+  SubscriptionCubit({
+    required this.getAllSubscriptions,
+  }) : super(SubscriptionInitial());
 
   Future<SubscriptionListModel?> getAllSubscriptionCubit() async {
     emit(SubscriptionsLoading());

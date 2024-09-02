@@ -14,152 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-NearbyListModel _$NearbyListModelFromJson(Map<String, dynamic> json) {
-  return _NearbyListModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$NearbyListModel {
-  List<NearbyDataModel> get data => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $NearbyListModelCopyWith<NearbyListModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NearbyListModelCopyWith<$Res> {
-  factory $NearbyListModelCopyWith(
-          NearbyListModel value, $Res Function(NearbyListModel) then) =
-      _$NearbyListModelCopyWithImpl<$Res, NearbyListModel>;
-  @useResult
-  $Res call({List<NearbyDataModel> data});
-}
-
-/// @nodoc
-class _$NearbyListModelCopyWithImpl<$Res, $Val extends NearbyListModel>
-    implements $NearbyListModelCopyWith<$Res> {
-  _$NearbyListModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_value.copyWith(
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<NearbyDataModel>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$NearbyListModelImplCopyWith<$Res>
-    implements $NearbyListModelCopyWith<$Res> {
-  factory _$$NearbyListModelImplCopyWith(_$NearbyListModelImpl value,
-          $Res Function(_$NearbyListModelImpl) then) =
-      __$$NearbyListModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<NearbyDataModel> data});
-}
-
-/// @nodoc
-class __$$NearbyListModelImplCopyWithImpl<$Res>
-    extends _$NearbyListModelCopyWithImpl<$Res, _$NearbyListModelImpl>
-    implements _$$NearbyListModelImplCopyWith<$Res> {
-  __$$NearbyListModelImplCopyWithImpl(
-      _$NearbyListModelImpl _value, $Res Function(_$NearbyListModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_$NearbyListModelImpl(
-      data: null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<NearbyDataModel>,
-    ));
-  }
-}
-
-/// @nodoc
-
-@JsonSerializable(explicitToJson: true)
-class _$NearbyListModelImpl implements _NearbyListModel {
-  _$NearbyListModelImpl({required final List<NearbyDataModel> data})
-      : _data = data;
-
-  factory _$NearbyListModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NearbyListModelImplFromJson(json);
-
-  final List<NearbyDataModel> _data;
-  @override
-  List<NearbyDataModel> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString() {
-    return 'NearbyListModel(data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NearbyListModelImpl &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NearbyListModelImplCopyWith<_$NearbyListModelImpl> get copyWith =>
-      __$$NearbyListModelImplCopyWithImpl<_$NearbyListModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NearbyListModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _NearbyListModel implements NearbyListModel {
-  factory _NearbyListModel({required final List<NearbyDataModel> data}) =
-      _$NearbyListModelImpl;
-
-  factory _NearbyListModel.fromJson(Map<String, dynamic> json) =
-      _$NearbyListModelImpl.fromJson;
-
-  @override
-  List<NearbyDataModel> get data;
-  @override
-  @JsonKey(ignore: true)
-  _$$NearbyListModelImplCopyWith<_$NearbyListModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 NearbyDataModel _$NearbyDataModelFromJson(Map<String, dynamic> json) {
   return _NearbyDataModel.fromJson(json);
 }
@@ -170,7 +24,7 @@ mixin _$NearbyDataModel {
   String get username => throw _privateConstructorUsedError;
   String get profilePhotoURL => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
-  int get distance => throw _privateConstructorUsedError;
+  double get distance => throw _privateConstructorUsedError;
   int get age => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   int get totalWeight => throw _privateConstructorUsedError;
@@ -192,7 +46,7 @@ abstract class $NearbyDataModelCopyWith<$Res> {
       String username,
       String profilePhotoURL,
       String location,
-      int distance,
+      double distance,
       int age,
       String gender,
       int totalWeight});
@@ -240,7 +94,7 @@ class _$NearbyDataModelCopyWithImpl<$Res, $Val extends NearbyDataModel>
       distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -270,7 +124,7 @@ abstract class _$$NearbyDataModelImplCopyWith<$Res>
       String username,
       String profilePhotoURL,
       String location,
-      int distance,
+      double distance,
       int age,
       String gender,
       int totalWeight});
@@ -316,7 +170,7 @@ class __$$NearbyDataModelImplCopyWithImpl<$Res>
       distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -359,7 +213,7 @@ class _$NearbyDataModelImpl implements _NearbyDataModel {
   @override
   final String location;
   @override
-  final int distance;
+  final double distance;
   @override
   final int age;
   @override
@@ -418,7 +272,7 @@ abstract class _NearbyDataModel implements NearbyDataModel {
       required final String username,
       required final String profilePhotoURL,
       required final String location,
-      required final int distance,
+      required final double distance,
       required final int age,
       required final String gender,
       required final int totalWeight}) = _$NearbyDataModelImpl;
@@ -435,7 +289,7 @@ abstract class _NearbyDataModel implements NearbyDataModel {
   @override
   String get location;
   @override
-  int get distance;
+  double get distance;
   @override
   int get age;
   @override

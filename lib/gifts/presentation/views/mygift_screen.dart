@@ -1,16 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/gifts/presentation/bloc/gift/gift_cubit.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
 import '../../../app/injection/di.dart';
 import '../../../app/router/app_router.gr.dart';
+import '../../../widgets/loading_screen.dart';
 import '../../data/model/received_gift_model.dart';
 import '../../data/model/sent_gift_model.dart';
-import '../viewmodel/gift_viewmodel.dart';
 
 @RoutePage()
 class MyGiftScreen extends StatefulWidget {
@@ -21,63 +21,48 @@ class MyGiftScreen extends StatefulWidget {
 }
 
 class _MyGiftScreenState extends State<MyGiftScreen> {
-  late GiftViewModel _giftViewModel;
+  late GiftCubit _giftCubit;
   int activeTab = 1;
-  bool _isFabVisible = false;
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _giftViewModel = locator<GiftViewModel>();
-    _fetchGifts();
+    _giftCubit = locator<GiftCubit>();
     _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
-    super.dispose();
+    _giftCubit.reset();
+    _fetchGifts();
   }
 
   void _fetchGifts() {
     if (activeTab == 1) {
-      _giftViewModel.fetchAllReceivedGifts();
+      _giftCubit.fetchReceivedGifts();
     } else {
-      _giftViewModel.fetchAllSentGifts();
+      _giftCubit.fetchSentGifts();
     }
   }
 
   void _onScroll() {
-    if (_scrollController.offset >= 100 && !_isFabVisible) {
-      setState(() {
-        _isFabVisible = true;
-      });
-    } else if (_scrollController.offset < 100 && _isFabVisible) {
-      setState(() {
-        _isFabVisible = false;
-      });
-    }
-
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      // Reached the bottom of the list
-      _fetchNextPage();
+    if (_isBottom) {
+      if (!_giftCubit.state.isFetching && !_giftCubit.state.hasReachedMax) {
+        _fetchGifts();
+      }
     }
   }
 
-  void _fetchNextPage() {
-    if (activeTab == 1) {
-      _giftViewModel.fetchNextReceivedPage();
-    } else {
-      _giftViewModel.fetchNextSentPage();
-    }
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 
-  void _scrollToTop() {
-    _scrollController.animateTo(0,
-        duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
   }
 
   @override
@@ -88,7 +73,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
         backgroundColor: AppColors.secondaryLight,
         elevation: 0.0,
         leading: GestureDetector(
-          onTap: () => router.pop(),
+          onTap: () => context.router.pop(),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -119,52 +104,42 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
             controller: _scrollController,
             padding: EdgeInsets.all(20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildTabBar(),
                 SizedBox(height: 20),
-                StreamBuilder<GiftState>(
-                  stream: _giftViewModel.stateStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    } else if (snapshot.hasData) {
-                      final state = snapshot.data!;
-                      if (state is GiftsLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is GiftsError) {
-                        return Center(
-                            child: Text('Error: ${state.errorMessage}'));
-                      } else if (state is ReceivedGiftsSuccess &&
-                          activeTab == 1) {
-                        final gifts = state.gifts.data;
-                        return _buildReceivedGifts(gifts);
-                      } else if (state is SentGiftsSuccess && activeTab == 2) {
-                        final gifts = state.gifts.data;
-                        return _buildSentGifts(gifts);
-                      } else {
-                        return Center(child: Text('No gifts found.'));
-                      }
+                BlocBuilder<GiftCubit, GiftState>(
+                  builder: (context, state) {
+                    if (state.isFetching && state.gifts.isEmpty) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primaryDark,
+                          strokeWidth: 2,
+                        ),
+                      );
+                    } else if (state.errorMessage.isNotEmpty) {
+                      return Center(
+                        child: Text('Error: ${state.errorMessage}'),
+                      );
+                    } else if (activeTab == 1 &&
+                        state.receivedGifts.isNotEmpty) {
+                      return _buildReceivedGifts(state.receivedGifts);
+                    } else if (activeTab == 2 && state.sentGifts.isNotEmpty) {
+                      return _buildSentGifts(state.sentGifts);
                     } else {
                       return Center(child: Text('No gifts found.'));
                     }
                   },
                 ),
+                if (_giftCubit.state.isFetching &&
+                    _giftCubit.state.gifts.isNotEmpty)
+                  Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.primaryDark,
+                    ),
+                  ),
               ],
-            ),
-          ),
-          Visibility(
-            visible: _isFabVisible,
-            child: Positioned(
-              bottom: 40,
-              right: 30,
-              child: FloatingActionButton(
-                backgroundColor: AppColors.secondarySwirl,
-                onPressed: _scrollToTop,
-                child: Icon(Icons.arrow_upward, color: AppColors.grayscale,),
-              ),
             ),
           ),
         ],
@@ -189,6 +164,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
               setState(() {
                 activeTab = 1;
               });
+              _giftCubit.reset();
               _fetchGifts();
             },
             child: Container(
@@ -225,6 +201,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
               setState(() {
                 activeTab = 2;
               });
+              _giftCubit.reset();
               _fetchGifts();
             },
             child: Container(
@@ -349,18 +326,10 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
             SizedBox(height: 10),
             _buildInfoRow("Sender", gift.senderUserName),
             _buildInfoRow("Quantity", "${gift.totalQuantity} Unit"),
-            _buildInfoRow("Total amount redeemable",
-                "\$${gift.totalAmount * gift.totalQuantity}"),
-            SizedBox(height: 20),
-            _buildActionButton(
-              "Redeem Gift",
-              () {
-                router
-                    .push(RedeemGiftDetailRoute(totalAmount: gift.totalAmount));
-              },
-            ),
-            SizedBox(height: 10),
-            _buildActionButton("Get it Delivered", () {}, invert: true),
+            _buildActionButton("Redeem Now", () {
+              context.router.push(RedeemGiftDetailRoute(
+                  totalAmount: gift.totalAmount, giftId: gift.id));
+            }),
           ],
         ),
       ),
@@ -426,7 +395,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
                       ),
                       SizedBox(height: 5),
                       Text(
-                        'Sent on ${DateFormat('d,MMMM y').format(gift.createdDate)}',
+                        '${DateFormat('d,MMMM y').format(gift.createdDate)}',
                         style: TextStyle(
                           color: AppColors.grey,
                           fontSize: 12,
@@ -439,12 +408,8 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
               ),
             ),
             SizedBox(height: 10),
-            _buildInfoRow("Receiver", gift.receiverUserName),
+            _buildInfoRow("Recipient", gift.receiverUserName),
             _buildInfoRow("Quantity", "${gift.totalQuantity} Unit"),
-            _buildInfoRow("Total amount sent",
-                "\$${gift.totalAmount * gift.totalQuantity}"),
-            // SizedBox(height: 20),
-            // _buildActionButton("Revoke Gift", () {}),
           ],
         ),
       ),
@@ -453,16 +418,16 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
 
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             label,
             style: TextStyle(
-              color: AppColors.grayscale,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+              color: AppColors.grey,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
             ),
           ),
           Text(
@@ -470,7 +435,7 @@ class _MyGiftScreenState extends State<MyGiftScreen> {
             style: TextStyle(
               color: AppColors.grayscale,
               fontSize: 14,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

@@ -6,15 +6,15 @@ import 'package:zheeta/app/common/enums/others.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/discover/presentation/widgets/criteria_filter_bottomsheet.dart';
-import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
 
 class TopNavBtn2 extends ConsumerWidget {
   final IconType iconType;
+
   const TopNavBtn2({super.key, required this.iconType});
 
   @override
   Widget build(BuildContext context, ref) {
-    final notificationState = ref.watch(notificationViewModelProvider);
+    // final notificationState = ref.watch(notificationViewModelProvider);
 
     String icon;
     if (iconType == IconType.menu) {
@@ -38,8 +38,9 @@ class TopNavBtn2 extends ConsumerWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: iconType == IconType.bell &&
-                (notificationState.unreadNotificationsCountState.data ?? 0) > 0
+        child: iconType == IconType.bell
+            //&&
+            // (notificationState.unreadNotificationsCountState.data ?? 0) > 0
             ? Stack(
                 children: [
                   Container(
@@ -70,7 +71,8 @@ class TopNavBtn2 extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: Text(
-                        '${notificationState.unreadNotificationsCountState.data}',
+                        '',
+                        // '${notificationState.unreadNotificationsCountState.data}',
                         style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
@@ -102,11 +104,14 @@ class TopNavBtn2 extends ConsumerWidget {
 
 class TopNavBtn extends ConsumerWidget {
   final IconType iconType;
-  const TopNavBtn({super.key, required this.iconType});
+  final Color color;
+
+  const TopNavBtn(
+      {super.key, required this.iconType, this.color = Colors.transparent});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notificationState = ref.watch(notificationViewModelProvider);
+    // final notificationState = ref.watch(notificationViewModelProvider);
 
     String icon;
     if (iconType == IconType.menu) {
@@ -123,7 +128,6 @@ class TopNavBtn extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         if (iconType == IconType.menu) {
-          print('menu');
           Scaffold.of(context).openDrawer();
         } else if (iconType == IconType.filter) {
           criteriaFilterBottomSheet(context);
@@ -133,8 +137,9 @@ class TopNavBtn extends ConsumerWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(5),
-        child: iconType == IconType.bell &&
-                (notificationState.unreadNotificationsCountState.data ?? 0) > 0
+        child: iconType == IconType.bell
+            //&&
+            // (notificationState.unreadNotificationsCountState.data ?? 0) > 0
             ? Stack(
                 children: [
                   Container(
@@ -142,7 +147,7 @@ class TopNavBtn extends ConsumerWidget {
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
-                      color: AppColors.white.withOpacity(0.3),
+                      color: color.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: SvgPicture.asset(
@@ -163,7 +168,8 @@ class TopNavBtn extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: Text(
-                        '${notificationState.unreadNotificationsCountState.data}',
+                        '',
+                        // '${notificationState.unreadNotificationsCountState.data}',
                         style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
@@ -178,7 +184,7 @@ class TopNavBtn extends ConsumerWidget {
                 height: 40,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: AppColors.white.withOpacity(0.3),
+                  color: color.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: SvgPicture.asset(

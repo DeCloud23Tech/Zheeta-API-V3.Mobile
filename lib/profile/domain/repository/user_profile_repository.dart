@@ -22,6 +22,6 @@ abstract class UserProfileRepository {
   ResultVoid updateUserProfileRepo(UpdateUserProfileRequest request);
   ResultFuture<ViewProfileModel> visitUserProfileRepo({required String userId});
 
-  ResultFuture<ActivityListModel> getUserRecentActivity();
-  ResultFuture<ActivityListModel> getVisitedUserRecentActivity(String userId);
+  ResultFuture<ActivityListModel> getUserRecentActivity({required int pageNumber, required int pageSize});
+  ResultFuture<ActivityListModel> getVisitedUserRecentActivity({required String userId, required int pageNumber, required int pageSize});
 }

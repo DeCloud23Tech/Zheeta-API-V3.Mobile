@@ -7,6 +7,8 @@ import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_access_datasource.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_access_repository.dart';
 
+import '../../model/blocked_user_model.dart';
+
 @prod
 @LazySingleton(as: UserProfileAccessRepository)
 class UserProfileAccessRepositoryImpl implements UserProfileAccessRepository {
@@ -14,7 +16,7 @@ class UserProfileAccessRepositoryImpl implements UserProfileAccessRepository {
   UserProfileAccessRepositoryImpl(this._datasource);
 
   @override
-  ResultVoid blockAccountRepo(
+  ResultFuture<bool> blockAccountRepo(
       {required String userId, required String blockOrUnblockUserId}) async {
     // final result = await _datasource.blockAccount(userId: userId, blockOrUnblockUserId: blockOrUnblockUserId);
     // return result.fold(
@@ -35,7 +37,7 @@ class UserProfileAccessRepositoryImpl implements UserProfileAccessRepository {
   }
 
   @override
-  ResultVoid getBlockedUsersRepo(
+  ResultFuture<BlockedUsersResponse> getBlockedUsersRepo(
       {required int pageNumber, required int pageSize}) async {
     // final result = await _datasource.getBlockedUsers(
     //     pageNumber: pageNumber, pageSize: pageSize);
@@ -56,7 +58,7 @@ class UserProfileAccessRepositoryImpl implements UserProfileAccessRepository {
   }
 
   @override
-  ResultVoid unblockAccountRepo(
+  ResultFuture<bool> unblockAccountRepo(
       {required String userId, required String blockOrUnblockUserId}) async {
     // final result = await _datasource.unblockAccount(
     //     userId: userId, blockOrUnblockUserId: blockOrUnblockUserId);

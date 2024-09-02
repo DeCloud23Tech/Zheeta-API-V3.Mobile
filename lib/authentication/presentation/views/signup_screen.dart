@@ -33,15 +33,17 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
   final formKey = GlobalKey<FormState>();
   late UserAuthViewModel userAuthViewModel;
 
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController referralController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController referralController = TextEditingController();
   PhoneNumber _phoneNumber =
       PhoneNumber(countryISOCode: '+234', countryCode: 'NG', number: '');
   Country? phoneCode;
+
   @override
   void initState() {
     userAuthViewModel = locator<UserAuthViewModel>();
@@ -53,80 +55,82 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthentcationState>(
-        listener: (context, state) {
-      if (state is AuthenticationErrorState) {
-        NotifyUser.showSnackbar(state.errorMessage);
-      }
-      if (state is AuthenticationRegisteredState) {
-        userAuthViewModel.navigateToVerificationPageLogin();
-      }
-    }, builder: (context, state) {
-      return Scaffold(
-        backgroundColor: AppColors.secondaryLight,
-        body: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 60),
-                  Image.asset("assets/images/full-logo.png", height: 36),
-                  SizedBox(height: 40),
-                  Text(signupTitle, style: authTitleStyle),
-                  SizedBox(height: 5),
-                  GestureDetector(
+      listener: (context, state) {
+        if (state is AuthenticationErrorState) {
+          NotifyUser.showSnackbar(state.errorMessage);
+        }
+        if (state is AuthenticationRegisteredState) {
+          userAuthViewModel.navigateToVerificationPageLogin();
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.secondaryLight,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 60),
+                    Image.asset("assets/images/full-logo.png", height: 36),
+                    const SizedBox(height: 40),
+                    Text(signupTitle, style: authTitleStyle),
+                    const SizedBox(height: 5),
+                    GestureDetector(
                       onTap: () {
-                        router.push(SignInRoute());
+                        router.push(const SignInRoute());
                       },
-                      child: Text(signupSubtitle, style: authSubtitleStyle)),
-                  SizedBox(height: 32),
-                  InputField(
-                    hintText: 'Username',
-                    validator: (data) => validateName(data, 'Username'),
-                    controller: usernameController,
-                    onChanged: (value) {
-                      validatorChange.value = value;
-                      userAuthViewModel.setUsername(value);
-                    },
-                  ),
-                  InputField(
-                    hintText: 'Password',
-                    password: _isPasswordObscure,
-                    validator: (data) => validatePassword(data),
-                    controller: passwordController,
-                    onChanged: (value) {
-                      validatorChange.value = value;
-                      userAuthViewModel.setPassword(value);
-                    },
-                  ),
-                  InputField(
-                    hintText: 'Retype Password',
-                    password: _isPasswordObscure,
-                    validator: (data) =>
-                        validateConfirmPassword(data, passwordController.text),
-                    controller: confirmPasswordController,
-                    onChanged: (value) {
-                      validatorChange.value = value;
-                      userAuthViewModel.setRetypePassword(value);
-                    },
-                  ),
-                  SizedBox(height: 10),
-                  InputField(
-                    hintText: 'Email Address',
-                    validator: (data) => userAuthViewModel.validateEmail(),
-                    controller: emailController,
-                    onChanged: (value) {
-                      validatorChange.value = value;
-                      userAuthViewModel.setEmail(value);
-                    },
-                  ),
-                  SizedBox(height: 10),
-                  IntlPhoneField(
-                    disableLengthCheck: true,
-                    decoration: InputDecoration(
+                      child: Text(signupSubtitle, style: authSubtitleStyle),
+                    ),
+                    const SizedBox(height: 32),
+                    InputField(
+                      hintText: 'Username',
+                      validator: (data) => validateName(data, 'Username'),
+                      controller: usernameController,
+                      onChanged: (value) {
+                        validatorChange.value = value;
+                        userAuthViewModel.setUsername(value);
+                      },
+                    ),
+                    InputField(
+                      hintText: 'Password',
+                      password: _isPasswordObscure,
+                      validator: (data) => validatePassword(data),
+                      controller: passwordController,
+                      onChanged: (value) {
+                        validatorChange.value = value;
+                        userAuthViewModel.setPassword(value);
+                      },
+                    ),
+                    InputField(
+                      hintText: 'Retype Password',
+                      password: _isPasswordObscure,
+                      validator: (data) => validateConfirmPassword(
+                          data, passwordController.text),
+                      controller: confirmPasswordController,
+                      onChanged: (value) {
+                        validatorChange.value = value;
+                        userAuthViewModel.setRetypePassword(value);
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    InputField(
+                      hintText: 'Email Address',
+                      validator: (data) => validateEmail(data),
+                      controller: emailController,
+                      onChanged: (value) {
+                        validatorChange.value = value;
+                        userAuthViewModel.setEmail(value);
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    IntlPhoneField(
+                      disableLengthCheck: true,
+                      decoration: InputDecoration(
                         isDense: true,
                         filled: true,
                         fillColor: AppColors.white,
@@ -144,81 +148,80 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                         hintStyle: TextStyle(
                             color: AppColors.grey.withOpacity(0.5),
                             fontSize: 14),
-                        errorStyle: const TextStyle(color: Colors.red)),
-                    initialCountryCode:
-                        userAuthViewModel.getPhoneNumber.countryCode,
-                    validator: (phone) =>
-                        isValidPhoneNumber(phone!.completeNumber),
-                    controller: phoneController,
-                    onChanged: (phone) {
-                      validatorChange.value = phone;
-                      userAuthViewModel.setPhoneNumber(phone);
-                      setState(() {
-                        _phoneNumber = phone;
-                      });
-                      //userAuthViewModel.setPhoneNumber(phone);
-                    },
-                    onCountryChanged: (value) {
-                      setState(() {
-                        _phoneNumber.countryCode = '${value.code}';
-                      });
-                      userAuthViewModel.setCountryCode(value);
-                    },
-                    autovalidateMode: AutovalidateMode.disabled,
-                  ),
-                  SizedBox(height: 10),
-                  InputField(
-                    hintText: 'Referral (Optional)',
-                    controller: referralController,
-                    onChanged: (value) {},
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                        activeColor: AppColors.primaryDark,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100.0),
-                        ),
-                        side: MaterialStateBorderSide.resolveWith(
-                          (states) => BorderSide(
-                              width: 1.0, color: AppColors.primaryDark),
-                        ),
-                        value: agree,
-                        onChanged: (value) {
-                          validatorChange.value = value;
-                          setState(() {
-                            agree = value!;
-                          });
-                          userAuthViewModel.setAgree(value!);
-                          //userAuthViewModel.setAgree(agree);
-                        },
+                        errorStyle: const TextStyle(color: Colors.red),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            'Agree to our',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: AppColors.black),
+                      initialCountryCode:
+                          userAuthViewModel.getPhoneNumber.countryCode,
+                      validator: (phone) =>
+                          isValidPhoneNumber(phone!.completeNumber),
+                      controller: phoneController,
+                      onChanged: (phone) {
+                        validatorChange.value = phone;
+                        userAuthViewModel.setPhoneNumber(phone);
+                        setState(() {
+                          _phoneNumber = phone;
+                        });
+                      },
+                      onCountryChanged: (value) {
+                        setState(() {
+                          _phoneNumber.countryCode = '${value.code}';
+                        });
+                        userAuthViewModel.setCountryCode(value);
+                      },
+                      autovalidateMode: AutovalidateMode.disabled,
+                    ),
+                    const SizedBox(height: 10),
+                    InputField(
+                      hintText: 'Referral (Optional)',
+                      controller: referralController,
+                      onChanged: (value) {},
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Checkbox(
+                          activeColor: AppColors.primaryDark,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0),
                           ),
-                          GestureDetector(
-                            child: Text(
-                              ' terms?',
+                          side: MaterialStateBorderSide.resolveWith(
+                            (states) => BorderSide(
+                                width: 1.0, color: AppColors.primaryDark),
+                          ),
+                          value: agree,
+                          onChanged: (value) {
+                            validatorChange.value = value;
+                            setState(() {
+                              agree = value!;
+                            });
+                            userAuthViewModel.setAgree(value!);
+                          },
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Agree to our',
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: AppColors.primaryDark),
+                              style: TextStyle(color: AppColors.black),
                             ),
-                            onTap: () {},
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ListenableBuilder(
-                        listenable: validatorChange,
-                        builder: (context, _) {
+                            GestureDetector(
+                              child: Text(
+                                ' terms?',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: AppColors.primaryDark),
+                              ),
+                              onTap: () {},
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ValueListenableBuilder(
+                        valueListenable: validatorChange,
+                        builder: (context, _, __) {
                           return PrimaryButton(
                             title: 'Sign Up',
                             disabled: validateName(
@@ -237,32 +240,21 @@ class _SignUpScreenState extends State<SignUpScreen> with Validator {
                                 !agree,
                             state: state is AuthenticationLoadingState,
                             action: () async {
-                              final isValid = formKey.currentState?.validate();
-                              if (isValid ?? false) {
+                              if (formKey.currentState?.validate() ?? false) {
                                 await userAuthViewModel.registerUser(context);
-                                // context
-                                //     .read<AuthenticationCubit>()
-                                //     .registerUserCubit(
-                                //         request: RegisterUserRequest(
-                                //       userName: usernameController.text,
-                                //       password: passwordController.text,
-                                //       email: emailController.text,
-                                //       phoneNumber: _phoneNumber.completeNumber,
-                                //       phoneCountryCode:
-                                //           _phoneNumber.countryCode,
-                                //       referralCode: referralController.text,
-                                //     ));
                               }
                             },
                           );
-                        }),
-                  ),
-                ],
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

@@ -13,7 +13,7 @@ _$ReceivedGiftModelImpl _$$ReceivedGiftModelImplFromJson(
       giftId: json['giftId'] as String,
       title: json['title'] as String,
       imageFileURL: json['imageFileURL'] as String,
-      totalQuantity: json['totalQuantity'] as int,
+      totalQuantity: (json['totalQuantity'] as num).toInt(),
       totalAmount: (json['totalAmount'] as num).toDouble(),
       senderId: json['senderId'] as String,
       senderUserName: json['senderUserName'] as String,
@@ -38,18 +38,4 @@ Map<String, dynamic> _$$ReceivedGiftModelImplToJson(
       'receiverUserName': instance.receiverUserName,
       'isRedeemed': instance.isRedeemed,
       'createdDate': instance.createdDate.toIso8601String(),
-    };
-
-_$ReceivedGiftListModelImpl _$$ReceivedGiftListModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ReceivedGiftListModelImpl(
-      data: (json['data'] as List<dynamic>)
-          .map((e) => ReceivedGiftModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$ReceivedGiftListModelImplToJson(
-        _$ReceivedGiftListModelImpl instance) =>
-    <String, dynamic>{
-      'data': instance.data,
     };

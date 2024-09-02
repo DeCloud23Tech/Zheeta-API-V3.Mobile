@@ -10,7 +10,7 @@ _$SendGiftRequestModelImpl _$$SendGiftRequestModelImplFromJson(
         Map<String, dynamic> json) =>
     _$SendGiftRequestModelImpl(
       giftId: json['GiftId'] as String,
-      totalQuantity: json['TotalQuantity'] as int,
+      totalQuantity: (json['TotalQuantity'] as num).toInt(),
       receiverUsername: json['ReceiverUsername'] as String,
       message: json['Message'] as String?,
     );

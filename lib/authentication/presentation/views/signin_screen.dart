@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/mixins/validator_mixin.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
@@ -59,7 +58,7 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
         }
       }
       if (state is AuthenticationLoggedInState) {
-        router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
+        router.replace(HomeRoute());
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -115,11 +114,12 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                               context
                                   .read<AuthenticationCubit>()
                                   .loginUserCubit(
-                                      request: LoginRequest(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          userDeviceToken: _userDeviceToken,
-                                          platform: 'APNS'));
+                                    request: LoginRequest(
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                        userDeviceToken: _userDeviceToken,
+                                        platform: 'APNS'),
+                                  );
                             }
                           },
                         );

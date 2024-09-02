@@ -21,9 +21,9 @@ class GiftDataRepositoryImpl implements GiftRepository {
   GiftDataRepositoryImpl(this._datasource);
 
   @override
-  ResultFuture<GiftListModel> getAllGifts(int page) async {
+  ResultFuture<List<GiftModel>> getAllGifts({required int pageNumber, required int pageSize}) async {
     try {
-      final result = await _datasource.getAllGifts(page);
+      final result = await _datasource.getAllGifts(pageNumber: pageNumber, pageSize: pageSize);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
@@ -40,9 +40,9 @@ class GiftDataRepositoryImpl implements GiftRepository {
   }
 
   @override
-  ResultFuture<ReceivedGiftListModel> getAllReceivedGifts(int page) async {
+  ResultFuture<List<ReceivedGiftModel>> getAllReceivedGifts({required int pageNumber, required int pageSize}) async {
     try {
-      final result = await _datasource.getAllReceivedGifts(page);
+      final result = await _datasource.getAllReceivedGifts(pageNumber: pageNumber, pageSize: pageSize);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
@@ -53,9 +53,9 @@ class GiftDataRepositoryImpl implements GiftRepository {
   }
 
   @override
-  ResultFuture<SentGiftListModel> getAllSentGifts(int page) async {
+  ResultFuture<List<SentGiftModel>> getAllSentGifts({required int pageNumber, required int pageSize}) async {
     try {
-      final result = await _datasource.getAllSentGifts(page);
+      final result = await _datasource.getAllSentGifts(pageNumber: pageNumber, pageSize: pageSize);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
@@ -66,9 +66,9 @@ class GiftDataRepositoryImpl implements GiftRepository {
   }
 
   @override
-  ResultFuture<GiftResponseModel> redeemGiftById(String giftId) async {
+  ResultFuture<GiftResponseModel> redeemGift(String giftId) async {
     try {
-      final result = await _datasource.redeemGiftById(giftId);
+      final result = await _datasource.redeemGift(giftId);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
@@ -82,6 +82,19 @@ class GiftDataRepositoryImpl implements GiftRepository {
   ResultFuture<GiftResponseModel> sendGift(SendGiftRequestModel request) async {
     try {
       final result = await _datasource.sendGift(request);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+  }
+
+  @override
+  ResultFuture<GiftResponseModel> deliverGift(String giftId) async {
+    try {
+      final result = await _datasource.deliverGift(giftId);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

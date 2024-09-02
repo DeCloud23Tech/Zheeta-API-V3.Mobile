@@ -23,12 +23,4 @@ class NotificationModel with _$NotificationModel {
   factory NotificationModel.fromJson(Map<String, dynamic> json) => _$NotificationModelFromJson(json);
 }
 
-@freezed
-class NotificationListModel with _$NotificationListModel {
-  @JsonSerializable()
-  factory NotificationListModel({
-    List<NotificationModel>? data,
-  }) = _NotificationListModel;
 
-  factory NotificationListModel.fromJson(Map<String, dynamic> json) => _$NotificationListModelFromJson(json);
-}

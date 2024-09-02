@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/common/param/pagination_param.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
 
@@ -7,11 +8,14 @@ import '../repository/gift_repository.dart';
 
 @prod
 @LazySingleton()
-class GetAllReceivedGifts extends UsecaseWithParams<ReceivedGiftListModel, int> {
+class GetAllReceivedGifts
+    extends UsecaseWithParams<List<ReceivedGiftModel>, PaginationParam> {
   const GetAllReceivedGifts(this._repo);
 
   final GiftRepository _repo;
 
   @override
-  ResultFuture<ReceivedGiftListModel> call(int page) async => await _repo.getAllReceivedGifts(page);
+  ResultFuture<List<ReceivedGiftModel>> call(PaginationParam params) async =>
+      await _repo.getAllReceivedGifts(
+          pageNumber: params.pageNo, pageSize: params.pageSize);
 }

@@ -16,15 +16,17 @@ class NearbyDataSourceImpl implements NearbyDataSource {
   NearbyDataSourceImpl(this._api) {}
 
   @override
-  Future<NearbyListModel> getNearbyProfiles() async {
+  Future<List<NearbyDataModel>> getNearbyProfiles(
+      {required int pageNumber, required int pageSize}) async {
     var response = await _api.dio.get(
-      '/friends/get-people-nearby',
+      '/friends/get-people-nearby?PageNumber=$pageNumber&PageSize=$pageSize',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
     if (response.statusCode == 200) {
-      return NearbyListModel.fromJson(response.data);
+      List<dynamic> data = response.data['data'];
+      return data.map((json) => NearbyDataModel.fromJson(json)).toList();
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
@@ -34,7 +36,7 @@ class NearbyDataSourceImpl implements NearbyDataSource {
   @override
   Future<NearbySettingsModel> getNearbySettings() async {
     var response = await _api.dio.get(
-      'admin-settings/nearbysettings',
+      '/admin-settings/nearbysettings',
       options: Options(
         contentType: Headers.jsonContentType,
       ),

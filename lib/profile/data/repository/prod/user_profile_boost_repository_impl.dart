@@ -7,6 +7,7 @@ import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_boost_datasource.dart';
 import 'package:zheeta/profile/data/model/boosted_profile_by_admin_model.dart';
 import 'package:zheeta/profile/data/model/matched_profile_boost_model.dart';
+import 'package:zheeta/profile/data/model/total_matched_count_model.dart';
 import 'package:zheeta/profile/data/request/create_profile_boost_request.dart';
 import 'package:zheeta/profile/domain/entity/type.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_boost_repository.dart';
@@ -15,6 +16,7 @@ import 'package:zheeta/profile/domain/repository/user_profile_boost_repository.d
 @LazySingleton(as: UserProfileBoostRepository)
 class UserProfileBoostRepositoryImpl implements UserProfileBoostRepository {
   final UserProfileBoostDataSource _datasource;
+
   UserProfileBoostRepositoryImpl(this._datasource);
 
   @override
@@ -61,6 +63,19 @@ class UserProfileBoostRepositoryImpl implements UserProfileBoostRepository {
       getMatchedProfileBoostRepo() async {
     try {
       final result = await _datasource.getMatchedProfileBoostNew();
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+  }
+
+  @override
+  ResultFuture<GetTotalMatchedCountResponse> getTotalMatchedCount() async {
+    try {
+      final result = await _datasource.getTotalMatchedCount();
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

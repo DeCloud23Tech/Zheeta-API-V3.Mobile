@@ -22,12 +22,3 @@ class SentGiftModel with _$SentGiftModel {
 
   factory SentGiftModel.fromJson(Map<String, dynamic> json) => _$SentGiftModelFromJson(json);
 }
-
-@freezed
-class SentGiftListModel with _$SentGiftListModel {
-  factory SentGiftListModel({
-    required List<SentGiftModel> data,
-  }) = _SentGiftListModel;
-
-  factory SentGiftListModel.fromJson(Map<String, dynamic> json) => _$SentGiftListModelFromJson(json);
-}

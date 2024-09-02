@@ -103,9 +103,16 @@ class UserAuthViewModel with ValidationHelperMixin {
         phoneCountryCode: _phoneNumber.countryCode,
         referralCode: _referral,
       );
+      print(data.userName);
+      print(data.password);
+      print(data.email);
+      print(data.phoneNumber);
+      print(data.phoneCountryCode);
       final result = await context
           .read<AuthenticationCubit>()
           .registerUserCubit(request: data);
+
+
     }
   }
 

@@ -1,61 +1,67 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/enums/others.dart';
-import 'package:zheeta/app/injection/di.dart';
 import 'package:zheeta/discover/presentation/views/discover_screen.dart';
 import 'package:zheeta/feeds/presentation/views/feed_screen.dart';
 import 'package:zheeta/messages/presentation/views/messages.dart';
-import 'package:zheeta/profile/presentation/views/profile.dart';
+import 'package:zheeta/profile/presentation/views/profile_screen.dart';
 import 'package:zheeta/widgets/drawer.dart';
 import 'package:zheeta/widgets/top_nav.dart';
 
-import '../../../profile/presentation/viewmodel/user_profile_viewmodel.dart';
+import '../../../app/common/storage/local_storage_impl.dart';
+import '../../../app/common/storage/storage_keys.dart';
+import '../../../app/injection/di.dart';
+import '../../../app/router/app_router.gr.dart';
+import '../../../discover/presentation/bloc/matches_bloc/matches_cubit.dart';
+import '../../../profile/presentation/bloc/profile_cubit/profile_cubit.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PageController _pageController = PageController(initialPage: 0);
-  late UserProfileViewModel userProfileViewModel;
-  // late MatchCriteriaViewModel matchCriteriaViewModel;
-
-  //late NotificationViewModel notificationViewModel;
+  ProfileCubit profileCubit = locator<ProfileCubit>();
 
   int activeTab = 1;
-
+  int index = 0;
 
   @override
   void initState() {
-    userProfileViewModel = locator<UserProfileViewModel>();
-    // matchCriteriaViewModel = locator<MatchCriteriaViewModel>();
-    //notificationViewModel = ref.read(notificationViewModelProvider.notifier);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      userProfileViewModel.getSingleUserProfile(context);
-      // matchCriteriaViewModel.getMatchCriteria(context);
-      //notificationViewModel.getNotifications();
-    });
     super.initState();
+    _initializeProfile();
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+  Future<void> _initializeProfile() async {
+    final result = await profileCubit.getSingleUserProfileCubit();
+    if (result == null) {
+      context.router.push(BioDataRoute());
+    } else if (result.data.profile?.profilePhotoURL == null) {
+      context.router
+          .push(ProfilePhotoRoute(username: result.data.user!.userName));
+    } else {
+      await context
+          .read<MatchesCubit>()
+          .getMatchCubit(userId: result.data.user?.userId);
+      sessionManager.set(
+          SessionManagerKeys.authUserIdString, result.data.user?.userId);
+    }
   }
 
-  int index = 0;
+  // Future<void> _loadMatches(BuildContext context, String? userId) async {
+  //   if (userId == null) return;
+  //   // await context.read<MatchesCubit>().populateMatchesCubit();
+  //   await context.read<MatchesCubit>().getMatchCubit(userId: userId);
+  // }
 
-  final appbar = [
+  final appBars = [
     AppBar(
       backgroundColor: AppColors.primaryDark,
       elevation: 0.0,
@@ -75,9 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.only(right: 20.0),
           child: Row(
             children: [
-              TopNavBtn(iconType: IconType.menu),
-              TopNavBtn(iconType: IconType.filter),
-              TopNavBtn(iconType: IconType.bell),
+              TopNavBtn(iconType: IconType.menu, color: Colors.white),
+              TopNavBtn(iconType: IconType.filter, color: Colors.white),
+              TopNavBtn(iconType: IconType.bell, color: Colors.white),
             ],
           ),
         )
@@ -135,453 +141,372 @@ class _HomeScreenState extends State<HomeScreen> {
         )
       ],
     ),
-    AppBar(backgroundColor: AppColors.secondaryLight, elevation: 0.0)
+    null // For ProfileScreen, no AppBar
   ];
 
   final pages = [DiscoverPage(), FeedsSection(), Messages(), ProfileScreen()];
 
-  final bg = [
+  final bgColors = [
     AppColors.primaryDark,
     AppColors.secondaryLight,
     AppColors.secondaryLight,
-    AppColors.secondaryLight
+    AppColors.secondaryLight,
   ];
 
-  List icons = [
+  final icons = [
     ["Discover", "assets/images/icons/card.svg"],
     ["Feed", "assets/images/icons/feed.svg"],
     ["Messages", "assets/images/icons/messages.svg"],
-    ["Profile", "assets/images/icons/user.svg"]
+    ["Profile", "assets/images/icons/user.svg"],
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bg[index],
-      appBar: index == 3 ? null : appbar[index],
+      backgroundColor: bgColors[index],
+      appBar: appBars[index],
       drawer: SideDrawer(),
-
-      floatingActionButton: Transform.translate(
-        offset: Offset(0, -30),
-        child: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
-          ),
-          backgroundColor: Colors.white,
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.secondaryLight,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () => Navigator.of(context).pop(),
-                              child: Container(
-                                padding: EdgeInsets.all(5),
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Icon(
-                                  Icons.close,
-                                  color: AppColors.grey,
-                                  size: 18,
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              'Create new',
-                              style: TextStyle(
-                                color: AppColors.grayscale,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Spacer(),
-                          ],
-                        ),
-                      ),
-                      Divider(),
-                      Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return StatefulBuilder(
-                                      builder: (BuildContext context,
-                                          StateSetter setState) {
-                                        // Search query variable
-                                        String searchQuery = '';
-                                        return Container(
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.7,
-                                          decoration: BoxDecoration(
-                                            color: AppColors.secondaryLight,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20.0),
-                                              topRight: Radius.circular(20.0),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                const EdgeInsets.all(24.0),
-                                                child: Row(
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () =>
-                                                          Navigator.of(context)
-                                                              .pop(),
-                                                      child: Container(
-                                                        padding:
-                                                        EdgeInsets.all(5),
-                                                        height: 30,
-                                                        width: 30,
-                                                        decoration:
-                                                        BoxDecoration(
-                                                          color:
-                                                          AppColors.white,
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              100),
-                                                        ),
-                                                        child: Icon(
-                                                          Icons.close,
-                                                          color: AppColors.grey,
-                                                          size: 18,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Spacer(),
-                                                    Text(
-                                                      'Search',
-                                                      style: TextStyle(
-                                                        color:
-                                                        AppColors.grayscale,
-                                                        fontSize: 24,
-                                                        fontWeight:
-                                                        FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                    Spacer(),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                const EdgeInsets.all(15),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    // Search field
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .circular(8),
-                                                      ),
-                                                      child: TextField(
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            searchQuery = value;
-                                                          });
-                                                        },
-                                                        decoration:
-                                                        InputDecoration(
-                                                          prefixIcon: Icon(
-                                                              Icons.search),
-                                                          hintText: 'Search',
-                                                          border:
-                                                          InputBorder.none,
-                                                          contentPadding:
-                                                          EdgeInsets.all(
-                                                              15),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 20),
-                                                    // Tab bar
-                                                    Container(
-                                                      height: 40,
-                                                      width:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width,
-                                                      decoration: BoxDecoration(
-                                                        color: AppColors.white,
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .circular(8),
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                activeTab = 1;
-                                                              });
-                                                            },
-                                                            child: Column(
-                                                              children: [
-                                                                Container(
-                                                                  height: 3,
-                                                                  width: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      0.46,
-                                                                  decoration:
-                                                                  BoxDecoration(
-                                                                    color: activeTab ==
-                                                                        1
-                                                                        ? AppColors
-                                                                        .primaryDark
-                                                                        : Colors
-                                                                        .transparent,
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(8),
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height: 5),
-                                                                Text(
-                                                                  "People",
-                                                                  style:
-                                                                  TextStyle(
-                                                                    color: activeTab ==
-                                                                        1
-                                                                        ? AppColors
-                                                                        .grayscale
-                                                                        : AppColors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                    16,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                activeTab = 2;
-                                                              });
-                                                            },
-                                                            child: Column(
-                                                              children: [
-                                                                Container(
-                                                                  height: 3,
-                                                                  width: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      0.46,
-                                                                  decoration:
-                                                                  BoxDecoration(
-                                                                    color: activeTab ==
-                                                                        2
-                                                                        ? AppColors
-                                                                        .primaryDark
-                                                                        : Colors
-                                                                        .transparent,
-                                                                    borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(8),
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height: 5),
-                                                                Text(
-                                                                  "Hashtag",
-                                                                  style:
-                                                                  TextStyle(
-                                                                    color: activeTab ==
-                                                                        2
-                                                                        ? AppColors
-                                                                        .grayscale
-                                                                        : AppColors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                    16,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-
-                                                    // Content based on active tab
-                                                    activeTab == 1
-                                                        ? PeopleTabContent(
-                                                        searchQuery:
-                                                        searchQuery)
-                                                        : HashtagTabContent(
-                                                        searchQuery:
-                                                        searchQuery),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                      'assets/images/icons/card-or-bank.svg'),
-                                  SizedBox(width: 20),
-                                  Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Post Activity',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.grayscale,
-                                        ),
-                                      ),
-                                      SizedBox(height: 8),
-                                      Text(
-                                        'Share your happenings with your friends',
-                                        style: TextStyle(
-                                            color: AppColors.grey,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: SvgPicture.asset('assets/images/icons/plus.svg'),
-        ),
-      ),
-
+      floatingActionButton: _buildFloatingActionButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           pages[index],
-          Positioned(
-              child: Stack(
+          _buildBottomNavigationBar(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFloatingActionButton(BuildContext context) {
+    return Transform.translate(
+      offset: Offset(0, -30),
+      child: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+        backgroundColor: Colors.white,
+        onPressed: () {
+          _showCreateNewBottomSheet(context);
+        },
+        child: SvgPicture.asset('assets/images/icons/plus.svg'),
+      ),
+    );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return Positioned(
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Image.asset('assets/images/bottom_nav.png',
+                width: double.infinity),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
+              color: Colors.transparent,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: List.generate(
+                  icons.length,
+                  (i) => _buildNavItem(i),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem(int i) {
+    return Expanded(
+      child: CupertinoButton(
+        child: AnimatedOpacity(
+          opacity: index == i ? 1 : 0.5,
+          duration: const Duration(milliseconds: 200),
+          child: SizedBox(
+            height: 26,
+            width: 26,
+            child: SvgPicture.asset(
+              icons[i][1],
+              colorFilter: ColorFilter.mode(
+                index == i ? AppColors.primaryDark : AppColors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ),
+        onPressed: () {
+          setState(() {
+            index = i;
+          });
+        },
+      ),
+    );
+  }
+
+  void _showCreateNewBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.secondaryLight,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildCreateNewHeader(context),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildPostActivityOption(context),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildCreateNewHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Icon(
+                Icons.close,
+                color: AppColors.grey,
+                size: 18,
+              ),
+            ),
+          ),
+          Spacer(),
+          Text(
+            'Create new',
+            style: TextStyle(
+              color: AppColors.grayscale,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Spacer(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPostActivityOption(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pop();
+        _showSearchBottomSheet(context);
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SvgPicture.asset('assets/images/icons/card-or-bank.svg'),
+          SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Post Activity',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.grayscale,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Share your happenings with your friends',
+                style: TextStyle(
+                  color: AppColors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSearchBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            String searchQuery = '';
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              decoration: BoxDecoration(
+                color: AppColors.secondaryLight,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Image.asset('assets/images/bottom_nav.png',
-                        width: double.infinity),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: Container(
-                        // decoration: BoxDecoration(color: Colors.blue),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: List.generate(
-                            icons.length,
-                                (i) {
-                              return Expanded(
-                                child: CupertinoButton(
-                                  child: AnimatedOpacity(
-                                    opacity: index == i ? 1 : 0.5,
-                                    duration: const Duration(milliseconds: 200),
-                                    child: SizedBox(
-                                      height: 26,
-                                      width: 26,
-                                      child: SvgPicture.asset(
-                                        icons[i][1],
-                                        colorFilter: ColorFilter.mode(
-                                            index == i
-                                                ? AppColors.primaryDark
-                                                : AppColors.grey,
-                                            BlendMode.srcIn),
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      index = i;
-                                      // _pageController.jumpToPage(i);
-                                      // _pageController.animateToPage(
-                                      //   i,
-                                      //   duration: const Duration(milliseconds: 400),
-                                      //   curve: Curves.easeInOut,
-                                      // );
-                                    });
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
+                  _buildSearchHeader(context),
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSearchField(setState, searchQuery),
+                        SizedBox(height: 20),
+                        _buildTabBar(setState),
+                        activeTab == 1
+                            ? PeopleTabContent(searchQuery: searchQuery)
+                            : HashtagTabContent(searchQuery: searchQuery),
+                      ],
                     ),
                   ),
                 ],
-              ))
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildSearchHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Icon(
+                Icons.close,
+                color: AppColors.grey,
+                size: 18,
+              ),
+            ),
+          ),
+          Spacer(),
+          Text(
+            'Search',
+            style: TextStyle(
+              color: AppColors.grayscale,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Spacer(),
         ],
       ),
-      // body: pages[index],
+    );
+  }
+
+  Widget _buildSearchField(StateSetter setState, String searchQuery) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: TextField(
+        onChanged: (value) {
+          setState(() {
+            searchQuery = value;
+          });
+        },
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.search),
+          hintText: 'Search',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(15),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabBar(StateSetter setState) {
+    return Container(
+      height: 40,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          _buildTabItem(setState, 1, "People"),
+          _buildTabItem(setState, 2, "Hashtag"),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabItem(StateSetter setState, int tab, String title) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          activeTab = tab;
+        });
+      },
+      child: Column(
+        children: [
+          Container(
+            height: 3,
+            width: MediaQuery.of(context).size.width * 0.46,
+            decoration: BoxDecoration(
+              color:
+                  activeTab == tab ? AppColors.primaryDark : Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            title,
+            style: TextStyle(
+              color: activeTab == tab ? AppColors.grayscale : AppColors.grey,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -607,7 +532,7 @@ class PeopleTabContent extends StatelessWidget {
       child: ListView(
         children: List.generate(
           filteredNames.length,
-              (index) => Padding(
+          (index) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -643,7 +568,7 @@ class HashtagTabContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> hashtags =
-    List.generate(10, (index) => '#Hashtag ${index + 1}');
+        List.generate(10, (index) => '#Hashtag ${index + 1}');
 
     // Filtered list based on search query
     List<String> filteredHashtags = hashtags.where((hashtag) {
@@ -656,7 +581,7 @@ class HashtagTabContent extends StatelessWidget {
       child: ListView(
         children: List.generate(
           filteredHashtags.length,
-              (index) => Padding(
+          (index) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [

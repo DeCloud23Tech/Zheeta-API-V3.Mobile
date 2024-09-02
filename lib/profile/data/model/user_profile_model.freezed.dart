@@ -182,6 +182,7 @@ mixin _$UserProfileDataModel {
       throw _privateConstructorUsedError;
   SubscriptionModel? get subscription => throw _privateConstructorUsedError;
   WalletModel? get wallet => throw _privateConstructorUsedError;
+  ReferralInfoModel? get referralInfo => throw _privateConstructorUsedError;
   List<InterestModel>? get interests => throw _privateConstructorUsedError;
   BankAccountDetailModel? get bankAccountDetails =>
       throw _privateConstructorUsedError;
@@ -209,6 +210,7 @@ abstract class $UserProfileDataModelCopyWith<$Res> {
       ProfileCounterModel? profileCounters,
       SubscriptionModel? subscription,
       WalletModel? wallet,
+      ReferralInfoModel? referralInfo,
       List<InterestModel>? interests,
       BankAccountDetailModel? bankAccountDetails,
       List<UserDownlines>? userDownlines,
@@ -222,6 +224,7 @@ abstract class $UserProfileDataModelCopyWith<$Res> {
   $ProfileCounterModelCopyWith<$Res>? get profileCounters;
   $SubscriptionModelCopyWith<$Res>? get subscription;
   $WalletModelCopyWith<$Res>? get wallet;
+  $ReferralInfoModelCopyWith<$Res>? get referralInfo;
   $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails;
 }
 
@@ -247,6 +250,7 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
     Object? profileCounters = freezed,
     Object? subscription = freezed,
     Object? wallet = freezed,
+    Object? referralInfo = freezed,
     Object? interests = freezed,
     Object? bankAccountDetails = freezed,
     Object? userDownlines = freezed,
@@ -285,6 +289,10 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
               as WalletModel?,
+      referralInfo: freezed == referralInfo
+          ? _value.referralInfo
+          : referralInfo // ignore: cast_nullable_to_non_nullable
+              as ReferralInfoModel?,
       interests: freezed == interests
           ? _value.interests
           : interests // ignore: cast_nullable_to_non_nullable
@@ -403,6 +411,18 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
+  $ReferralInfoModelCopyWith<$Res>? get referralInfo {
+    if (_value.referralInfo == null) {
+      return null;
+    }
+
+    return $ReferralInfoModelCopyWith<$Res>(_value.referralInfo!, (value) {
+      return _then(_value.copyWith(referralInfo: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails {
     if (_value.bankAccountDetails == null) {
       return null;
@@ -432,6 +452,7 @@ abstract class _$$UserProfileDataModelImplCopyWith<$Res>
       ProfileCounterModel? profileCounters,
       SubscriptionModel? subscription,
       WalletModel? wallet,
+      ReferralInfoModel? referralInfo,
       List<InterestModel>? interests,
       BankAccountDetailModel? bankAccountDetails,
       List<UserDownlines>? userDownlines,
@@ -453,6 +474,8 @@ abstract class _$$UserProfileDataModelImplCopyWith<$Res>
   $SubscriptionModelCopyWith<$Res>? get subscription;
   @override
   $WalletModelCopyWith<$Res>? get wallet;
+  @override
+  $ReferralInfoModelCopyWith<$Res>? get referralInfo;
   @override
   $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails;
 }
@@ -476,6 +499,7 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
     Object? profileCounters = freezed,
     Object? subscription = freezed,
     Object? wallet = freezed,
+    Object? referralInfo = freezed,
     Object? interests = freezed,
     Object? bankAccountDetails = freezed,
     Object? userDownlines = freezed,
@@ -514,6 +538,10 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
           ? _value.wallet
           : wallet // ignore: cast_nullable_to_non_nullable
               as WalletModel?,
+      referralInfo: freezed == referralInfo
+          ? _value.referralInfo
+          : referralInfo // ignore: cast_nullable_to_non_nullable
+              as ReferralInfoModel?,
       interests: freezed == interests
           ? _value._interests
           : interests // ignore: cast_nullable_to_non_nullable
@@ -547,6 +575,7 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
       this.profileCounters,
       this.subscription,
       this.wallet,
+      this.referralInfo,
       final List<InterestModel>? interests,
       this.bankAccountDetails,
       final List<UserDownlines>? userDownlines,
@@ -574,6 +603,8 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
   final SubscriptionModel? subscription;
   @override
   final WalletModel? wallet;
+  @override
+  final ReferralInfoModel? referralInfo;
   final List<InterestModel>? _interests;
   @override
   List<InterestModel>? get interests {
@@ -608,7 +639,7 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
 
   @override
   String toString() {
-    return 'UserProfileDataModel(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, interests: $interests, bankAccountDetails: $bankAccountDetails, userDownlines: $userDownlines, userCarousels: $userCarousels)';
+    return 'UserProfileDataModel(user: $user, profile: $profile, residentialAddress: $residentialAddress, originAddress: $originAddress, location: $location, profileCounters: $profileCounters, subscription: $subscription, wallet: $wallet, referralInfo: $referralInfo, interests: $interests, bankAccountDetails: $bankAccountDetails, userDownlines: $userDownlines, userCarousels: $userCarousels)';
   }
 
   @override
@@ -629,6 +660,8 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
             (identical(other.subscription, subscription) ||
                 other.subscription == subscription) &&
             (identical(other.wallet, wallet) || other.wallet == wallet) &&
+            (identical(other.referralInfo, referralInfo) ||
+                other.referralInfo == referralInfo) &&
             const DeepCollectionEquality()
                 .equals(other._interests, _interests) &&
             (identical(other.bankAccountDetails, bankAccountDetails) ||
@@ -651,6 +684,7 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
       profileCounters,
       subscription,
       wallet,
+      referralInfo,
       const DeepCollectionEquality().hash(_interests),
       bankAccountDetails,
       const DeepCollectionEquality().hash(_userDownlines),
@@ -682,6 +716,7 @@ abstract class _UserProfileDataModel implements UserProfileDataModel {
       final ProfileCounterModel? profileCounters,
       final SubscriptionModel? subscription,
       final WalletModel? wallet,
+      final ReferralInfoModel? referralInfo,
       final List<InterestModel>? interests,
       final BankAccountDetailModel? bankAccountDetails,
       final List<UserDownlines>? userDownlines,
@@ -706,6 +741,8 @@ abstract class _UserProfileDataModel implements UserProfileDataModel {
   SubscriptionModel? get subscription;
   @override
   WalletModel? get wallet;
+  @override
+  ReferralInfoModel? get referralInfo;
   @override
   List<InterestModel>? get interests;
   @override
@@ -2715,7 +2752,7 @@ InterestModel _$InterestModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$InterestModel {
-  dynamic get id => throw _privateConstructorUsedError;
+  dynamic get interestId => throw _privateConstructorUsedError;
   dynamic get title => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2730,7 +2767,7 @@ abstract class $InterestModelCopyWith<$Res> {
           InterestModel value, $Res Function(InterestModel) then) =
       _$InterestModelCopyWithImpl<$Res, InterestModel>;
   @useResult
-  $Res call({dynamic id, dynamic title});
+  $Res call({dynamic interestId, dynamic title});
 }
 
 /// @nodoc
@@ -2746,13 +2783,13 @@ class _$InterestModelCopyWithImpl<$Res, $Val extends InterestModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? interestId = freezed,
     Object? title = freezed,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      interestId: freezed == interestId
+          ? _value.interestId
+          : interestId // ignore: cast_nullable_to_non_nullable
               as dynamic,
       title: freezed == title
           ? _value.title
@@ -2770,7 +2807,7 @@ abstract class _$$InterestModelImplCopyWith<$Res>
       __$$InterestModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic id, dynamic title});
+  $Res call({dynamic interestId, dynamic title});
 }
 
 /// @nodoc
@@ -2784,13 +2821,13 @@ class __$$InterestModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? interestId = freezed,
     Object? title = freezed,
   }) {
     return _then(_$InterestModelImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      interestId: freezed == interestId
+          ? _value.interestId
+          : interestId // ignore: cast_nullable_to_non_nullable
               as dynamic,
       title: freezed == title
           ? _value.title
@@ -2804,19 +2841,19 @@ class __$$InterestModelImplCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$InterestModelImpl implements _InterestModel {
-  _$InterestModelImpl({this.id, this.title});
+  _$InterestModelImpl({this.interestId, this.title});
 
   factory _$InterestModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InterestModelImplFromJson(json);
 
   @override
-  final dynamic id;
+  final dynamic interestId;
   @override
   final dynamic title;
 
   @override
   String toString() {
-    return 'InterestModel(id: $id, title: $title)';
+    return 'InterestModel(interestId: $interestId, title: $title)';
   }
 
   @override
@@ -2824,7 +2861,8 @@ class _$InterestModelImpl implements _InterestModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InterestModelImpl &&
-            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality()
+                .equals(other.interestId, interestId) &&
             const DeepCollectionEquality().equals(other.title, title));
   }
 
@@ -2832,7 +2870,7 @@ class _$InterestModelImpl implements _InterestModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(interestId),
       const DeepCollectionEquality().hash(title));
 
   @JsonKey(ignore: true)
@@ -2850,19 +2888,178 @@ class _$InterestModelImpl implements _InterestModel {
 }
 
 abstract class _InterestModel implements InterestModel {
-  factory _InterestModel({final dynamic id, final dynamic title}) =
+  factory _InterestModel({final dynamic interestId, final dynamic title}) =
       _$InterestModelImpl;
 
   factory _InterestModel.fromJson(Map<String, dynamic> json) =
       _$InterestModelImpl.fromJson;
 
   @override
-  dynamic get id;
+  dynamic get interestId;
   @override
   dynamic get title;
   @override
   @JsonKey(ignore: true)
   _$$InterestModelImplCopyWith<_$InterestModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ReferralInfoModel _$ReferralInfoModelFromJson(Map<String, dynamic> json) {
+  return _ReferralInfoModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ReferralInfoModel {
+  String get referralCode => throw _privateConstructorUsedError;
+  String get referralLink => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ReferralInfoModelCopyWith<ReferralInfoModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ReferralInfoModelCopyWith<$Res> {
+  factory $ReferralInfoModelCopyWith(
+          ReferralInfoModel value, $Res Function(ReferralInfoModel) then) =
+      _$ReferralInfoModelCopyWithImpl<$Res, ReferralInfoModel>;
+  @useResult
+  $Res call({String referralCode, String referralLink});
+}
+
+/// @nodoc
+class _$ReferralInfoModelCopyWithImpl<$Res, $Val extends ReferralInfoModel>
+    implements $ReferralInfoModelCopyWith<$Res> {
+  _$ReferralInfoModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? referralCode = null,
+    Object? referralLink = null,
+  }) {
+    return _then(_value.copyWith(
+      referralCode: null == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      referralLink: null == referralLink
+          ? _value.referralLink
+          : referralLink // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ReferralInfoModelImplCopyWith<$Res>
+    implements $ReferralInfoModelCopyWith<$Res> {
+  factory _$$ReferralInfoModelImplCopyWith(_$ReferralInfoModelImpl value,
+          $Res Function(_$ReferralInfoModelImpl) then) =
+      __$$ReferralInfoModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String referralCode, String referralLink});
+}
+
+/// @nodoc
+class __$$ReferralInfoModelImplCopyWithImpl<$Res>
+    extends _$ReferralInfoModelCopyWithImpl<$Res, _$ReferralInfoModelImpl>
+    implements _$$ReferralInfoModelImplCopyWith<$Res> {
+  __$$ReferralInfoModelImplCopyWithImpl(_$ReferralInfoModelImpl _value,
+      $Res Function(_$ReferralInfoModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? referralCode = null,
+    Object? referralLink = null,
+  }) {
+    return _then(_$ReferralInfoModelImpl(
+      referralCode: null == referralCode
+          ? _value.referralCode
+          : referralCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      referralLink: null == referralLink
+          ? _value.referralLink
+          : referralLink // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable()
+class _$ReferralInfoModelImpl implements _ReferralInfoModel {
+  _$ReferralInfoModelImpl(
+      {required this.referralCode, required this.referralLink});
+
+  factory _$ReferralInfoModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReferralInfoModelImplFromJson(json);
+
+  @override
+  final String referralCode;
+  @override
+  final String referralLink;
+
+  @override
+  String toString() {
+    return 'ReferralInfoModel(referralCode: $referralCode, referralLink: $referralLink)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReferralInfoModelImpl &&
+            (identical(other.referralCode, referralCode) ||
+                other.referralCode == referralCode) &&
+            (identical(other.referralLink, referralLink) ||
+                other.referralLink == referralLink));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, referralCode, referralLink);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReferralInfoModelImplCopyWith<_$ReferralInfoModelImpl> get copyWith =>
+      __$$ReferralInfoModelImplCopyWithImpl<_$ReferralInfoModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ReferralInfoModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ReferralInfoModel implements ReferralInfoModel {
+  factory _ReferralInfoModel(
+      {required final String referralCode,
+      required final String referralLink}) = _$ReferralInfoModelImpl;
+
+  factory _ReferralInfoModel.fromJson(Map<String, dynamic> json) =
+      _$ReferralInfoModelImpl.fromJson;
+
+  @override
+  String get referralCode;
+  @override
+  String get referralLink;
+  @override
+  @JsonKey(ignore: true)
+  _$$ReferralInfoModelImplCopyWith<_$ReferralInfoModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2877,6 +3074,7 @@ mixin _$UserDownlines {
   dynamic get lastName => throw _privateConstructorUsedError;
   dynamic get userName => throw _privateConstructorUsedError;
   dynamic get profilePhotoURL => throw _privateConstructorUsedError;
+  dynamic get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2895,7 +3093,8 @@ abstract class $UserDownlinesCopyWith<$Res> {
       dynamic firstName,
       dynamic lastName,
       dynamic userName,
-      dynamic profilePhotoURL});
+      dynamic profilePhotoURL,
+      dynamic createdDate});
 }
 
 /// @nodoc
@@ -2916,6 +3115,7 @@ class _$UserDownlinesCopyWithImpl<$Res, $Val extends UserDownlines>
     Object? lastName = freezed,
     Object? userName = freezed,
     Object? profilePhotoURL = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -2938,6 +3138,10 @@ class _$UserDownlinesCopyWithImpl<$Res, $Val extends UserDownlines>
           ? _value.profilePhotoURL
           : profilePhotoURL // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      createdDate: freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -2955,7 +3159,8 @@ abstract class _$$UserDownlinesImplCopyWith<$Res>
       dynamic firstName,
       dynamic lastName,
       dynamic userName,
-      dynamic profilePhotoURL});
+      dynamic profilePhotoURL,
+      dynamic createdDate});
 }
 
 /// @nodoc
@@ -2974,6 +3179,7 @@ class __$$UserDownlinesImplCopyWithImpl<$Res>
     Object? lastName = freezed,
     Object? userName = freezed,
     Object? profilePhotoURL = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_$UserDownlinesImpl(
       freezed == id
@@ -2996,6 +3202,10 @@ class __$$UserDownlinesImplCopyWithImpl<$Res>
           ? _value.profilePhotoURL
           : profilePhotoURL // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      freezed == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -3005,7 +3215,7 @@ class __$$UserDownlinesImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserDownlinesImpl implements _UserDownlines {
   _$UserDownlinesImpl(this.id, this.firstName, this.lastName, this.userName,
-      this.profilePhotoURL);
+      this.profilePhotoURL, this.createdDate);
 
   factory _$UserDownlinesImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDownlinesImplFromJson(json);
@@ -3020,10 +3230,12 @@ class _$UserDownlinesImpl implements _UserDownlines {
   final dynamic userName;
   @override
   final dynamic profilePhotoURL;
+  @override
+  final dynamic createdDate;
 
   @override
   String toString() {
-    return 'UserDownlines(id: $id, firstName: $firstName, lastName: $lastName, userName: $userName, profilePhotoURL: $profilePhotoURL)';
+    return 'UserDownlines(id: $id, firstName: $firstName, lastName: $lastName, userName: $userName, profilePhotoURL: $profilePhotoURL, createdDate: $createdDate)';
   }
 
   @override
@@ -3036,7 +3248,9 @@ class _$UserDownlinesImpl implements _UserDownlines {
             const DeepCollectionEquality().equals(other.lastName, lastName) &&
             const DeepCollectionEquality().equals(other.userName, userName) &&
             const DeepCollectionEquality()
-                .equals(other.profilePhotoURL, profilePhotoURL));
+                .equals(other.profilePhotoURL, profilePhotoURL) &&
+            const DeepCollectionEquality()
+                .equals(other.createdDate, createdDate));
   }
 
   @JsonKey(ignore: true)
@@ -3047,7 +3261,8 @@ class _$UserDownlinesImpl implements _UserDownlines {
       const DeepCollectionEquality().hash(firstName),
       const DeepCollectionEquality().hash(lastName),
       const DeepCollectionEquality().hash(userName),
-      const DeepCollectionEquality().hash(profilePhotoURL));
+      const DeepCollectionEquality().hash(profilePhotoURL),
+      const DeepCollectionEquality().hash(createdDate));
 
   @JsonKey(ignore: true)
   @override
@@ -3069,7 +3284,8 @@ abstract class _UserDownlines implements UserDownlines {
       final dynamic firstName,
       final dynamic lastName,
       final dynamic userName,
-      final dynamic profilePhotoURL) = _$UserDownlinesImpl;
+      final dynamic profilePhotoURL,
+      final dynamic createdDate) = _$UserDownlinesImpl;
 
   factory _UserDownlines.fromJson(Map<String, dynamic> json) =
       _$UserDownlinesImpl.fromJson;
@@ -3084,6 +3300,8 @@ abstract class _UserDownlines implements UserDownlines {
   dynamic get userName;
   @override
   dynamic get profilePhotoURL;
+  @override
+  dynamic get createdDate;
   @override
   @JsonKey(ignore: true)
   _$$UserDownlinesImplCopyWith<_$UserDownlinesImpl> get copyWith =>

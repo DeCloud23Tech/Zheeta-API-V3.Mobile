@@ -11,7 +11,7 @@ class MatchesInitialState extends MatchesState {}
 class MatchesFriendRequestSentState extends MatchesState {}
 
 class MatchesCriteriaGottenState extends MatchesState {
-  MatchCriteriaModel data;
+  final MatchCriteriaModel data;
   MatchesCriteriaGottenState(this.data);
 
   @override
@@ -19,7 +19,7 @@ class MatchesCriteriaGottenState extends MatchesState {
 }
 
 class MatchesGottenState extends MatchesState {
-  MatchListModel data;
+  final MatchListModel data;
   MatchesGottenState(this.data);
 
   @override
@@ -35,7 +35,7 @@ class MatchesLoadingState extends MatchesState {}
 class MatchesEmptyState extends MatchesState {}
 
 class MatchesErrorState extends MatchesState {
-  String errorMessage;
+  final String errorMessage;
   MatchesErrorState(this.errorMessage);
 
   @override

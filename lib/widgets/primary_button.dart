@@ -12,6 +12,7 @@ class PrimaryButton extends StatelessWidget {
   final String? icon2;
   final bool showBorder;
   final bool disabled;
+  final double fontSize;
   const PrimaryButton({
     Key? key,
     this.state = false,
@@ -22,7 +23,7 @@ class PrimaryButton extends StatelessWidget {
     this.showBorder = false,
     this.icon,
     this.icon2,
-    this.disabled = false,
+    this.disabled = false,  this.fontSize =17,
   }) : super(key: key);
 
   @override
@@ -64,7 +65,7 @@ class PrimaryButton extends StatelessWidget {
                     title,
                     style: TextStyle(
                         color: invert ? AppColors.primaryDark : AppColors.white,
-                        fontSize: 17,
+                        fontSize: fontSize,
                         fontWeight: FontWeight.w400),
                   ),
             icon2 != null

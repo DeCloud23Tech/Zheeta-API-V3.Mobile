@@ -66,5 +66,9 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>com.apple.developer.associated-domains</key>
+        <array>
+            <string>applinks:zheeta.com</string>
+        </array>
 	</dict>
 </plist>

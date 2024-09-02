@@ -7,13 +7,13 @@ import '../repository/gift_repository.dart';
 
 @prod
 @LazySingleton()
-class RedeemGiftById extends UsecaseWithParams<GiftResponseModel, String> {
-  const RedeemGiftById(this._repo);
+class RedeemGift extends UsecaseWithParams<GiftResponseModel, String> {
+  const RedeemGift(this._repo);
 
   final GiftRepository _repo;
 
   @override
   ResultFuture<GiftResponseModel> call(String giftId) async {
-    return await _repo.redeemGiftById(giftId);
+    return await _repo.redeemGift(giftId);
   }
 }

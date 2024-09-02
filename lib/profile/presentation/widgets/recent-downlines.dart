@@ -1,4 +1,3 @@
-// RecentRefereesWidget
 import 'package:flutter/material.dart';
 
 import '../../../app/common/color.dart';
@@ -32,7 +31,8 @@ class RecentDownlinesWidget extends StatelessWidget {
             ),
             TransparentButtonNew(
               title: 'View all',
-              size: 18,
+              size: 16,
+              isBold: true,
               action: onViewAll,
             ),
           ],
@@ -41,26 +41,20 @@ class RecentDownlinesWidget extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: userDownlines
-                ?.map(
-                  (e) => GestureDetector(
-                onTap: () {},
-                child: Padding(
-                  padding: EdgeInsets.only(right: 10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      e.profilePhotoURL,
-                      height: 42,
-                      width: 42,
-                      fit: BoxFit.cover,
-                    ),
+            children: userDownlines!.take(7).map((e) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    e.profilePhotoURL,
+                    height: 42,
+                    width: 42,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-            )
-                .toList() ??
-                [],
+              );
+            }).toList(),
           ),
         ),
         SizedBox(height: 20),
