@@ -19,15 +19,17 @@ class GiftDataSourceImpl implements GiftDataSource {
   GiftDataSourceImpl(this._api) {}
 
   @override
-  Future<GiftListModel> getAllGifts(int page) async {
+  Future<List<GiftModel>> getAllGifts(
+      {required int pageNumber, required int pageSize}) async {
     var response = await _api.dio.get(
-      '/gift/get-all-gifts?PageNumber=$page&PageSize=20',
+      '/gift/get-all-gifts?PageNumber=$pageNumber&PageSize=$pageSize',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
     if (response.statusCode == 200) {
-      return GiftListModel.fromJson(response.data);
+      List<dynamic> data = response.data['data'] ?? [];
+      return data.map((json) => GiftModel.fromJson(json)).toList();
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
@@ -35,15 +37,17 @@ class GiftDataSourceImpl implements GiftDataSource {
   }
 
   @override
-  Future<ReceivedGiftListModel> getAllReceivedGifts(int page) async {
+  Future<List<ReceivedGiftModel>> getAllReceivedGifts(
+      {required int pageNumber, required int pageSize}) async {
     var response = await _api.dio.get(
-      '/gift/get-all-received-gifts?PageNumber=$page&PageSize=20',
+      '/gift/get-all-received-gifts?PageNumber=$pageNumber&PageSize=$pageSize',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
     if (response.statusCode == 200) {
-      return ReceivedGiftListModel.fromJson(response.data);
+      List<dynamic> data = response.data['data'] ?? [];
+      return data.map((json) => ReceivedGiftModel.fromJson(json)).toList();
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
@@ -51,15 +55,17 @@ class GiftDataSourceImpl implements GiftDataSource {
   }
 
   @override
-  Future<SentGiftListModel> getAllSentGifts(int page) async {
+  Future<List<SentGiftModel>> getAllSentGifts(
+      {required int pageNumber, required int pageSize}) async {
     var response = await _api.dio.get(
-      '/gift/get-all-sent-gifts?PageNumber=$page&PageSize=20',
+      '/gift/get-all-sent-gifts?PageNumber=$pageNumber&PageSize=$pageSize',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
     if (response.statusCode == 200) {
-      return SentGiftListModel.fromJson(response.data);
+      List<dynamic> data = response.data['data'] ?? [];
+      return data.map((json) => SentGiftModel.fromJson(json)).toList();
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
@@ -73,7 +79,7 @@ class GiftDataSourceImpl implements GiftDataSource {
   }
 
   @override
-  Future<GiftResponseModel> redeemGiftById(String giftId) async {
+  Future<GiftResponseModel> redeemGift(String giftId) async {
     var response = await _api.dio.post(
       '/gift/redeem-gift/$giftId',
       options: Options(
@@ -81,7 +87,7 @@ class GiftDataSourceImpl implements GiftDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return GiftResponseModel.fromJson(response.data['data']);
+      return GiftResponseModel.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);
@@ -102,4 +108,22 @@ class GiftDataSourceImpl implements GiftDataSource {
           message: response.statusMessage!, statusCode: response.statusCode!);
     }
   }
+
+  @override
+  Future<GiftResponseModel> deliverGift(String giftId) async {
+    var response = await _api.dio.post(
+      '/gift/deliver-gift/$giftId',
+      options: Options(
+        contentType: Headers.jsonContentType,
+      ),
+    );
+    if (response.statusCode == 200) {
+      return GiftResponseModel.fromJson(response.data['data']);
+    } else {
+      throw ApiException(
+          message: response.statusMessage!, statusCode: response.statusCode!);
+    }
+  }
+
+
 }

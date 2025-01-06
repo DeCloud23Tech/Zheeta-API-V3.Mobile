@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/mixins/validator_mixin.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
@@ -9,7 +8,7 @@ import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
-import 'package:zheeta/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:zheeta/authentication/presentation/bloc/authentication_cubit.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/forgot_password_viewmodel.dart';
 import 'package:zheeta/authentication/presentation/viewmodel/user_otp_viewmodel.dart';
 import 'package:zheeta/widgets/back_button.dart';
@@ -38,7 +37,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationCubit, AuthentcationState>(
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
         listener: (context, state) {
       if (state is AuthenticationErrorState) {
         NotifyUser.showSnackbar(state.errorMessage);

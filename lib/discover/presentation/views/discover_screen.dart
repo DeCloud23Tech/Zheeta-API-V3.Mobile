@@ -1,87 +1,50 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swipe_cards/draggable_card.dart';
-import 'package:swipe_cards/swipe_cards.dart';
-import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/common/enums/type_of_request.dart';
+import 'package:zheeta/app/common/utils/token_utils.dart';
 import 'package:zheeta/app/injection/di.dart';
-import 'package:zheeta/discover/data/request/send_bulk_request.dart';
+import 'package:zheeta/discover/data/model/match_model.dart';
 import 'package:zheeta/discover/presentation/bloc/matches_bloc/matches_cubit.dart';
-import 'package:zheeta/discover/presentation/viewmodel/friend_request_viewmodel.dart';
-import 'package:zheeta/discover/presentation/viewmodel/match_criteria_viewmodel.dart';
 import 'package:zheeta/discover/presentation/widgets/card_ui.dart';
-import 'package:zheeta/widgets/empty_content.dart';
-import 'package:zheeta/widgets/empty_matches.dart';
-import 'package:zheeta/widgets/loading_screen.dart';
+import 'package:zheeta/payment_and_subscriptions/presentation/views/membership_upgrade_screen.dart';
+import 'package:zheeta/discover/presentation/widgets/empty_matches.dart';
+import 'package:zheeta/widgets/loader.dart';
 
-class DiscoverPage extends ConsumerStatefulWidget {
+class DiscoverPage extends StatefulWidget {
   const DiscoverPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _DiscoverPageConsumerState();
+  State<DiscoverPage> createState() => _DiscoverPageState();
 }
 
-class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
+class _DiscoverPageState extends State<DiscoverPage> {
   late final AppinioSwiperController controller;
-  late MatchCriteriaViewModel matchCriteriaViewModel;
-  late FriendRequestViewModel friendRequestViewModel;
-
-  List<SwipeItem> _swipeItems = <SwipeItem>[];
-  List<String> _names = [
-    "Red",
-    "Blue",
-    "Green",
-    "Yellow",
-    "Orange",
-    "Grey",
-    "Purple",
-    "Pink"
-  ];
-  List<Color> _colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange,
-    Colors.grey,
-    Colors.purple,
-    Colors.pink
-  ];
+  late final _userId;
+  final MatchesCubit matchesCubit = locator<MatchesCubit>();
 
   @override
   void initState() {
-    for (int i = 0; i < _names.length; i++) {
-      _swipeItems.add(SwipeItem(
-          content: Content(text: _names[i], color: _colors[i]),
-          likeAction: () {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Liked ${_names[i]}"),
-              duration: Duration(milliseconds: 500),
-            ));
-          },
-          nopeAction: () {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Nope ${_names[i]}"),
-              duration: Duration(milliseconds: 500),
-            ));
-          },
-          superlikeAction: () {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Superliked ${_names[i]}"),
-              duration: Duration(milliseconds: 500),
-            ));
-          },
-          onSlideUpdate: (SlideRegion? region) async {
-            print("Region $region");
-          }));
-    }
-    controller = AppinioSwiperController();
-    matchCriteriaViewModel = locator<MatchCriteriaViewModel>();
-    friendRequestViewModel = locator<FriendRequestViewModel>();
     super.initState();
+    controller = AppinioSwiperController();
+    // _initializeMatches();
+  }
+
+  Future<void> _initializeMatches() async {
+    _userId = await TokenUtil.getUserId();
+    if (_userId != null) {
+      // matchesCubit.getMatchCubit(userId: _userId);
+    }
+  }
+
+  @override
+  void dispose() {
+    onLeavePage();
+    super.dispose();
+  }
+
+  void onLeavePage() {
+    matchesCubit.onNavigate();
+    print("User has left the DiscoverPage");
   }
 
   @override
@@ -89,154 +52,59 @@ class _DiscoverPageConsumerState extends ConsumerState<DiscoverPage> {
     return BlocBuilder<MatchesCubit, MatchesState>(
       builder: (context, state) {
         if (state is MatchesLoadingState) {
-          //load gif
-          return LoadingScreen();
-        } else if (state is MatchesEmptyState) {
-          return EmptyContent();
+          return LoadingIndicator();
+        }
+        // else if (state is MatchesFriendRequestSentState) {
+        //
+        //   // matchesCubit.getMatchCubit(userId: _userId ?? '');
+        //   // return const LoadingScreen();
+        // }
+        else if (state is MatchesGottenState) {
+          final mutableMatches = matchesCubit.mutableMatches;
+          return _buildSwiper(mutableMatches);
         } else {
-          return Scaffold(
-            backgroundColor: AppColors.primaryDark,
-            body: Stack(
-              alignment: AlignmentDirectional.topCenter,
-              children: [
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 10),
-                        if (matchCriteriaViewModel.matchListModel?.data != null)
-                          if (matchCriteriaViewModel
-                                  .matchListModel!.data!.length >
-                              0)
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.65,
-                              child: AppinioSwiper(
-                                backgroundCardCount: 1,
-                                backgroundCardScale: 0.9,
-                                swipeOptions: SwipeOptions.only(
-                                    up: true, left: true, right: true),
-                                allowUnlimitedUnSwipe: true,
-                                allowUnSwipe: true,
-                                controller: controller,
-                                onSwipeEnd: (prevIndex, nextIndex, activity) {
-                                  final match = matchCriteriaViewModel
-                                      .matchListModel?.data![prevIndex];
-                                  if (activity.direction ==
-                                      AxisDirection.right) {
-                                    friendRequestViewModel
-                                        .addToList(FriendListRequest(
-                                      recieverId: match?.id,
-                                      typeOfRequest:
-                                          TypeOfRequest.friendRequest.index,
-                                    ));
-                                  } else if (activity.direction ==
-                                      AxisDirection.up) {
-                                    friendRequestViewModel
-                                        .addToList(FriendListRequest(
-                                      recieverId: match?.id,
-                                      typeOfRequest:
-                                          TypeOfRequest.superLike.index,
-                                    ));
-                                  } else if (activity.direction ==
-                                      AxisDirection.left) {
-                                    //add bulk ignore
-                                    matchCriteriaViewModel
-                                        .addToIgnoreList(match?.id);
-                                  }
-                                },
-                                cardCount: matchCriteriaViewModel
-                                        .matchListModel?.data?.length ??
-                                    0,
-                                cardBuilder: (BuildContext context, int index) {
-                                  final match = matchCriteriaViewModel
-                                      .matchListModel?.data?[index];
-                                  return ExampleCard(
-                                      match: match!, controller: controller);
-                                },
-                              ),
-                            )
-                          // SizedBox(
-                          //   height: MediaQuery.of(context).size.height * 0.65,
-                          //   child: SwipeCards(
-                          //     matchEngine: _matchEngine!,
-                          //     itemBuilder: (BuildContext context, int index) {
-                          //       return Container(
-                          //         alignment: Alignment.center,
-                          //         color: _swipeItems[index].content.color,
-                          //         child: Text(
-                          //           _swipeItems[index].content.text,
-                          //           style: TextStyle(fontSize: 100),
-                          //         ),
-                          //       );
-                          //     },
-                          //     onStackFinished: () {
-                          //       ScaffoldMessenger.of(context)
-                          //           .showSnackBar(SnackBar(
-                          //         content: Text("Stack Finished"),
-                          //         duration: Duration(milliseconds: 500),
-                          //       ));
-                          //     },
-                          //     itemChanged: (SwipeItem item, int index) {
-                          //       // print(
-                          //       //     "item: ${item.content.text}, index: $index");
-                          //     },
-                          //     leftSwipeAllowed: true,
-                          //     rightSwipeAllowed: true,
-                          //     upSwipeAllowed: true,
-                          //     fillSpace: true,
-                          //     likeTag: Container(
-                          //       margin: const EdgeInsets.all(15.0),
-                          //       padding: const EdgeInsets.all(3.0),
-                          //       decoration: BoxDecoration(
-                          //           border: Border.all(color: Colors.green)),
-                          //       child: Text('Like'),
-                          //     ),
-                          //     nopeTag: Container(
-                          //       margin: const EdgeInsets.all(15.0),
-                          //       padding: const EdgeInsets.all(3.0),
-                          //       decoration: BoxDecoration(
-                          //           border: Border.all(color: Colors.red)),
-                          //       child: Text('Nope'),
-                          //     ),
-                          //     superLikeTag: Container(
-                          //       margin: const EdgeInsets.all(15.0),
-                          //       padding: const EdgeInsets.all(3.0),
-                          //       decoration: BoxDecoration(
-                          //           border: Border.all(color: Colors.orange)),
-                          //       child: Text('Super Like'),
-                          //     ),
-                          //   ),
-                          // )
-                          else
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.70,
-                              child: EmptyMatches(
-                                action: () {},
-                              ),
-                            )
-                        else
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.70,
-                            child: EmptyMatches(
-                              action: () {},
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
+          return const SizedBox.shrink();
         }
       },
     );
   }
-}
 
-class Content {
-  String text;
-  Color color;
-  Content({required this.text, required this.color});
+  Widget _buildSwiper(List<MatchModel> mutableMatches) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.68,
+            child: AppinioSwiper(
+              backgroundCardCount: 2,
+              backgroundCardScale: 0.9,
+              swipeOptions:
+                  const SwipeOptions.only(up: true, left: true, right: true),
+              allowUnlimitedUnSwipe: true,
+              allowUnSwipe: true,
+              controller: controller,
+              isDisabled: mutableMatches.isEmpty,
+              onSwipeEnd: (prevIndex, nextIndex, activity) {
+                final matchesCubit = context.read<MatchesCubit>();
+                if (prevIndex < mutableMatches.length) {
+                  matchesCubit.removeMatchAt(prevIndex, activity.direction);
+                }
+              },
+              cardCount: mutableMatches.length + 99999,
+              cardBuilder: (BuildContext context, int index) {
+                if (index >= mutableMatches.length) {
+                  return const EmptyMatches();
+                } else {
+                  final match = mutableMatches[index];
+                  return ExampleCard(match: match, controller: controller);
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

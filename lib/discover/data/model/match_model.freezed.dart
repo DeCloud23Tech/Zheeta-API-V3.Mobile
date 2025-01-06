@@ -12,7 +12,7 @@ part of 'match_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MatchModel _$MatchModelFromJson(Map<String, dynamic> json) {
   return _MatchModel.fromJson(json);
@@ -29,8 +29,12 @@ mixin _$MatchModel {
   dynamic get gender => throw _privateConstructorUsedError;
   dynamic get totalWeight => throw _privateConstructorUsedError;
 
+  /// Serializes this MatchModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MatchModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MatchModelCopyWith<MatchModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$MatchModelCopyWithImpl<$Res, $Val extends MatchModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MatchModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,6 +144,8 @@ class __$$MatchModelImplCopyWithImpl<$Res>
       _$MatchModelImpl _value, $Res Function(_$MatchModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MatchModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -243,7 +251,7 @@ class _$MatchModelImpl implements _MatchModel {
                 .equals(other.totalWeight, totalWeight));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -256,7 +264,9 @@ class _$MatchModelImpl implements _MatchModel {
       const DeepCollectionEquality().hash(gender),
       const DeepCollectionEquality().hash(totalWeight));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MatchModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MatchModelImplCopyWith<_$MatchModelImpl> get copyWith =>
@@ -300,8 +310,11 @@ abstract class _MatchModel implements MatchModel {
   dynamic get gender;
   @override
   dynamic get totalWeight;
+
+  /// Create a copy of MatchModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MatchModelImplCopyWith<_$MatchModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -314,8 +327,12 @@ MatchListModel _$MatchListModelFromJson(Map<String, dynamic> json) {
 mixin _$MatchListModel {
   List<MatchModel>? get data => throw _privateConstructorUsedError;
 
+  /// Serializes this MatchListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MatchListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MatchListModelCopyWith<MatchListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -339,6 +356,8 @@ class _$MatchListModelCopyWithImpl<$Res, $Val extends MatchListModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MatchListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -372,6 +391,8 @@ class __$$MatchListModelImplCopyWithImpl<$Res>
       _$MatchListModelImpl _value, $Res Function(_$MatchListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MatchListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -418,12 +439,14 @@ class _$MatchListModelImpl implements _MatchListModel {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MatchListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MatchListModelImplCopyWith<_$MatchListModelImpl> get copyWith =>
@@ -447,8 +470,11 @@ abstract class _MatchListModel implements MatchListModel {
 
   @override
   List<MatchModel>? get data;
+
+  /// Create a copy of MatchListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MatchListModelImplCopyWith<_$MatchListModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

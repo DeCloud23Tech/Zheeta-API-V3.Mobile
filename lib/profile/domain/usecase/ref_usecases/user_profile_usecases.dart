@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zheeta/activity/data/models/activity_model.dart';
+import 'package:zheeta/app/common/param/pagination_param.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
+import 'package:zheeta/profile/data/model/user_post_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
@@ -40,39 +41,14 @@ class GetAllUsersProfile
 
 @prod
 @LazySingleton()
-class GetSingleUserProfile extends UsecaseWithoutParams<UserProfileModel> {
+class GetSingleUserProfile extends UsecaseWithoutParams<UserProfileModel?> {
   const GetSingleUserProfile(this._repo);
 
   final UserProfileRepository _repo;
 
   @override
-  ResultFuture<UserProfileModel> call() async =>
+  ResultFuture<UserProfileModel?> call() async =>
       await _repo.getSingleUserProfileRepo();
-}
-
-@prod
-@LazySingleton()
-class GetUserRecentActivity extends UsecaseWithoutParams<ActivityListModel> {
-  const GetUserRecentActivity(this._repo);
-
-  final UserProfileRepository _repo;
-
-  @override
-  ResultFuture<ActivityListModel> call() async =>
-      await _repo.getUserRecentActivity();
-}
-
-@prod
-@LazySingleton()
-class GetVisitedUserRecentActivity
-    extends UsecaseWithParams<ActivityListModel, String> {
-  const GetVisitedUserRecentActivity(this._repo);
-
-  final UserProfileRepository _repo;
-
-  @override
-  ResultFuture<ActivityListModel> call(String param) async =>
-      await _repo.getVisitedUserRecentActivity(param);
 }
 
 @prod
@@ -90,6 +66,23 @@ class UpdateUserProfilePicture
 
 @prod
 @LazySingleton()
+class UpdateUserProfileCarousels
+    extends UsecaseWithParams<void, UploadProfileCarouselsParam> {
+  const UpdateUserProfileCarousels(this._repo);
+
+  final UserProfileRepository _repo;
+
+  @override
+  ResultFuture<void> call(UploadProfileCarouselsParam param) async =>
+      await _repo.uploadCarouselImagesRepo(
+        userId: param.userId,
+        files: param.file,
+        currentMediaUrl: param.currentMediaUrl,
+      );
+}
+
+@prod
+@LazySingleton()
 class UpdateUserProfile
     extends UsecaseWithParams<void, UpdateUserProfileRequest> {
   const UpdateUserProfile(this._repo);
@@ -103,14 +96,18 @@ class UpdateUserProfile
 
 @prod
 @LazySingleton()
-class VisitUserProfile extends UsecaseWithParams<ViewProfileModel, String> {
-  const VisitUserProfile(this._repo);
+class GetUserRecentActivity
+    extends UsecaseWithParams<UserPostListModel, PaginationParam> {
+  const GetUserRecentActivity(this._repo);
 
   final UserProfileRepository _repo;
 
   @override
-  ResultFuture<ViewProfileModel> call(String param) async =>
-      await _repo.visitUserProfileRepo(userId: param);
+  ResultFuture<UserPostListModel> call(PaginationParam param) async =>
+      await _repo.getUserRecentActivity(
+          pageNumber: param.pageNo,
+          pageSize: param.pageSize,
+          userId: param.userId);
 }
 
 class GetAllUserParams {
@@ -123,8 +120,23 @@ class GetAllUserParams {
 }
 
 class UploadProfilePictureParam {
-  MultipartFile file;
   String userId;
+  MultipartFile file;
 
-  UploadProfilePictureParam({required this.userId, required this.file});
+  UploadProfilePictureParam({
+    required this.userId,
+    required this.file,
+  });
+}
+
+class UploadProfileCarouselsParam {
+  String userId;
+  List<MultipartFile> file;
+  String? currentMediaUrl;
+
+  UploadProfileCarouselsParam({
+    required this.userId,
+    required this.file,
+    this.currentMediaUrl,
+  });
 }

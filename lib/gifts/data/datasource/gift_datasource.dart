@@ -5,15 +5,20 @@ import 'package:zheeta/gifts/data/model/sent_gift_model.dart';
 import 'package:zheeta/gifts/data/request/send_gift_request_model.dart';
 
 abstract class GiftDataSource {
-  Future<GiftListModel> getAllGifts(int page);
+  Future<List<GiftModel>> getAllGifts(
+      {required int pageNumber, required int pageSize});
 
   Future<GiftModel> getGiftById(String id);
 
-  Future<GiftResponseModel> redeemGiftById(String giftId);
+  Future<void> redeemGift(String giftId);
 
-  Future<ReceivedGiftListModel> getAllReceivedGifts(int page);
+  Future<GiftResponseModel> deliverGift(String giftId);
 
-  Future<SentGiftListModel> getAllSentGifts(int page);
+  Future<List<ReceivedGiftModel>> getAllReceivedGifts(
+      {required int pageNumber, required int pageSize});
 
-  Future<GiftResponseModel> sendGift(SendGiftRequestModel request);
+  Future<List<SentGiftModel>> getAllSentGifts(
+      {required int pageNumber, required int pageSize});
+
+  Future<void> sendGift(SendGiftRequestModel request);
 }

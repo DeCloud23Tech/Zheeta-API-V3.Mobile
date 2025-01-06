@@ -1,33 +1,36 @@
 part of 'nearby_cubit.dart';
 
-abstract class NearbyState extends Equatable {
-  const NearbyState();
-}
+enum NearbyStatus { loading, success, error, settingsLoaded }
 
-class NearbyInitial extends NearbyState {
-  @override
-  List<Object> get props => [];
-}
+class NearbyState extends Equatable {
+  final NearbyStatus status;
+  final NearbyListDataModel nearbyProfiles;
+  final NearbySettingsDataModel? settingsData;
 
-class NearbyLoading extends NearbyState {
-  @override
-  List<Object> get props => [];
-}
+  const NearbyState({
+    this.status = NearbyStatus.loading,
+    this.nearbyProfiles = const NearbyListDataModel(data: []),
+    this.settingsData,
+  });
 
-class NearbyError extends NearbyState {
-  final String errorMessage;
-
-  const NearbyError(this.errorMessage);
-
-  @override
-  List<Object> get props => [errorMessage];
-}
-
-class NearbySuccess extends NearbyState {
-  final NearbyListModel data;
-
-  const NearbySuccess(this.data);
+  NearbyState copyWith({
+    NearbyStatus? status,
+    NearbyListDataModel? nearbyProfiles,
+    NearbySettingsDataModel? settingsData,
+  }) {
+    return NearbyState(
+      status: status ?? this.status,
+      nearbyProfiles: nearbyProfiles ?? this.nearbyProfiles,
+      settingsData: settingsData ?? this.settingsData,
+    );
+  }
 
   @override
-  List<Object> get props => [data];
+  List<Object?> get props => [
+        status,
+        nearbyProfiles,
+        settingsData,
+      ];
+
+  List<NearbyDataModel> get nearbyList => nearbyProfiles.data;
 }

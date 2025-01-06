@@ -5,7 +5,7 @@ part 'boosted_profile_by_admin_model.g.dart';
 
 @freezed
 class BoostedProfileByAdminModel with _$BoostedProfileByAdminModel {
-  @JsonSerializable()
+
   factory BoostedProfileByAdminModel({
     dynamic userId,
     dynamic targetCountry,

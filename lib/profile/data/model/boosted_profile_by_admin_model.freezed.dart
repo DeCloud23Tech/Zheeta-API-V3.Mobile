@@ -12,7 +12,7 @@ part of 'boosted_profile_by_admin_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 BoostedProfileByAdminModel _$BoostedProfileByAdminModelFromJson(
     Map<String, dynamic> json) {
@@ -35,8 +35,12 @@ mixin _$BoostedProfileByAdminModel {
   dynamic get endDate => throw _privateConstructorUsedError;
   dynamic get userProfileUrl => throw _privateConstructorUsedError;
 
+  /// Serializes this BoostedProfileByAdminModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BoostedProfileByAdminModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BoostedProfileByAdminModelCopyWith<BoostedProfileByAdminModel>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -75,6 +79,8 @@ class _$BoostedProfileByAdminModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BoostedProfileByAdminModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -184,6 +190,8 @@ class __$$BoostedProfileByAdminModelImplCopyWithImpl<$Res>
       $Res Function(_$BoostedProfileByAdminModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BoostedProfileByAdminModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -259,7 +267,6 @@ class __$$BoostedProfileByAdminModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
   _$BoostedProfileByAdminModelImpl(
@@ -339,7 +346,7 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
                 .equals(other.userProfileUrl, userProfileUrl));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -357,7 +364,9 @@ class _$BoostedProfileByAdminModelImpl implements _BoostedProfileByAdminModel {
       const DeepCollectionEquality().hash(endDate),
       const DeepCollectionEquality().hash(userProfileUrl));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BoostedProfileByAdminModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BoostedProfileByAdminModelImplCopyWith<_$BoostedProfileByAdminModelImpl>
@@ -418,8 +427,11 @@ abstract class _BoostedProfileByAdminModel
   dynamic get endDate;
   @override
   dynamic get userProfileUrl;
+
+  /// Create a copy of BoostedProfileByAdminModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BoostedProfileByAdminModelImplCopyWith<_$BoostedProfileByAdminModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -434,8 +446,12 @@ mixin _$BoostedProfileByAdminListModel {
   List<BoostedProfileByAdminListModel>? get data =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this BoostedProfileByAdminListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BoostedProfileByAdminListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BoostedProfileByAdminListModelCopyWith<BoostedProfileByAdminListModel>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -462,6 +478,8 @@ class _$BoostedProfileByAdminListModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BoostedProfileByAdminListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -498,6 +516,8 @@ class __$$BoostedProfileByAdminListModelImplCopyWithImpl<$Res>
       $Res Function(_$BoostedProfileByAdminListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BoostedProfileByAdminListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -548,12 +568,14 @@ class _$BoostedProfileByAdminListModelImpl
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BoostedProfileByAdminListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BoostedProfileByAdminListModelImplCopyWith<
@@ -580,8 +602,11 @@ abstract class _BoostedProfileByAdminListModel
 
   @override
   List<BoostedProfileByAdminListModel>? get data;
+
+  /// Create a copy of BoostedProfileByAdminListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BoostedProfileByAdminListModelImplCopyWith<
           _$BoostedProfileByAdminListModelImpl>
       get copyWith => throw _privateConstructorUsedError;

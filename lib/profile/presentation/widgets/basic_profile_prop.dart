@@ -28,7 +28,7 @@ class BasicProfileProp extends StatelessWidget {
                 children: [
                   Text(
                     leftTitle != null ? '$leftTitle: ' : '',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                   Text(
                     leftValue != null ? '$leftValue' : '',
@@ -44,7 +44,7 @@ class BasicProfileProp extends StatelessWidget {
               children: [
                 Text(
                   rightTitle != null ? '$rightTitle: ' : '',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Text(
                   rightValue != null ? '$rightValue' : '',

@@ -35,5 +35,5 @@ _$CountryListModelImpl _$$CountryListModelImplFromJson(
 Map<String, dynamic> _$$CountryListModelImplToJson(
         _$CountryListModelImpl instance) =>
     <String, dynamic>{
-      'data': instance.data?.map((e) => e.toJson()).toList(),
+      'data': instance.data,
     };

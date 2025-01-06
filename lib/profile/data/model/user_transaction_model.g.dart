@@ -41,5 +41,5 @@ _$UserTransactionListModelImpl _$$UserTransactionListModelImplFromJson(
 Map<String, dynamic> _$$UserTransactionListModelImplToJson(
         _$UserTransactionListModelImpl instance) =>
     <String, dynamic>{
-      'data': instance.data?.map((e) => e.toJson()).toList(),
+      'data': instance.data,
     };

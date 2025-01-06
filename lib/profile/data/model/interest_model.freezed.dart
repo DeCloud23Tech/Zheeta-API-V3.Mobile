@@ -12,7 +12,7 @@ part of 'interest_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 InterestModel _$InterestModelFromJson(Map<String, dynamic> json) {
   return _InterestModel.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$InterestModel {
   dynamic get id => throw _privateConstructorUsedError;
   dynamic get title => throw _privateConstructorUsedError;
 
+  /// Serializes this InterestModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of InterestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InterestModelCopyWith<InterestModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$InterestModelCopyWithImpl<$Res, $Val extends InterestModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of InterestModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$InterestModelImplCopyWithImpl<$Res>
       _$InterestModelImpl _value, $Res Function(_$InterestModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of InterestModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,7 +114,6 @@ class __$$InterestModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$InterestModelImpl implements _InterestModel {
   _$InterestModelImpl({this.id, this.title});
@@ -133,14 +140,16 @@ class _$InterestModelImpl implements _InterestModel {
             const DeepCollectionEquality().equals(other.title, title));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(title));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InterestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InterestModelImplCopyWith<_$InterestModelImpl> get copyWith =>
@@ -165,8 +174,11 @@ abstract class _InterestModel implements InterestModel {
   dynamic get id;
   @override
   dynamic get title;
+
+  /// Create a copy of InterestModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InterestModelImplCopyWith<_$InterestModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -179,8 +191,12 @@ InterestListModel _$InterestListModelFromJson(Map<String, dynamic> json) {
 mixin _$InterestListModel {
   List<InterestModel>? get data => throw _privateConstructorUsedError;
 
+  /// Serializes this InterestListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of InterestListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InterestListModelCopyWith<InterestListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -204,6 +220,8 @@ class _$InterestListModelCopyWithImpl<$Res, $Val extends InterestListModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of InterestListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -237,6 +255,8 @@ class __$$InterestListModelImplCopyWithImpl<$Res>
       $Res Function(_$InterestListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of InterestListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -283,12 +303,14 @@ class _$InterestListModelImpl implements _InterestListModel {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InterestListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InterestListModelImplCopyWith<_$InterestListModelImpl> get copyWith =>
@@ -312,8 +334,11 @@ abstract class _InterestListModel implements InterestListModel {
 
   @override
   List<InterestModel>? get data;
+
+  /// Create a copy of InterestListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InterestListModelImplCopyWith<_$InterestListModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

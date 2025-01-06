@@ -9,32 +9,31 @@ part of 'user_profile_model.dart';
 _$UserProfileModelImpl _$$UserProfileModelImplFromJson(
         Map<String, dynamic> json) =>
     _$UserProfileModelImpl(
-      data: UserProfileDataModel.fromJson(json['data'] as Map<String, dynamic>),
+      data: json['data'] == null
+          ? null
+          : UserProfileDataModel.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserProfileModelImplToJson(
         _$UserProfileModelImpl instance) =>
     <String, dynamic>{
-      'data': instance.data.toJson(),
+      'data': instance.data,
     };
 
 _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$UserProfileDataModelImpl(
-      user: json['user'] == null
-          ? null
-          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
       profile: json['profile'] == null
           ? null
           : ProfileModel.fromJson(json['profile'] as Map<String, dynamic>),
-      residentialAddress: json['residentialAddress'] == null
-          ? null
-          : ResidentialAddressModel.fromJson(
-              json['residentialAddress'] as Map<String, dynamic>),
       originAddress: json['originAddress'] == null
           ? null
           : OriginAddressModel.fromJson(
               json['originAddress'] as Map<String, dynamic>),
+      residentialAddress: json['residentialAddress'] == null
+          ? null
+          : ResidentialAddressModel.fromJson(
+              json['residentialAddress'] as Map<String, dynamic>),
       location: json['location'] == null
           ? null
           : LocationModel.fromJson(json['location'] as Map<String, dynamic>),
@@ -42,13 +41,10 @@ _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
           ? null
           : ProfileCounterModel.fromJson(
               json['profileCounters'] as Map<String, dynamic>),
-      subscription: json['subscription'] == null
+      referralInfo: json['referralInfo'] == null
           ? null
-          : SubscriptionModel.fromJson(
-              json['subscription'] as Map<String, dynamic>),
-      wallet: json['wallet'] == null
-          ? null
-          : WalletModel.fromJson(json['wallet'] as Map<String, dynamic>),
+          : ReferralInfoModel.fromJson(
+              json['referralInfo'] as Map<String, dynamic>),
       interests: (json['interests'] as List<dynamic>?)
           ?.map((e) => InterestModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -67,18 +63,82 @@ _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
 Map<String, dynamic> _$$UserProfileDataModelImplToJson(
         _$UserProfileDataModelImpl instance) =>
     <String, dynamic>{
-      'user': instance.user?.toJson(),
-      'profile': instance.profile?.toJson(),
-      'residentialAddress': instance.residentialAddress?.toJson(),
-      'originAddress': instance.originAddress?.toJson(),
-      'location': instance.location?.toJson(),
-      'profileCounters': instance.profileCounters?.toJson(),
-      'subscription': instance.subscription?.toJson(),
-      'wallet': instance.wallet?.toJson(),
-      'interests': instance.interests?.map((e) => e.toJson()).toList(),
-      'bankAccountDetails': instance.bankAccountDetails?.toJson(),
-      'userDownlines': instance.userDownlines?.map((e) => e.toJson()).toList(),
-      'userCarousels': instance.userCarousels?.map((e) => e.toJson()).toList(),
+      'profile': instance.profile,
+      'originAddress': instance.originAddress,
+      'residentialAddress': instance.residentialAddress,
+      'location': instance.location,
+      'profileCounters': instance.profileCounters,
+      'referralInfo': instance.referralInfo,
+      'interests': instance.interests,
+      'bankAccountDetails': instance.bankAccountDetails,
+      'userDownlines': instance.userDownlines,
+      'userCarousels': instance.userCarousels,
+    };
+
+_$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
+    _$ProfileModelImpl(
+      id: json['id'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      dateOfBirth: json['dateOfBirth'],
+      age: json['age'],
+      gender: json['gender'],
+      languageCSV: json['languageCSV'],
+      aboutMe: json['aboutMe'],
+      bodyType: json['bodyType'],
+      complexion: json['complexion'],
+      height: json['height'],
+      weight: json['weight'],
+      occupation: json['occupation'],
+      religion: json['religion'],
+      tagline: json['tagline'],
+      maritalStatus: json['maritalStatus'],
+      profilePhotoURL: json['profilePhotoURL'],
+      profileStatus: json['profileStatus'],
+      lastSeenTime: json['lastSeenTime'],
+      isOnline: json['isOnline'],
+      residentialAddress: json['residentialAddress'] == null
+          ? null
+          : ResidentialAddressModel.fromJson(
+              json['residentialAddress'] as Map<String, dynamic>),
+      user: json['user'] == null
+          ? null
+          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      userSubscription: json['userSubscription'] == null
+          ? null
+          : SubscriptionModel.fromJson(
+              json['userSubscription'] as Map<String, dynamic>),
+      wallet: json['wallet'] == null
+          ? null
+          : WalletModel.fromJson(json['wallet'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'dateOfBirth': instance.dateOfBirth,
+      'age': instance.age,
+      'gender': instance.gender,
+      'languageCSV': instance.languageCSV,
+      'aboutMe': instance.aboutMe,
+      'bodyType': instance.bodyType,
+      'complexion': instance.complexion,
+      'height': instance.height,
+      'weight': instance.weight,
+      'occupation': instance.occupation,
+      'religion': instance.religion,
+      'tagline': instance.tagline,
+      'maritalStatus': instance.maritalStatus,
+      'profilePhotoURL': instance.profilePhotoURL,
+      'profileStatus': instance.profileStatus,
+      'lastSeenTime': instance.lastSeenTime,
+      'isOnline': instance.isOnline,
+      'residentialAddress': instance.residentialAddress,
+      'user': instance.user,
+      'userSubscription': instance.userSubscription,
+      'wallet': instance.wallet,
     };
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
@@ -109,46 +169,6 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'phoneCountryCode': instance.phoneCountryCode,
       'phoneNumber': instance.phoneNumber,
       'phoneNumberConfirmed': instance.phoneNumberConfirmed,
-    };
-
-_$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
-    _$ProfileModelImpl(
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      dateOfBirth: json['dateOfBirth'],
-      age: json['age'],
-      gender: json['gender'],
-      languageCSV: json['languageCSV'],
-      aboutMe: json['aboutMe'],
-      height: json['height'],
-      weight: json['weight'],
-      bodyType: json['bodyType'],
-      complexion: json['complexion'],
-      religion: json['religion'],
-      tagline: json['tagline'],
-      occupation: json['occupation'],
-      profilePhotoURL: json['profilePhotoURL'],
-      profileStatus: json['profileStatus'],
-    );
-
-Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
-    <String, dynamic>{
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'dateOfBirth': instance.dateOfBirth,
-      'age': instance.age,
-      'gender': instance.gender,
-      'languageCSV': instance.languageCSV,
-      'aboutMe': instance.aboutMe,
-      'height': instance.height,
-      'weight': instance.weight,
-      'bodyType': instance.bodyType,
-      'complexion': instance.complexion,
-      'religion': instance.religion,
-      'tagline': instance.tagline,
-      'occupation': instance.occupation,
-      'profilePhotoURL': instance.profilePhotoURL,
-      'profileStatus': instance.profileStatus,
     };
 
 _$ResidentialAddressModelImpl _$$ResidentialAddressModelImplFromJson(
@@ -203,16 +223,16 @@ _$ProfileCounterModelImpl _$$ProfileCounterModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ProfileCounterModelImpl(
       friendsCount: json['friendsCount'],
-      refereesCount: json['refereesCount'],
-      postCount: json['postCount'],
+      downlinesCount: json['downlinesCount'],
+      successfulEventCount: json['successfulEventCount'],
     );
 
 Map<String, dynamic> _$$ProfileCounterModelImplToJson(
         _$ProfileCounterModelImpl instance) =>
     <String, dynamic>{
       'friendsCount': instance.friendsCount,
-      'refereesCount': instance.refereesCount,
-      'postCount': instance.postCount,
+      'downlinesCount': instance.downlinesCount,
+      'successfulEventCount': instance.successfulEventCount,
     };
 
 _$SubscriptionModelImpl _$$SubscriptionModelImplFromJson(
@@ -265,14 +285,28 @@ Map<String, dynamic> _$$WalletModelImplToJson(_$WalletModelImpl instance) =>
 
 _$InterestModelImpl _$$InterestModelImplFromJson(Map<String, dynamic> json) =>
     _$InterestModelImpl(
-      id: json['id'],
+      interestId: json['interestId'],
       title: json['title'],
     );
 
 Map<String, dynamic> _$$InterestModelImplToJson(_$InterestModelImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'interestId': instance.interestId,
       'title': instance.title,
+    };
+
+_$ReferralInfoModelImpl _$$ReferralInfoModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ReferralInfoModelImpl(
+      referralCode: json['referralCode'] as String,
+      referralLink: json['referralLink'] as String,
+    );
+
+Map<String, dynamic> _$$ReferralInfoModelImplToJson(
+        _$ReferralInfoModelImpl instance) =>
+    <String, dynamic>{
+      'referralCode': instance.referralCode,
+      'referralLink': instance.referralLink,
     };
 
 _$UserDownlinesImpl _$$UserDownlinesImplFromJson(Map<String, dynamic> json) =>
@@ -282,6 +316,7 @@ _$UserDownlinesImpl _$$UserDownlinesImplFromJson(Map<String, dynamic> json) =>
       json['lastName'],
       json['userName'],
       json['profilePhotoURL'],
+      json['createdDate'],
     );
 
 Map<String, dynamic> _$$UserDownlinesImplToJson(_$UserDownlinesImpl instance) =>
@@ -291,6 +326,7 @@ Map<String, dynamic> _$$UserDownlinesImplToJson(_$UserDownlinesImpl instance) =>
       'lastName': instance.lastName,
       'userName': instance.userName,
       'profilePhotoURL': instance.profilePhotoURL,
+      'createdDate': instance.createdDate,
     };
 
 _$UserCarouselsImpl _$$UserCarouselsImplFromJson(Map<String, dynamic> json) =>

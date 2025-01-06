@@ -12,7 +12,7 @@ part of 'country_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CountryModel _$CountryModelFromJson(Map<String, dynamic> json) {
   return _CountryModel.fromJson(json);
@@ -26,8 +26,12 @@ mixin _$CountryModel {
   String? get phoneCode => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
 
+  /// Serializes this CountryModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CountryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CountryModelCopyWith<CountryModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +60,8 @@ class _$CountryModelCopyWithImpl<$Res, $Val extends CountryModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CountryModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,6 +120,8 @@ class __$$CountryModelImplCopyWithImpl<$Res>
       _$CountryModelImpl _value, $Res Function(_$CountryModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CountryModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -149,7 +157,6 @@ class __$$CountryModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$CountryModelImpl implements _CountryModel {
   _$CountryModelImpl(
@@ -189,12 +196,14 @@ class _$CountryModelImpl implements _CountryModel {
                 other.currency == currency));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, code, code2Iso, name, phoneCode, currency);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CountryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CountryModelImplCopyWith<_$CountryModelImpl> get copyWith =>
@@ -229,8 +238,11 @@ abstract class _CountryModel implements CountryModel {
   String? get phoneCode;
   @override
   String? get currency;
+
+  /// Create a copy of CountryModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CountryModelImplCopyWith<_$CountryModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -243,8 +255,12 @@ CountryListModel _$CountryListModelFromJson(Map<String, dynamic> json) {
 mixin _$CountryListModel {
   List<CountryModel>? get data => throw _privateConstructorUsedError;
 
+  /// Serializes this CountryListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CountryListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CountryListModelCopyWith<CountryListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -268,6 +284,8 @@ class _$CountryListModelCopyWithImpl<$Res, $Val extends CountryListModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CountryListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -301,6 +319,8 @@ class __$$CountryListModelImplCopyWithImpl<$Res>
       $Res Function(_$CountryListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CountryListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -316,8 +336,7 @@ class __$$CountryListModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$CountryListModelImpl implements _CountryListModel {
   _$CountryListModelImpl({final List<CountryModel>? data}) : _data = data;
 
@@ -347,12 +366,14 @@ class _$CountryListModelImpl implements _CountryListModel {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CountryListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CountryListModelImplCopyWith<_$CountryListModelImpl> get copyWith =>
@@ -376,8 +397,11 @@ abstract class _CountryListModel implements CountryListModel {
 
   @override
   List<CountryModel>? get data;
+
+  /// Create a copy of CountryListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CountryListModelImplCopyWith<_$CountryListModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

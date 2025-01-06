@@ -5,7 +5,6 @@ part 'address_from_location_model.g.dart';
 
 @freezed
 class AddressFromLocationModel with _$AddressFromLocationModel {
-  @JsonSerializable()
   factory AddressFromLocationModel({
     dynamic streetNumber,
     dynamic address,

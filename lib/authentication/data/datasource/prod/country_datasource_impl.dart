@@ -45,7 +45,7 @@ class CountryDataSourceImpl implements CountryDataSource {
   }
 
   @override
-  Future<CountryListModel> getAllCountriesNew() async {
+  Future<List<CountryModel>> getAllCountriesNew() async {
     try {
       var response = await _api.dio.get(
         '/userauth/get-all-countries',
@@ -54,7 +54,15 @@ class CountryDataSourceImpl implements CountryDataSource {
         ),
       );
       if (response.statusCode == 200) {
-        return CountryListModel.fromJson(response.data['data']);
+        // Parsing the response correctly
+        List<dynamic> countriesJson = response.data['data'];
+
+        // Convert the list of dynamic maps to a list of CountryModel
+        List<CountryModel> countries = countriesJson
+            .map((country) => CountryModel.fromJson(country))
+            .toList();
+
+        return countries;
       } else {
         throw ApiException(
             message: response.statusMessage!, statusCode: response.statusCode!);

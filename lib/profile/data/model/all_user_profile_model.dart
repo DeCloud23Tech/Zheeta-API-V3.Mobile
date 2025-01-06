@@ -6,7 +6,7 @@ part 'all_user_profile_model.g.dart';
 
 @freezed
 class AllUserProfileModel with _$AllUserProfileModel {
-  @JsonSerializable()
+
   factory AllUserProfileModel({
     dynamic userId,
     dynamic userName,

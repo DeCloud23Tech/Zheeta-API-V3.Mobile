@@ -31,5 +31,5 @@ _$UserInterestListModelImpl _$$UserInterestListModelImplFromJson(
 Map<String, dynamic> _$$UserInterestListModelImplToJson(
         _$UserInterestListModelImpl instance) =>
     <String, dynamic>{
-      'data': instance.data.map((e) => e.toJson()).toList(),
+      'data': instance.data,
     };

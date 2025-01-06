@@ -5,7 +5,7 @@ part 'country_model.g.dart';
 
 @freezed
 class CountryModel with _$CountryModel {
-  @JsonSerializable()
+
   factory CountryModel({
     String? code,
     String? code2Iso,
@@ -19,7 +19,6 @@ class CountryModel with _$CountryModel {
 
 @freezed
 class CountryListModel with _$CountryListModel {
-  @JsonSerializable(explicitToJson: true)
   factory CountryListModel({
     List<CountryModel>? data,
   }) = _CountryListModel;

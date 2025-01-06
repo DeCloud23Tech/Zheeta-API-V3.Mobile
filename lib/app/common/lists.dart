@@ -2,7 +2,24 @@ class AppLists {
   static List<String> bodyTypes = ['Obese', 'Fat', 'Thick', 'Muscular', 'Fit', 'Slim', 'Skinny'];
   static List<String> complexions = ['Black', 'White', 'Fiar', 'Brownish', 'Dark'];
   static List<String> religions = ['Christian', 'Islam', 'Jew', 'Other'];
-  static List<String> interests = ['Long-term partner', 'Short-term partner', 'Long-term, but short-term OK', 'Short-term, but long-term OK', 'Short-term fun', 'New friends', 'Social Networking', 'Hangout', 'Massage', 'Massage Plus', 'Earn Income', 'Sell Product', 'Still figuring out'];
+  static List<String> maritalStatus = ['Single', 'Married', 'Divorced', 'Widowed', 'Separated', 'Other'];
+  // static List<String> interests = ['Long-term partner', 'Short-term partner', 'Long-term, but short-term OK', 'Short-term, but long-term OK', 'Short-term fun', 'New friends', 'Social Networking', 'Hangout', 'Massage', 'Massage Plus', 'Earn Income', 'Sell Product', 'Still figuring out'];
+
+  // static Map<String, int> interestMapping = {
+  //   'Long-term partner': 1,
+  //   'Short-term partner': 2,
+  //   'Long-term, but short-term OK': 3,
+  //   'Short-term, but long-term OK': 4,
+  //   'Short-term fun': 5,
+  //   'New friends': 6,
+  //   'Social Networking': 7,
+  //   'Hangout': 8,
+  //   'Massage': 9,
+  //   'Massage Plus': 10,
+  //   'Earn Income': 11,
+  //   'Sell Product': 12,
+  //   'Still figuring out': 13,
+  // };
   static List<String> occupations = [
     "Academic Librarian",
     "Accountant",

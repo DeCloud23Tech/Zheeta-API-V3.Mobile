@@ -1,7 +1,8 @@
 // Method to build counter widget
 import 'package:flutter/material.dart';
+import 'package:zheeta/app/common/color.dart';
 
-import '../../../app/common/color.dart';
+import '../../../app/common/utils/format_utils.dart';
 
 Widget buildCounterWidget({int? count, String? label}) {
   return Padding(
@@ -9,7 +10,7 @@ Widget buildCounterWidget({int? count, String? label}) {
     child: Column(
       children: [
         Text(
-          '$count',
+          formatCount(count),
           style: TextStyle(
             color: AppColors.grayscale,
             fontSize: 18,
@@ -29,3 +30,4 @@ Widget buildCounterWidget({int? count, String? label}) {
     ),
   );
 }
+

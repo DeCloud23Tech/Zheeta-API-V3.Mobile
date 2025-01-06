@@ -16,12 +16,7 @@ class UserInterestRepositoryImpl implements UserInterestRepository {
   UserInterestRepositoryImpl(this._datasource);
 
   @override
-  ResultVoid updateUserInterestRepo(UpdateUserUnterestRequest request) async {
-    // final result = await _datasource.updateUserInterestNew(request);
-    // return result.fold(
-    //   (error) => throw new Exception(error.message),
-    //   (value) => value,
-    // );
+  ResultVoid updateUserInterestRepo(UpdateUserInterestRequest request) async {
     try {
       final result = await _datasource.updateUserInterestNew(request);
       return right(result);

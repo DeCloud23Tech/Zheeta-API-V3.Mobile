@@ -12,7 +12,7 @@ part of 'user_transaction_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserTransactionModel _$UserTransactionModelFromJson(Map<String, dynamic> json) {
   return _UserTransactionModel.fromJson(json);
@@ -28,8 +28,12 @@ mixin _$UserTransactionModel {
   dynamic get lastModifiedDate => throw _privateConstructorUsedError;
   dynamic get createdDate => throw _privateConstructorUsedError;
 
+  /// Serializes this UserTransactionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserTransactionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserTransactionModelCopyWith<UserTransactionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$UserTransactionModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserTransactionModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,6 +137,8 @@ class __$$UserTransactionModelImplCopyWithImpl<$Res>
       $Res Function(_$UserTransactionModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserTransactionModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -176,7 +184,6 @@ class __$$UserTransactionModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$UserTransactionModelImpl implements _UserTransactionModel {
   _$UserTransactionModelImpl(
@@ -229,7 +236,7 @@ class _$UserTransactionModelImpl implements _UserTransactionModel {
                 .equals(other.createdDate, createdDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -241,7 +248,9 @@ class _$UserTransactionModelImpl implements _UserTransactionModel {
       const DeepCollectionEquality().hash(lastModifiedDate),
       const DeepCollectionEquality().hash(createdDate));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserTransactionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserTransactionModelImplCopyWith<_$UserTransactionModelImpl>
@@ -284,8 +293,11 @@ abstract class _UserTransactionModel implements UserTransactionModel {
   dynamic get lastModifiedDate;
   @override
   dynamic get createdDate;
+
+  /// Create a copy of UserTransactionModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserTransactionModelImplCopyWith<_$UserTransactionModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -299,8 +311,12 @@ UserTransactionListModel _$UserTransactionListModelFromJson(
 mixin _$UserTransactionListModel {
   List<UserTransactionModel>? get data => throw _privateConstructorUsedError;
 
+  /// Serializes this UserTransactionListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserTransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserTransactionListModelCopyWith<UserTransactionListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -325,6 +341,8 @@ class _$UserTransactionListModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserTransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -361,6 +379,8 @@ class __$$UserTransactionListModelImplCopyWithImpl<$Res>
       $Res Function(_$UserTransactionListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserTransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -376,8 +396,7 @@ class __$$UserTransactionListModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$UserTransactionListModelImpl implements _UserTransactionListModel {
   _$UserTransactionListModelImpl({final List<UserTransactionModel>? data})
       : _data = data;
@@ -408,12 +427,14 @@ class _$UserTransactionListModelImpl implements _UserTransactionListModel {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserTransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserTransactionListModelImplCopyWith<_$UserTransactionListModelImpl>
@@ -437,8 +458,11 @@ abstract class _UserTransactionListModel implements UserTransactionListModel {
 
   @override
   List<UserTransactionModel>? get data;
+
+  /// Create a copy of UserTransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserTransactionListModelImplCopyWith<_$UserTransactionListModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

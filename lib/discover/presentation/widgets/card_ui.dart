@@ -7,6 +7,8 @@ import 'package:zheeta/app/common/extensions/string_extension.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
+import 'package:zheeta/widgets/gender_age.dart';
+import 'package:zheeta/widgets/gender_indicator.dart';
 import 'package:zheeta/widgets/network_image.dart';
 
 class ExampleCard extends StatelessWidget {
@@ -28,215 +30,174 @@ class ExampleCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: CupertinoColors.systemGrey.withOpacity(0.2),
-            spreadRadius: 3,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
+            spreadRadius: 8,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
-      alignment: Alignment.center,
+      alignment: Alignment.topCenter,
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          Column(
-            children: [
-              Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15)),
-                  child: CustomNetworkImage(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    width: MediaQuery.of(context).size.width,
-                    imageUrl: match.profilePhotoURL,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            child: CustomNetworkImage(
+              height: MediaQuery.of(context).size.height * 0.65,
+              width: MediaQuery.of(context).size.width,
+              imageUrl: match.profilePhotoURL,
+              fit: BoxFit.fill,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: const BoxDecoration(
+                color: AppColors.white,
               ),
-              GestureDetector(
-                onTap: () {
-                  router.push(ProfileViewRoute(profileId: match.id));
-                },
-                child: Container(
-                  padding: const EdgeInsets.only(top: 60),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+              child: GestureDetector(
+                onTap: () => router.push(ProfileViewRoute(profileId: match.id)),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
                         children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/icons/user.svg',
-                                width: 22,
-                                colorFilter: ColorFilter.mode(
-                                    AppColors.primaryDark, BlendMode.srcIn),
-                              ),
-                              const SizedBox(width: 15),
-                              Text(
-                                '@${match.username}',
-                                style: const TextStyle(
-                                    color: AppColors.darkText,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 24),
-                              ),
-                              const SizedBox(width: 15),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 6),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primaryDark,
-                                  gradient: const LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      AppColors.primaryLight,
-                                      AppColors.primaryDark
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset('assets/images/female.svg',
-                                        width: 11),
-                                    SizedBox(width: 3),
-                                    Text(
-                                      '${match.age}',
-                                      style: const TextStyle(
-                                          color: AppColors.white, fontSize: 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 15),
-                              Container(
-                                width: 30,
-                                height: 25,
-                                padding: EdgeInsets.all(1),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primaryDark,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '${match.gender.toString().getFirstLetter}',
-                                    style: const TextStyle(
-                                        color: AppColors.white, fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          SvgPicture.asset(
+                            'assets/images/icons/user.svg',
+                            width: 22,
+                            colorFilter: ColorFilter.mode(
+                                AppColors.primaryDark, BlendMode.srcIn),
                           ),
-                          const SizedBox(height: 5),
-                          Text(
-                            '${match.location} (${match.distance.toString().roundToInt}km away)',
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 15),
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            width: 150,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                '@${match.username.toLowerCase()}',
+                                style: const TextStyle(
+                                  color: AppColors.darkText,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          GenderAgeWidget(
+                            gender: match.gender.toString().getFirstLetter,
+                            age: match.age,
+                          ),
+                          const SizedBox(width: 8),
+                          GenderIndicator(
+                            gender: match.gender.toString().getFirstLetter,
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Text(
+                      '${match.location} (${match.distance.toString().roundToInt}km away)',
+                      style:
+                          const TextStyle(color: Colors.grey, fontSize: 15),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
           Positioned(
-            bottom: 102,
+            bottom: 60,
             child: Row(
               children: [
                 SizedBox(
-                  height: 75,
-                  width: 75,
+                  height: 60,
+                  width: 60,
                   child: ElevatedButton(
                     onPressed: () => controller.swipeLeft(),
                     style: ButtonStyle(
                       overlayColor:
-                          MaterialStateProperty.all<Color>(AppColors.white),
-                      shadowColor: MaterialStateProperty.all<Color>(
+                          WidgetStateProperty.all<Color>(AppColors.white),
+                      shadowColor: WidgetStateProperty.all<Color>(
                           AppColors.black.withOpacity(0.7)),
-                      elevation: MaterialStateProperty.all(5),
+                      elevation: WidgetStateProperty.all(5),
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(AppColors.white),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100)),
-                      ),
-                    ),
-                    child: Transform.scale(
-                      scale: 1.2,
-                      child: SvgPicture.asset('assets/images/icons/close.svg'),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 15),
-                SizedBox(
-                  height: 75,
-                  width: 75,
-                  child: ElevatedButton(
-                    onPressed: () => controller.swipeUp(),
-                    style: ButtonStyle(
-                        overlayColor:
-                            MaterialStateProperty.all<Color>(AppColors.white),
-                        shadowColor: MaterialStateProperty.all<Color>(
-                            AppColors.black.withOpacity(0.7)),
-                        elevation: MaterialStateProperty.all(5),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(AppColors.white),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ))),
-                    child: Transform.scale(
-                      scale: 1.4,
-                      child:
-                          SvgPicture.asset('assets/images/icons/favorite.svg'),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                SizedBox(
-                  height: 75,
-                  width: 75,
-                  child: ElevatedButton(
-                    onPressed: () => controller.swipeRight(),
-                    style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all<Color>(AppColors.white),
-                      shadowColor: MaterialStateProperty.all<Color>(
-                          AppColors.black.withOpacity(0.7)),
-                      elevation: MaterialStateProperty.all(5),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(AppColors.white),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          WidgetStateProperty.all<Color>(AppColors.white),
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
                     ),
                     child: Transform.scale(
-                      scale: 1.5,
+                      scale: 1.8,
+                      child: SvgPicture.asset('assets/images/icons/close.svg'),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: ElevatedButton(
+                    onPressed: () => controller.swipeUp(),
+                    style: ButtonStyle(
+                      overlayColor:
+                          WidgetStateProperty.all<Color>(AppColors.white),
+                      shadowColor: WidgetStateProperty.all<Color>(
+                          AppColors.black.withOpacity(0.7)),
+                      elevation: WidgetStateProperty.all(5),
+                      backgroundColor:
+                          WidgetStateProperty.all<Color>(AppColors.white),
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ),
+                    child: Transform.scale(
+                      scale: 1.8,
+                      child:
+                          SvgPicture.asset('assets/images/icons/favorite.svg'),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: ElevatedButton(
+                    onPressed: () => controller.swipeRight(),
+                    style: ButtonStyle(
+                      overlayColor:
+                          WidgetStateProperty.all<Color>(AppColors.white),
+                      shadowColor: WidgetStateProperty.all<Color>(
+                          AppColors.black.withOpacity(0.7)),
+                      elevation: WidgetStateProperty.all(5),
+                      backgroundColor:
+                          WidgetStateProperty.all<Color>(AppColors.white),
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ),
+                    child: Transform.scale(
+                      scale: 1.8,
                       child: SvgPicture.asset('assets/images/icons/heart.svg'),
                     ),
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

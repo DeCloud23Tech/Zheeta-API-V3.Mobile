@@ -31,3 +31,20 @@ class SubscriptionsSuccess extends SubscriptionState {
   @override
   List<Object> get props => [subscriptions];
 }
+
+class SubscriptionUpdated extends SubscriptionState {
+  final SubscriptionListModel subscriptions;
+  final String description;
+  final String feature;
+  final SubscriptionModel selectedSubscription;
+
+  SubscriptionUpdated({
+    required this.subscriptions,
+    required this.description,
+    required this.feature,
+    required this.selectedSubscription,
+  });
+
+  @override
+  List<Object> get props => [description, feature, selectedSubscription];
+}

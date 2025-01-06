@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zheeta/discover/domain/usecase/ref/nearby_settings_usecase.dart';
 
-import '../../../data/model/nearby_model.dart';
-import '../../../domain/usecase/ref/nearby_profiles_usecase.dart';
+import '../../../../app/common/param/pagination_param.dart';
+import '../../../../discover/data/model/nearby_model.dart';
+import '../../../../discover/domain/usecase/ref/nearby_profiles_usecase.dart';
+import '../../../../discover/domain/usecase/ref/nearby_settings_usecase.dart';
+import '../../../data/model/nearby_settings_model.dart';
 
 part 'nearby_state.dart';
 
@@ -17,21 +19,36 @@ class NearbyCubit extends Cubit<NearbyState> {
   NearbyCubit({
     required this.getNearbyProfiles,
     required this.getNearbySettings,
-  }) : super(NearbyInitial());
+  }) : super(const NearbyState());
 
-  Future<NearbyListModel?> getNearbyProfilesCubit() async {
-    emit(NearbyLoading());
-    var result = await getNearbyProfiles();
-    NearbyListModel? data;
+  Future<void> fetchNearbyProfiles(PaginationParam param) async {
+    emit(state.copyWith(status: NearbyStatus.loading));
+    final result = await getNearbyProfiles(param);
     result.fold(
-      (fail) {
-        emit(NearbyError(fail.message));
+      (failure) {
+        emit(state.copyWith(
+          status: NearbyStatus.error,
+        ));
       },
       (success) {
-        emit(NearbySuccess(success));
-        data = success;
+        emit(state.copyWith(
+          status: NearbyStatus.success,
+          nearbyProfiles: success,
+        ));
       },
     );
-    return data;
+  }
+
+  Future<void> fetchNearbySettings() async {
+    var result = await getNearbySettings();
+    result.fold(
+      (fail) => emit(state.copyWith(
+        status: NearbyStatus.error,
+      )),
+      (success) => emit(state.copyWith(
+        status: NearbyStatus.settingsLoaded,
+        settingsData: success.data,
+      )),
+    );
   }
 }

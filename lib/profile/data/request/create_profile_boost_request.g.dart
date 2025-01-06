@@ -14,11 +14,11 @@ CreateProfileBoostRequest _$CreateProfileBoostRequestFromJson(
       targetCountry: json['TargetCountry'] as String,
       targetGender: json['TargetGender'] as String,
       targetCity: json['TargetCity'] as String,
-      minAge: json['MinAge'] as int,
-      maxAge: json['MaxAge'] as int,
+      minAge: (json['MinAge'] as num).toInt(),
+      maxAge: (json['MaxAge'] as num).toInt(),
       maritalStatus: json['MaritalStatus'] as String,
-      targetUsersNumber: json['TargetUsersNumber'] as int,
-      duration: json['Duration'] as int,
+      targetUsersNumber: (json['TargetUsersNumber'] as num).toInt(),
+      duration: (json['Duration'] as num).toInt(),
       adsCost: (json['AdsCost'] as num).toDouble(),
       photoUrlForAds: (json['PhotoUrlForAds'] as List<dynamic>)
           .map((e) => e as String)

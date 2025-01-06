@@ -11,9 +11,9 @@ _$MatchCriteriaModelImpl _$$MatchCriteriaModelImplFromJson(
     _$MatchCriteriaModelImpl(
       userId: json['userId'] as String,
       gender: json['gender'] as String,
-      minAge: json['minAge'] as int,
-      maxAge: json['maxAge'] as int,
-      distance: json['distance'] as int,
+      minAge: (json['minAge'] as num).toInt(),
+      maxAge: (json['maxAge'] as num).toInt(),
+      distance: (json['distance'] as num).toInt(),
       country: json['country'] as String,
       city: json['city'] as String?,
     );

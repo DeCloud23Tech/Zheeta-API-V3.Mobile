@@ -9,60 +9,33 @@ part of 'notification_model.dart';
 _$NotificationModelImpl _$$NotificationModelImplFromJson(
         Map<String, dynamic> json) =>
     _$NotificationModelImpl(
-      userId: json['userId'],
-      notificationType: $enumDecodeNullable(
-          _$NotificationTypeEnumMap, json['notificationType']),
-      content: json['content'],
-      userProfilePicUrl: json['userProfilePicUrl'],
-      isRead: json['isRead'],
-      notificationTypeValueId: json['notificationTypeValueId'],
-      id: json['id'],
-      partitionKey: json['partitionKey'],
-      lastModifiedDate: json['lastModifiedDate'],
-      createdDate: json['createdDate'],
+      userId: json['userId'] as String,
+      notificationType: json['notificationType'] as String?,
+      content: json['content'] as String,
+      userProfilePicUrl: json['userProfilePicUrl'] as String?,
+      isRead: json['isRead'] as bool,
+      notificationTypeValueId: json['notificationTypeValueId'] as String?,
+      id: json['id'] as String,
+      partitionKey: json['partitionKey'] as String?,
+      lastModifiedDate: json['lastModifiedDate'] == null
+          ? null
+          : DateTime.parse(json['lastModifiedDate'] as String),
+      createdDate: json['createdDate'] == null
+          ? null
+          : DateTime.parse(json['createdDate'] as String),
     );
 
 Map<String, dynamic> _$$NotificationModelImplToJson(
         _$NotificationModelImpl instance) =>
     <String, dynamic>{
       'userId': instance.userId,
-      'notificationType': _$NotificationTypeEnumMap[instance.notificationType],
+      'notificationType': instance.notificationType,
       'content': instance.content,
       'userProfilePicUrl': instance.userProfilePicUrl,
       'isRead': instance.isRead,
       'notificationTypeValueId': instance.notificationTypeValueId,
       'id': instance.id,
       'partitionKey': instance.partitionKey,
-      'lastModifiedDate': instance.lastModifiedDate,
-      'createdDate': instance.createdDate,
-    };
-
-const _$NotificationTypeEnumMap = {
-  NotificationType.all: 'all',
-  NotificationType.activityPost: 'ActivityPost',
-  NotificationType.activityComment: 'ActivityComment',
-  NotificationType.activityLike: 'ActivityLike',
-  NotificationType.activityPayment: 'ActivityPayment',
-  NotificationType.receiveFriendRequest: 'ReceiveFriendRequest',
-  NotificationType.receiveMoney: 'ReceiveMoney',
-  NotificationType.receiveGift: 'ReceiveGift',
-  NotificationType.transaction: 'Transaction',
-  NotificationType.referralRegistration: 'ReferralRegistration',
-  NotificationType.sharedActivityPost: 'SharedActivityPost',
-  NotificationType.communityPost: 'CommunityPost',
-  NotificationType.comeBack: 'ComeBack',
-};
-
-_$NotificationListModelImpl _$$NotificationListModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationListModelImpl(
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => NotificationModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$NotificationListModelImplToJson(
-        _$NotificationListModelImpl instance) =>
-    <String, dynamic>{
-      'data': instance.data,
+      'lastModifiedDate': instance.lastModifiedDate?.toIso8601String(),
+      'createdDate': instance.createdDate?.toIso8601String(),
     };

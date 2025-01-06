@@ -12,7 +12,7 @@ part of 'view_profile_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ViewProfileModel _$ViewProfileModelFromJson(Map<String, dynamic> json) {
   return _ViewProfileModel.fromJson(json);
@@ -26,8 +26,12 @@ mixin _$ViewProfileModel {
   bool get canAddFriend => throw _privateConstructorUsedError;
   UserProfileDataModel get profile => throw _privateConstructorUsedError;
 
+  /// Serializes this ViewProfileModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ViewProfileModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ViewProfileModelCopyWith<ViewProfileModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ViewProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +97,8 @@ class _$ViewProfileModelCopyWithImpl<$Res, $Val extends ViewProfileModel>
     ) as $Val);
   }
 
+  /// Create a copy of ViewProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserProfileDataModelCopyWith<$Res> get profile {
@@ -127,6 +135,8 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
       $Res Function(_$ViewProfileModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ViewProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,8 +172,7 @@ class __$$ViewProfileModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$ViewProfileModelImpl implements _ViewProfileModel {
   _$ViewProfileModelImpl(
       {required this.canViewProfile,
@@ -207,12 +216,14 @@ class _$ViewProfileModelImpl implements _ViewProfileModel {
             (identical(other.profile, profile) || other.profile == profile));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, canViewProfile, isFriend, canMessage, canAddFriend, profile);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewProfileModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewProfileModelImplCopyWith<_$ViewProfileModelImpl> get copyWith =>
@@ -248,8 +259,11 @@ abstract class _ViewProfileModel implements ViewProfileModel {
   bool get canAddFriend;
   @override
   UserProfileDataModel get profile;
+
+  /// Create a copy of ViewProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewProfileModelImplCopyWith<_$ViewProfileModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -266,8 +280,12 @@ mixin _$ViewProfileModelData {
   bool get canAddFriend => throw _privateConstructorUsedError;
   UserProfileDataModel get profile => throw _privateConstructorUsedError;
 
+  /// Serializes this ViewProfileModelData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ViewProfileModelData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ViewProfileModelDataCopyWith<ViewProfileModelData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -299,6 +317,8 @@ class _$ViewProfileModelDataCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ViewProfileModelData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -332,6 +352,8 @@ class _$ViewProfileModelDataCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of ViewProfileModelData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserProfileDataModelCopyWith<$Res> get profile {
@@ -368,6 +390,8 @@ class __$$ViewProfileModelDataImplCopyWithImpl<$Res>
       $Res Function(_$ViewProfileModelDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ViewProfileModelData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -403,8 +427,7 @@ class __$$ViewProfileModelDataImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$ViewProfileModelDataImpl implements _ViewProfileModelData {
   _$ViewProfileModelDataImpl(
       {required this.canViewProfile,
@@ -448,12 +471,14 @@ class _$ViewProfileModelDataImpl implements _ViewProfileModelData {
             (identical(other.profile, profile) || other.profile == profile));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, canViewProfile, isFriend, canMessage, canAddFriend, profile);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewProfileModelData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewProfileModelDataImplCopyWith<_$ViewProfileModelDataImpl>
@@ -491,8 +516,11 @@ abstract class _ViewProfileModelData implements ViewProfileModelData {
   bool get canAddFriend;
   @override
   UserProfileDataModel get profile;
+
+  /// Create a copy of ViewProfileModelData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewProfileModelDataImplCopyWith<_$ViewProfileModelDataImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

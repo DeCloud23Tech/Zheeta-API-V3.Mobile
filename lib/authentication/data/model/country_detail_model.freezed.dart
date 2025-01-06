@@ -12,7 +12,7 @@ part of 'country_detail_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CountryDetailModel _$CountryDetailModelFromJson(Map<String, dynamic> json) {
   return _CountryDetailModel.fromJson(json);
@@ -27,8 +27,12 @@ mixin _$CountryDetailModel {
   String? get currency => throw _privateConstructorUsedError;
   List<String>? get cities => throw _privateConstructorUsedError;
 
+  /// Serializes this CountryDetailModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CountryDetailModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CountryDetailModelCopyWith<CountryDetailModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$CountryDetailModelCopyWithImpl<$Res, $Val extends CountryDetailModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CountryDetailModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,6 +128,8 @@ class __$$CountryDetailModelImplCopyWithImpl<$Res>
       $Res Function(_$CountryDetailModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CountryDetailModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,7 +170,6 @@ class __$$CountryDetailModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$CountryDetailModelImpl implements _CountryDetailModel {
   _$CountryDetailModelImpl(
@@ -218,12 +225,14 @@ class _$CountryDetailModelImpl implements _CountryDetailModel {
             const DeepCollectionEquality().equals(other._cities, _cities));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, code, code2Iso, name, phoneCode,
       currency, const DeepCollectionEquality().hash(_cities));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CountryDetailModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CountryDetailModelImplCopyWith<_$CountryDetailModelImpl> get copyWith =>
@@ -262,8 +271,11 @@ abstract class _CountryDetailModel implements CountryDetailModel {
   String? get currency;
   @override
   List<String>? get cities;
+
+  /// Create a copy of CountryDetailModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CountryDetailModelImplCopyWith<_$CountryDetailModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,13 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/common/enums/type_of_request.dart';
 import 'package:zheeta/discover/data/model/match_criteria_model.dart';
 import 'package:zheeta/discover/data/model/match_model.dart';
-import 'package:zheeta/discover/data/request/bulk_ignore_request.dart';
 import 'package:zheeta/discover/data/request/match_criteria_request.dart';
-import 'package:zheeta/discover/data/request/send_bulk_request.dart';
-import 'package:zheeta/discover/domain/usecase/ref/friend_usecases.dart';
 import 'package:zheeta/discover/domain/usecase/ref/match_criteria_usecases.dart';
 
 part 'matches_state.dart';
@@ -15,53 +13,22 @@ part 'matches_state.dart';
 @prod
 @LazySingleton()
 class MatchesCubit extends Cubit<MatchesState> {
-  final SendFriendRequest sendFriendRequest;
-  final SendBulkFriendRequest sendBulkFriendRequest;
-  final BulkIgnoreMatches bulkIgnoreMatches;
   final GetMatchCriteria getMatchCriteria;
   final GetMatches getMatches;
   final PopulateMatches populateMatches;
   final UpdateMatchCriteria updateMatchCriteria;
+
+  List<MatchModel> mutableMatches = [];
+  List<MatchModel> swipedUpMatches = [];
+  List<MatchModel> swipedRightMatches = [];
+  List<MatchModel> swipedLeftMatches = [];
+
   MatchesCubit({
-    required this.sendFriendRequest,
-    required this.sendBulkFriendRequest,
-    required this.bulkIgnoreMatches,
     required this.getMatchCriteria,
     required this.getMatches,
     required this.populateMatches,
     required this.updateMatchCriteria,
   }) : super(MatchesInitialState());
-
-  Future<void> sendFriendRequestCubit(
-      {required String receiverId, required TypeOfRequest type}) async {
-    emit(MatchesLoadingState());
-    var result = await sendFriendRequest(
-        SendRequestParams(recieverId: receiverId, typeOfRequest: type));
-
-    result.fold(
-      (fail) {
-        emit(MatchesErrorState(fail.message));
-      },
-      (success) {
-        emit(MatchesFriendRequestSentState());
-      },
-    );
-  }
-
-  Future<void> sendBulkFriendRequestCubit(
-      {required SendBulkRequest request}) async {
-    emit(MatchesLoadingState());
-    var result = await sendBulkFriendRequest(request);
-
-    result.fold(
-      (fail) {
-        emit(MatchesErrorState(fail.message));
-      },
-      (success) {
-        emit(MatchesFriendRequestSentState());
-      },
-    );
-  }
 
   Future<MatchCriteriaModel?> getMatchCriteriaCubit() async {
     emit(MatchesLoadingState());
@@ -79,24 +46,52 @@ class MatchesCubit extends Cubit<MatchesState> {
     return data;
   }
 
-  Future<MatchListModel?> getMatchCubit({required String userId}) async {
+  Future<void> getMatchCubit({required String userId}) async {
+    print('get new matches');
     emit(MatchesLoadingState());
+
+    // Clear swiped lists before fetching new matches
+    swipedUpMatches.clear();
+    swipedRightMatches.clear();
+    swipedLeftMatches.clear();
+
     var result = await getMatches(userId);
-    MatchListModel? data;
     result.fold(
       (fail) {
         emit(MatchesErrorState(fail.message));
       },
       (success) {
+        mutableMatches = List<MatchModel>.from(success.data!);
         emit(MatchesGottenState(success));
-        data = success;
       },
     );
-    return data;
+  }
+
+  void removeMatchAt(int index, AxisDirection direction) {
+    if (index < mutableMatches.length) {
+      final match = mutableMatches[index];
+
+      // Add the match to the appropriate list based on the direction
+      if (direction == AxisDirection.up) {
+        swipedUpMatches.add(match);
+      } else if (direction == AxisDirection.right) {
+        swipedRightMatches.add(match);
+      } else if (direction == AxisDirection.left) {
+        swipedLeftMatches.add(match);
+      }
+    }
+  }
+
+  void onNavigate() {
+    print(swipedUpMatches);
+    print(swipedRightMatches);
+    print(swipedLeftMatches);
+    emit(MatchesFriendRequestSentState());
   }
 
   Future<void> populateMatchesCubit() async {
     emit(MatchesLoadingState());
+    print('populateMatches');
     var result = await populateMatches();
 
     result.fold(
@@ -119,20 +114,6 @@ class MatchesCubit extends Cubit<MatchesState> {
       },
       (success) {
         emit(MatchesUpdatedState());
-      },
-    );
-  }
-
-  Future<void> bulkIgnoreMatchesCubit(
-      {required BulkIgnoreRequest request}) async {
-    emit(MatchesLoadingState());
-    var result = await bulkIgnoreMatches(request);
-    result.fold(
-      (fail) {
-        emit(MatchesErrorState(fail.message));
-      },
-      (success) {
-        emit(BulkIgnoreMathcesDone());
       },
     );
   }

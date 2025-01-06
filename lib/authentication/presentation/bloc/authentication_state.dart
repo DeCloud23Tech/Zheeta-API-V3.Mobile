@@ -1,73 +1,79 @@
-part of 'authentication_bloc.dart';
+part of 'authentication_cubit.dart';
 
-abstract class AuthentcationState extends Equatable {
-  AuthentcationState();
+abstract class AuthenticationState extends Equatable {
+  AuthenticationState();
 
   @override
   List<Object> get props => [];
 }
 
-class AuthenticationInitialState extends AuthentcationState {}
+class AuthenticationInitialState extends AuthenticationState {}
 
-class AuthenticationLoadingState extends AuthentcationState {}
+class AuthenticationLoadingState extends AuthenticationState {}
 
-class AuthenticationErrorState extends AuthentcationState {
-  String errorMessage;
+class AuthenticationErrorState extends AuthenticationState {
+  final String errorMessage;
+
   AuthenticationErrorState(this.errorMessage);
 
   @override
   List<Object> get props => [errorMessage];
 }
 
-class AuthenticationGotAllCountriesState extends AuthentcationState {
-  CountryListModel data;
+class AuthenticationGotAllCountriesState extends AuthenticationState {
+  final List<CountryModel> data;
+
   AuthenticationGotAllCountriesState(this.data);
 
   @override
   List<Object> get props => [data];
 }
 
-class AuthenticationGotCountryDetailsState extends AuthentcationState {
-  CountryDetailModel data;
+class AuthenticationGotCountryDetailsState extends AuthenticationState {
+  final CountryDetailModel data;
+
   AuthenticationGotCountryDetailsState(this.data);
 
   @override
   List<Object> get props => [data];
 }
 
-class AuthenticationUpgradedUserRoleState extends AuthentcationState {}
+class AuthenticationUpgradedUserRoleState extends AuthenticationState {}
 
-class AuthenticationDowngradedUserRoleState extends AuthentcationState {}
+class AuthenticationDowngradedUserRoleState extends AuthenticationState {}
 
-class AuthenticationRegisteredState extends AuthentcationState {
-  RegisterUserModel data;
+class AuthenticationRegisteredState extends AuthenticationState {
+  final RegisterUserModel data;
+
   AuthenticationRegisteredState(this.data);
 
   @override
   List<Object> get props => [data];
 }
 
-class AuthenticationLoggedInState extends AuthentcationState {
-  LoginUserModel data;
+class AuthenticationLoggedInState extends AuthenticationState {
+  final LoginUserModel data;
+
   AuthenticationLoggedInState(this.data);
+
   @override
   List<Object> get props => [data];
 }
 
-class AuthenticationRegisteredStaffState extends AuthentcationState {}
+class AuthenticationRegisteredStaffState extends AuthenticationState {}
 
-class AuthenticationChangePasswordState extends AuthentcationState {}
+class AuthenticationChangePasswordState extends AuthenticationState {}
 
-class AuthenticationResetPasswordState extends AuthentcationState {}
+class AuthenticationResetPasswordState extends AuthenticationState {}
 
-class AuthenticationLoggedInOAuthState extends AuthentcationState {}
+class AuthenticationLoggedInOAuthState extends AuthenticationState {}
 
-class AuthenticationSentResetPasswordState extends AuthentcationState {}
+class AuthenticationSentResetPasswordState extends AuthenticationState {}
 
-class AuthenticationSentEmailOtpState extends AuthentcationState {}
+class AuthenticationSentEmailOtpState extends AuthenticationState {}
 
-class AuthenticationSentPhoneOtpState extends AuthentcationState {}
+class AuthenticationSentPhoneOtpState extends AuthenticationState {}
 
-class AuthenticationVerifiedPhoneOtpState extends AuthentcationState {}
+class AuthenticationVerifiedPhoneOtpState extends AuthenticationState {}
 
-class AuthenticationVerifiedEmailOtpState extends AuthentcationState {}
+class AuthenticationVerifiedEmailOtpState extends AuthenticationState {}

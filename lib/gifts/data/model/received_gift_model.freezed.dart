@@ -12,7 +12,7 @@ part of 'received_gift_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ReceivedGiftModel _$ReceivedGiftModelFromJson(Map<String, dynamic> json) {
   return _ReceivedGiftModel.fromJson(json);
@@ -27,14 +27,18 @@ mixin _$ReceivedGiftModel {
   int get totalQuantity => throw _privateConstructorUsedError;
   double get totalAmount => throw _privateConstructorUsedError;
   String get senderId => throw _privateConstructorUsedError;
-  String get senderUserName => throw _privateConstructorUsedError;
+  String? get senderUserName => throw _privateConstructorUsedError;
   String get receiverId => throw _privateConstructorUsedError;
-  String get receiverUserName => throw _privateConstructorUsedError;
+  String? get receiverUserName => throw _privateConstructorUsedError;
   bool get isRedeemed => throw _privateConstructorUsedError;
   DateTime get createdDate => throw _privateConstructorUsedError;
 
+  /// Serializes this ReceivedGiftModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ReceivedGiftModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ReceivedGiftModelCopyWith<ReceivedGiftModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,9 +57,9 @@ abstract class $ReceivedGiftModelCopyWith<$Res> {
       int totalQuantity,
       double totalAmount,
       String senderId,
-      String senderUserName,
+      String? senderUserName,
       String receiverId,
-      String receiverUserName,
+      String? receiverUserName,
       bool isRedeemed,
       DateTime createdDate});
 }
@@ -70,6 +74,8 @@ class _$ReceivedGiftModelCopyWithImpl<$Res, $Val extends ReceivedGiftModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ReceivedGiftModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,9 +86,9 @@ class _$ReceivedGiftModelCopyWithImpl<$Res, $Val extends ReceivedGiftModel>
     Object? totalQuantity = null,
     Object? totalAmount = null,
     Object? senderId = null,
-    Object? senderUserName = null,
+    Object? senderUserName = freezed,
     Object? receiverId = null,
-    Object? receiverUserName = null,
+    Object? receiverUserName = freezed,
     Object? isRedeemed = null,
     Object? createdDate = null,
   }) {
@@ -115,18 +121,18 @@ class _$ReceivedGiftModelCopyWithImpl<$Res, $Val extends ReceivedGiftModel>
           ? _value.senderId
           : senderId // ignore: cast_nullable_to_non_nullable
               as String,
-      senderUserName: null == senderUserName
+      senderUserName: freezed == senderUserName
           ? _value.senderUserName
           : senderUserName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       receiverId: null == receiverId
           ? _value.receiverId
           : receiverId // ignore: cast_nullable_to_non_nullable
               as String,
-      receiverUserName: null == receiverUserName
+      receiverUserName: freezed == receiverUserName
           ? _value.receiverUserName
           : receiverUserName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isRedeemed: null == isRedeemed
           ? _value.isRedeemed
           : isRedeemed // ignore: cast_nullable_to_non_nullable
@@ -155,9 +161,9 @@ abstract class _$$ReceivedGiftModelImplCopyWith<$Res>
       int totalQuantity,
       double totalAmount,
       String senderId,
-      String senderUserName,
+      String? senderUserName,
       String receiverId,
-      String receiverUserName,
+      String? receiverUserName,
       bool isRedeemed,
       DateTime createdDate});
 }
@@ -170,6 +176,8 @@ class __$$ReceivedGiftModelImplCopyWithImpl<$Res>
       $Res Function(_$ReceivedGiftModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ReceivedGiftModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,9 +188,9 @@ class __$$ReceivedGiftModelImplCopyWithImpl<$Res>
     Object? totalQuantity = null,
     Object? totalAmount = null,
     Object? senderId = null,
-    Object? senderUserName = null,
+    Object? senderUserName = freezed,
     Object? receiverId = null,
-    Object? receiverUserName = null,
+    Object? receiverUserName = freezed,
     Object? isRedeemed = null,
     Object? createdDate = null,
   }) {
@@ -215,18 +223,18 @@ class __$$ReceivedGiftModelImplCopyWithImpl<$Res>
           ? _value.senderId
           : senderId // ignore: cast_nullable_to_non_nullable
               as String,
-      senderUserName: null == senderUserName
+      senderUserName: freezed == senderUserName
           ? _value.senderUserName
           : senderUserName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       receiverId: null == receiverId
           ? _value.receiverId
           : receiverId // ignore: cast_nullable_to_non_nullable
               as String,
-      receiverUserName: null == receiverUserName
+      receiverUserName: freezed == receiverUserName
           ? _value.receiverUserName
           : receiverUserName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isRedeemed: null == isRedeemed
           ? _value.isRedeemed
           : isRedeemed // ignore: cast_nullable_to_non_nullable
@@ -274,11 +282,11 @@ class _$ReceivedGiftModelImpl implements _ReceivedGiftModel {
   @override
   final String senderId;
   @override
-  final String senderUserName;
+  final String? senderUserName;
   @override
   final String receiverId;
   @override
-  final String receiverUserName;
+  final String? receiverUserName;
   @override
   final bool isRedeemed;
   @override
@@ -317,7 +325,7 @@ class _$ReceivedGiftModelImpl implements _ReceivedGiftModel {
                 other.createdDate == createdDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -334,7 +342,9 @@ class _$ReceivedGiftModelImpl implements _ReceivedGiftModel {
       isRedeemed,
       createdDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReceivedGiftModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReceivedGiftModelImplCopyWith<_$ReceivedGiftModelImpl> get copyWith =>
@@ -358,9 +368,9 @@ abstract class _ReceivedGiftModel implements ReceivedGiftModel {
       required final int totalQuantity,
       required final double totalAmount,
       required final String senderId,
-      required final String senderUserName,
+      required final String? senderUserName,
       required final String receiverId,
-      required final String receiverUserName,
+      required final String? receiverUserName,
       required final bool isRedeemed,
       required final DateTime createdDate}) = _$ReceivedGiftModelImpl;
 
@@ -382,167 +392,20 @@ abstract class _ReceivedGiftModel implements ReceivedGiftModel {
   @override
   String get senderId;
   @override
-  String get senderUserName;
+  String? get senderUserName;
   @override
   String get receiverId;
   @override
-  String get receiverUserName;
+  String? get receiverUserName;
   @override
   bool get isRedeemed;
   @override
   DateTime get createdDate;
+
+  /// Create a copy of ReceivedGiftModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReceivedGiftModelImplCopyWith<_$ReceivedGiftModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-ReceivedGiftListModel _$ReceivedGiftListModelFromJson(
-    Map<String, dynamic> json) {
-  return _ReceivedGiftListModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ReceivedGiftListModel {
-  List<ReceivedGiftModel> get data => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ReceivedGiftListModelCopyWith<ReceivedGiftListModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ReceivedGiftListModelCopyWith<$Res> {
-  factory $ReceivedGiftListModelCopyWith(ReceivedGiftListModel value,
-          $Res Function(ReceivedGiftListModel) then) =
-      _$ReceivedGiftListModelCopyWithImpl<$Res, ReceivedGiftListModel>;
-  @useResult
-  $Res call({List<ReceivedGiftModel> data});
-}
-
-/// @nodoc
-class _$ReceivedGiftListModelCopyWithImpl<$Res,
-        $Val extends ReceivedGiftListModel>
-    implements $ReceivedGiftListModelCopyWith<$Res> {
-  _$ReceivedGiftListModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_value.copyWith(
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<ReceivedGiftModel>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ReceivedGiftListModelImplCopyWith<$Res>
-    implements $ReceivedGiftListModelCopyWith<$Res> {
-  factory _$$ReceivedGiftListModelImplCopyWith(
-          _$ReceivedGiftListModelImpl value,
-          $Res Function(_$ReceivedGiftListModelImpl) then) =
-      __$$ReceivedGiftListModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<ReceivedGiftModel> data});
-}
-
-/// @nodoc
-class __$$ReceivedGiftListModelImplCopyWithImpl<$Res>
-    extends _$ReceivedGiftListModelCopyWithImpl<$Res,
-        _$ReceivedGiftListModelImpl>
-    implements _$$ReceivedGiftListModelImplCopyWith<$Res> {
-  __$$ReceivedGiftListModelImplCopyWithImpl(_$ReceivedGiftListModelImpl _value,
-      $Res Function(_$ReceivedGiftListModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_$ReceivedGiftListModelImpl(
-      data: null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<ReceivedGiftModel>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ReceivedGiftListModelImpl implements _ReceivedGiftListModel {
-  _$ReceivedGiftListModelImpl({required final List<ReceivedGiftModel> data})
-      : _data = data;
-
-  factory _$ReceivedGiftListModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ReceivedGiftListModelImplFromJson(json);
-
-  final List<ReceivedGiftModel> _data;
-  @override
-  List<ReceivedGiftModel> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString() {
-    return 'ReceivedGiftListModel(data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ReceivedGiftListModelImpl &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ReceivedGiftListModelImplCopyWith<_$ReceivedGiftListModelImpl>
-      get copyWith => __$$ReceivedGiftListModelImplCopyWithImpl<
-          _$ReceivedGiftListModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ReceivedGiftListModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ReceivedGiftListModel implements ReceivedGiftListModel {
-  factory _ReceivedGiftListModel(
-          {required final List<ReceivedGiftModel> data}) =
-      _$ReceivedGiftListModelImpl;
-
-  factory _ReceivedGiftListModel.fromJson(Map<String, dynamic> json) =
-      _$ReceivedGiftListModelImpl.fromJson;
-
-  @override
-  List<ReceivedGiftModel> get data;
-  @override
-  @JsonKey(ignore: true)
-  _$$ReceivedGiftListModelImplCopyWith<_$ReceivedGiftListModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }

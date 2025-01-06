@@ -1,69 +1,39 @@
 part of 'gift_cubit.dart';
 
-abstract class GiftState extends Equatable {
-  const GiftState();
-}
+enum GiftsStatus { initial, loading, success, error, sentGift, redeemedGift }
 
-class GiftInitial extends GiftState {
-  @override
-  List<Object> get props => [];
-}
+class GiftState extends Equatable {
+  final GiftsStatus status;
+  final List<GiftModel> gifts;
+  final List<ReceivedGiftModel> receivedGifts;
+  final List<SentGiftModel> sentGifts;
 
-class GiftsLoading extends GiftState {
-  @override
-  List<Object> get props => [];
-}
+  const GiftState({
+    this.status = GiftsStatus.initial,
+    this.gifts = const [],
+    this.receivedGifts = const [],
+    this.sentGifts = const [],
+  });
 
-class GiftsError extends GiftState {
-  final String errorMessage;
-
-  const GiftsError(this.errorMessage);
-
-  @override
-  List<Object> get props => [errorMessage];
-}
-
-class GiftsSuccess extends GiftState {
-  final GiftListModel gifts;
-
-  const GiftsSuccess(this.gifts);
-
-  @override
-  List<Object> get props => [gifts];
-}
-
-class ReceivedGiftsSuccess extends GiftState {
-  final ReceivedGiftListModel gifts;
-
-  const ReceivedGiftsSuccess(this.gifts);
+  GiftState copyWith({
+    GiftsStatus? status,
+    List<GiftModel>? gifts,
+    List<ReceivedGiftModel>? receivedGifts,
+    List<SentGiftModel>? sentGifts,
+  }) {
+    return GiftState(
+      status: status ?? this.status,
+      gifts: gifts ?? this.gifts,
+      receivedGifts: receivedGifts ?? this.receivedGifts,
+      sentGifts: sentGifts ?? this.sentGifts,
+    );
+  }
 
   @override
-  List<Object> get props => [gifts];
-}
-
-class GiftRedeemed extends GiftState {
-  final GiftResponseModel response;
-
-  const GiftRedeemed(this.response);
-
-  @override
-  List<Object> get props => [response];
-}
-
-class GiftSent extends GiftState {
-  final GiftResponseModel response;
-
-  const GiftSent(this.response);
-
-  @override
-  List<Object> get props => [response];
-}
-
-class SentGiftsSuccess extends GiftState {
-  final SentGiftListModel gifts;
-
-  const SentGiftsSuccess(this.gifts);
-
-  @override
-  List<Object> get props => [gifts];
+  List<Object> get props => [
+        status,
+        gifts,
+        receivedGifts,
+        sentGifts,
+      ];
 }

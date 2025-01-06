@@ -12,7 +12,7 @@ part of 'subscription_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 SubscriptionModel _$SubscriptionModelFromJson(Map<String, dynamic> json) {
   return _SubscriptionModel.fromJson(json);
@@ -26,7 +26,7 @@ mixin _$SubscriptionModel {
   int get fee => throw _privateConstructorUsedError;
   bool get allowMessaging => throw _privateConstructorUsedError;
   int get noMatchesPerDay => throw _privateConstructorUsedError;
-  int get noOfPostPerDay => throw _privateConstructorUsedError;
+  int get noOfBuddyEventPerWeek => throw _privateConstructorUsedError;
   int get noNearbyPerWeek => throw _privateConstructorUsedError;
   bool get allowWithdrawal => throw _privateConstructorUsedError;
   bool get allowMultipleMediaInPost => throw _privateConstructorUsedError;
@@ -35,8 +35,12 @@ mixin _$SubscriptionModel {
   bool get allowCreateCommunity => throw _privateConstructorUsedError;
   bool get accessPeopleNearby => throw _privateConstructorUsedError;
 
+  /// Serializes this SubscriptionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SubscriptionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SubscriptionModelCopyWith<SubscriptionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,7 +58,7 @@ abstract class $SubscriptionModelCopyWith<$Res> {
       int fee,
       bool allowMessaging,
       int noMatchesPerDay,
-      int noOfPostPerDay,
+      int noOfBuddyEventPerWeek,
       int noNearbyPerWeek,
       bool allowWithdrawal,
       bool allowMultipleMediaInPost,
@@ -74,6 +78,8 @@ class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SubscriptionModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -83,7 +89,7 @@ class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
     Object? fee = null,
     Object? allowMessaging = null,
     Object? noMatchesPerDay = null,
-    Object? noOfPostPerDay = null,
+    Object? noOfBuddyEventPerWeek = null,
     Object? noNearbyPerWeek = null,
     Object? allowWithdrawal = null,
     Object? allowMultipleMediaInPost = null,
@@ -117,9 +123,9 @@ class _$SubscriptionModelCopyWithImpl<$Res, $Val extends SubscriptionModel>
           ? _value.noMatchesPerDay
           : noMatchesPerDay // ignore: cast_nullable_to_non_nullable
               as int,
-      noOfPostPerDay: null == noOfPostPerDay
-          ? _value.noOfPostPerDay
-          : noOfPostPerDay // ignore: cast_nullable_to_non_nullable
+      noOfBuddyEventPerWeek: null == noOfBuddyEventPerWeek
+          ? _value.noOfBuddyEventPerWeek
+          : noOfBuddyEventPerWeek // ignore: cast_nullable_to_non_nullable
               as int,
       noNearbyPerWeek: null == noNearbyPerWeek
           ? _value.noNearbyPerWeek
@@ -168,7 +174,7 @@ abstract class _$$SubscriptionModelImplCopyWith<$Res>
       int fee,
       bool allowMessaging,
       int noMatchesPerDay,
-      int noOfPostPerDay,
+      int noOfBuddyEventPerWeek,
       int noNearbyPerWeek,
       bool allowWithdrawal,
       bool allowMultipleMediaInPost,
@@ -186,6 +192,8 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
       $Res Function(_$SubscriptionModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SubscriptionModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -195,7 +203,7 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
     Object? fee = null,
     Object? allowMessaging = null,
     Object? noMatchesPerDay = null,
-    Object? noOfPostPerDay = null,
+    Object? noOfBuddyEventPerWeek = null,
     Object? noNearbyPerWeek = null,
     Object? allowWithdrawal = null,
     Object? allowMultipleMediaInPost = null,
@@ -229,9 +237,9 @@ class __$$SubscriptionModelImplCopyWithImpl<$Res>
           ? _value.noMatchesPerDay
           : noMatchesPerDay // ignore: cast_nullable_to_non_nullable
               as int,
-      noOfPostPerDay: null == noOfPostPerDay
-          ? _value.noOfPostPerDay
-          : noOfPostPerDay // ignore: cast_nullable_to_non_nullable
+      noOfBuddyEventPerWeek: null == noOfBuddyEventPerWeek
+          ? _value.noOfBuddyEventPerWeek
+          : noOfBuddyEventPerWeek // ignore: cast_nullable_to_non_nullable
               as int,
       noNearbyPerWeek: null == noNearbyPerWeek
           ? _value.noNearbyPerWeek
@@ -275,7 +283,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
       required this.fee,
       required this.allowMessaging,
       required this.noMatchesPerDay,
-      required this.noOfPostPerDay,
+      required this.noOfBuddyEventPerWeek,
       required this.noNearbyPerWeek,
       required this.allowWithdrawal,
       required this.allowMultipleMediaInPost,
@@ -300,7 +308,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
   @override
   final int noMatchesPerDay;
   @override
-  final int noOfPostPerDay;
+  final int noOfBuddyEventPerWeek;
   @override
   final int noNearbyPerWeek;
   @override
@@ -318,7 +326,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
 
   @override
   String toString() {
-    return 'SubscriptionModel(id: $id, name: $name, description: $description, fee: $fee, allowMessaging: $allowMessaging, noMatchesPerDay: $noMatchesPerDay, noOfPostPerDay: $noOfPostPerDay, noNearbyPerWeek: $noNearbyPerWeek, allowWithdrawal: $allowWithdrawal, allowMultipleMediaInPost: $allowMultipleMediaInPost, maxNumberOfMediaInPost: $maxNumberOfMediaInPost, allowVideoMediaCategoryInPost: $allowVideoMediaCategoryInPost, allowCreateCommunity: $allowCreateCommunity, accessPeopleNearby: $accessPeopleNearby)';
+    return 'SubscriptionModel(id: $id, name: $name, description: $description, fee: $fee, allowMessaging: $allowMessaging, noMatchesPerDay: $noMatchesPerDay, noOfBuddyEventPerWeek: $noOfBuddyEventPerWeek, noNearbyPerWeek: $noNearbyPerWeek, allowWithdrawal: $allowWithdrawal, allowMultipleMediaInPost: $allowMultipleMediaInPost, maxNumberOfMediaInPost: $maxNumberOfMediaInPost, allowVideoMediaCategoryInPost: $allowVideoMediaCategoryInPost, allowCreateCommunity: $allowCreateCommunity, accessPeopleNearby: $accessPeopleNearby)';
   }
 
   @override
@@ -335,8 +343,8 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
                 other.allowMessaging == allowMessaging) &&
             (identical(other.noMatchesPerDay, noMatchesPerDay) ||
                 other.noMatchesPerDay == noMatchesPerDay) &&
-            (identical(other.noOfPostPerDay, noOfPostPerDay) ||
-                other.noOfPostPerDay == noOfPostPerDay) &&
+            (identical(other.noOfBuddyEventPerWeek, noOfBuddyEventPerWeek) ||
+                other.noOfBuddyEventPerWeek == noOfBuddyEventPerWeek) &&
             (identical(other.noNearbyPerWeek, noNearbyPerWeek) ||
                 other.noNearbyPerWeek == noNearbyPerWeek) &&
             (identical(other.allowWithdrawal, allowWithdrawal) ||
@@ -356,7 +364,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
                 other.accessPeopleNearby == accessPeopleNearby));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -366,7 +374,7 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
       fee,
       allowMessaging,
       noMatchesPerDay,
-      noOfPostPerDay,
+      noOfBuddyEventPerWeek,
       noNearbyPerWeek,
       allowWithdrawal,
       allowMultipleMediaInPost,
@@ -375,7 +383,9 @@ class _$SubscriptionModelImpl implements _SubscriptionModel {
       allowCreateCommunity,
       accessPeopleNearby);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SubscriptionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SubscriptionModelImplCopyWith<_$SubscriptionModelImpl> get copyWith =>
@@ -398,7 +408,7 @@ abstract class _SubscriptionModel implements SubscriptionModel {
       required final int fee,
       required final bool allowMessaging,
       required final int noMatchesPerDay,
-      required final int noOfPostPerDay,
+      required final int noOfBuddyEventPerWeek,
       required final int noNearbyPerWeek,
       required final bool allowWithdrawal,
       required final bool allowMultipleMediaInPost,
@@ -423,7 +433,7 @@ abstract class _SubscriptionModel implements SubscriptionModel {
   @override
   int get noMatchesPerDay;
   @override
-  int get noOfPostPerDay;
+  int get noOfBuddyEventPerWeek;
   @override
   int get noNearbyPerWeek;
   @override
@@ -438,8 +448,11 @@ abstract class _SubscriptionModel implements SubscriptionModel {
   bool get allowCreateCommunity;
   @override
   bool get accessPeopleNearby;
+
+  /// Create a copy of SubscriptionModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SubscriptionModelImplCopyWith<_$SubscriptionModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -453,8 +466,12 @@ SubscriptionListModel _$SubscriptionListModelFromJson(
 mixin _$SubscriptionListModel {
   List<SubscriptionModel> get data => throw _privateConstructorUsedError;
 
+  /// Serializes this SubscriptionListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SubscriptionListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SubscriptionListModelCopyWith<SubscriptionListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -479,6 +496,8 @@ class _$SubscriptionListModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SubscriptionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -514,6 +533,8 @@ class __$$SubscriptionListModelImplCopyWithImpl<$Res>
       $Res Function(_$SubscriptionListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SubscriptionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -558,12 +579,14 @@ class _$SubscriptionListModelImpl implements _SubscriptionListModel {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SubscriptionListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SubscriptionListModelImplCopyWith<_$SubscriptionListModelImpl>
@@ -588,8 +611,11 @@ abstract class _SubscriptionListModel implements SubscriptionListModel {
 
   @override
   List<SubscriptionModel> get data;
+
+  /// Create a copy of SubscriptionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SubscriptionListModelImplCopyWith<_$SubscriptionListModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

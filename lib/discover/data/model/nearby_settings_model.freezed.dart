@@ -12,7 +12,7 @@ part of 'nearby_settings_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 NearbySettingsModel _$NearbySettingsModelFromJson(Map<String, dynamic> json) {
   return _NearbySettingsModel.fromJson(json);
@@ -26,8 +26,12 @@ mixin _$NearbySettingsModel {
   int get totalCount => throw _privateConstructorUsedError;
   NearbySettingsDataModel get data => throw _privateConstructorUsedError;
 
+  /// Serializes this NearbySettingsModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NearbySettingsModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NearbySettingsModelCopyWith<NearbySettingsModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$NearbySettingsModelCopyWithImpl<$Res, $Val extends NearbySettingsModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NearbySettingsModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +97,8 @@ class _$NearbySettingsModelCopyWithImpl<$Res, $Val extends NearbySettingsModel>
     ) as $Val);
   }
 
+  /// Create a copy of NearbySettingsModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $NearbySettingsDataModelCopyWith<$Res> get data {
@@ -127,6 +135,8 @@ class __$$NearbySettingsModelImplCopyWithImpl<$Res>
       $Res Function(_$NearbySettingsModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NearbySettingsModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -204,12 +214,14 @@ class _$NearbySettingsModelImpl implements _NearbySettingsModel {
             (identical(other.data, data) || other.data == data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, statusCode, message, success, totalCount, data);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NearbySettingsModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NearbySettingsModelImplCopyWith<_$NearbySettingsModelImpl> get copyWith =>
@@ -245,8 +257,11 @@ abstract class _NearbySettingsModel implements NearbySettingsModel {
   int get totalCount;
   @override
   NearbySettingsDataModel get data;
+
+  /// Create a copy of NearbySettingsModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NearbySettingsModelImplCopyWith<_$NearbySettingsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -261,8 +276,12 @@ mixin _$NearbySettingsDataModel {
   int get id => throw _privateConstructorUsedError;
   int get radiusInKm => throw _privateConstructorUsedError;
 
+  /// Serializes this NearbySettingsDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NearbySettingsDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NearbySettingsDataModelCopyWith<NearbySettingsDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -287,6 +306,8 @@ class _$NearbySettingsDataModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NearbySettingsDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -328,6 +349,8 @@ class __$$NearbySettingsDataModelImplCopyWithImpl<$Res>
       $Res Function(_$NearbySettingsDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NearbySettingsDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -375,11 +398,13 @@ class _$NearbySettingsDataModelImpl implements _NearbySettingsDataModel {
                 other.radiusInKm == radiusInKm));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, radiusInKm);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NearbySettingsDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NearbySettingsDataModelImplCopyWith<_$NearbySettingsDataModelImpl>
@@ -406,8 +431,11 @@ abstract class _NearbySettingsDataModel implements NearbySettingsDataModel {
   int get id;
   @override
   int get radiusInKm;
+
+  /// Create a copy of NearbySettingsDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NearbySettingsDataModelImplCopyWith<_$NearbySettingsDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

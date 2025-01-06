@@ -12,7 +12,7 @@ part of 'login_user_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 LoginUserModel _$LoginUserModelFromJson(Map<String, dynamic> json) {
   return _LoginUserModel.fromJson(json);
@@ -24,8 +24,12 @@ mixin _$LoginUserModel {
   dynamic get refreshToken => throw _privateConstructorUsedError;
   dynamic get username => throw _privateConstructorUsedError;
 
+  /// Serializes this LoginUserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LoginUserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LoginUserModelCopyWith<LoginUserModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$LoginUserModelCopyWithImpl<$Res, $Val extends LoginUserModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LoginUserModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$LoginUserModelImplCopyWithImpl<$Res>
       _$LoginUserModelImpl _value, $Res Function(_$LoginUserModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LoginUserModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,7 +125,6 @@ class __$$LoginUserModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$LoginUserModelImpl implements _LoginUserModel {
   _$LoginUserModelImpl({this.token, this.refreshToken, this.username});
@@ -148,7 +155,7 @@ class _$LoginUserModelImpl implements _LoginUserModel {
             const DeepCollectionEquality().equals(other.username, username));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -156,7 +163,9 @@ class _$LoginUserModelImpl implements _LoginUserModel {
       const DeepCollectionEquality().hash(refreshToken),
       const DeepCollectionEquality().hash(username));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LoginUserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoginUserModelImplCopyWith<_$LoginUserModelImpl> get copyWith =>
@@ -186,8 +195,11 @@ abstract class _LoginUserModel implements LoginUserModel {
   dynamic get refreshToken;
   @override
   dynamic get username;
+
+  /// Create a copy of LoginUserModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoginUserModelImplCopyWith<_$LoginUserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

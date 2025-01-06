@@ -16,7 +16,7 @@ class CountryRepositoryImpl implements CountryRepository {
   CountryRepositoryImpl(this._datasource);
 
   @override
-  ResultFuture<CountryListModel> getAllCountriesRepo() async {
+  ResultFuture<List<CountryModel>> getAllCountriesRepo() async {
     try {
       final result = await _datasource.getAllCountriesNew();
       return right(result);

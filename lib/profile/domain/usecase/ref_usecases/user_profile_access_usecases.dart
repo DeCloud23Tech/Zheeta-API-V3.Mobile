@@ -1,7 +1,11 @@
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/app/common/param/pagination_param.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/app/common/usecase/usecases.dart';
+import 'package:zheeta/profile/data/model/blocked_user_model.dart';
 import 'package:zheeta/profile/domain/repository/user_profile_access_repository.dart';
+
+
 
 @prod
 @LazySingleton()
@@ -11,7 +15,7 @@ class BlockAccount extends UsecaseWithParams<void, BlockUserParams> {
   final UserProfileAccessRepository _repo;
 
   @override
-  ResultFuture<void> call(BlockUserParams param) async =>
+  ResultFuture<bool> call(BlockUserParams param) async =>
       await _repo.blockAccountRepo(
           userId: param.userId,
           blockOrUnblockUserId: param.blockOrUnblockUserId);
@@ -25,7 +29,7 @@ class GetBlockedUsers extends UsecaseWithParams<void, PaginationParam> {
   final UserProfileAccessRepository _repo;
 
   @override
-  ResultFuture<void> call(PaginationParam params) async =>
+  ResultFuture<BlockedUsersResponse> call(PaginationParam params) async =>
       await _repo.getBlockedUsersRepo(
           pageNumber: params.pageNo, pageSize: params.pageSize);
 }
@@ -38,22 +42,17 @@ class UnBlockAccount extends UsecaseWithParams<void, BlockUserParams> {
   final UserProfileAccessRepository _repo;
 
   @override
-  ResultFuture<void> call(BlockUserParams params) async =>
+  ResultFuture<bool> call(BlockUserParams params) async =>
       await _repo.unblockAccountRepo(
           userId: params.userId,
           blockOrUnblockUserId: params.blockOrUnblockUserId);
 }
+
+
 
 class BlockUserParams {
   String userId;
   String blockOrUnblockUserId;
 
   BlockUserParams({required this.userId, required this.blockOrUnblockUserId});
-}
-
-class PaginationParam {
-  int pageNo;
-  int pageSize;
-
-  PaginationParam({required this.pageNo, required this.pageSize});
 }

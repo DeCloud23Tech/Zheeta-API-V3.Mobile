@@ -12,7 +12,7 @@ class SubscriptionModel with _$SubscriptionModel {
     required int fee,
     required bool allowMessaging,
     required int noMatchesPerDay,
-    required int noOfPostPerDay,
+    required int noOfBuddyEventPerWeek,
     required int noNearbyPerWeek,
     required bool allowWithdrawal,
     required bool allowMultipleMediaInPost,
@@ -22,7 +22,8 @@ class SubscriptionModel with _$SubscriptionModel {
     required bool accessPeopleNearby,
   }) = _SubscriptionModel;
 
-  factory SubscriptionModel.fromJson(Map<String, dynamic> json) => _$SubscriptionModelFromJson(json);
+  factory SubscriptionModel.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionModelFromJson(json);
 }
 
 @freezed
@@ -31,5 +32,6 @@ class SubscriptionListModel with _$SubscriptionListModel {
     required List<SubscriptionModel> data,
   }) = _SubscriptionListModel;
 
-  factory SubscriptionListModel.fromJson(Map<String, dynamic> json) => _$SubscriptionListModelFromJson(json);
+  factory SubscriptionListModel.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionListModelFromJson(json);
 }

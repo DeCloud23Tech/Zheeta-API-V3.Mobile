@@ -12,13 +12,25 @@ mixin Validator {
 
   // Password validation
   String? validatePassword(String? value) {
+    // Check if the password is empty or null
     if (value == null || value.isEmpty) {
       return 'Password is required';
-    } else if (value.length < 6) {
+    }
+    // Check for length
+    else if (value.length < 6) {
       return 'Password must be at least 6 characters';
+    }
+    // Check if it contains at least one capital letter
+    else if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return 'Password must contain at least one capital letter';
+    }
+    // Check if it contains at least one special character
+    else if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return 'Password must contain at least one special character';
     }
     return null;
   }
+
 
   // Beneficiary Password validation
   String? validateBeneficiaryPhone(String? value) {
@@ -45,21 +57,34 @@ mixin Validator {
   String? isValidPhoneNumber(String data,
       {int minLength = 9, int maxLength = 15}) {
     data = data.trim();
-    String? result = isValidInput(
-      data,
-      minLength: minLength,
-    );
-    if (data.length > maxLength)
-      return "Input must be at most $maxLength digits";
-    if (data.length < minLength)
-      return "Input must be at least $minLength digits";
-    if (result != null) return result;
 
-    final RegExp charRegExp = RegExp(r'^\+\d{1,3}\d{6,}$');
-    if (!charRegExp.hasMatch(data))
-      return 'Input is not a valid mobile number \nMake sure you include your country code.';
+    // Check if input is empty
+    if (data.isEmpty) {
+      return "Phone number cannot be empty";
+    }
+
+    // Check if input exceeds the maximum length
+    if (data.length > maxLength) {
+      return "Input must be at most $maxLength digits";
+    }
+
+    // Check if input is below the minimum length
+    if (data.length < minLength) {
+      return "Input must be at least $minLength digits";
+    }
+
+    // Regular expression to validate international phone numbers
+    final RegExp phoneRegExp = RegExp(r'^\+\d{1,3}\d{6,}$');
+
+    // Check if the input matches the phone number pattern
+    if (!phoneRegExp.hasMatch(data)) {
+      return 'Input is not a valid phone number. Make sure to include your country code.';
+    }
+
+    // Input is valid
     return null;
   }
+
 
   // Confirm password validation
   String? validateConfirmPassword(String? value, String password) {

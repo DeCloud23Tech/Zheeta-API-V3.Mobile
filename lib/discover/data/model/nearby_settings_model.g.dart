@@ -9,10 +9,10 @@ part of 'nearby_settings_model.dart';
 _$NearbySettingsModelImpl _$$NearbySettingsModelImplFromJson(
         Map<String, dynamic> json) =>
     _$NearbySettingsModelImpl(
-      statusCode: json['statusCode'] as int,
+      statusCode: (json['statusCode'] as num).toInt(),
       message: json['message'] as String,
       success: json['success'] as bool,
-      totalCount: json['totalCount'] as int,
+      totalCount: (json['totalCount'] as num).toInt(),
       data: NearbySettingsDataModel.fromJson(
           json['data'] as Map<String, dynamic>),
     );
@@ -30,8 +30,8 @@ Map<String, dynamic> _$$NearbySettingsModelImplToJson(
 _$NearbySettingsDataModelImpl _$$NearbySettingsDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$NearbySettingsDataModelImpl(
-      id: json['id'] as int,
-      radiusInKm: json['radiusInKm'] as int,
+      id: (json['id'] as num).toInt(),
+      radiusInKm: (json['radiusInKm'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$NearbySettingsDataModelImplToJson(

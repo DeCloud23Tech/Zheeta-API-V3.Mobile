@@ -1,20 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zheeta/app/common/color.dart';
 
 class SocialButton extends StatelessWidget {
-  final icon;
-  const SocialButton({super.key, this.icon});
+  final String icon;
+  final double height;
+  final double? width;
+  final String? text;
+  final Color? color;
+  final String? link;
+
+  const SocialButton({
+    Key? key,
+    required this.icon,
+    this.height = 24,
+    this.width,
+    this.text,
+    this.color = Colors.black,
+    this.link,
+  }) : super(key: key);
+
+  Future<void> _launchUrl(String url) async {
+    try {
+      final Uri uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } catch (e) {
+      debugPrint('Error launching URL: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: link != null
+          ? () async {
+        await _launchUrl(link!);
+      }
+          : null,
       child: Container(
-        height: 48,
-        width: 48,
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: AppColors.white),
-        child: Image.asset(icon),
+        width: width ?? MediaQuery.of(context).size.width, // Use screen width if not provided
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: AppColors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center, // Center content horizontally
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              height: height,
+              child: Image.asset(icon, fit: BoxFit.scaleDown),
+            ),
+            if (text != null) ...[
+              const SizedBox(width: 8), // Space between icon and text
+              Text(
+                text!,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: color,
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }

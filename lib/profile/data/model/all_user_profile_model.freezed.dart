@@ -12,7 +12,7 @@ part of 'all_user_profile_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AllUserProfileModel _$AllUserProfileModelFromJson(Map<String, dynamic> json) {
   return _AllUserProfileModel.fromJson(json);
@@ -34,8 +34,12 @@ mixin _$AllUserProfileModel {
   dynamic get isBlocked => throw _privateConstructorUsedError;
   dynamic get subscriptionPlan => throw _privateConstructorUsedError;
 
+  /// Serializes this AllUserProfileModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AllUserProfileModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AllUserProfileModelCopyWith<AllUserProfileModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,6 +77,8 @@ class _$AllUserProfileModelCopyWithImpl<$Res, $Val extends AllUserProfileModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AllUserProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,6 +147,8 @@ class _$AllUserProfileModelCopyWithImpl<$Res, $Val extends AllUserProfileModel>
     ) as $Val);
   }
 
+  /// Create a copy of AllUserProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ResidentialAddressModelCopyWith<$Res>? get residentialAddress {
@@ -189,6 +197,8 @@ class __$$AllUserProfileModelImplCopyWithImpl<$Res>
       $Res Function(_$AllUserProfileModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AllUserProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -259,7 +269,6 @@ class __$$AllUserProfileModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$AllUserProfileModelImpl implements _AllUserProfileModel {
   _$AllUserProfileModelImpl(
@@ -333,7 +342,7 @@ class _$AllUserProfileModelImpl implements _AllUserProfileModel {
                 .equals(other.subscriptionPlan, subscriptionPlan));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -350,7 +359,9 @@ class _$AllUserProfileModelImpl implements _AllUserProfileModel {
       const DeepCollectionEquality().hash(isBlocked),
       const DeepCollectionEquality().hash(subscriptionPlan));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AllUserProfileModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AllUserProfileModelImplCopyWith<_$AllUserProfileModelImpl> get copyWith =>
@@ -407,8 +418,11 @@ abstract class _AllUserProfileModel implements AllUserProfileModel {
   dynamic get isBlocked;
   @override
   dynamic get subscriptionPlan;
+
+  /// Create a copy of AllUserProfileModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AllUserProfileModelImplCopyWith<_$AllUserProfileModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -422,8 +436,12 @@ AllUserProfileListModel _$AllUserProfileListModelFromJson(
 mixin _$AllUserProfileListModel {
   List<AllUserProfileModel>? get data => throw _privateConstructorUsedError;
 
+  /// Serializes this AllUserProfileListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AllUserProfileListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AllUserProfileListModelCopyWith<AllUserProfileListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -448,6 +466,8 @@ class _$AllUserProfileListModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AllUserProfileListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -484,6 +504,8 @@ class __$$AllUserProfileListModelImplCopyWithImpl<$Res>
       $Res Function(_$AllUserProfileListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AllUserProfileListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -531,12 +553,14 @@ class _$AllUserProfileListModelImpl implements _AllUserProfileListModel {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AllUserProfileListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AllUserProfileListModelImplCopyWith<_$AllUserProfileListModelImpl>
@@ -560,8 +584,11 @@ abstract class _AllUserProfileListModel implements AllUserProfileListModel {
 
   @override
   List<AllUserProfileModel>? get data;
+
+  /// Create a copy of AllUserProfileListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AllUserProfileListModelImplCopyWith<_$AllUserProfileListModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -18,9 +18,7 @@ extension SubscriptionTypeExtension on SubscriptionType {
         return 'Premium';
       case SubscriptionType.gold:
         return 'Gold';
-      default:
-        return '';
-    }
+      }
   }
 }
 

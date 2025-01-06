@@ -1,13 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zheeta/activity/data/models/activity_model.dart';
 import 'package:zheeta/app/api/errors/error.dart';
 import 'package:zheeta/app/api/errors/exception.dart';
-import 'package:zheeta/app/common/exceptions/custom_exception.dart';
 import 'package:zheeta/app/common/type_def.dart';
 import 'package:zheeta/profile/data/datasource/user_profile_datasource.dart';
 import 'package:zheeta/profile/data/model/all_user_profile_model.dart';
+import 'package:zheeta/profile/data/model/user_post_model.dart';
 import 'package:zheeta/profile/data/model/user_profile_model.dart';
 import 'package:zheeta/profile/data/model/view_profile_model.dart';
 import 'package:zheeta/profile/data/request/create_user_profile_request.dart';
@@ -18,6 +17,7 @@ import 'package:zheeta/profile/domain/repository/user_profile_repository.dart';
 @LazySingleton(as: UserProfileRepository)
 class UserProfileRepositoryImpl implements UserProfileRepository {
   final UserProfileDataSource _datasource;
+
   UserProfileRepositoryImpl(this._datasource);
 
   @override
@@ -72,7 +72,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  ResultFuture<UserProfileModel> getSingleUserProfileRepo() async {
+  ResultFuture<UserProfileModel?> getSingleUserProfileRepo() async {
     try {
       final result = await _datasource.getSingleUserProfileNew();
 
@@ -110,6 +110,24 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
+  ResultVoid uploadCarouselImagesRepo({
+    required String userId,
+    required List<MultipartFile> files,
+    currentMediaUrl,
+  }) async {
+    try {
+      final result = await _datasource.uploadCarouselImagesNew(
+          userId: userId, files: files, currentMediaUrl: currentMediaUrl);
+      return right(result);
+    } on ApiException catch (ex) {
+      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+    } on DioException catch (ex) {
+      return left(
+          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+    }
+  }
+
+  @override
   ResultVoid updateUserProfileRepo(UpdateUserProfileRequest request) async {
     try {
       final result = await _datasource.updateUserProfileNew(request);
@@ -142,9 +160,11 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  ResultFuture<ActivityListModel> getUserRecentActivity() async {
+  ResultFuture<UserPostListModel> getUserRecentActivity(
+      {required int pageNumber, required int pageSize, String? userId}) async {
     try {
-      final result = await _datasource.getUserActivityNew();
+      final result = await _datasource.getUserActivityNew(
+          pageNumber: pageNumber, pageSize: pageSize, userId: userId);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
@@ -154,17 +174,20 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     }
   }
 
-  @override
-  ResultFuture<ActivityListModel> getVisitedUserRecentActivity(
-      String userId) async {
-    try {
-      final result = await _datasource.getUserActivityNew();
-      return right(result);
-    } on ApiException catch (ex) {
-      return left(ApiError(message: ex.message, statusCode: ex.statusCode));
-    } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
-    }
-  }
+// @override
+// ResultFuture<ActivityListModel> getVisitedUserRecentActivity(
+//     {required String userId,
+//     required int pageNumber,
+//     required int pageSize}) async {
+//   try {
+//     final result = await _datasource.getVisitedUserActivity(
+//         userId: userId, pageNumber: pageNumber, pageSize: pageSize);
+//     return right(result);
+//   } on ApiException catch (ex) {
+//     return left(ApiError(message: ex.message, statusCode: ex.statusCode));
+//   } on DioException catch (ex) {
+//     return left(
+//         ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+//   }
+// }
 }

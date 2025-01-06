@@ -5,7 +5,7 @@ part 'interest_model.g.dart';
 
 @freezed
 class InterestModel with _$InterestModel {
-  @JsonSerializable()
+
   factory InterestModel({
     dynamic id,
     dynamic title,

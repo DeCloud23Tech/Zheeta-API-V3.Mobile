@@ -6,7 +6,6 @@ part 'view_profile_model.g.dart';
 
 @freezed
 class ViewProfileModel with _$ViewProfileModel {
-  @JsonSerializable(explicitToJson: true)
   factory ViewProfileModel({
     required bool canViewProfile,
     required bool isFriend,
@@ -21,7 +20,6 @@ class ViewProfileModel with _$ViewProfileModel {
 
 @freezed
 class ViewProfileModelData with _$ViewProfileModelData {
-  @JsonSerializable(explicitToJson: true)
   factory ViewProfileModelData({
     required bool canViewProfile,
     required bool isFriend,

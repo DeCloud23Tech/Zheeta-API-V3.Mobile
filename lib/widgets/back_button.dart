@@ -5,13 +5,15 @@ import 'package:zheeta/app/router/app_router.dart';
 class CustomBackButton extends StatelessWidget {
   final bool isOpaque;
   final bool greyBackground;
-  const CustomBackButton({super.key, this.isOpaque = true, this.greyBackground = false});
+
+  const CustomBackButton(
+      {super.key, this.isOpaque = true, this.greyBackground = false});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        router.pop();
+        router.back();
       },
       child: Container(
         height: 40,
@@ -19,9 +21,9 @@ class CustomBackButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: isOpaque
               ? greyBackground
-                  ? AppColors.grey.withOpacity(0.1)
+                  ? Colors.transparent.withOpacity(0.3)
                   : AppColors.white
-              : AppColors.white.withOpacity(0.3),
+              : AppColors.green.withOpacity(0.3),
           borderRadius: BorderRadius.circular(100),
         ),
         child: Center(
@@ -31,7 +33,7 @@ class CustomBackButton extends StatelessWidget {
                 size: 18,
                 color: isOpaque
                     ? greyBackground
-                        ? AppColors.grey
+                        ? AppColors.white
                         : AppColors.grey.withOpacity(0.4)
                     : AppColors.white),
           ),
@@ -42,25 +44,39 @@ class CustomBackButton extends StatelessWidget {
 }
 
 class AppBackButton extends StatelessWidget {
+  final VoidCallback? onTap;
+  final Color? buttonColor;
+  final Color? iconColor;
+
   const AppBackButton({
     super.key,
+    this.onTap,
+    this.buttonColor = AppColors.white,
+    this.iconColor = AppColors.grey,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        router.pop();
-      },
+      onTap: onTap != null
+          ? onTap
+          : () {
+              // Ensure the context is valid for popping the router
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
+            },
       child: Container(
-        width: 40,
-        height: 40,
-        margin: EdgeInsets.only(left: 20, right: 5, bottom: 5, top: 5),
-        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(100)),
+        width: 35,
+        height: 35,
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
+        decoration: BoxDecoration(
+            color: AppColors.white.withOpacity(0.9), borderRadius: BorderRadius.circular(100)),
         child: Center(
             child: Padding(
           padding: const EdgeInsets.only(left: 6.0),
-          child: Icon(Icons.arrow_back_ios, size: 18, color: AppColors.grey.withOpacity(0.4)),
+          child: Icon(Icons.arrow_back_ios,
+              size: 18, color: iconColor?.withOpacity(0.8)),
         )),
       ),
     );

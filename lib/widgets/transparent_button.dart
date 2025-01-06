@@ -45,8 +45,8 @@ class TransparentButtonNew extends StatelessWidget {
   final title;
   final action;
   final invert;
-  bool isBold;
-  double size;
+  final bool isBold;
+  final double size;
   TransparentButtonNew({
     Key? key,
     required this.title,
@@ -68,7 +68,7 @@ class TransparentButtonNew extends StatelessWidget {
           style: TextStyle(
               color: invert ? AppColors.white : AppColors.primaryDark,
               fontSize: size,
-              fontWeight: isBold ? FontWeight.w500 : FontWeight.w400),
+              fontWeight: isBold ? FontWeight.w500 : FontWeight.w300),
         ),
       ),
     ));

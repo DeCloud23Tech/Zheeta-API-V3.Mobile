@@ -12,7 +12,7 @@ part of 'register_user_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 RegisterUserModel _$RegisterUserModelFromJson(Map<String, dynamic> json) {
   return _RegisterUserModel.fromJson(json);
@@ -43,8 +43,12 @@ mixin _$RegisterUserModel {
   dynamic get lockoutEnabled => throw _privateConstructorUsedError;
   dynamic get accessFailedCount => throw _privateConstructorUsedError;
 
+  /// Serializes this RegisterUserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RegisterUserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RegisterUserModelCopyWith<RegisterUserModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -90,6 +94,8 @@ class _$RegisterUserModelCopyWithImpl<$Res, $Val extends RegisterUserModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RegisterUserModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -250,6 +256,8 @@ class __$$RegisterUserModelImplCopyWithImpl<$Res>
       $Res Function(_$RegisterUserModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RegisterUserModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -370,8 +378,7 @@ class __$$RegisterUserModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$RegisterUserModelImpl implements _RegisterUserModel {
   _$RegisterUserModelImpl(
       {this.phoneCountryCode,
@@ -495,7 +502,7 @@ class _$RegisterUserModelImpl implements _RegisterUserModel {
                 .equals(other.accessFailedCount, accessFailedCount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -523,7 +530,9 @@ class _$RegisterUserModelImpl implements _RegisterUserModel {
         const DeepCollectionEquality().hash(accessFailedCount)
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RegisterUserModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RegisterUserModelImplCopyWith<_$RegisterUserModelImpl> get copyWith =>
@@ -610,8 +619,11 @@ abstract class _RegisterUserModel implements RegisterUserModel {
   dynamic get lockoutEnabled;
   @override
   dynamic get accessFailedCount;
+
+  /// Create a copy of RegisterUserModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RegisterUserModelImplCopyWith<_$RegisterUserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

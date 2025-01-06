@@ -12,7 +12,7 @@ part of 'user_interest_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserInterestModel _$UserInterestModelFromJson(Map<String, dynamic> json) {
   return _UserInterestModel.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$UserInterestModel {
   dynamic get id => throw _privateConstructorUsedError;
   dynamic get title => throw _privateConstructorUsedError;
 
+  /// Serializes this UserInterestModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserInterestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserInterestModelCopyWith<UserInterestModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$UserInterestModelCopyWithImpl<$Res, $Val extends UserInterestModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserInterestModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$UserInterestModelImplCopyWithImpl<$Res>
       $Res Function(_$UserInterestModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserInterestModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,7 +114,6 @@ class __$$UserInterestModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$UserInterestModelImpl implements _UserInterestModel {
   _$UserInterestModelImpl({required this.id, required this.title});
@@ -133,14 +140,16 @@ class _$UserInterestModelImpl implements _UserInterestModel {
             const DeepCollectionEquality().equals(other.title, title));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(title));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserInterestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserInterestModelImplCopyWith<_$UserInterestModelImpl> get copyWith =>
@@ -167,8 +176,11 @@ abstract class _UserInterestModel implements UserInterestModel {
   dynamic get id;
   @override
   dynamic get title;
+
+  /// Create a copy of UserInterestModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserInterestModelImplCopyWith<_$UserInterestModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -182,8 +194,12 @@ UserInterestListModel _$UserInterestListModelFromJson(
 mixin _$UserInterestListModel {
   List<UserInterestModel> get data => throw _privateConstructorUsedError;
 
+  /// Serializes this UserInterestListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserInterestListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserInterestListModelCopyWith<UserInterestListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -208,6 +224,8 @@ class _$UserInterestListModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserInterestListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -243,6 +261,8 @@ class __$$UserInterestListModelImplCopyWithImpl<$Res>
       $Res Function(_$UserInterestListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserInterestListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,8 +278,7 @@ class __$$UserInterestListModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$UserInterestListModelImpl implements _UserInterestListModel {
   _$UserInterestListModelImpl({required final List<UserInterestModel> data})
       : _data = data;
@@ -288,12 +307,14 @@ class _$UserInterestListModelImpl implements _UserInterestListModel {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserInterestListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserInterestListModelImplCopyWith<_$UserInterestListModelImpl>
@@ -318,8 +339,11 @@ abstract class _UserInterestListModel implements UserInterestListModel {
 
   @override
   List<UserInterestModel> get data;
+
+  /// Create a copy of UserInterestListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserInterestListModelImplCopyWith<_$UserInterestListModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

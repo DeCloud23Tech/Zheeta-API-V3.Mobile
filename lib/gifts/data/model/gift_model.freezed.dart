@@ -12,7 +12,7 @@ part of 'gift_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 GiftModel _$GiftModelFromJson(Map<String, dynamic> json) {
   return _GiftModel.fromJson(json);
@@ -28,8 +28,12 @@ mixin _$GiftModel {
   String? get lastModifiedDate => throw _privateConstructorUsedError;
   String? get createdDate => throw _privateConstructorUsedError;
 
+  /// Serializes this GiftModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GiftModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GiftModelCopyWith<GiftModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,6 +63,8 @@ class _$GiftModelCopyWithImpl<$Res, $Val extends GiftModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GiftModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -129,6 +135,8 @@ class __$$GiftModelImplCopyWithImpl<$Res>
       _$GiftModelImpl _value, $Res Function(_$GiftModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GiftModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -226,12 +234,14 @@ class _$GiftModelImpl implements _GiftModel {
                 other.createdDate == createdDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, imageUrl, title, amount, id,
       partitionKey, lastModifiedDate, createdDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GiftModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GiftModelImplCopyWith<_$GiftModelImpl> get copyWith =>
@@ -272,151 +282,11 @@ abstract class _GiftModel implements GiftModel {
   String? get lastModifiedDate;
   @override
   String? get createdDate;
+
+  /// Create a copy of GiftModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GiftModelImplCopyWith<_$GiftModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-GiftListModel _$GiftListModelFromJson(Map<String, dynamic> json) {
-  return _GiftListModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$GiftListModel {
-  List<GiftModel> get data => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $GiftListModelCopyWith<GiftListModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $GiftListModelCopyWith<$Res> {
-  factory $GiftListModelCopyWith(
-          GiftListModel value, $Res Function(GiftListModel) then) =
-      _$GiftListModelCopyWithImpl<$Res, GiftListModel>;
-  @useResult
-  $Res call({List<GiftModel> data});
-}
-
-/// @nodoc
-class _$GiftListModelCopyWithImpl<$Res, $Val extends GiftListModel>
-    implements $GiftListModelCopyWith<$Res> {
-  _$GiftListModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_value.copyWith(
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<GiftModel>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$GiftListModelImplCopyWith<$Res>
-    implements $GiftListModelCopyWith<$Res> {
-  factory _$$GiftListModelImplCopyWith(
-          _$GiftListModelImpl value, $Res Function(_$GiftListModelImpl) then) =
-      __$$GiftListModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<GiftModel> data});
-}
-
-/// @nodoc
-class __$$GiftListModelImplCopyWithImpl<$Res>
-    extends _$GiftListModelCopyWithImpl<$Res, _$GiftListModelImpl>
-    implements _$$GiftListModelImplCopyWith<$Res> {
-  __$$GiftListModelImplCopyWithImpl(
-      _$GiftListModelImpl _value, $Res Function(_$GiftListModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_$GiftListModelImpl(
-      data: null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<GiftModel>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$GiftListModelImpl implements _GiftListModel {
-  _$GiftListModelImpl({required final List<GiftModel> data}) : _data = data;
-
-  factory _$GiftListModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$GiftListModelImplFromJson(json);
-
-  final List<GiftModel> _data;
-  @override
-  List<GiftModel> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString() {
-    return 'GiftListModel(data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GiftListModelImpl &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GiftListModelImplCopyWith<_$GiftListModelImpl> get copyWith =>
-      __$$GiftListModelImplCopyWithImpl<_$GiftListModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$GiftListModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _GiftListModel implements GiftListModel {
-  factory _GiftListModel({required final List<GiftModel> data}) =
-      _$GiftListModelImpl;
-
-  factory _GiftListModel.fromJson(Map<String, dynamic> json) =
-      _$GiftListModelImpl.fromJson;
-
-  @override
-  List<GiftModel> get data;
-  @override
-  @JsonKey(ignore: true)
-  _$$GiftListModelImplCopyWith<_$GiftListModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

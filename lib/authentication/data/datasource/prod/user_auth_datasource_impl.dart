@@ -21,94 +21,93 @@ import 'package:zheeta/authentication/domain/entity/types.dart';
 @prod
 @LazySingleton(as: UserAuthDataSource)
 class UserAuthDataSourceImpl implements UserAuthDataSource {
-  final ApiManager _apiManager;
   final Api _api;
 
-  UserAuthDataSourceImpl(this._apiManager, this._api);
+  UserAuthDataSourceImpl(this._api);
 
-  @override
-  Future<Either<ErrorResponse, MappedResponse>> changePassword(
-      ChangePasswordRequest request) async {
-    final response = await _apiManager.postHttp(
-        '/userauth/change-password', request.toJson());
-    if (response.success) {
-      return Right(response.data);
-    } else {
-      return Left(
-        ErrorResponse(message: response.message, data: response.data),
-      );
-    }
-  }
-
-  @override
-  Future<Either<ErrorResponse, MappedResponse>> login(
-      LoginRequest request) async {
-    final response =
-        await _apiManager.postHttp('/userauth/login', request.toJson());
-    if (response.success) {
-      return Right(response.data);
-    } else {
-      return Left(
-        ErrorResponse(message: response.message, data: response.data),
-      );
-    }
-  }
-
-  @override
-  Future<Either<ErrorResponse, MappedResponse>> loginOAuth(
-      LoginOAuthRequest request) async {
-    final response =
-        await _apiManager.postHttp('/userauth/login/oauth', request.toJson());
-    if (response.success) {
-      return Right(response.data);
-    } else {
-      return Left(
-        ErrorResponse(message: response.message, data: response.data),
-      );
-    }
-  }
-
-  @override
-  Future<Either<ErrorResponse, MappedResponse>> registerStaff(
-      RegisterStaffRequest request) async {
-    final response = await _apiManager.postHttp(
-        '/userauth/register-staff', request.toJson());
-    if (response.success) {
-      return Right(response.data);
-    } else {
-      return Left(
-        ErrorResponse(message: response.message, data: response.data),
-      );
-    }
-  }
-
-  @override
-  Future<Either<ErrorResponse, MappedResponse>> registerUser(
-      RegisterUserRequest request) async {
-    final response =
-        await _apiManager.postHttp('/userauth/register-user', request.toJson());
-    if (response.success) {
-      return Right(response.data);
-    } else {
-      return Left(
-        ErrorResponse(message: response.message, data: response.data),
-      );
-    }
-  }
-
-  @override
-  Future<Either<ErrorResponse, MappedResponse>> resetPassword(
-      ResetPasswordRequest request) async {
-    final response =
-        await _apiManager.putHttp('/userauth/reset-password', request.toJson());
-    if (response.success) {
-      return Right(response.data);
-    } else {
-      return Left(
-        ErrorResponse(message: response.message, data: response.data),
-      );
-    }
-  }
+  // @override
+  // Future<Either<ErrorResponse, MappedResponse>> changePassword(
+  //     ChangePasswordRequest request) async {
+  //   final response = await _apiManager.postHttp(
+  //       '/userauth/change-password', request.toJson());
+  //   if (response.success) {
+  //     return Right(response.data);
+  //   } else {
+  //     return Left(
+  //       ErrorResponse(message: response.message, data: response.data),
+  //     );
+  //   }
+  // }
+  //
+  // @override
+  // Future<Either<ErrorResponse, MappedResponse>> login(
+  //     LoginRequest request) async {
+  //   final response =
+  //       await _apiManager.postHttp('/userauth/login', request.toJson());
+  //   if (response.success) {
+  //     return Right(response.data);
+  //   } else {
+  //     return Left(
+  //       ErrorResponse(message: response.message, data: response.data),
+  //     );
+  //   }
+  // }
+  //
+  // @override
+  // Future<Either<ErrorResponse, MappedResponse>> loginOAuth(
+  //     LoginOAuthRequest request) async {
+  //   final response =
+  //       await _apiManager.postHttp('/userauth/login/oauth', request.toJson());
+  //   if (response.success) {
+  //     return Right(response.data);
+  //   } else {
+  //     return Left(
+  //       ErrorResponse(message: response.message, data: response.data),
+  //     );
+  //   }
+  // }
+  //
+  // @override
+  // Future<Either<ErrorResponse, MappedResponse>> registerStaff(
+  //     RegisterStaffRequest request) async {
+  //   final response = await _apiManager.postHttp(
+  //       '/userauth/register-staff', request.toJson());
+  //   if (response.success) {
+  //     return Right(response.data);
+  //   } else {
+  //     return Left(
+  //       ErrorResponse(message: response.message, data: response.data),
+  //     );
+  //   }
+  // }
+  //
+  // @override
+  // Future<Either<ErrorResponse, MappedResponse>> registerUser(
+  //     RegisterUserRequest request) async {
+  //   final response =
+  //       await _apiManager.postHttp('/userauth/register-user', request.toJson());
+  //   if (response.success) {
+  //     return Right(response.data);
+  //   } else {
+  //     return Left(
+  //       ErrorResponse(message: response.message, data: response.data),
+  //     );
+  //   }
+  // }
+  //
+  // @override
+  // Future<Either<ErrorResponse, MappedResponse>> resetPassword(
+  //     ResetPasswordRequest request) async {
+  //   final response =
+  //       await _apiManager.putHttp('/userauth/reset-password', request.toJson());
+  //   if (response.success) {
+  //     return Right(response.data);
+  //   } else {
+  //     return Left(
+  //       ErrorResponse(message: response.message, data: response.data),
+  //     );
+  //   }
+  // }
 
   @override
   Future<void> changePasswordNew(ChangePasswordRequest request) async {

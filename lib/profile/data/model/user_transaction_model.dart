@@ -5,7 +5,6 @@ part 'user_transaction_model.g.dart';
 
 @freezed
 class UserTransactionModel with _$UserTransactionModel {
-  @JsonSerializable()
   factory UserTransactionModel({
     dynamic userId,
     dynamic title,
@@ -21,7 +20,6 @@ class UserTransactionModel with _$UserTransactionModel {
 
 @freezed
 class UserTransactionListModel with _$UserTransactionListModel {
-  @JsonSerializable(explicitToJson: true)
   factory UserTransactionListModel({
     List<UserTransactionModel>? data,
   }) = _UserTransactionListModel;

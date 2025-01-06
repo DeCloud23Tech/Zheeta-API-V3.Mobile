@@ -1,205 +1,289 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:zheeta/app/common/color.dart';
-import 'package:zheeta/app/common/enums/notification_filter.dart';
-import 'package:zheeta/app/common/extensions/string_extension.dart';
+import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/app/pagination_controller.dart';
 import 'package:zheeta/notification/data/model/notification_model.dart';
-import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
+import 'package:zheeta/notification/domain/usecase/notification_usecase.dart';
+import 'package:zheeta/notification/presentation/bloc/notification_cubit.dart';
+import 'package:zheeta/notification/presentation/utils/notification_utils.dart';
 import 'package:zheeta/notification/presentation/widgets/notification_filter_bottomsheet.dart';
 import 'package:zheeta/widgets/back_button.dart';
-import 'package:zheeta/widgets/loading_screen.dart';
+import 'package:zheeta/widgets/loader.dart';
 import 'package:zheeta/widgets/network_image.dart';
 
 @RoutePage()
-class NotificationScreen extends ConsumerStatefulWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _NotificationScreenState();
+  _NotificationScreenState createState() => _NotificationScreenState();
 }
 
-class _NotificationScreenState extends ConsumerState<NotificationScreen> {
-  late NotificationViewModel notificationViewModel;
+class _NotificationScreenState extends State<NotificationScreen> {
+  late PaginatedListController<NotificationModel, NotificationCubit,
+      NotificationState> _notificationPaginatedController;
+
+  final ScrollController _scrollController = ScrollController();
+  final NotificationCubit notificationCubit = locator<NotificationCubit>();
+
+  int? _selectedNotificationType; // Store the selected notification type
 
   @override
   void initState() {
-    notificationViewModel = ref.read(notificationViewModelProvider.notifier);
     super.initState();
+
+    // Initialize paginated controller
+    _notificationPaginatedController = PaginatedListController<
+        NotificationModel, NotificationCubit, NotificationState>(
+      fetchItems: (param) => notificationCubit.fetchNotificationsCubit(
+        GetNotificationParams(
+          pageNo: param.pageNo,
+          pageSize: param.pageSize,
+          notificationType:
+              _selectedNotificationType, // Use the selected notification type
+        ),
+      ),
+      cubit: notificationCubit,
+    );
+
+    // Add scroll listener to load more items when reaching the bottom
+    _scrollController.addListener(_scrollListener);
+
+    // Load the initial page of notifications
+    _loadNotificationsPage();
+  }
+
+  void _loadNotificationsPage() {
+    // Load the next page of notifications
+    _notificationPaginatedController.loadNextPage(
+      successCondition: (state) => state is NotificationLoaded,
+      extractItems: (state) => (state as NotificationLoaded).notifications,
+      isError: (state) => state is NotificationError,
+    );
+  }
+
+  void _scrollListener() {
+    if (_isBottom) {
+      _loadNotificationsPage();
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    return currentScroll >=
+        (maxScroll * 0.9); // Trigger loading when 90% scrolled
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final notificationState = ref.watch(notificationViewModelProvider);
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
       appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
         backgroundColor: AppColors.secondaryLight,
-        surfaceTintColor: AppColors.secondaryLight,
-        scrolledUnderElevation: 0.5,
-        shadowColor: Colors.grey,
-        leadingWidth: MediaQuery.of(context).size.width * 0.2,
-        leading: Row(
-          children: [
-            AppBackButton(),
-          ],
-        ),
+        elevation: 0.0,
+        leading: AppBackButton(),
+
         title: Text(
           'Notifications',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: AppColors.grayscale,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
         ),
+        centerTitle: true,
         actions: [
           GestureDetector(
             onTap: () {
-              notificationViewModel.markAllNotificationsRead();
+              notificationCubit.markAllNotificationsAsReadCubit();
             },
-            child: SvgPicture.asset('assets/images/icons/notification_tick.svg'),
+            child:
+                SvgPicture.asset('assets/images/icons/notification_tick.svg'),
           ),
-          SizedBox(width: 24),
+          const SizedBox(width: 24),
           GestureDetector(
-            onTap: () {
-              notificationFilterBottomSheet(context);
+            onTap: () async {
+              // Wait for the bottom sheet to close and get the selected notification type
+              final selectedType = await notificationFilterBottomSheet(context);
+              if (selectedType != null) {
+                setState(() {
+                  _selectedNotificationType =
+                      selectedType; // Update the selected notification type
+                });
+                // Reload notifications with the selected type
+                _notificationPaginatedController.reset();
+                _loadNotificationsPage();
+              }
             },
             child: SvgPicture.asset('assets/images/icons/filter_mark.svg'),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
       ),
-      body: notificationState.getNotificationsState.isLoading
-          ? LoadingScreen(backgroundColor: AppColors.secondaryLight, indicatorColor: AppColors.primaryDark)
-          : Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: BlocConsumer<NotificationCubit, NotificationState>(
+          listener: (context, state) {
+            if (state is NotificationMarkedRead) {
+              _notificationPaginatedController.reset();
+              _loadNotificationsPage();
+            }
+          },
+          builder: (context, state) {
+            // Check if notifications are loading and if the list is empty
+            if (state is NotificationLoading &&
+                _notificationPaginatedController.items.isEmpty) {
+              return LoadingIndicator();
+            } else if (state is NotificationLoaded &&
+                _notificationPaginatedController.items.isEmpty) {
+              return Center(
+                child: Text(
+                  'No notifications found.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primaryDark,
+                  ),
+                ),
+              );
+            } else if (state is NotificationError) {
+              // Display error screen if there's an error
+              return Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 40),
-                    if (notificationState.getNotificationsState.data?.data?.isEmpty ?? true)
-                      Center(
-                        child: Text(
-                          'No notifications yet',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    else
-                      ...notificationState.getNotificationsState.data?.data?.map((data) {
-                            return NotificationCard(data: data);
-                          }).toList() ??
-                          [],
+                    Icon(Icons.error, color: AppColors.red, size: 50),
+                    const SizedBox(height: 16),
+                    Text(
+                      'An error occurred while loading notifications.',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.primaryDark,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Retry loading notifications
+                        // _notificationPaginatedController.refresh();
+                        // notificationCubit.getNotifications();
+                      },
+                      child: const Text('Retry'),
+                    ),
                   ],
                 ),
-              ),
-            ),
-    );
-  }
-}
+              );
+            }
 
-class NotificationCard extends ConsumerWidget {
-  final NotificationModel data;
-  NotificationCard({super.key, required this.data});
+            // If no error or loading state, show the notification list
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: AlwaysScrollableScrollPhysics(),
+              controller: _scrollController,
+              itemCount: _notificationPaginatedController.items.length + 1,
+              itemBuilder: (context, index) {
+                if (index == _notificationPaginatedController.items.length) {
+                  return _notificationPaginatedController.hasMoreItems &&
+                      (_notificationPaginatedController.items.length >=
+                          _notificationPaginatedController.pageSize)
+                      ? LoadingIndicator()
+                      : const SizedBox.shrink();
+                }
 
-  final Map<NotificationType, Color> colorMap = {
-    NotificationType.receiveFriendRequest: Color(0xff8FF187),
-    NotificationType.activityComment: Color(0xffFFFFFF),
-    NotificationType.activityLike: Color(0xffFFFFFF),
-    NotificationType.activityPost: Color(0xffFFFFFF),
-    NotificationType.activityPayment: AppColors.primaryLight,
-    NotificationType.comeBack: Colors.lightBlue,
-    NotificationType.communityPost: Colors.purple.shade200,
-    NotificationType.receiveGift: Color(0xff8DBBFF),
-    NotificationType.receiveMoney: Color(0xffFBFF4F),
-    NotificationType.referralRegistration: Color(0xffFFC9C9),
-    NotificationType.sharedActivityPost: Color(0xffFF8960),
-    NotificationType.transaction: Color(0xffFAA1D1),
-  };
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final notificationViewModel = ref.read(notificationViewModelProvider.notifier);
-    return GestureDetector(
-      onTap: () {
-        if (!data.isRead) {
-          notificationViewModel.setNotificationId(data.id);
-          notificationViewModel.markNotificationAsRead();
-        }
-      },
-      child: Container(
-        color: Colors.transparent,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: CustomNetworkImage(imageUrl: data.userProfilePicUrl, fit: BoxFit.cover),
-                    ),
-                    SizedBox(width: 14),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.55,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${data.content}',
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                // Render each notification item
+                final notification = _notificationPaginatedController.items[index];
+                return InkWell(
+                  onTap: !notification.isRead
+                      ? () {
+                    notificationCubit.markNotificationsReadCubit(
+                        MarkNotificationReadParams(
+                            notificationIds: [notification.id]));
+                  }
+                      : null,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding: EdgeInsets.symmetric(vertical: 6),
+                        leading: Container(
+                          width: 40,
+                          height: 40,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          SizedBox(height: 4),
-                          Text(
-                            '${data.createdDate.toString().toDateTime}',
-                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400),
+                          child: CustomNetworkImage(
+                            imageUrl: notification.userProfilePicUrl,
+                            fit: BoxFit.cover,
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: colorMap[data.notificationType],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        '${data.notificationType?.name}',
-                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    if (!data.isRead)
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: AppColors.red,
                         ),
-                      )
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Divider(color: Color(0xffD9DBE9), thickness: 1, height: 1),
-            SizedBox(height: 8),
-          ],
+                        title: Text(
+                          notification.content,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        subtitle: Text(
+                          DateFormat('d MMM \'at\' HH:mm').format(
+                              notification.createdDate ?? DateTime.now()),
+                          style: TextStyle(
+                            color: AppColors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                        trailing: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: getNotificationColor(
+                                    notification.notificationType ?? ''),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Text(
+                                '${notification.notificationType}',
+                                style: TextStyle(
+                                    fontSize: 10, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            if (!notification.isRead)
+                              Container(
+                                width: 8,
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: AppColors.red,
+                                ),
+                              )
+                          ],
+                        ),
+                      ),
+                      Divider(
+                          color: AppColors.grayscale.withOpacity(0.15),
+                          thickness: 1.5,
+                          height: 1),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+
         ),
       ),
     );

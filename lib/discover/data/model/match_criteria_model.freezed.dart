@@ -12,7 +12,7 @@ part of 'match_criteria_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MatchCriteriaModel _$MatchCriteriaModelFromJson(Map<String, dynamic> json) {
   return _MatchCriteriaModel.fromJson(json);
@@ -28,8 +28,12 @@ mixin _$MatchCriteriaModel {
   String get country => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
 
+  /// Serializes this MatchCriteriaModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MatchCriteriaModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MatchCriteriaModelCopyWith<MatchCriteriaModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$MatchCriteriaModelCopyWithImpl<$Res, $Val extends MatchCriteriaModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MatchCriteriaModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,6 +136,8 @@ class __$$MatchCriteriaModelImplCopyWithImpl<$Res>
       $Res Function(_$MatchCriteriaModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MatchCriteriaModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,12 +233,14 @@ class _$MatchCriteriaModelImpl implements _MatchCriteriaModel {
             (identical(other.city, city) || other.city == city));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, userId, gender, minAge, maxAge, distance, country, city);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MatchCriteriaModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MatchCriteriaModelImplCopyWith<_$MatchCriteriaModelImpl> get copyWith =>
@@ -272,8 +282,11 @@ abstract class _MatchCriteriaModel implements MatchCriteriaModel {
   String get country;
   @override
   String? get city;
+
+  /// Create a copy of MatchCriteriaModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MatchCriteriaModelImplCopyWith<_$MatchCriteriaModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

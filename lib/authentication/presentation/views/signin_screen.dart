@@ -1,18 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/common/mixins/validator_mixin.dart';
 import 'package:zheeta/app/common/notify/notify_user.dart';
 import 'package:zheeta/app/common/strings.dart';
 import 'package:zheeta/app/common/text_style.dart';
-import 'package:zheeta/app/injection/di.dart';
+import 'package:zheeta/app/common/utils/navigation_utils.dart';
 import 'package:zheeta/app/router/app_router.dart';
 import 'package:zheeta/app/router/app_router.gr.dart';
 import 'package:zheeta/authentication/data/request/login_request.dart';
-import 'package:zheeta/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:zheeta/authentication/presentation/viewmodel/user_auth_viewmodel.dart';
+import 'package:zheeta/authentication/presentation/bloc/authentication_cubit.dart';
 import 'package:zheeta/widgets/input_field.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 import 'package:zheeta/widgets/social_button.dart';
@@ -27,106 +25,100 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> with Validator {
-  bool _isPasswordObscure = true;
-  final formKey = GlobalKey<FormState>();
-  late UserAuthViewModel userAuthViewModel;
+  final _formKey = GlobalKey<FormState>();
+
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  bool _isPasswordObscure = true;
+
+  // Example device token; replace with actual Firebase token if needed
   String _userDeviceToken =
       '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
 
   @override
-  void initState() {
-    userAuthViewModel = locator<UserAuthViewModel>();
-    super.initState();
-  }
-
-  final validatorChange = ValueNotifier<dynamic>(0);
-
-  @override
   Widget build(BuildContext context) {
-    //final userAuthState = ref.watch(userAuthViewModelProvider);
-    return BlocConsumer<AuthenticationCubit, AuthentcationState>(
+    return Scaffold(
+      backgroundColor: AppColors.secondaryLight,
+      body: BlocListener<AuthenticationCubit, AuthenticationState>(
         listener: (context, state) {
-      if (state is AuthenticationErrorState) {
-        if (state.errorMessage == "Email is not verified") {
-          userAuthViewModel.navigateToVerificationPageLogin();
-        } else {
-          WidgetsBinding.instance.addPostFrameCallback((_) async {
-            await NotifyUser.showSnackbar(state.errorMessage);
-          });
-        }
-      }
-      if (state is AuthenticationLoggedInState) {
-        router.pushAndPopUntil(HomeRoute(), predicate: (route) => false);
-      }
-    }, builder: (context, state) {
-      return Scaffold(
-        backgroundColor: AppColors.secondaryLight,
-        body: Padding(
+          if (state is AuthenticationErrorState) {
+            if (state.errorMessage == "Email is not verified") {
+              navigateToVerificationPageLogin;
+            } else {
+              NotifyUser.showSnackbar(state.errorMessage);
+            }
+          }
+          if (state is AuthenticationLoggedInState) {
+            router.replace(const HomeRoute());
+          }
+        },
+        child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: SingleChildScrollView(
             child: Form(
-              key: formKey,
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 60),
+                  const SizedBox(height: 60),
                   Image.asset("assets/images/full-logo.png", height: 36),
-                  SizedBox(height: 40),
-                  Text(signinTitle, style: authTitleStyle),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 40),
+                  const Text(signupTitle, style: authTitleStyle),
+                  const SizedBox(height: 5),
                   GestureDetector(
-                      onTap: () {
-                        router.push(SignUpRoute());
-                      },
-                      child: Text(signinSubtitle, style: authSubtitleStyle)),
-                  SizedBox(height: 32),
+                    onTap: () {
+                      router.replace(const SignUpRoute());
+                    },
+                    child: Text(signinSubtitle, style: authSubtitleStyle),
+                  ),
+                  const SizedBox(height: 32),
                   InputField(
+                    hintText: 'Email',
                     validator: (data) => validateEmail(data),
                     controller: emailController,
-                    onChanged: (value) {
-                      validatorChange.value = value;
-                    },
-                    hintText: 'Email',
+                    onChanged: (value) {},
                   ),
                   InputField(
                     hintText: 'Password',
                     password: _isPasswordObscure,
-                    controller: passwordController,
-                    onChanged: (value) {
-                      validatorChange.value = value;
-                    },
-                  ),
-                  SizedBox(height: 32),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ListenableBuilder(
-                      listenable: validatorChange,
-                      builder: (context, _) {
-                        return PrimaryButton(
-                          title: 'Login',
-                          disabled: validateEmail(emailController.text) != null,
-                          state: state is AuthenticationLoadingState,
-                          action: () async {
-                            if (formKey.currentState!.validate()) {
-                              context
-                                  .read<AuthenticationCubit>()
-                                  .loginUserCubit(
-                                      request: LoginRequest(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          userDeviceToken: _userDeviceToken,
-                                          platform: 'APNS'));
-                            }
-                          },
-                        );
+                    suffixIcon: IconButton(
+                      icon: Icon(_isPasswordObscure
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordObscure = !_isPasswordObscure;
+                        });
                       },
                     ),
+                    validator: (data) => validatePassword(data),
+                    controller: passwordController,
+                    onChanged: (value) {},
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 32),
+                  BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                    builder: (context, state) {
+                      return PrimaryButton(
+                        title: 'Login',
+                        state: state is AuthenticationLoadingState,
+                        action: () async {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<AuthenticationCubit>().loginUserCubit(
+                                  request: LoginRequest(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    userDeviceToken: _userDeviceToken,
+                                    platform: 'APNS', // Platform for iOS
+                                  ),
+                                );
+                          }
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     child: TransparentButton(
@@ -136,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                       },
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -149,23 +141,44 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                           child: Divider()),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SocialButton(icon: "assets/images/google.png"),
-                      SizedBox(width: 30),
-                      SocialButton(icon: "assets/images/fb.png"),
-                      SizedBox(width: 30),
-                      SocialButton(icon: "assets/images/twitter.png"),
+                      SocialButton(
+                        icon: 'assets/images/google.png',
+                        width: 50,
+                        height: 25,
+                      ),
+                      const SizedBox(width: 30),
+                      SocialButton(
+                        icon: "assets/images/fb.png",
+                        width: 50,
+                        height: 25,
+                      ),
+                      const SizedBox(width: 30),
+                      SocialButton(
+                        icon: "assets/images/twitter.png",
+                        width: 50,
+                        height: 25,
+                      ),
                     ],
+                  ),
+                  const SizedBox(height: 40),
+                  SocialButton(
+                    icon: 'assets/images/whatsapp.png',
+                    text: 'WhatsApp support',
+                    color: Colors.green.shade300,
+                    height: 28,
+                    width: MediaQuery.of(context).size.width,
+                    link: 'https://api.whatsapp.com/send?phone=447767594803',
                   ),
                 ],
               ),
             ),
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

@@ -12,7 +12,7 @@ part of 'gift_response_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 GiftResponseModel _$GiftResponseModelFromJson(Map<String, dynamic> json) {
   return _GiftResponseModel.fromJson(json);
@@ -24,8 +24,12 @@ mixin _$GiftResponseModel {
   String get message => throw _privateConstructorUsedError;
   bool get success => throw _privateConstructorUsedError;
 
+  /// Serializes this GiftResponseModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GiftResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GiftResponseModelCopyWith<GiftResponseModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$GiftResponseModelCopyWithImpl<$Res, $Val extends GiftResponseModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GiftResponseModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$GiftResponseModelImplCopyWithImpl<$Res>
       $Res Function(_$GiftResponseModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GiftResponseModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,11 +156,13 @@ class _$GiftResponseModelImpl implements _GiftResponseModel {
             (identical(other.success, success) || other.success == success));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, statusCode, message, success);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GiftResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GiftResponseModelImplCopyWith<_$GiftResponseModelImpl> get copyWith =>
@@ -182,8 +192,11 @@ abstract class _GiftResponseModel implements GiftResponseModel {
   String get message;
   @override
   bool get success;
+
+  /// Create a copy of GiftResponseModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GiftResponseModelImplCopyWith<_$GiftResponseModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

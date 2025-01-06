@@ -6,7 +6,7 @@ import 'package:zheeta/discover/data/model/nearby_model.dart';
 
 import '../../../../app/api/errors/error.dart';
 import '../../../../app/api/errors/exception.dart';
-import '../../../domain/repository/populate_nearby_repository.dart';
+import '../../../domain/repository/nearby_repository.dart';
 import '../../datasource/nearby_datasource.dart';
 import '../../model/nearby_settings_model.dart';
 
@@ -18,9 +18,11 @@ class NearbyDataRepositoryImpl implements NearbyDataRepository {
   NearbyDataRepositoryImpl(this._datasource);
 
   @override
-  ResultFuture<NearbyListModel> getNearbyProfiles() async {
+  ResultFuture<NearbyListDataModel> getNearbyProfiles(
+      {required int pageNumber, required int pageSize}) async {
     try {
-      final result = await _datasource.getNearbyProfiles();
+      final result = await _datasource.getNearbyProfiles(
+          pageNumber: pageNumber, pageSize: pageSize);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

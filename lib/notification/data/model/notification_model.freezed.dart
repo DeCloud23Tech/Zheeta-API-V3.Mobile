@@ -12,7 +12,7 @@ part of 'notification_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) {
   return _NotificationModel.fromJson(json);
@@ -20,19 +20,24 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NotificationModel {
-  dynamic get userId => throw _privateConstructorUsedError;
-  NotificationType? get notificationType => throw _privateConstructorUsedError;
-  dynamic get content => throw _privateConstructorUsedError;
-  dynamic get userProfilePicUrl => throw _privateConstructorUsedError;
-  dynamic get isRead => throw _privateConstructorUsedError;
-  dynamic get notificationTypeValueId => throw _privateConstructorUsedError;
-  dynamic get id => throw _privateConstructorUsedError;
-  dynamic get partitionKey => throw _privateConstructorUsedError;
-  dynamic get lastModifiedDate => throw _privateConstructorUsedError;
-  dynamic get createdDate => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
+  String? get notificationType =>
+      throw _privateConstructorUsedError; // Use String since "Transaction" is a string in JSON
+  String get content => throw _privateConstructorUsedError;
+  String? get userProfilePicUrl => throw _privateConstructorUsedError;
+  bool get isRead => throw _privateConstructorUsedError;
+  String? get notificationTypeValueId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String? get partitionKey => throw _privateConstructorUsedError;
+  DateTime? get lastModifiedDate => throw _privateConstructorUsedError;
+  DateTime? get createdDate => throw _privateConstructorUsedError;
 
+  /// Serializes this NotificationModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NotificationModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NotificationModelCopyWith<NotificationModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,16 +49,16 @@ abstract class $NotificationModelCopyWith<$Res> {
       _$NotificationModelCopyWithImpl<$Res, NotificationModel>;
   @useResult
   $Res call(
-      {dynamic userId,
-      NotificationType? notificationType,
-      dynamic content,
-      dynamic userProfilePicUrl,
-      dynamic isRead,
-      dynamic notificationTypeValueId,
-      dynamic id,
-      dynamic partitionKey,
-      dynamic lastModifiedDate,
-      dynamic createdDate});
+      {String userId,
+      String? notificationType,
+      String content,
+      String? userProfilePicUrl,
+      bool isRead,
+      String? notificationTypeValueId,
+      String id,
+      String? partitionKey,
+      DateTime? lastModifiedDate,
+      DateTime? createdDate});
 }
 
 /// @nodoc
@@ -66,61 +71,63 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NotificationModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
+    Object? userId = null,
     Object? notificationType = freezed,
-    Object? content = freezed,
+    Object? content = null,
     Object? userProfilePicUrl = freezed,
-    Object? isRead = freezed,
+    Object? isRead = null,
     Object? notificationTypeValueId = freezed,
-    Object? id = freezed,
+    Object? id = null,
     Object? partitionKey = freezed,
     Object? lastModifiedDate = freezed,
     Object? createdDate = freezed,
   }) {
     return _then(_value.copyWith(
-      userId: freezed == userId
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       notificationType: freezed == notificationType
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
-              as NotificationType?,
-      content: freezed == content
+              as String?,
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       userProfilePicUrl: freezed == userProfilePicUrl
           ? _value.userProfilePicUrl
           : userProfilePicUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      isRead: freezed == isRead
+              as String?,
+      isRead: null == isRead
           ? _value.isRead
           : isRead // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as bool,
       notificationTypeValueId: freezed == notificationTypeValueId
           ? _value.notificationTypeValueId
           : notificationTypeValueId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      id: freezed == id
+              as String?,
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       partitionKey: freezed == partitionKey
           ? _value.partitionKey
           : partitionKey // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       lastModifiedDate: freezed == lastModifiedDate
           ? _value.lastModifiedDate
           : lastModifiedDate // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as DateTime?,
       createdDate: freezed == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -134,16 +141,16 @@ abstract class _$$NotificationModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {dynamic userId,
-      NotificationType? notificationType,
-      dynamic content,
-      dynamic userProfilePicUrl,
-      dynamic isRead,
-      dynamic notificationTypeValueId,
-      dynamic id,
-      dynamic partitionKey,
-      dynamic lastModifiedDate,
-      dynamic createdDate});
+      {String userId,
+      String? notificationType,
+      String content,
+      String? userProfilePicUrl,
+      bool isRead,
+      String? notificationTypeValueId,
+      String id,
+      String? partitionKey,
+      DateTime? lastModifiedDate,
+      DateTime? createdDate});
 }
 
 /// @nodoc
@@ -154,77 +161,78 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
       $Res Function(_$NotificationModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NotificationModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
+    Object? userId = null,
     Object? notificationType = freezed,
-    Object? content = freezed,
+    Object? content = null,
     Object? userProfilePicUrl = freezed,
-    Object? isRead = freezed,
+    Object? isRead = null,
     Object? notificationTypeValueId = freezed,
-    Object? id = freezed,
+    Object? id = null,
     Object? partitionKey = freezed,
     Object? lastModifiedDate = freezed,
     Object? createdDate = freezed,
   }) {
     return _then(_$NotificationModelImpl(
-      userId: freezed == userId
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       notificationType: freezed == notificationType
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
-              as NotificationType?,
-      content: freezed == content
+              as String?,
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       userProfilePicUrl: freezed == userProfilePicUrl
           ? _value.userProfilePicUrl
           : userProfilePicUrl // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      isRead: freezed == isRead
+              as String?,
+      isRead: null == isRead
           ? _value.isRead
           : isRead // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as bool,
       notificationTypeValueId: freezed == notificationTypeValueId
           ? _value.notificationTypeValueId
           : notificationTypeValueId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      id: freezed == id
+              as String?,
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       partitionKey: freezed == partitionKey
           ? _value.partitionKey
           : partitionKey // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       lastModifiedDate: freezed == lastModifiedDate
           ? _value.lastModifiedDate
           : lastModifiedDate // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as DateTime?,
       createdDate: freezed == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$NotificationModelImpl implements _NotificationModel {
   _$NotificationModelImpl(
-      {this.userId,
+      {required this.userId,
       this.notificationType,
-      this.content,
+      required this.content,
       this.userProfilePicUrl,
-      this.isRead,
+      required this.isRead,
       this.notificationTypeValueId,
-      this.id,
+      required this.id,
       this.partitionKey,
       this.lastModifiedDate,
       this.createdDate});
@@ -233,25 +241,26 @@ class _$NotificationModelImpl implements _NotificationModel {
       _$$NotificationModelImplFromJson(json);
 
   @override
-  final dynamic userId;
+  final String userId;
   @override
-  final NotificationType? notificationType;
+  final String? notificationType;
+// Use String since "Transaction" is a string in JSON
   @override
-  final dynamic content;
+  final String content;
   @override
-  final dynamic userProfilePicUrl;
+  final String? userProfilePicUrl;
   @override
-  final dynamic isRead;
+  final bool isRead;
   @override
-  final dynamic notificationTypeValueId;
+  final String? notificationTypeValueId;
   @override
-  final dynamic id;
+  final String id;
   @override
-  final dynamic partitionKey;
+  final String? partitionKey;
   @override
-  final dynamic lastModifiedDate;
+  final DateTime? lastModifiedDate;
   @override
-  final dynamic createdDate;
+  final DateTime? createdDate;
 
   @override
   String toString() {
@@ -263,40 +272,43 @@ class _$NotificationModelImpl implements _NotificationModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotificationModelImpl &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.notificationType, notificationType) ||
                 other.notificationType == notificationType) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality()
-                .equals(other.userProfilePicUrl, userProfilePicUrl) &&
-            const DeepCollectionEquality().equals(other.isRead, isRead) &&
-            const DeepCollectionEquality().equals(
-                other.notificationTypeValueId, notificationTypeValueId) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.partitionKey, partitionKey) &&
-            const DeepCollectionEquality()
-                .equals(other.lastModifiedDate, lastModifiedDate) &&
-            const DeepCollectionEquality()
-                .equals(other.createdDate, createdDate));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.userProfilePicUrl, userProfilePicUrl) ||
+                other.userProfilePicUrl == userProfilePicUrl) &&
+            (identical(other.isRead, isRead) || other.isRead == isRead) &&
+            (identical(
+                    other.notificationTypeValueId, notificationTypeValueId) ||
+                other.notificationTypeValueId == notificationTypeValueId) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.partitionKey, partitionKey) ||
+                other.partitionKey == partitionKey) &&
+            (identical(other.lastModifiedDate, lastModifiedDate) ||
+                other.lastModifiedDate == lastModifiedDate) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(userId),
+      userId,
       notificationType,
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(userProfilePicUrl),
-      const DeepCollectionEquality().hash(isRead),
-      const DeepCollectionEquality().hash(notificationTypeValueId),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(partitionKey),
-      const DeepCollectionEquality().hash(lastModifiedDate),
-      const DeepCollectionEquality().hash(createdDate));
+      content,
+      userProfilePicUrl,
+      isRead,
+      notificationTypeValueId,
+      id,
+      partitionKey,
+      lastModifiedDate,
+      createdDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NotificationModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotificationModelImplCopyWith<_$NotificationModelImpl> get copyWith =>
@@ -313,194 +325,46 @@ class _$NotificationModelImpl implements _NotificationModel {
 
 abstract class _NotificationModel implements NotificationModel {
   factory _NotificationModel(
-      {final dynamic userId,
-      final NotificationType? notificationType,
-      final dynamic content,
-      final dynamic userProfilePicUrl,
-      final dynamic isRead,
-      final dynamic notificationTypeValueId,
-      final dynamic id,
-      final dynamic partitionKey,
-      final dynamic lastModifiedDate,
-      final dynamic createdDate}) = _$NotificationModelImpl;
+      {required final String userId,
+      final String? notificationType,
+      required final String content,
+      final String? userProfilePicUrl,
+      required final bool isRead,
+      final String? notificationTypeValueId,
+      required final String id,
+      final String? partitionKey,
+      final DateTime? lastModifiedDate,
+      final DateTime? createdDate}) = _$NotificationModelImpl;
 
   factory _NotificationModel.fromJson(Map<String, dynamic> json) =
       _$NotificationModelImpl.fromJson;
 
   @override
-  dynamic get userId;
+  String get userId;
   @override
-  NotificationType? get notificationType;
+  String?
+      get notificationType; // Use String since "Transaction" is a string in JSON
   @override
-  dynamic get content;
+  String get content;
   @override
-  dynamic get userProfilePicUrl;
+  String? get userProfilePicUrl;
   @override
-  dynamic get isRead;
+  bool get isRead;
   @override
-  dynamic get notificationTypeValueId;
+  String? get notificationTypeValueId;
   @override
-  dynamic get id;
+  String get id;
   @override
-  dynamic get partitionKey;
+  String? get partitionKey;
   @override
-  dynamic get lastModifiedDate;
+  DateTime? get lastModifiedDate;
   @override
-  dynamic get createdDate;
+  DateTime? get createdDate;
+
+  /// Create a copy of NotificationModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotificationModelImplCopyWith<_$NotificationModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-NotificationListModel _$NotificationListModelFromJson(
-    Map<String, dynamic> json) {
-  return _NotificationListModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$NotificationListModel {
-  List<NotificationModel>? get data => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $NotificationListModelCopyWith<NotificationListModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NotificationListModelCopyWith<$Res> {
-  factory $NotificationListModelCopyWith(NotificationListModel value,
-          $Res Function(NotificationListModel) then) =
-      _$NotificationListModelCopyWithImpl<$Res, NotificationListModel>;
-  @useResult
-  $Res call({List<NotificationModel>? data});
-}
-
-/// @nodoc
-class _$NotificationListModelCopyWithImpl<$Res,
-        $Val extends NotificationListModel>
-    implements $NotificationListModelCopyWith<$Res> {
-  _$NotificationListModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = freezed,
-  }) {
-    return _then(_value.copyWith(
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<NotificationModel>?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$NotificationListModelImplCopyWith<$Res>
-    implements $NotificationListModelCopyWith<$Res> {
-  factory _$$NotificationListModelImplCopyWith(
-          _$NotificationListModelImpl value,
-          $Res Function(_$NotificationListModelImpl) then) =
-      __$$NotificationListModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<NotificationModel>? data});
-}
-
-/// @nodoc
-class __$$NotificationListModelImplCopyWithImpl<$Res>
-    extends _$NotificationListModelCopyWithImpl<$Res,
-        _$NotificationListModelImpl>
-    implements _$$NotificationListModelImplCopyWith<$Res> {
-  __$$NotificationListModelImplCopyWithImpl(_$NotificationListModelImpl _value,
-      $Res Function(_$NotificationListModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = freezed,
-  }) {
-    return _then(_$NotificationListModelImpl(
-      data: freezed == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<NotificationModel>?,
-    ));
-  }
-}
-
-/// @nodoc
-
-@JsonSerializable()
-class _$NotificationListModelImpl implements _NotificationListModel {
-  _$NotificationListModelImpl({final List<NotificationModel>? data})
-      : _data = data;
-
-  factory _$NotificationListModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NotificationListModelImplFromJson(json);
-
-  final List<NotificationModel>? _data;
-  @override
-  List<NotificationModel>? get data {
-    final value = _data;
-    if (value == null) return null;
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  String toString() {
-    return 'NotificationListModel(data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NotificationListModelImpl &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NotificationListModelImplCopyWith<_$NotificationListModelImpl>
-      get copyWith => __$$NotificationListModelImplCopyWithImpl<
-          _$NotificationListModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NotificationListModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _NotificationListModel implements NotificationListModel {
-  factory _NotificationListModel({final List<NotificationModel>? data}) =
-      _$NotificationListModelImpl;
-
-  factory _NotificationListModel.fromJson(Map<String, dynamic> json) =
-      _$NotificationListModelImpl.fromJson;
-
-  @override
-  List<NotificationModel>? get data;
-  @override
-  @JsonKey(ignore: true)
-  _$$NotificationListModelImplCopyWith<_$NotificationListModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }

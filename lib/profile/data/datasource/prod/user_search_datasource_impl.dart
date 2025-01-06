@@ -131,7 +131,7 @@ class UserSearchDataSourceImpl implements UserSearchDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return SearchUserByCustomerListModel.fromJson(response.data['data']);
+      return SearchUserByCustomerListModel.fromJson(response.data);
     } else {
       throw ApiException(
           message: response.statusMessage!, statusCode: response.statusCode!);

@@ -9,17 +9,19 @@ part of 'send_gift_request_model.dart';
 _$SendGiftRequestModelImpl _$$SendGiftRequestModelImplFromJson(
         Map<String, dynamic> json) =>
     _$SendGiftRequestModelImpl(
-      giftId: json['GiftId'] as String,
-      totalQuantity: json['TotalQuantity'] as int,
-      receiverUsername: json['ReceiverUsername'] as String,
-      message: json['Message'] as String?,
+      giftId: json['giftId'] as String,
+      totalQuantity: (json['totalQuantity'] as num).toInt(),
+      receiverId: json['receiverId'] as String,
+      receiverUsername: json['receiverUsername'] as String,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$$SendGiftRequestModelImplToJson(
         _$SendGiftRequestModelImpl instance) =>
     <String, dynamic>{
-      'GiftId': instance.giftId,
-      'TotalQuantity': instance.totalQuantity,
-      'ReceiverUsername': instance.receiverUsername,
-      'Message': instance.message,
+      'giftId': instance.giftId,
+      'totalQuantity': instance.totalQuantity,
+      'receiverId': instance.receiverId,
+      'receiverUsername': instance.receiverUsername,
+      'message': instance.message,
     };

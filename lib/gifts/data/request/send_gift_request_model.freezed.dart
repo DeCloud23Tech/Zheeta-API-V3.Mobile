@@ -12,7 +12,7 @@ part of 'send_gift_request_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 SendGiftRequestModel _$SendGiftRequestModelFromJson(Map<String, dynamic> json) {
   return _SendGiftRequestModel.fromJson(json);
@@ -22,11 +22,16 @@ SendGiftRequestModel _$SendGiftRequestModelFromJson(Map<String, dynamic> json) {
 mixin _$SendGiftRequestModel {
   String get giftId => throw _privateConstructorUsedError;
   int get totalQuantity => throw _privateConstructorUsedError;
+  String get receiverId => throw _privateConstructorUsedError;
   String get receiverUsername => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
+  /// Serializes this SendGiftRequestModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SendGiftRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SendGiftRequestModelCopyWith<SendGiftRequestModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -40,6 +45,7 @@ abstract class $SendGiftRequestModelCopyWith<$Res> {
   $Res call(
       {String giftId,
       int totalQuantity,
+      String receiverId,
       String receiverUsername,
       String? message});
 }
@@ -55,11 +61,14 @@ class _$SendGiftRequestModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SendGiftRequestModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? giftId = null,
     Object? totalQuantity = null,
+    Object? receiverId = null,
     Object? receiverUsername = null,
     Object? message = freezed,
   }) {
@@ -72,6 +81,10 @@ class _$SendGiftRequestModelCopyWithImpl<$Res,
           ? _value.totalQuantity
           : totalQuantity // ignore: cast_nullable_to_non_nullable
               as int,
+      receiverId: null == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String,
       receiverUsername: null == receiverUsername
           ? _value.receiverUsername
           : receiverUsername // ignore: cast_nullable_to_non_nullable
@@ -95,6 +108,7 @@ abstract class _$$SendGiftRequestModelImplCopyWith<$Res>
   $Res call(
       {String giftId,
       int totalQuantity,
+      String receiverId,
       String receiverUsername,
       String? message});
 }
@@ -107,11 +121,14 @@ class __$$SendGiftRequestModelImplCopyWithImpl<$Res>
       $Res Function(_$SendGiftRequestModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SendGiftRequestModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? giftId = null,
     Object? totalQuantity = null,
+    Object? receiverId = null,
     Object? receiverUsername = null,
     Object? message = freezed,
   }) {
@@ -124,6 +141,10 @@ class __$$SendGiftRequestModelImplCopyWithImpl<$Res>
           ? _value.totalQuantity
           : totalQuantity // ignore: cast_nullable_to_non_nullable
               as int,
+      receiverId: null == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String,
       receiverUsername: null == receiverUsername
           ? _value.receiverUsername
           : receiverUsername // ignore: cast_nullable_to_non_nullable
@@ -137,12 +158,12 @@ class __$$SendGiftRequestModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.pascal)
+@JsonSerializable()
 class _$SendGiftRequestModelImpl implements _SendGiftRequestModel {
   _$SendGiftRequestModelImpl(
       {required this.giftId,
       required this.totalQuantity,
+      required this.receiverId,
       required this.receiverUsername,
       this.message});
 
@@ -154,13 +175,15 @@ class _$SendGiftRequestModelImpl implements _SendGiftRequestModel {
   @override
   final int totalQuantity;
   @override
+  final String receiverId;
+  @override
   final String receiverUsername;
   @override
   final String? message;
 
   @override
   String toString() {
-    return 'SendGiftRequestModel(giftId: $giftId, totalQuantity: $totalQuantity, receiverUsername: $receiverUsername, message: $message)';
+    return 'SendGiftRequestModel(giftId: $giftId, totalQuantity: $totalQuantity, receiverId: $receiverId, receiverUsername: $receiverUsername, message: $message)';
   }
 
   @override
@@ -171,17 +194,21 @@ class _$SendGiftRequestModelImpl implements _SendGiftRequestModel {
             (identical(other.giftId, giftId) || other.giftId == giftId) &&
             (identical(other.totalQuantity, totalQuantity) ||
                 other.totalQuantity == totalQuantity) &&
+            (identical(other.receiverId, receiverId) ||
+                other.receiverId == receiverId) &&
             (identical(other.receiverUsername, receiverUsername) ||
                 other.receiverUsername == receiverUsername) &&
             (identical(other.message, message) || other.message == message));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, giftId, totalQuantity, receiverUsername, message);
+  int get hashCode => Object.hash(runtimeType, giftId, totalQuantity,
+      receiverId, receiverUsername, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SendGiftRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SendGiftRequestModelImplCopyWith<_$SendGiftRequestModelImpl>
@@ -201,6 +228,7 @@ abstract class _SendGiftRequestModel implements SendGiftRequestModel {
   factory _SendGiftRequestModel(
       {required final String giftId,
       required final int totalQuantity,
+      required final String receiverId,
       required final String receiverUsername,
       final String? message}) = _$SendGiftRequestModelImpl;
 
@@ -212,11 +240,16 @@ abstract class _SendGiftRequestModel implements SendGiftRequestModel {
   @override
   int get totalQuantity;
   @override
+  String get receiverId;
+  @override
   String get receiverUsername;
   @override
   String? get message;
+
+  /// Create a copy of SendGiftRequestModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SendGiftRequestModelImplCopyWith<_$SendGiftRequestModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

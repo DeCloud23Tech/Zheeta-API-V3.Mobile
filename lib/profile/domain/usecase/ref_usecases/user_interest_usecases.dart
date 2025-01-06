@@ -21,12 +21,12 @@ class GetInterests extends UsecaseWithoutParams<UserInterestListModel> {
 @prod
 @LazySingleton()
 class UpdateUserInterest
-    extends UsecaseWithParams<void, UpdateUserUnterestRequest> {
+    extends UsecaseWithParams<void, UpdateUserInterestRequest> {
   const UpdateUserInterest(this._repo);
 
   final UserInterestRepository _repo;
 
   @override
-  ResultFuture<void> call(UpdateUserUnterestRequest params) async =>
+  ResultFuture<void> call(UpdateUserInterestRequest params) async =>
       await _repo.updateUserInterestRepo(params);
 }

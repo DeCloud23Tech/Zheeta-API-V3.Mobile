@@ -13,17 +13,21 @@ class AppGuard extends AutoRouteGuard {
     ITokenStorage storage = locator<ITokenStorage>();
     var result = await storage.read();
     bool isLoggedIn = result != null;
+
     if (!isLoggedIn) {
       NotifyUser.showSnackbar('You must be logged in to access this page!');
-      router.push(const SignInRoute());
+      router.pushAndPopUntil(
+        const SignInRoute(),
+        predicate: (route) => false, // Clear all previous routes
+      );
     } else {
-      final isTokeExpired = Jwt.isExpired(result.token);
-      if (isTokeExpired) {
-        NotifyUser.showSnackbar(
-            'Your session has expired, please login again!');
-        router.push(const SignInRoute());
+      final isTokenExpired = Jwt.isExpired(result.token);
+      if (isTokenExpired) {
+        NotifyUser.showSnackbar('Your session has expired, please login again!');
+        router.replaceAll([const SignInRoute()]);
+      } else {
+        resolver.next(true); // Proceed to the next route if the token is valid
       }
-      resolver.next(true);
     }
   }
 }

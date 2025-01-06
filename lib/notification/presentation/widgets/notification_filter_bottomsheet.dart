@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:zheeta/app/common/enums/notification_filter.dart';
-import 'package:zheeta/app/router/app_router.dart';
-import 'package:zheeta/notification/presentation/viewmodel/notification_viewmodel.dart';
+import 'package:zheeta/notification/presentation/utils/notification_utils.dart';
 import 'package:zheeta/widgets/close_button.dart';
 import 'package:zheeta/widgets/primary_button.dart';
 
-Future notificationFilterBottomSheet(BuildContext context) {
-  return showModalBottomSheet(
+Future<int?> notificationFilterBottomSheet(BuildContext context) {
+  return showModalBottomSheet<int?>(
     context: context,
     isDismissible: false,
     isScrollControlled: true,
-    constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.47),
+    constraints:
+    BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.47),
     backgroundColor: Colors.transparent,
     builder: (context) {
       return NotificationFilterBottomSheetView();
@@ -19,31 +17,29 @@ Future notificationFilterBottomSheet(BuildContext context) {
   );
 }
 
-class NotificationFilterBottomSheetView extends ConsumerStatefulWidget {
+class NotificationFilterBottomSheetView extends StatefulWidget {
   const NotificationFilterBottomSheetView({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _NotificationFilterBottomSheetViewState();
+  State<NotificationFilterBottomSheetView> createState() =>
+      _NotificationFilterBottomSheetViewState();
 }
 
-class _NotificationFilterBottomSheetViewState extends ConsumerState<NotificationFilterBottomSheetView> {
-  late NotificationViewModel notificiationViewModel;
-  final _isLoading = StateProvider((ref) => false);
-
-  @override
-  void initState() {
-    notificiationViewModel = ref.read(notificationViewModelProvider.notifier);
-    super.initState();
-  }
+class _NotificationFilterBottomSheetViewState
+    extends State<NotificationFilterBottomSheetView> {
+  NotificationType? _activeNotificationType;
+  int? notificationType;
 
   @override
   Widget build(BuildContext context) {
-    final notificationState = ref.watch(notificationViewModelProvider);
     return Container(
       padding: EdgeInsets.all(20),
       decoration: const BoxDecoration(
         color: Color(0xffFFF1F7),
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -53,55 +49,54 @@ class _NotificationFilterBottomSheetViewState extends ConsumerState<Notification
               child: Container(
                 width: 50,
                 height: 4,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(2), color: Color(0xffDADADA)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(2),
+                  color: Color(0xffDADADA),
+                ),
               ),
             ),
             SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppCloseButton(),
+                AppCloseButton(
+                  onTap: () => Navigator.pop(context),
+                ),
                 Text(
-                  'Notification filter',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  'Notification Filter',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 SizedBox(width: 40, height: 40),
+                // Placeholder for alignment
               ],
             ),
             SizedBox(height: 20),
             Text(
               'Categories',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(height: 10),
             Wrap(
-              spacing: 8,
-              runSpacing: 8,
+              spacing: 10,
+              runSpacing: 14,
               children: NotificationType.values.map((type) {
                 return NotificationFilterChip(
                   text: type.name,
-                  active: notificationState.filterByCategoryState.data == type,
+                  active: _activeNotificationType == type,
+                  color: getNotificationColor(type.name),
                   onTap: () {
-                    notificiationViewModel.setNotificationTypeFilter(type);
-                  },
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Date',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(height: 10),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: NotificationDate.values.map((date) {
-                return NotificationFilterChip(
-                  text: date.name,
-                  active: notificationState.filterByDateState.data == date,
-                  onTap: () {
-                    notificiationViewModel.setNotificationDateFilter(date);
+                    setState(() {
+                      _activeNotificationType = type;
+                      notificationType = type.value;
+                    });
+                    // Print the case value using the extension
+                    print('Selected case value: ${type.value}');
                   },
                 );
               }).toList(),
@@ -111,12 +106,9 @@ class _NotificationFilterBottomSheetViewState extends ConsumerState<Notification
               width: double.infinity,
               child: PrimaryButton(
                 title: 'Apply',
-                state: ref.watch(_isLoading),
-                action: () async {
-                  ref.read(_isLoading.notifier).state = true;
-                  await notificiationViewModel.getNotifications(loadState: false);
-                  ref.read(_isLoading.notifier).state = false;
-                  router.pop();
+                action: () {
+                  // Pop the bottom sheet and return the selected notification type
+                  Navigator.pop(context, notificationType);
                 },
               ),
             ),
@@ -128,12 +120,20 @@ class _NotificationFilterBottomSheetViewState extends ConsumerState<Notification
   }
 }
 
+
 class NotificationFilterChip extends StatelessWidget {
   final String text;
   final VoidCallback? onTap;
   final bool active;
+  final Color color;
 
-  const NotificationFilterChip({super.key, required this.text, this.onTap, required this.active});
+  const NotificationFilterChip({
+    super.key,
+    required this.text,
+    this.onTap,
+    required this.active,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -142,13 +142,17 @@ class NotificationFilterChip extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
         decoration: BoxDecoration(
-          color: active ? Color(0xff4E4B66) : Color(0xffF7F7FC),
+          color: active ? color : Color(0xffF7F7FC),
           borderRadius: BorderRadius.circular(5),
           border: active ? null : Border.all(color: Color(0xffD9DBE9)),
         ),
         child: Text(
           text,
-          style: TextStyle(color: active ? Colors.white : Color(0xffA0A3BD), fontWeight: FontWeight.w400, fontSize: 12),
+          style: TextStyle(
+            color: active ? Colors.black : Color(0xffA0A3BD),
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+          ),
         ),
       ),
     );

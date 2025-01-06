@@ -2,13 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zheeta/app/common/enums/subscription_type.dart';
 
 part 'user_profile_model.freezed.dart';
+
 part 'user_profile_model.g.dart';
 
 @freezed
 class UserProfileModel with _$UserProfileModel {
-  @JsonSerializable(explicitToJson: true)
   factory UserProfileModel({
-    required UserProfileDataModel data,
+    required UserProfileDataModel? data,
   }) = _UserProfileModel;
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -17,16 +17,13 @@ class UserProfileModel with _$UserProfileModel {
 
 @freezed
 class UserProfileDataModel with _$UserProfileDataModel {
-  @JsonSerializable(explicitToJson: true)
   factory UserProfileDataModel({
-    UserModel? user,
     ProfileModel? profile,
-    ResidentialAddressModel? residentialAddress,
     OriginAddressModel? originAddress,
+    ResidentialAddressModel? residentialAddress,
     LocationModel? location,
     ProfileCounterModel? profileCounters,
-    SubscriptionModel? subscription,
-    WalletModel? wallet,
+    ReferralInfoModel? referralInfo,
     List<InterestModel>? interests,
     BankAccountDetailModel? bankAccountDetails,
     List<UserDownlines>? userDownlines,
@@ -38,8 +35,42 @@ class UserProfileDataModel with _$UserProfileDataModel {
 }
 
 @freezed
+class ProfileModel with _$ProfileModel {
+
+  factory ProfileModel({
+    dynamic id,
+    dynamic firstName,
+    dynamic lastName,
+    dynamic dateOfBirth,
+    dynamic age,
+    dynamic gender,
+    dynamic languageCSV,
+    dynamic aboutMe,
+    dynamic bodyType,
+     dynamic complexion,
+    dynamic height,
+    dynamic weight,
+    dynamic occupation,
+    dynamic religion,
+    dynamic tagline,
+    dynamic maritalStatus,
+    dynamic profilePhotoURL,
+    dynamic profileStatus,
+    dynamic lastSeenTime,
+    dynamic isOnline,
+    ResidentialAddressModel? residentialAddress,
+    UserModel? user,
+    SubscriptionModel? userSubscription,
+    WalletModel? wallet,
+  }) = _ProfileModel;
+
+  factory ProfileModel.fromJson(Map<String, dynamic> json) =>
+      _$ProfileModelFromJson(json);
+}
+
+@freezed
 class UserModel with _$UserModel {
-  @JsonSerializable()
+
   factory UserModel({
     dynamic userId,
     dynamic isFullyVerified,
@@ -59,34 +90,8 @@ class UserModel with _$UserModel {
 }
 
 @freezed
-class ProfileModel with _$ProfileModel {
-  @JsonSerializable()
-  factory ProfileModel({
-    dynamic firstName,
-    dynamic lastName,
-    dynamic dateOfBirth,
-    dynamic age,
-    dynamic gender,
-    dynamic languageCSV,
-    dynamic aboutMe,
-    dynamic height,
-    dynamic weight,
-    dynamic bodyType,
-    dynamic complexion,
-    dynamic religion,
-    dynamic tagline,
-    dynamic occupation,
-    dynamic profilePhotoURL,
-    dynamic profileStatus,
-  }) = _ProfileModel;
-
-  factory ProfileModel.fromJson(Map<String, dynamic> json) =>
-      _$ProfileModelFromJson(json);
-}
-
-@freezed
 class ResidentialAddressModel with _$ResidentialAddressModel {
-  @JsonSerializable()
+
   factory ResidentialAddressModel({
     dynamic city,
     dynamic state,
@@ -100,7 +105,7 @@ class ResidentialAddressModel with _$ResidentialAddressModel {
 
 @freezed
 class OriginAddressModel with _$OriginAddressModel {
-  @JsonSerializable()
+
   factory OriginAddressModel({
     dynamic city,
     dynamic state,
@@ -114,7 +119,7 @@ class OriginAddressModel with _$OriginAddressModel {
 
 @freezed
 class LocationModel with _$LocationModel {
-  @JsonSerializable()
+
   factory LocationModel({
     dynamic latitude,
     dynamic longitude,
@@ -126,11 +131,11 @@ class LocationModel with _$LocationModel {
 
 @freezed
 class ProfileCounterModel with _$ProfileCounterModel {
-  @JsonSerializable()
+
   factory ProfileCounterModel({
     dynamic friendsCount,
-    dynamic refereesCount,
-    dynamic postCount,
+    dynamic downlinesCount,
+    dynamic successfulEventCount,
   }) = _ProfileCounterModel;
 
   factory ProfileCounterModel.fromJson(Map<String, dynamic> json) =>
@@ -139,7 +144,7 @@ class ProfileCounterModel with _$ProfileCounterModel {
 
 @freezed
 class SubscriptionModel with _$SubscriptionModel {
-  @JsonSerializable()
+
   factory SubscriptionModel({
     SubscriptionType? subscriptionId,
     dynamic name,
@@ -156,7 +161,7 @@ class SubscriptionModel with _$SubscriptionModel {
 
 @freezed
 class WalletModel with _$WalletModel {
-  @JsonSerializable()
+
   factory WalletModel({
     dynamic availableBalance,
     dynamic lastTransactionDate,
@@ -168,9 +173,9 @@ class WalletModel with _$WalletModel {
 
 @freezed
 class InterestModel with _$InterestModel {
-  @JsonSerializable()
+
   factory InterestModel({
-    dynamic id,
+    dynamic interestId,
     dynamic title,
   }) = _InterestModel;
 
@@ -178,15 +183,29 @@ class InterestModel with _$InterestModel {
       _$InterestModelFromJson(json);
 }
 
+
+@freezed
+class ReferralInfoModel with _$ReferralInfoModel {
+
+  factory ReferralInfoModel({
+    required String referralCode,
+    required String referralLink,
+  }) = _ReferralInfoModel;
+
+  factory ReferralInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$ReferralInfoModelFromJson(json);
+}
+
 @freezed
 class UserDownlines with _$UserDownlines {
-  @JsonSerializable()
+
   factory UserDownlines(
     dynamic id,
     dynamic firstName,
     dynamic lastName,
     dynamic userName,
     dynamic profilePhotoURL,
+    dynamic createdDate,
   ) = _UserDownlines;
 
   factory UserDownlines.fromJson(Map<String, dynamic> json) =>
@@ -195,7 +214,7 @@ class UserDownlines with _$UserDownlines {
 
 @freezed
 class UserCarousels with _$UserCarousels {
-  @JsonSerializable()
+
   factory UserCarousels(
     dynamic id,
     dynamic carouselPhotoUrl,
@@ -207,7 +226,7 @@ class UserCarousels with _$UserCarousels {
 
 @freezed
 class BankAccountDetailModel with _$BankAccountDetailModel {
-  @JsonSerializable()
+
   factory BankAccountDetailModel({
     dynamic userId,
     dynamic firstName,

@@ -1,32 +1,30 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'matched_profile_boost_model.freezed.dart';
-
 part 'matched_profile_boost_model.g.dart';
 
 @freezed
-class MatchedProfileBoostModel with _$MatchedProfileBoostModel {
-  @JsonSerializable()
-  factory MatchedProfileBoostModel({
+class ProfileBoostModel with _$ProfileBoostModel {
+  factory ProfileBoostModel({
     required String id,
     required String userId,
     required String userName,
     required String fullName,
     required String profileUrlForAds,
     required String userProfileUrl,
-  }) = _MatchedProfileBoostModel;
+    String? caption,
+  }) = _ProfileBoostModel;
 
-  factory MatchedProfileBoostModel.fromJson(Map<String, dynamic> json) =>
-      _$MatchedProfileBoostModelFromJson(json);
+  factory ProfileBoostModel.fromJson(Map<String, dynamic> json) =>
+      _$ProfileBoostModelFromJson(json);
 }
-
 
 @freezed
-class MatchedProfileBoostListModel with _$MatchedProfileBoostListModel {
-  factory MatchedProfileBoostListModel({
-    required List<MatchedProfileBoostModel> data,
-  }) = _MatchedProfileBoostListModel;
+class ProfileBoostListModel with _$ProfileBoostListModel {
+  factory ProfileBoostListModel({
+    required List<ProfileBoostModel> data,
+  }) = _ProfileBoostListModel;
 
-  factory MatchedProfileBoostListModel.fromJson(Map<String, dynamic> json) => _$MatchedProfileBoostListModelFromJson(json);
+  factory ProfileBoostListModel.fromJson(Map<String, dynamic> json) =>
+      _$ProfileBoostListModelFromJson(json);
 }
-

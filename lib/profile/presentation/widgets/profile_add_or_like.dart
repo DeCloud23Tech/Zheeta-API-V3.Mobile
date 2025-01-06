@@ -1,106 +1,92 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/profile/data/model/view_profile_model.dart';
 
-import '../../../app/common/color.dart';
-import '../../data/model/view_profile_model.dart';
 
 class ProfileAddOrLike extends StatelessWidget {
   final ViewProfileModel? visitProfile;
 
-  ProfileAddOrLike({
-    super.key,
+  const ProfileAddOrLike({
+    Key? key,
     this.visitProfile,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
       bottom: 10,
+      left: 0,
+      right: 0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Row(
+          children: [
+            if (!visitProfile!.isFriend) ...[
+              SizedBox(width: 15),
+              Expanded(
+                child: _buildButton(
+                  context,
+                  'assets/images/icons/add_friend.svg',
+                  'Send-FR',
+                ),
+              ),
+            ],
+            SizedBox(width: 4),
+            if (!visitProfile!.isFriend) ...[
+              Expanded(
+                child: _buildButton(
+                  context,
+                  'assets/images/icons/star.svg',
+                  'Send Super-FR',
+                ),
+              ),
+              SizedBox(width: 15),
+            ],
+            if (visitProfile?.isFriend ?? false) ...[
+              SizedBox(width: 15),
+              Expanded(
+                child: _buildButton(
+                  context,
+                  null,
+                  'Unfriend',
+                ),
+              ),
+            ],
+            SizedBox(width: 4),
+            if (visitProfile!.canMessage && visitProfile!.isFriend) ...[
+              Expanded(
+                child: _buildButton(
+                  context,
+                  'assets/images/icons/chat_user.svg',
+                  'Chat User',
+                ),
+              ),
+              SizedBox(width: 15),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String? iconPath, String label) {
+    return Container(
+      color: AppColors.primaryDark,
+      height: 45,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (visitProfile!.canAddFriend)
-            Container(
-              color: AppColors.primaryDark,
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/images/icons/add_friend.svg'),
-                  SizedBox(width: 10),
-                  Text(
-                    'Add Friend',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white),
-                  ),
-                ],
-              ),
+          if (iconPath != null) SvgPicture.asset(iconPath),
+          if (iconPath != null) SizedBox(width: 10),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: AppColors.white,
             ),
-          if (visitProfile!.canAddFriend) SizedBox(width: 8),
-          if (visitProfile!.canAddFriend)
-            Container(
-              color: AppColors.primaryDark,
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/images/icons/star.svg'),
-                  SizedBox(width: 10),
-                  Text(
-                    'Super-FR',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white),
-                  ),
-                ],
-              ),
-            ),
-          if (visitProfile!.isFriend)
-            Container(
-              color: AppColors.primaryDark,
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //SvgPicture.asset('assets/images/icons/add_friend.svg'),
-                  SizedBox(width: 10),
-                  Text(
-                    'Unfriend',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white),
-                  ),
-                ],
-              ),
-            ),
-          if (visitProfile!.isFriend) SizedBox(width: 8),
-          if (visitProfile!.isFriend && visitProfile!.canMessage)
-            Container(
-              color: AppColors.primaryDark,
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/images/icons/chat_user.svg'),
-                  SizedBox(width: 10),
-                  Text(
-                    'Chat User',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white),
-                  ),
-                ],
-              ),
-            ),
+          ),
         ],
       ),
     );

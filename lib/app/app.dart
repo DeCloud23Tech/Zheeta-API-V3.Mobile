@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,9 +8,8 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/app/bloc_providers.dart';
 import 'package:zheeta/app/common/color.dart';
 import 'package:zheeta/app/injection/di.dart';
-import 'package:zheeta/app/router/app_observer.dart';
 import 'package:zheeta/app/router/app_router.dart';
-import 'package:zheeta/main.dart';
+import 'package:zheeta/app/router/app_router.gr.dart';
 
 initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,17 +21,66 @@ initializeApp() async {
   );
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
-  static final RouteObserver<PageRoute> routeObserver =
-      RouteObserver<PageRoute>();
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late AppLinks _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDeepLinks();
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
+  }
+
+  Future<void> initializeDeepLinks() async {
+    _appLinks = AppLinks();
+
+    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
+      debugPrint('Received deep link: $uri');
+      _handleReferralLink(uri);
+    });
+  }
+
+  void _handleReferralLink(Uri uri) {
+    final referralCode = _extractReferralCode(uri);
+    if (referralCode != null) {
+      // Handle referral code, e.g., navigate to the signup page with referral code
+      print(referralCode);
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => SignupPage(referralCode: referralCode),
+      //   ),
+      // );
+    }
+  }
+
+  String? _extractReferralCode(Uri uri) {
+    if (uri.path.startsWith('/referral/')) {
+      return uri.pathSegments.last;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: AppBlocsProvider.allBlocProviders,
       child: MaterialApp.router(
-        scaffoldMessengerKey: scaffoldMessengerKey,
-        routerConfig: router.config(navigatorObservers: () => [MyObserver()]),
+        routerConfig: router.config(),
         title: 'Zheeta',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.dark,
@@ -39,21 +89,16 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.white,
             headerBackgroundColor: AppColors.primaryDark,
             headerForegroundColor: Colors.white,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            todayBackgroundColor:
-                WidgetStateProperty.all(AppColors.primaryDark),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            todayBackgroundColor: WidgetStateProperty.all(AppColors.primaryDark),
             todayBorder: const BorderSide(color: AppColors.primaryDark),
             dayForegroundColor: WidgetStateProperty.all(Colors.black),
             yearForegroundColor: WidgetStateProperty.all(Colors.black),
             weekdayStyle: const TextStyle(color: AppColors.primaryDark),
             inputDecorationTheme: InputDecorationTheme(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              enabledBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              focusedBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
           ),
           pageTransitionsTheme: PageTransitionsTheme(
@@ -68,7 +113,6 @@ class MyApp extends StatelessWidget {
             trackShape: RoundedRectSliderTrackShape(),
             thumbColor: Color(0xeeA0A3BD),
             inactiveTrackColor: Color(0xffD9DBE9),
-            // thumbShape: SliderComponentShape.noOverlay,
             overlayShape: SliderComponentShape.noOverlay,
             showValueIndicator: ShowValueIndicator.always,
             valueIndicatorColor: AppColors.primaryDark,
@@ -94,3 +138,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

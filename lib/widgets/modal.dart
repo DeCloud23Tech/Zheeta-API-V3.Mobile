@@ -42,7 +42,7 @@ class Modal extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                onTap: () => router.pop(),
+                                onTap: () => router.back(),
                                 child: Text(
                                   btn1Title != null ? btn1Title : "NO, CANCEL",
                                   style: TextStyle(decoration: TextDecoration.none, fontFamily: 'Nunito', fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.grayscale),

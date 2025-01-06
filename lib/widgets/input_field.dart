@@ -14,6 +14,8 @@ class InputField extends StatefulWidget {
   final bool readonly;
   final String? initialValue;
   final Widget? suffixIcon;
+  final TextInputType? keyboardType;
+
   const InputField({
     Key? key,
     this.controller,
@@ -27,6 +29,7 @@ class InputField extends StatefulWidget {
     this.readonly = false,
     this.initialValue,
     this.suffixIcon,
+    this.keyboardType = TextInputType.text,
   }) : super(key: key);
 
   @override
@@ -47,11 +50,12 @@ class _InputFieldState extends State<InputField> {
         obscureText: widget.password ? obscure : false,
         style: const TextStyle(color: AppColors.black),
         controller: widget.controller,
-        keyboardType: TextInputType.text,
+        keyboardType: widget.keyboardType,
         onChanged: widget.onChanged,
         minLines: widget.minLine,
         maxLines: widget.maxLine,
         readOnly: widget.readonly,
+        textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.white,
@@ -75,7 +79,8 @@ class _InputFieldState extends State<InputField> {
             borderSide: BorderSide(color: AppColors.grey, width: 0.5),
           ),
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
+          hintStyle:
+              TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
           errorStyle: const TextStyle(color: Colors.red),
           suffixIcon: widget.suffixIcon ??
               (widget.password
@@ -87,7 +92,10 @@ class _InputFieldState extends State<InputField> {
                         padding: const EdgeInsets.all(8.0),
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
-                          child: obscure ? SvgPicture.asset("assets/images/icons/eye_closed.svg") : SvgPicture.asset("assets/images/icons/eye.svg"),
+                          child: obscure
+                              ? SvgPicture.asset(
+                                  "assets/images/icons/eye_closed.svg")
+                              : SvgPicture.asset("assets/images/icons/eye.svg"),
                         ),
                       ),
                     )
@@ -108,6 +116,7 @@ class DropdownInputField extends StatefulWidget {
   final List<String> items;
   final String? value;
   final VoidCallback? onTap;
+
   const DropdownInputField({
     Key? key,
     this.controller,
@@ -129,24 +138,32 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
-      child: DropdownButtonFormField(
+      child: DropdownButtonFormField<String>(
         dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-        icon: const SizedBox.shrink(),
-        items: [
-          ...widget.items
-              .map(
-                (e) => DropdownMenuItem(
-                  value: e,
-                  child: Text(e),
-                ),
-              )
-              .toList(),
-        ],
+        icon: const Icon(Icons.arrow_drop_down, color: Colors.grey),
+        hint: Text(
+          widget.hintText!,
+          style: TextStyle(
+            color: AppColors.grey.withOpacity(0.5),
+          ),
+        ),
+        style: TextStyle(
+          color: AppColors.black,
+          fontSize: 14,
+        ),
+        items: widget.items.map((e) {
+          return DropdownMenuItem<String>(
+            value: e,
+            child: Text(e),
+          );
+        }).toList(),
         value: widget.value,
         validator: widget.validator,
-        style: const TextStyle(color: AppColors.black),
-        onTap: widget.onTap,
-        onChanged: widget.onChanged,
+        onChanged: (newValue) {
+          setState(() {
+            widget.onChanged?.call(newValue);
+          });
+        },
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.white,
@@ -169,10 +186,7 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.grey, width: 0.5),
           ),
-          hintText: widget.hintText,
-          hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.5), fontSize: 14),
           errorStyle: const TextStyle(color: Colors.red),
-          suffixIcon: Icon(Icons.arrow_drop_down, color: Colors.grey),
         ),
       ),
     );

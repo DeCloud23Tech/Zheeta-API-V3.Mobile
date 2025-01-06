@@ -24,7 +24,7 @@ Map<String, dynamic> _$$ViewProfileModelImplToJson(
       'isFriend': instance.isFriend,
       'canMessage': instance.canMessage,
       'canAddFriend': instance.canAddFriend,
-      'profile': instance.profile.toJson(),
+      'profile': instance.profile,
     };
 
 _$ViewProfileModelDataImpl _$$ViewProfileModelDataImplFromJson(
@@ -45,5 +45,5 @@ Map<String, dynamic> _$$ViewProfileModelDataImplToJson(
       'isFriend': instance.isFriend,
       'canMessage': instance.canMessage,
       'canAddFriend': instance.canAddFriend,
-      'profile': instance.profile.toJson(),
+      'profile': instance.profile,
     };

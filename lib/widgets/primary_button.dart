@@ -12,6 +12,7 @@ class PrimaryButton extends StatelessWidget {
   final String? icon2;
   final bool showBorder;
   final bool disabled;
+  final double fontSize;
   const PrimaryButton({
     Key? key,
     this.state = false,
@@ -22,13 +23,13 @@ class PrimaryButton extends StatelessWidget {
     this.showBorder = false,
     this.icon,
     this.icon2,
-    this.disabled = false,
+    this.disabled = false,  this.fontSize =17,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
+      height: 53,
       child: ElevatedButton(
         onPressed: disabled
             ? null
@@ -64,7 +65,7 @@ class PrimaryButton extends StatelessWidget {
                     title,
                     style: TextStyle(
                         color: invert ? AppColors.primaryDark : AppColors.white,
-                        fontSize: 17,
+                        fontSize: fontSize,
                         fontWeight: FontWeight.w400),
                   ),
             icon2 != null
@@ -79,8 +80,8 @@ class PrimaryButton extends StatelessWidget {
           ],
         ),
         style: ButtonStyle(
-          elevation: MaterialStateProperty.all(0.0),
-          backgroundColor: MaterialStateProperty.all<Color>(
+          elevation: WidgetStateProperty.all(0.0),
+          backgroundColor: WidgetStateProperty.all<Color>(
             (invert
                 ? color != null
                     ? color!
@@ -96,7 +97,7 @@ class PrimaryButton extends StatelessWidget {
           //     : color != null
           //         ? color
           //         : primaryDark)),
-          overlayColor: MaterialStateProperty.resolveWith(
+          overlayColor: WidgetStateProperty.resolveWith(
             (states) {
               return states.contains(MaterialState.pressed)
                   ? AppColors.primaryLight.withOpacity(0.5)
@@ -104,7 +105,7 @@ class PrimaryButton extends StatelessWidget {
             },
           ),
 
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
               side: showBorder

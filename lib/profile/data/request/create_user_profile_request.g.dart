@@ -13,7 +13,7 @@ CreateUserProfileRequest _$CreateUserProfileRequestFromJson(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       dateOfBirth: json['dateOfBirth'] as String,
-      gender: json['gender'] as int,
+      gender: (json['gender'] as num).toInt(),
       languageCSV: (json['languageCSV'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -33,7 +33,7 @@ CreateUserProfileRequest _$CreateUserProfileRequestFromJson(
       longitude: (json['longitude'] as num).toDouble(),
       originCity: json['originCity'] as String,
       originCountry: json['originCountry'] as String,
-      maritalStatus: json['maritalStatus'] as int,
+      maritalStatus: (json['maritalStatus'] as num).toInt(),
     );
 
 Map<String, dynamic> _$CreateUserProfileRequestToJson(

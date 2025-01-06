@@ -13,22 +13,12 @@ class ReceivedGiftModel with _$ReceivedGiftModel {
     required int totalQuantity,
     required double totalAmount,
     required String senderId,
-    required String senderUserName,
+    required String? senderUserName,
     required String receiverId,
-    required String receiverUserName,
+    required String? receiverUserName,
     required bool isRedeemed,
     required DateTime createdDate,
   }) = _ReceivedGiftModel;
 
   factory ReceivedGiftModel.fromJson(Map<String, dynamic> json) => _$ReceivedGiftModelFromJson(json);
-}
-
-
-@freezed
-class ReceivedGiftListModel with _$ReceivedGiftListModel {
-  factory ReceivedGiftListModel({
-    required List<ReceivedGiftModel> data,
-  }) = _ReceivedGiftListModel;
-
-  factory ReceivedGiftListModel.fromJson(Map<String, dynamic> json) => _$ReceivedGiftListModelFromJson(json);
 }

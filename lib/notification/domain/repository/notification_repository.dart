@@ -1,13 +1,22 @@
-import 'package:zheeta/app/common/enums/notification_filter.dart';
 import 'package:zheeta/notification/data/model/notification_model.dart';
+import '../../../app/common/type_def.dart';
 
 abstract class NotificationRepository {
-  Future<NotificationListModel> getNotificationsRepo({
-    int? pageNumber,
-    int? pageSize,
-    required NotificationType notificationType,
-    required NotificationDate notificationDurationInDays,
+  ResultFuture<List<NotificationModel>> getNotifications({
+    required int pageNumber,
+    required int pageSize,
+    int? notificationType,
+    int? notificationDurationInDays,
   });
-  markNotificationRepo({required List<String> notificationIds});
-  markAllNotificationsReadRepo();
+
+  ResultVoid markNotificationRead({
+    required List<String> notificationIds,
+  });
+
+  ResultVoid markAllNotificationRead();
+
+  ResultVoid deleteNotification({
+    required String notificationId,
+    required int notificationType,
+  });
 }

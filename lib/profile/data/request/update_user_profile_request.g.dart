@@ -13,7 +13,7 @@ UpdateUserProfileRequest _$UpdateUserProfileRequestFromJson(
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
       dateOfBirth: json['dateOfBirth'] as String?,
-      gender: json['gender'] as int?,
+      gender: (json['gender'] as num?)?.toInt(),
       languageCSV: json['languageCSV'] as String?,
       aboutMe: json['aboutMe'] as String?,
       bodyType: json['bodyType'] as String?,

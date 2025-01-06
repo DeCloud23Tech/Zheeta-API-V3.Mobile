@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zheeta/app/common/color.dart';
 
-import '../../../app/common/color.dart';
 
 class TabButton extends StatelessWidget {
   final String title;

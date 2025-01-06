@@ -12,221 +12,7 @@ part of 'search_user_by_customer_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-SearchUserByCustomerModel _$SearchUserByCustomerModelFromJson(
-    Map<String, dynamic> json) {
-  return _SearchUserByCustomerModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$SearchUserByCustomerModel {
-  dynamic get profileDisplayURL => throw _privateConstructorUsedError;
-  dynamic get username => throw _privateConstructorUsedError;
-  dynamic get userId => throw _privateConstructorUsedError;
-  dynamic get isFullyVerified => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $SearchUserByCustomerModelCopyWith<SearchUserByCustomerModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $SearchUserByCustomerModelCopyWith<$Res> {
-  factory $SearchUserByCustomerModelCopyWith(SearchUserByCustomerModel value,
-          $Res Function(SearchUserByCustomerModel) then) =
-      _$SearchUserByCustomerModelCopyWithImpl<$Res, SearchUserByCustomerModel>;
-  @useResult
-  $Res call(
-      {dynamic profileDisplayURL,
-      dynamic username,
-      dynamic userId,
-      dynamic isFullyVerified});
-}
-
-/// @nodoc
-class _$SearchUserByCustomerModelCopyWithImpl<$Res,
-        $Val extends SearchUserByCustomerModel>
-    implements $SearchUserByCustomerModelCopyWith<$Res> {
-  _$SearchUserByCustomerModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? profileDisplayURL = freezed,
-    Object? username = freezed,
-    Object? userId = freezed,
-    Object? isFullyVerified = freezed,
-  }) {
-    return _then(_value.copyWith(
-      profileDisplayURL: freezed == profileDisplayURL
-          ? _value.profileDisplayURL
-          : profileDisplayURL // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      isFullyVerified: freezed == isFullyVerified
-          ? _value.isFullyVerified
-          : isFullyVerified // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$SearchUserByCustomerModelImplCopyWith<$Res>
-    implements $SearchUserByCustomerModelCopyWith<$Res> {
-  factory _$$SearchUserByCustomerModelImplCopyWith(
-          _$SearchUserByCustomerModelImpl value,
-          $Res Function(_$SearchUserByCustomerModelImpl) then) =
-      __$$SearchUserByCustomerModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {dynamic profileDisplayURL,
-      dynamic username,
-      dynamic userId,
-      dynamic isFullyVerified});
-}
-
-/// @nodoc
-class __$$SearchUserByCustomerModelImplCopyWithImpl<$Res>
-    extends _$SearchUserByCustomerModelCopyWithImpl<$Res,
-        _$SearchUserByCustomerModelImpl>
-    implements _$$SearchUserByCustomerModelImplCopyWith<$Res> {
-  __$$SearchUserByCustomerModelImplCopyWithImpl(
-      _$SearchUserByCustomerModelImpl _value,
-      $Res Function(_$SearchUserByCustomerModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? profileDisplayURL = freezed,
-    Object? username = freezed,
-    Object? userId = freezed,
-    Object? isFullyVerified = freezed,
-  }) {
-    return _then(_$SearchUserByCustomerModelImpl(
-      profileDisplayURL: freezed == profileDisplayURL
-          ? _value.profileDisplayURL
-          : profileDisplayURL // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      isFullyVerified: freezed == isFullyVerified
-          ? _value.isFullyVerified
-          : isFullyVerified // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
-}
-
-/// @nodoc
-
-@JsonSerializable()
-class _$SearchUserByCustomerModelImpl implements _SearchUserByCustomerModel {
-  _$SearchUserByCustomerModelImpl(
-      {this.profileDisplayURL,
-      this.username,
-      this.userId,
-      this.isFullyVerified});
-
-  factory _$SearchUserByCustomerModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SearchUserByCustomerModelImplFromJson(json);
-
-  @override
-  final dynamic profileDisplayURL;
-  @override
-  final dynamic username;
-  @override
-  final dynamic userId;
-  @override
-  final dynamic isFullyVerified;
-
-  @override
-  String toString() {
-    return 'SearchUserByCustomerModel(profileDisplayURL: $profileDisplayURL, username: $username, userId: $userId, isFullyVerified: $isFullyVerified)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SearchUserByCustomerModelImpl &&
-            const DeepCollectionEquality()
-                .equals(other.profileDisplayURL, profileDisplayURL) &&
-            const DeepCollectionEquality().equals(other.username, username) &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality()
-                .equals(other.isFullyVerified, isFullyVerified));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(profileDisplayURL),
-      const DeepCollectionEquality().hash(username),
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(isFullyVerified));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SearchUserByCustomerModelImplCopyWith<_$SearchUserByCustomerModelImpl>
-      get copyWith => __$$SearchUserByCustomerModelImplCopyWithImpl<
-          _$SearchUserByCustomerModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SearchUserByCustomerModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _SearchUserByCustomerModel implements SearchUserByCustomerModel {
-  factory _SearchUserByCustomerModel(
-      {final dynamic profileDisplayURL,
-      final dynamic username,
-      final dynamic userId,
-      final dynamic isFullyVerified}) = _$SearchUserByCustomerModelImpl;
-
-  factory _SearchUserByCustomerModel.fromJson(Map<String, dynamic> json) =
-      _$SearchUserByCustomerModelImpl.fromJson;
-
-  @override
-  dynamic get profileDisplayURL;
-  @override
-  dynamic get username;
-  @override
-  dynamic get userId;
-  @override
-  dynamic get isFullyVerified;
-  @override
-  @JsonKey(ignore: true)
-  _$$SearchUserByCustomerModelImplCopyWith<_$SearchUserByCustomerModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 SearchUserByCustomerListModel _$SearchUserByCustomerListModelFromJson(
     Map<String, dynamic> json) {
@@ -235,11 +21,19 @@ SearchUserByCustomerListModel _$SearchUserByCustomerListModelFromJson(
 
 /// @nodoc
 mixin _$SearchUserByCustomerListModel {
+  int? get statusCode => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  bool? get success => throw _privateConstructorUsedError;
+  int? get totalCount => throw _privateConstructorUsedError;
   List<SearchUserByCustomerModel>? get data =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this SearchUserByCustomerListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchUserByCustomerListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SearchUserByCustomerListModelCopyWith<SearchUserByCustomerListModel>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -252,7 +46,12 @@ abstract class $SearchUserByCustomerListModelCopyWith<$Res> {
       _$SearchUserByCustomerListModelCopyWithImpl<$Res,
           SearchUserByCustomerListModel>;
   @useResult
-  $Res call({List<SearchUserByCustomerModel>? data});
+  $Res call(
+      {int? statusCode,
+      String? message,
+      bool? success,
+      int? totalCount,
+      List<SearchUserByCustomerModel>? data});
 }
 
 /// @nodoc
@@ -266,12 +65,34 @@ class _$SearchUserByCustomerListModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SearchUserByCustomerListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? statusCode = freezed,
+    Object? message = freezed,
+    Object? success = freezed,
+    Object? totalCount = freezed,
     Object? data = freezed,
   }) {
     return _then(_value.copyWith(
+      statusCode: freezed == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      success: freezed == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      totalCount: freezed == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -289,7 +110,12 @@ abstract class _$$SearchUserByCustomerListModelImplCopyWith<$Res>
       __$$SearchUserByCustomerListModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<SearchUserByCustomerModel>? data});
+  $Res call(
+      {int? statusCode,
+      String? message,
+      bool? success,
+      int? totalCount,
+      List<SearchUserByCustomerModel>? data});
 }
 
 /// @nodoc
@@ -302,12 +128,34 @@ class __$$SearchUserByCustomerListModelImplCopyWithImpl<$Res>
       $Res Function(_$SearchUserByCustomerListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchUserByCustomerListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? statusCode = freezed,
+    Object? message = freezed,
+    Object? success = freezed,
+    Object? totalCount = freezed,
     Object? data = freezed,
   }) {
     return _then(_$SearchUserByCustomerListModelImpl(
+      statusCode: freezed == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      success: freezed == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      totalCount: freezed == totalCount
+          ? _value.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       data: freezed == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
@@ -317,18 +165,29 @@ class __$$SearchUserByCustomerListModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class _$SearchUserByCustomerListModelImpl
     implements _SearchUserByCustomerListModel {
   _$SearchUserByCustomerListModelImpl(
-      {final List<SearchUserByCustomerModel>? data})
+      {this.statusCode,
+      this.message,
+      this.success,
+      this.totalCount,
+      final List<SearchUserByCustomerModel>? data})
       : _data = data;
 
   factory _$SearchUserByCustomerListModelImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$SearchUserByCustomerListModelImplFromJson(json);
 
+  @override
+  final int? statusCode;
+  @override
+  final String? message;
+  @override
+  final bool? success;
+  @override
+  final int? totalCount;
   final List<SearchUserByCustomerModel>? _data;
   @override
   List<SearchUserByCustomerModel>? get data {
@@ -341,7 +200,7 @@ class _$SearchUserByCustomerListModelImpl
 
   @override
   String toString() {
-    return 'SearchUserByCustomerListModel(data: $data)';
+    return 'SearchUserByCustomerListModel(statusCode: $statusCode, message: $message, success: $success, totalCount: $totalCount, data: $data)';
   }
 
   @override
@@ -349,15 +208,23 @@ class _$SearchUserByCustomerListModelImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchUserByCustomerListModelImpl &&
+            (identical(other.statusCode, statusCode) ||
+                other.statusCode == statusCode) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.success, success) || other.success == success) &&
+            (identical(other.totalCount, totalCount) ||
+                other.totalCount == totalCount) &&
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
+  int get hashCode => Object.hash(runtimeType, statusCode, message, success,
+      totalCount, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchUserByCustomerListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchUserByCustomerListModelImplCopyWith<
@@ -376,17 +243,255 @@ class _$SearchUserByCustomerListModelImpl
 abstract class _SearchUserByCustomerListModel
     implements SearchUserByCustomerListModel {
   factory _SearchUserByCustomerListModel(
-          {final List<SearchUserByCustomerModel>? data}) =
+          {final int? statusCode,
+          final String? message,
+          final bool? success,
+          final int? totalCount,
+          final List<SearchUserByCustomerModel>? data}) =
       _$SearchUserByCustomerListModelImpl;
 
   factory _SearchUserByCustomerListModel.fromJson(Map<String, dynamic> json) =
       _$SearchUserByCustomerListModelImpl.fromJson;
 
   @override
-  List<SearchUserByCustomerModel>? get data;
+  int? get statusCode;
   @override
-  @JsonKey(ignore: true)
+  String? get message;
+  @override
+  bool? get success;
+  @override
+  int? get totalCount;
+  @override
+  List<SearchUserByCustomerModel>? get data;
+
+  /// Create a copy of SearchUserByCustomerListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchUserByCustomerListModelImplCopyWith<
           _$SearchUserByCustomerListModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+SearchUserByCustomerModel _$SearchUserByCustomerModelFromJson(
+    Map<String, dynamic> json) {
+  return _SearchUserByCustomerModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SearchUserByCustomerModel {
+  String? get profileDisplayURL => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  bool? get isFullyVerified => throw _privateConstructorUsedError;
+
+  /// Serializes this SearchUserByCustomerModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SearchUserByCustomerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SearchUserByCustomerModelCopyWith<SearchUserByCustomerModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SearchUserByCustomerModelCopyWith<$Res> {
+  factory $SearchUserByCustomerModelCopyWith(SearchUserByCustomerModel value,
+          $Res Function(SearchUserByCustomerModel) then) =
+      _$SearchUserByCustomerModelCopyWithImpl<$Res, SearchUserByCustomerModel>;
+  @useResult
+  $Res call(
+      {String? profileDisplayURL,
+      String? username,
+      String? userId,
+      bool? isFullyVerified});
+}
+
+/// @nodoc
+class _$SearchUserByCustomerModelCopyWithImpl<$Res,
+        $Val extends SearchUserByCustomerModel>
+    implements $SearchUserByCustomerModelCopyWith<$Res> {
+  _$SearchUserByCustomerModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SearchUserByCustomerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? profileDisplayURL = freezed,
+    Object? username = freezed,
+    Object? userId = freezed,
+    Object? isFullyVerified = freezed,
+  }) {
+    return _then(_value.copyWith(
+      profileDisplayURL: freezed == profileDisplayURL
+          ? _value.profileDisplayURL
+          : profileDisplayURL // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFullyVerified: freezed == isFullyVerified
+          ? _value.isFullyVerified
+          : isFullyVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SearchUserByCustomerModelImplCopyWith<$Res>
+    implements $SearchUserByCustomerModelCopyWith<$Res> {
+  factory _$$SearchUserByCustomerModelImplCopyWith(
+          _$SearchUserByCustomerModelImpl value,
+          $Res Function(_$SearchUserByCustomerModelImpl) then) =
+      __$$SearchUserByCustomerModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? profileDisplayURL,
+      String? username,
+      String? userId,
+      bool? isFullyVerified});
+}
+
+/// @nodoc
+class __$$SearchUserByCustomerModelImplCopyWithImpl<$Res>
+    extends _$SearchUserByCustomerModelCopyWithImpl<$Res,
+        _$SearchUserByCustomerModelImpl>
+    implements _$$SearchUserByCustomerModelImplCopyWith<$Res> {
+  __$$SearchUserByCustomerModelImplCopyWithImpl(
+      _$SearchUserByCustomerModelImpl _value,
+      $Res Function(_$SearchUserByCustomerModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SearchUserByCustomerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? profileDisplayURL = freezed,
+    Object? username = freezed,
+    Object? userId = freezed,
+    Object? isFullyVerified = freezed,
+  }) {
+    return _then(_$SearchUserByCustomerModelImpl(
+      profileDisplayURL: freezed == profileDisplayURL
+          ? _value.profileDisplayURL
+          : profileDisplayURL // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFullyVerified: freezed == isFullyVerified
+          ? _value.isFullyVerified
+          : isFullyVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SearchUserByCustomerModelImpl implements _SearchUserByCustomerModel {
+  _$SearchUserByCustomerModelImpl(
+      {this.profileDisplayURL,
+      this.username,
+      this.userId,
+      this.isFullyVerified});
+
+  factory _$SearchUserByCustomerModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SearchUserByCustomerModelImplFromJson(json);
+
+  @override
+  final String? profileDisplayURL;
+  @override
+  final String? username;
+  @override
+  final String? userId;
+  @override
+  final bool? isFullyVerified;
+
+  @override
+  String toString() {
+    return 'SearchUserByCustomerModel(profileDisplayURL: $profileDisplayURL, username: $username, userId: $userId, isFullyVerified: $isFullyVerified)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchUserByCustomerModelImpl &&
+            (identical(other.profileDisplayURL, profileDisplayURL) ||
+                other.profileDisplayURL == profileDisplayURL) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.isFullyVerified, isFullyVerified) ||
+                other.isFullyVerified == isFullyVerified));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, profileDisplayURL, username, userId, isFullyVerified);
+
+  /// Create a copy of SearchUserByCustomerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchUserByCustomerModelImplCopyWith<_$SearchUserByCustomerModelImpl>
+      get copyWith => __$$SearchUserByCustomerModelImplCopyWithImpl<
+          _$SearchUserByCustomerModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SearchUserByCustomerModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SearchUserByCustomerModel implements SearchUserByCustomerModel {
+  factory _SearchUserByCustomerModel(
+      {final String? profileDisplayURL,
+      final String? username,
+      final String? userId,
+      final bool? isFullyVerified}) = _$SearchUserByCustomerModelImpl;
+
+  factory _SearchUserByCustomerModel.fromJson(Map<String, dynamic> json) =
+      _$SearchUserByCustomerModelImpl.fromJson;
+
+  @override
+  String? get profileDisplayURL;
+  @override
+  String? get username;
+  @override
+  String? get userId;
+  @override
+  bool? get isFullyVerified;
+
+  /// Create a copy of SearchUserByCustomerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SearchUserByCustomerModelImplCopyWith<_$SearchUserByCustomerModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

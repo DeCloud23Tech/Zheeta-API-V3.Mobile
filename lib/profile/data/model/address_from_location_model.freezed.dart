@@ -12,7 +12,7 @@ part of 'address_from_location_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AddressFromLocationModel _$AddressFromLocationModelFromJson(
     Map<String, dynamic> json) {
@@ -28,8 +28,12 @@ mixin _$AddressFromLocationModel {
   dynamic get city => throw _privateConstructorUsedError;
   dynamic get postalCode => throw _privateConstructorUsedError;
 
+  /// Serializes this AddressFromLocationModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AddressFromLocationModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AddressFromLocationModelCopyWith<AddressFromLocationModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$AddressFromLocationModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AddressFromLocationModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -127,6 +133,8 @@ class __$$AddressFromLocationModelImplCopyWithImpl<$Res>
       $Res Function(_$AddressFromLocationModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AddressFromLocationModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -167,7 +175,6 @@ class __$$AddressFromLocationModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$AddressFromLocationModelImpl implements _AddressFromLocationModel {
   _$AddressFromLocationModelImpl(
@@ -214,7 +221,7 @@ class _$AddressFromLocationModelImpl implements _AddressFromLocationModel {
                 .equals(other.postalCode, postalCode));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -225,7 +232,9 @@ class _$AddressFromLocationModelImpl implements _AddressFromLocationModel {
       const DeepCollectionEquality().hash(city),
       const DeepCollectionEquality().hash(postalCode));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddressFromLocationModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddressFromLocationModelImplCopyWith<_$AddressFromLocationModelImpl>
@@ -264,8 +273,11 @@ abstract class _AddressFromLocationModel implements AddressFromLocationModel {
   dynamic get city;
   @override
   dynamic get postalCode;
+
+  /// Create a copy of AddressFromLocationModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddressFromLocationModelImplCopyWith<_$AddressFromLocationModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

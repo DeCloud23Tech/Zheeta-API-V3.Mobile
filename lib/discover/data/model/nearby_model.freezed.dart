@@ -12,153 +12,7 @@ part of 'nearby_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-NearbyListModel _$NearbyListModelFromJson(Map<String, dynamic> json) {
-  return _NearbyListModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$NearbyListModel {
-  List<NearbyDataModel> get data => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $NearbyListModelCopyWith<NearbyListModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NearbyListModelCopyWith<$Res> {
-  factory $NearbyListModelCopyWith(
-          NearbyListModel value, $Res Function(NearbyListModel) then) =
-      _$NearbyListModelCopyWithImpl<$Res, NearbyListModel>;
-  @useResult
-  $Res call({List<NearbyDataModel> data});
-}
-
-/// @nodoc
-class _$NearbyListModelCopyWithImpl<$Res, $Val extends NearbyListModel>
-    implements $NearbyListModelCopyWith<$Res> {
-  _$NearbyListModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_value.copyWith(
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<NearbyDataModel>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$NearbyListModelImplCopyWith<$Res>
-    implements $NearbyListModelCopyWith<$Res> {
-  factory _$$NearbyListModelImplCopyWith(_$NearbyListModelImpl value,
-          $Res Function(_$NearbyListModelImpl) then) =
-      __$$NearbyListModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<NearbyDataModel> data});
-}
-
-/// @nodoc
-class __$$NearbyListModelImplCopyWithImpl<$Res>
-    extends _$NearbyListModelCopyWithImpl<$Res, _$NearbyListModelImpl>
-    implements _$$NearbyListModelImplCopyWith<$Res> {
-  __$$NearbyListModelImplCopyWithImpl(
-      _$NearbyListModelImpl _value, $Res Function(_$NearbyListModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_$NearbyListModelImpl(
-      data: null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<NearbyDataModel>,
-    ));
-  }
-}
-
-/// @nodoc
-
-@JsonSerializable(explicitToJson: true)
-class _$NearbyListModelImpl implements _NearbyListModel {
-  _$NearbyListModelImpl({required final List<NearbyDataModel> data})
-      : _data = data;
-
-  factory _$NearbyListModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NearbyListModelImplFromJson(json);
-
-  final List<NearbyDataModel> _data;
-  @override
-  List<NearbyDataModel> get data {
-    if (_data is EqualUnmodifiableListView) return _data;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_data);
-  }
-
-  @override
-  String toString() {
-    return 'NearbyListModel(data: $data)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NearbyListModelImpl &&
-            const DeepCollectionEquality().equals(other._data, _data));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NearbyListModelImplCopyWith<_$NearbyListModelImpl> get copyWith =>
-      __$$NearbyListModelImplCopyWithImpl<_$NearbyListModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NearbyListModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _NearbyListModel implements NearbyListModel {
-  factory _NearbyListModel({required final List<NearbyDataModel> data}) =
-      _$NearbyListModelImpl;
-
-  factory _NearbyListModel.fromJson(Map<String, dynamic> json) =
-      _$NearbyListModelImpl.fromJson;
-
-  @override
-  List<NearbyDataModel> get data;
-  @override
-  @JsonKey(ignore: true)
-  _$$NearbyListModelImplCopyWith<_$NearbyListModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 NearbyDataModel _$NearbyDataModelFromJson(Map<String, dynamic> json) {
   return _NearbyDataModel.fromJson(json);
@@ -170,13 +24,17 @@ mixin _$NearbyDataModel {
   String get username => throw _privateConstructorUsedError;
   String get profilePhotoURL => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
-  int get distance => throw _privateConstructorUsedError;
+  double get distance => throw _privateConstructorUsedError;
   int get age => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   int get totalWeight => throw _privateConstructorUsedError;
 
+  /// Serializes this NearbyDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NearbyDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NearbyDataModelCopyWith<NearbyDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -192,7 +50,7 @@ abstract class $NearbyDataModelCopyWith<$Res> {
       String username,
       String profilePhotoURL,
       String location,
-      int distance,
+      double distance,
       int age,
       String gender,
       int totalWeight});
@@ -208,6 +66,8 @@ class _$NearbyDataModelCopyWithImpl<$Res, $Val extends NearbyDataModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NearbyDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -240,7 +100,7 @@ class _$NearbyDataModelCopyWithImpl<$Res, $Val extends NearbyDataModel>
       distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -270,7 +130,7 @@ abstract class _$$NearbyDataModelImplCopyWith<$Res>
       String username,
       String profilePhotoURL,
       String location,
-      int distance,
+      double distance,
       int age,
       String gender,
       int totalWeight});
@@ -284,6 +144,8 @@ class __$$NearbyDataModelImplCopyWithImpl<$Res>
       _$NearbyDataModelImpl _value, $Res Function(_$NearbyDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NearbyDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -316,7 +178,7 @@ class __$$NearbyDataModelImplCopyWithImpl<$Res>
       distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -334,7 +196,6 @@ class __$$NearbyDataModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
 @JsonSerializable()
 class _$NearbyDataModelImpl implements _NearbyDataModel {
   _$NearbyDataModelImpl(
@@ -359,7 +220,7 @@ class _$NearbyDataModelImpl implements _NearbyDataModel {
   @override
   final String location;
   @override
-  final int distance;
+  final double distance;
   @override
   final int age;
   @override
@@ -392,12 +253,14 @@ class _$NearbyDataModelImpl implements _NearbyDataModel {
                 other.totalWeight == totalWeight));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, username, profilePhotoURL,
       location, distance, age, gender, totalWeight);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NearbyDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NearbyDataModelImplCopyWith<_$NearbyDataModelImpl> get copyWith =>
@@ -418,7 +281,7 @@ abstract class _NearbyDataModel implements NearbyDataModel {
       required final String username,
       required final String profilePhotoURL,
       required final String location,
-      required final int distance,
+      required final double distance,
       required final int age,
       required final String gender,
       required final int totalWeight}) = _$NearbyDataModelImpl;
@@ -435,15 +298,176 @@ abstract class _NearbyDataModel implements NearbyDataModel {
   @override
   String get location;
   @override
-  int get distance;
+  double get distance;
   @override
   int get age;
   @override
   String get gender;
   @override
   int get totalWeight;
+
+  /// Create a copy of NearbyDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NearbyDataModelImplCopyWith<_$NearbyDataModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+NearbyListDataModel _$NearbyListDataModelFromJson(Map<String, dynamic> json) {
+  return _NearbyListDataModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$NearbyListDataModel {
+  List<NearbyDataModel> get data => throw _privateConstructorUsedError;
+
+  /// Serializes this NearbyListDataModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of NearbyListDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $NearbyListDataModelCopyWith<NearbyListDataModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NearbyListDataModelCopyWith<$Res> {
+  factory $NearbyListDataModelCopyWith(
+          NearbyListDataModel value, $Res Function(NearbyListDataModel) then) =
+      _$NearbyListDataModelCopyWithImpl<$Res, NearbyListDataModel>;
+  @useResult
+  $Res call({List<NearbyDataModel> data});
+}
+
+/// @nodoc
+class _$NearbyListDataModelCopyWithImpl<$Res, $Val extends NearbyListDataModel>
+    implements $NearbyListDataModelCopyWith<$Res> {
+  _$NearbyListDataModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of NearbyListDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_value.copyWith(
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<NearbyDataModel>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$NearbyListDataModelImplCopyWith<$Res>
+    implements $NearbyListDataModelCopyWith<$Res> {
+  factory _$$NearbyListDataModelImplCopyWith(_$NearbyListDataModelImpl value,
+          $Res Function(_$NearbyListDataModelImpl) then) =
+      __$$NearbyListDataModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<NearbyDataModel> data});
+}
+
+/// @nodoc
+class __$$NearbyListDataModelImplCopyWithImpl<$Res>
+    extends _$NearbyListDataModelCopyWithImpl<$Res, _$NearbyListDataModelImpl>
+    implements _$$NearbyListDataModelImplCopyWith<$Res> {
+  __$$NearbyListDataModelImplCopyWithImpl(_$NearbyListDataModelImpl _value,
+      $Res Function(_$NearbyListDataModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of NearbyListDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$NearbyListDataModelImpl(
+      data: null == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<NearbyDataModel>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$NearbyListDataModelImpl implements _NearbyListDataModel {
+  const _$NearbyListDataModelImpl({required final List<NearbyDataModel> data})
+      : _data = data;
+
+  factory _$NearbyListDataModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NearbyListDataModelImplFromJson(json);
+
+  final List<NearbyDataModel> _data;
+  @override
+  List<NearbyDataModel> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
+
+  @override
+  String toString() {
+    return 'NearbyListDataModel(data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NearbyListDataModelImpl &&
+            const DeepCollectionEquality().equals(other._data, _data));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
+
+  /// Create a copy of NearbyListDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NearbyListDataModelImplCopyWith<_$NearbyListDataModelImpl> get copyWith =>
+      __$$NearbyListDataModelImplCopyWithImpl<_$NearbyListDataModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$NearbyListDataModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _NearbyListDataModel implements NearbyListDataModel {
+  const factory _NearbyListDataModel(
+      {required final List<NearbyDataModel> data}) = _$NearbyListDataModelImpl;
+
+  factory _NearbyListDataModel.fromJson(Map<String, dynamic> json) =
+      _$NearbyListDataModelImpl.fromJson;
+
+  @override
+  List<NearbyDataModel> get data;
+
+  /// Create a copy of NearbyListDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NearbyListDataModelImplCopyWith<_$NearbyListDataModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
