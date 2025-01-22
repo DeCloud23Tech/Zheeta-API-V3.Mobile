@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/common/constants/color.dart';
 
 class SocialButton extends StatelessWidget {
   final String icon;
@@ -11,14 +11,14 @@ class SocialButton extends StatelessWidget {
   final String? link;
 
   const SocialButton({
-    Key? key,
+    super.key,
     required this.icon,
     this.height = 24,
     this.width,
     this.text,
     this.color = Colors.black,
     this.link,
-  }) : super(key: key);
+  });
 
   Future<void> _launchUrl(String url) async {
     try {

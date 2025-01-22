@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/widgets/primary_button.dart';
 
-class ErrorView extends StatelessWidget {
-  const ErrorView({Key? key}) : super(key: key);
+class ErrorPage extends StatelessWidget {
+  final VoidCallback? onTryAgain;
+
+  const ErrorPage({super.key, this.onTryAgain});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +14,9 @@ class ErrorView extends StatelessWidget {
       backgroundColor: AppColors.secondaryLight,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 60.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // SVG Image
@@ -43,24 +46,9 @@ class ErrorView extends StatelessWidget {
               ),
               const SizedBox(height: 32), // Spacing
               // Try Again Button (Optional)
-              ElevatedButton(
-                onPressed: () {
-                  // Add your retry logic here
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Customize color
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Text(
-                    'Reload page',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                ),
+              PrimaryButton(
+                title: 'Reload Page',
+                action: onTryAgain ?? () {}, // Default to an empty function
               ),
             ],
           ),

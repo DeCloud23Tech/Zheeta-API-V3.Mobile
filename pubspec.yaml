@@ -3,8 +3,8 @@ description: Zheeta... The Social Affiliate Networking Platform
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 0.0.1+1 # ios version number
-#version: 1.0.0+1 # android version number
+version: 0.0.1+1 # iOS version number
+# version: 1.0.0+1 # Android version number
 
 environment:
   sdk: '>=3.3.4 <4.0.0'
@@ -13,17 +13,16 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Firebase
   # UI Components & Animations
   cupertino_icons: ^1.0.8
   flutter_svg: any
   animations: ^2.0.11
-#  page_transition: "^2.0.5"
-#  shimmer: ^3.0.0
   carousel_slider: ^5.0.0
   appinio_swiper: ^2.1.1
-#  flutter_card_swiper: ^7.0.1
-#  swipe_cards: ^2.0.0+1
   dotted_border: ^2.1.0
+  flutter_spinkit: any
+  shimmer: ^3.0.0
 
   # Form Handling & Inputs
   intl_phone_field: ^3.2.0
@@ -32,13 +31,10 @@ dependencies:
 
   # Media Handling
   image_picker: ^1.1.2
-#  video_thumbnail: ^0.5.3
-#  qr_flutter: ^4.1.0
 
   # State Management & Dependency Injection
-#  flutter_riverpod: ^2.5.1
-  flutter_bloc:
-  bloc: ^8.1.4
+  flutter_bloc: any
+  bloc: ^9.0.0
   get_it: ^8.0.3
   injectable: ^2.5.0
 
@@ -52,8 +48,8 @@ dependencies:
 
   # Network & APIs
   dio: ^5.7.0
-#  http_parser: ^4.0.2
-  http: ^1.2.2
+  pretty_dio_logger: ^1.4.0
+  http: ^1.3.0
   jwt_decode: ^0.3.1
 
   # Geolocation & Maps
@@ -61,11 +57,10 @@ dependencies:
   geolocator: ^13.0.2
 
   # Security & Authentication
-  flutter_secure_storage: ^9.2.3
-#  flutter_2fa: ^1.0.4
+  flutter_secure_storage: ^9.2.4
 
   # Routing & Navigation
-  auto_route: ^9.2.2
+  auto_route: ^9.3.0+1
 
   # Code Generation & Annotations
   freezed_annotation: ^2.4.4
@@ -80,56 +75,24 @@ dependencies:
   dartz: ^0.10.1
   equatable: ^2.0.7
   share_plus: ^10.1.3
-  shimmer: ^3.0.0
-
   firebase_messaging: ^15.1.6
   firebase_core: ^3.9.0
   flutter_local_notifications: ^18.0.1
-
-  # App Features & Plugins
   app_links: ^6.3.3
-#  draggable_bottom_sheet: ^1.0.2
-#  flutter_native_splash: ^2.4.4
   permission_handler: ^11.3.1
   url_launcher: ^6.3.1
-
-
-
+  timeago: ^3.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-#  flutter_launcher_icons: ^0.14.2
   json_serializable: ^6.8.0
   build_runner: ^2.4.14
   injectable_generator: ^2.6.2
   freezed: ^2.5.7
   auto_route_generator: ^9.0.0
   mockito: ^5.4.5
-
   flutter_lints: ^5.0.0
-
-
-#flutter_icons:
-#  ios: true
-#  android: true
-#  remove_alpha_ios: true
-#  image_path_ios: "assets/images/icons/icon.png"
-#  image_path_android: "assets/images/icons/icon.png"
-
-
-#flutter_native_splash:
-#  #background_image: assets/images/logo_pink.png
-#  image: assets/images/logo_pink.png
-#  color: "#FFF1F7"
-#  android: true
-#  ios: true
-#
-#  android_12:
-#    color: "#FFF1F7"
-#
-#  web: false
-#  fullscreen: false
 
 flutter:
   uses-material-design: true

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/common/constants/color.dart';
 
 class PrimaryButton extends StatelessWidget {
   final bool state;
-  final title;
+  final String title;
   final VoidCallback? action;
   final bool invert;
   final Color? color;
@@ -13,8 +13,9 @@ class PrimaryButton extends StatelessWidget {
   final bool showBorder;
   final bool disabled;
   final double fontSize;
+
   const PrimaryButton({
-    Key? key,
+    super.key,
     this.state = false,
     required this.title,
     required this.action,
@@ -23,12 +24,13 @@ class PrimaryButton extends StatelessWidget {
     this.showBorder = false,
     this.icon,
     this.icon2,
-    this.disabled = false,  this.fontSize =17,
-  }) : super(key: key);
+    this.disabled = false,
+    this.fontSize = 17,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 53,
       child: ElevatedButton(
         onPressed: disabled
@@ -36,6 +38,35 @@ class PrimaryButton extends StatelessWidget {
             : state
                 ? null
                 : action,
+        style: ButtonStyle(
+          elevation: WidgetStateProperty.all(0.0),
+          backgroundColor: WidgetStateProperty.all<Color>(
+            (invert
+                ? color != null
+                    ? color!
+                    : AppColors.white
+                : color != null
+                    ? color!
+                    : disabled
+                        ? AppColors.primaryDark.withOpacity(0.3)
+                        : AppColors.primaryDark),
+          ),
+          overlayColor: WidgetStateProperty.resolveWith(
+            (states) {
+              return states.contains(WidgetState.pressed)
+                  ? AppColors.primaryLight.withOpacity(0.5)
+                  : null;
+            },
+          ),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: showBorder
+                  ? BorderSide(color: AppColors.primaryDark)
+                  : BorderSide.none,
+            ),
+          ),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -78,41 +109,6 @@ class PrimaryButton extends StatelessWidget {
                   ])
                 : SizedBox(),
           ],
-        ),
-        style: ButtonStyle(
-          elevation: WidgetStateProperty.all(0.0),
-          backgroundColor: WidgetStateProperty.all<Color>(
-            (invert
-                ? color != null
-                    ? color!
-                    : AppColors.white
-                : color != null
-                    ? color!
-                    : disabled
-                        ? AppColors.primaryDark.withOpacity(0.3)
-                        : AppColors.primaryDark),
-          ),
-          // shadowColor: MaterialStateProperty.all<Color>(invert
-          //     ? white
-          //     : color != null
-          //         ? color
-          //         : primaryDark)),
-          overlayColor: WidgetStateProperty.resolveWith(
-            (states) {
-              return states.contains(MaterialState.pressed)
-                  ? AppColors.primaryLight.withOpacity(0.5)
-                  : null;
-            },
-          ),
-
-          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              side: showBorder
-                  ? BorderSide(color: AppColors.primaryDark)
-                  : BorderSide.none,
-            ),
-          ),
         ),
       ),
     );

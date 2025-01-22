@@ -1,35 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/common/constants/color.dart';
 
 class TransparentButton extends StatelessWidget {
-  final title;
-  final action;
-  final invert;
+  final String title;
+  final VoidCallback action;
+  final bool invert;
+
   const TransparentButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.action,
     this.invert = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: 56,
         child: ElevatedButton(
           onPressed: (action),
-          child: Text(
-            title,
-            style: TextStyle(
-                color: invert ? AppColors.white : AppColors.primaryDark,
-                fontSize: 14,
-                fontWeight: FontWeight.w400),
-          ),
           style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.transparent),
-            shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-            overlayColor: MaterialStateProperty.resolveWith(
+            backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
+            shadowColor: WidgetStateProperty.all<Color>(Colors.transparent),
+            overlayColor: WidgetStateProperty.resolveWith(
               (states) {
                 return states.contains(MaterialState.pressed)
                     ? AppColors.primaryDark.withOpacity(0.2)
@@ -37,29 +30,36 @@ class TransparentButton extends StatelessWidget {
               },
             ),
           ),
+          child: Text(
+            title,
+            style: TextStyle(
+                color: invert ? AppColors.white : AppColors.primaryDark,
+                fontSize: 14,
+                fontWeight: FontWeight.w400),
+          ),
         ));
   }
 }
 
 class TransparentButtonNew extends StatelessWidget {
-  final title;
-  final action;
-  final invert;
+  final String title;
+  final VoidCallback action;
+  final bool invert;
   final bool isBold;
   final double size;
-  TransparentButtonNew({
-    Key? key,
+
+  const TransparentButtonNew({
+    super.key,
     required this.title,
     required this.action,
     this.invert = false,
     this.isBold = false,
     this.size = 14,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: InkWell(
+    return InkWell(
       onTap: (action),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -71,6 +71,6 @@ class TransparentButtonNew extends StatelessWidget {
               fontWeight: isBold ? FontWeight.w500 : FontWeight.w300),
         ),
       ),
-    ));
+    );
   }
 }

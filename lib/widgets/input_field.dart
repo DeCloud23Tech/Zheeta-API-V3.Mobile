@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/common/constants/color.dart';
 
 class InputField extends StatefulWidget {
   final TextEditingController? controller;
@@ -17,7 +17,7 @@ class InputField extends StatefulWidget {
   final TextInputType? keyboardType;
 
   const InputField({
-    Key? key,
+    super.key,
     this.controller,
     this.hintText,
     this.password = false,
@@ -30,7 +30,7 @@ class InputField extends StatefulWidget {
     this.initialValue,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
-  }) : super(key: key);
+  });
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -118,7 +118,7 @@ class DropdownInputField extends StatefulWidget {
   final VoidCallback? onTap;
 
   const DropdownInputField({
-    Key? key,
+    super.key,
     this.controller,
     this.hintText,
     this.password = false,
@@ -127,7 +127,7 @@ class DropdownInputField extends StatefulWidget {
     required this.items,
     this.value,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<DropdownInputField> createState() => _DropdownInputFieldState();
