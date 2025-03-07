@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/common/model/login_user_model.dart';
@@ -29,7 +28,7 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
           contentType: Headers.jsonContentType,
         ),
         data: jsonEncode(request.toJson()));
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 && response.data?['statusCode'] == 200) {
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,
@@ -121,12 +120,12 @@ class UserAuthDataSourceImpl implements UserAuthDataSource {
 
   @override
   Future<void> resetPasswordNew(ResetPasswordRequest request) async {
-    var response = await _api.dio.post('/userauth/reset-password',
+    var response = await _api.dio.put('/userauth/reset-password',
         options: Options(
           contentType: Headers.jsonContentType,
         ),
         data: jsonEncode(request.toJson()));
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 && response.data?['statusCode'] == 200) {
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,

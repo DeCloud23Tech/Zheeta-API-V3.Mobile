@@ -24,6 +24,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
   final UserAuthDataSource _datasource;
   final IUserStorage userStorage;
   final ITokenStorage tokenStorage;
+
   UserAuthRepositoryImpl(this._datasource, this.userStorage, this.tokenStorage);
 
   @override
@@ -35,7 +36,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
       return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -48,7 +49,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
       return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -79,7 +80,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
       return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -93,41 +94,22 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      String errorMessage = "Error Logging In";
+      // Extract the error message from the response
+      String errorMessage = "An error occurred while registering.";
       if (ex.response?.data?["message"] != null) {
         errorMessage = ex.response?.data?["message"];
       }
-      return left(ApiError(
-          message: errorMessage, statusCode: ex.response!.statusCode!));
-    }
-    // return result.fold(
-    //   (error) {
-    //     if (error.data != null) {
-    //       String? usernameException;
-    //       String? emailException;
-    //       String? phoneException;
 
-    //       final data = error.data as List;
-    //       for (String e in data) {
-    //         if (e.toString().toLowerCase().contains('username')) {
-    //           usernameException = e;
-    //         } else if (e.toString().toLowerCase().contains('email')) {
-    //           emailException = e;
-    //         } else if (e.toString().toLowerCase().contains('phone')) {
-    //           phoneException = e;
-    //         }
-    //       }
-    //       throw new DuplicateRegisterParamException(
-    //         usernameException: usernameException,
-    //         emailException: emailException,
-    //         phoneException: phoneException,
-    //       );
-    //     } else {
-    //       throw new Exception(error.message);
-    //     }
-    //   },
-    //   (value) => RegisterUserModel.fromJson(value['data']),
-    // );
+      // Append validation details if available
+      if (ex.response?.data?["data"] is List) {
+        errorMessage += "\nDetails: ${ex.response?.data?["data"].join(", ")}";
+      }
+
+      return left(ApiError(
+        message: errorMessage,
+        statusCode: ex.response?.statusCode ?? 400,
+      ));
+    }
   }
 
   @override
@@ -140,7 +122,7 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
       return left(
-          ApiError(message: ex.message!, statusCode: ex.response!.statusCode!));
+          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -153,12 +135,8 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      String errorMessage = "Error Logging In";
-      if (ex.response?.data?["message"] != null) {
-        errorMessage = ex.response?.data?["message"];
-      }
-      return left(ApiError(
-          message: errorMessage, statusCode: ex.response!.statusCode!));
+      return left(
+          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
     }
   }
 }

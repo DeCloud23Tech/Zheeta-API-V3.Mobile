@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/common/constants/constansts.dart';
 import 'package:zheeta/common/constants/strings.dart';
 import 'package:zheeta/common/constants/text_style.dart';
 import 'package:zheeta/common/mixins/validator_mixin.dart';
@@ -44,13 +45,14 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
   void _handleLogin(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final pushNotificationService = locator<PushNotificationService>();
-      final deviceToken = pushNotificationService.deviceToken;
-      final platform = Platform.isIOS ? 'APNS' : 'FCM';
+      final deviceToken = await pushNotificationService.getDeviceToken();
+      final platform = Platform.isIOS ? 'APNS' : 'GCM';
 
+      if(!context.mounted) return;
       context.read<AuthenticationCubit>().loginUserCubit(
         request: LoginRequest(
-          email: emailController.text,
-          password: passwordController.text,
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
           userDeviceToken: deviceToken ?? '',
           platform: platform,
         ),
@@ -87,7 +89,10 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
           if (state is AuthenticationErrorState) {
             NotifyUser.showSnackBar(state.errorMessage);
           } else if (state is AuthenticationLoggedInState) {
-            router.replace(const HomeRoute());
+            context.router.pushAndPopUntil(
+              const HomeRoute(),
+              predicate: (route) => false, // Removes all previous routes
+            );
           }
         },
         child: Padding(
@@ -101,11 +106,10 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                   const SizedBox(height: 60),
                   Image.asset("assets/images/full-logo.png", height: 36),
                   const SizedBox(height: 40),
-                  const Text(signupTitle, style: authTitleStyle),
+                  const Text(signinTitle, style: authTitleStyle),
                   const SizedBox(height: 5),
                   GestureDetector(
-                    onTap: () {},
-                        // router.replace(const SignUpRoute()),
+                    onTap: () => router.replace(SignUpRoute()),
                     child: const Text(signinSubtitle, style: authSubtitleStyle),
                   ),
                   const SizedBox(height: 32),
@@ -125,7 +129,7 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                               ? Icons.visibility_off
                               : Icons.visibility),
                           onPressed: () =>
-                          _isPasswordObscure.value = !isObscure,
+                              _isPasswordObscure.value = !isObscure,
                         ),
                         validator: validatePassword,
                         controller: passwordController,
@@ -146,9 +150,9 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                   Center(
                     child: TransparentButton(
                       title: 'Forgot Password?',
-                      action: () {},
-
-                          //router.push(const ForgotPasswordRoute()),
+                      action: () {
+                        router.push(const ForgotPasswordRoute());
+                      },
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -158,21 +162,23 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                       _buildDivider(),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(signinAlt, style: authAltStyle),
+                        child: Text(//signinAlt,
+                          'Contact Support',
+                           style: authAltStyle),
                       ),
                       _buildDivider(),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  _buildSocialButtons(),
+                  // const SizedBox(height: 20),
+                  // _buildSocialButtons(),
                   const SizedBox(height: 50),
                   SocialButton(
                     icon: 'assets/images/whatsapp.png',
-                    text: 'WhatsApp support',
+                    text: 'WhatsApp',
                     color: Colors.green.shade300,
                     height: 28,
                     width: MediaQuery.of(context).size.width,
-                    link: 'https://api.whatsapp.com/send?phone=447767594803',
+                    link: launchWhatsApp,
                   ),
                 ],
               ),

@@ -28,3 +28,29 @@ class AuthenticationLoggedInState extends AuthenticationState {
   @override
   List<Object> get props => [data];
 }
+
+class AuthenticationRegisteredState extends AuthenticationState {
+  final RegisterUserModel data;
+
+  const AuthenticationRegisteredState(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
+
+
+
+class AuthenticationSentEmailOtpState extends AuthenticationState {}
+
+class AuthenticationSentPhoneOtpState extends AuthenticationState {}
+
+class AuthenticationVerifiedPhoneOtpState extends AuthenticationState {}
+
+class AuthenticationVerifiedEmailOtpState extends AuthenticationState {}
+
+class AuthenticationChangePasswordState extends AuthenticationState {}
+
+class AuthenticationResetPasswordState extends AuthenticationState {}
+
+class AuthenticationSentResetPasswordState extends AuthenticationState {}
+
