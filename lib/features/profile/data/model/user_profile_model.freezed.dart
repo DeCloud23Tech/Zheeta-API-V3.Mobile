@@ -190,17 +190,13 @@ UserProfileDataModel _$UserProfileDataModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserProfileDataModel {
+  UserModel? get user => throw _privateConstructorUsedError;
+  SubscriptionModel? get userSubscription => throw _privateConstructorUsedError;
   ProfileModel? get profile => throw _privateConstructorUsedError;
-  OriginAddressModel? get originAddress => throw _privateConstructorUsedError;
-  ResidentialAddressModel? get residentialAddress =>
-      throw _privateConstructorUsedError;
-  LocationModel? get location => throw _privateConstructorUsedError;
   ProfileCounterModel? get profileCounters =>
       throw _privateConstructorUsedError;
   ReferralInfoModel? get referralInfo => throw _privateConstructorUsedError;
   List<InterestModel>? get interests => throw _privateConstructorUsedError;
-  BankAccountDetailModel? get bankAccountDetails =>
-      throw _privateConstructorUsedError;
   List<UserDownlines>? get userDownlines => throw _privateConstructorUsedError;
   List<UserCarousels>? get userCarousels => throw _privateConstructorUsedError;
 
@@ -221,24 +217,20 @@ abstract class $UserProfileDataModelCopyWith<$Res> {
       _$UserProfileDataModelCopyWithImpl<$Res, UserProfileDataModel>;
   @useResult
   $Res call(
-      {ProfileModel? profile,
-      OriginAddressModel? originAddress,
-      ResidentialAddressModel? residentialAddress,
-      LocationModel? location,
+      {UserModel? user,
+      SubscriptionModel? userSubscription,
+      ProfileModel? profile,
       ProfileCounterModel? profileCounters,
       ReferralInfoModel? referralInfo,
       List<InterestModel>? interests,
-      BankAccountDetailModel? bankAccountDetails,
       List<UserDownlines>? userDownlines,
       List<UserCarousels>? userCarousels});
 
+  $UserModelCopyWith<$Res>? get user;
+  $SubscriptionModelCopyWith<$Res>? get userSubscription;
   $ProfileModelCopyWith<$Res>? get profile;
-  $OriginAddressModelCopyWith<$Res>? get originAddress;
-  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
-  $LocationModelCopyWith<$Res>? get location;
   $ProfileCounterModelCopyWith<$Res>? get profileCounters;
   $ReferralInfoModelCopyWith<$Res>? get referralInfo;
-  $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails;
 }
 
 /// @nodoc
@@ -257,34 +249,28 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? user = freezed,
+    Object? userSubscription = freezed,
     Object? profile = freezed,
-    Object? originAddress = freezed,
-    Object? residentialAddress = freezed,
-    Object? location = freezed,
     Object? profileCounters = freezed,
     Object? referralInfo = freezed,
     Object? interests = freezed,
-    Object? bankAccountDetails = freezed,
     Object? userDownlines = freezed,
     Object? userCarousels = freezed,
   }) {
     return _then(_value.copyWith(
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
+      userSubscription: freezed == userSubscription
+          ? _value.userSubscription
+          : userSubscription // ignore: cast_nullable_to_non_nullable
+              as SubscriptionModel?,
       profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as ProfileModel?,
-      originAddress: freezed == originAddress
-          ? _value.originAddress
-          : originAddress // ignore: cast_nullable_to_non_nullable
-              as OriginAddressModel?,
-      residentialAddress: freezed == residentialAddress
-          ? _value.residentialAddress
-          : residentialAddress // ignore: cast_nullable_to_non_nullable
-              as ResidentialAddressModel?,
-      location: freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as LocationModel?,
       profileCounters: freezed == profileCounters
           ? _value.profileCounters
           : profileCounters // ignore: cast_nullable_to_non_nullable
@@ -297,10 +283,6 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
           ? _value.interests
           : interests // ignore: cast_nullable_to_non_nullable
               as List<InterestModel>?,
-      bankAccountDetails: freezed == bankAccountDetails
-          ? _value.bankAccountDetails
-          : bankAccountDetails // ignore: cast_nullable_to_non_nullable
-              as BankAccountDetailModel?,
       userDownlines: freezed == userDownlines
           ? _value.userDownlines
           : userDownlines // ignore: cast_nullable_to_non_nullable
@@ -316,6 +298,34 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
+
+  /// Create a copy of UserProfileDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SubscriptionModelCopyWith<$Res>? get userSubscription {
+    if (_value.userSubscription == null) {
+      return null;
+    }
+
+    return $SubscriptionModelCopyWith<$Res>(_value.userSubscription!, (value) {
+      return _then(_value.copyWith(userSubscription: value) as $Val);
+    });
+  }
+
+  /// Create a copy of UserProfileDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
   $ProfileModelCopyWith<$Res>? get profile {
     if (_value.profile == null) {
       return null;
@@ -323,49 +333,6 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
 
     return $ProfileModelCopyWith<$Res>(_value.profile!, (value) {
       return _then(_value.copyWith(profile: value) as $Val);
-    });
-  }
-
-  /// Create a copy of UserProfileDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $OriginAddressModelCopyWith<$Res>? get originAddress {
-    if (_value.originAddress == null) {
-      return null;
-    }
-
-    return $OriginAddressModelCopyWith<$Res>(_value.originAddress!, (value) {
-      return _then(_value.copyWith(originAddress: value) as $Val);
-    });
-  }
-
-  /// Create a copy of UserProfileDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress {
-    if (_value.residentialAddress == null) {
-      return null;
-    }
-
-    return $ResidentialAddressModelCopyWith<$Res>(_value.residentialAddress!,
-        (value) {
-      return _then(_value.copyWith(residentialAddress: value) as $Val);
-    });
-  }
-
-  /// Create a copy of UserProfileDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $LocationModelCopyWith<$Res>? get location {
-    if (_value.location == null) {
-      return null;
-    }
-
-    return $LocationModelCopyWith<$Res>(_value.location!, (value) {
-      return _then(_value.copyWith(location: value) as $Val);
     });
   }
 
@@ -396,21 +363,6 @@ class _$UserProfileDataModelCopyWithImpl<$Res,
       return _then(_value.copyWith(referralInfo: value) as $Val);
     });
   }
-
-  /// Create a copy of UserProfileDataModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails {
-    if (_value.bankAccountDetails == null) {
-      return null;
-    }
-
-    return $BankAccountDetailModelCopyWith<$Res>(_value.bankAccountDetails!,
-        (value) {
-      return _then(_value.copyWith(bankAccountDetails: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -422,31 +374,25 @@ abstract class _$$UserProfileDataModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ProfileModel? profile,
-      OriginAddressModel? originAddress,
-      ResidentialAddressModel? residentialAddress,
-      LocationModel? location,
+      {UserModel? user,
+      SubscriptionModel? userSubscription,
+      ProfileModel? profile,
       ProfileCounterModel? profileCounters,
       ReferralInfoModel? referralInfo,
       List<InterestModel>? interests,
-      BankAccountDetailModel? bankAccountDetails,
       List<UserDownlines>? userDownlines,
       List<UserCarousels>? userCarousels});
 
   @override
+  $UserModelCopyWith<$Res>? get user;
+  @override
+  $SubscriptionModelCopyWith<$Res>? get userSubscription;
+  @override
   $ProfileModelCopyWith<$Res>? get profile;
-  @override
-  $OriginAddressModelCopyWith<$Res>? get originAddress;
-  @override
-  $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
-  @override
-  $LocationModelCopyWith<$Res>? get location;
   @override
   $ProfileCounterModelCopyWith<$Res>? get profileCounters;
   @override
   $ReferralInfoModelCopyWith<$Res>? get referralInfo;
-  @override
-  $BankAccountDetailModelCopyWith<$Res>? get bankAccountDetails;
 }
 
 /// @nodoc
@@ -462,34 +408,28 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? user = freezed,
+    Object? userSubscription = freezed,
     Object? profile = freezed,
-    Object? originAddress = freezed,
-    Object? residentialAddress = freezed,
-    Object? location = freezed,
     Object? profileCounters = freezed,
     Object? referralInfo = freezed,
     Object? interests = freezed,
-    Object? bankAccountDetails = freezed,
     Object? userDownlines = freezed,
     Object? userCarousels = freezed,
   }) {
     return _then(_$UserProfileDataModelImpl(
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
+      userSubscription: freezed == userSubscription
+          ? _value.userSubscription
+          : userSubscription // ignore: cast_nullable_to_non_nullable
+              as SubscriptionModel?,
       profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as ProfileModel?,
-      originAddress: freezed == originAddress
-          ? _value.originAddress
-          : originAddress // ignore: cast_nullable_to_non_nullable
-              as OriginAddressModel?,
-      residentialAddress: freezed == residentialAddress
-          ? _value.residentialAddress
-          : residentialAddress // ignore: cast_nullable_to_non_nullable
-              as ResidentialAddressModel?,
-      location: freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as LocationModel?,
       profileCounters: freezed == profileCounters
           ? _value.profileCounters
           : profileCounters // ignore: cast_nullable_to_non_nullable
@@ -502,10 +442,6 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
           ? _value._interests
           : interests // ignore: cast_nullable_to_non_nullable
               as List<InterestModel>?,
-      bankAccountDetails: freezed == bankAccountDetails
-          ? _value.bankAccountDetails
-          : bankAccountDetails // ignore: cast_nullable_to_non_nullable
-              as BankAccountDetailModel?,
       userDownlines: freezed == userDownlines
           ? _value._userDownlines
           : userDownlines // ignore: cast_nullable_to_non_nullable
@@ -522,14 +458,12 @@ class __$$UserProfileDataModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserProfileDataModelImpl implements _UserProfileDataModel {
   _$UserProfileDataModelImpl(
-      {this.profile,
-      this.originAddress,
-      this.residentialAddress,
-      this.location,
+      {this.user,
+      this.userSubscription,
+      this.profile,
       this.profileCounters,
       this.referralInfo,
       final List<InterestModel>? interests,
-      this.bankAccountDetails,
       final List<UserDownlines>? userDownlines,
       final List<UserCarousels>? userCarousels})
       : _interests = interests,
@@ -540,13 +474,11 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
       _$$UserProfileDataModelImplFromJson(json);
 
   @override
+  final UserModel? user;
+  @override
+  final SubscriptionModel? userSubscription;
+  @override
   final ProfileModel? profile;
-  @override
-  final OriginAddressModel? originAddress;
-  @override
-  final ResidentialAddressModel? residentialAddress;
-  @override
-  final LocationModel? location;
   @override
   final ProfileCounterModel? profileCounters;
   @override
@@ -561,8 +493,6 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
     return EqualUnmodifiableListView(value);
   }
 
-  @override
-  final BankAccountDetailModel? bankAccountDetails;
   final List<UserDownlines>? _userDownlines;
   @override
   List<UserDownlines>? get userDownlines {
@@ -585,7 +515,7 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
 
   @override
   String toString() {
-    return 'UserProfileDataModel(profile: $profile, originAddress: $originAddress, residentialAddress: $residentialAddress, location: $location, profileCounters: $profileCounters, referralInfo: $referralInfo, interests: $interests, bankAccountDetails: $bankAccountDetails, userDownlines: $userDownlines, userCarousels: $userCarousels)';
+    return 'UserProfileDataModel(user: $user, userSubscription: $userSubscription, profile: $profile, profileCounters: $profileCounters, referralInfo: $referralInfo, interests: $interests, userDownlines: $userDownlines, userCarousels: $userCarousels)';
   }
 
   @override
@@ -593,21 +523,16 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserProfileDataModelImpl &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.userSubscription, userSubscription) ||
+                other.userSubscription == userSubscription) &&
             (identical(other.profile, profile) || other.profile == profile) &&
-            (identical(other.originAddress, originAddress) ||
-                other.originAddress == originAddress) &&
-            (identical(other.residentialAddress, residentialAddress) ||
-                other.residentialAddress == residentialAddress) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
             (identical(other.profileCounters, profileCounters) ||
                 other.profileCounters == profileCounters) &&
             (identical(other.referralInfo, referralInfo) ||
                 other.referralInfo == referralInfo) &&
             const DeepCollectionEquality()
                 .equals(other._interests, _interests) &&
-            (identical(other.bankAccountDetails, bankAccountDetails) ||
-                other.bankAccountDetails == bankAccountDetails) &&
             const DeepCollectionEquality()
                 .equals(other._userDownlines, _userDownlines) &&
             const DeepCollectionEquality()
@@ -618,14 +543,12 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      user,
+      userSubscription,
       profile,
-      originAddress,
-      residentialAddress,
-      location,
       profileCounters,
       referralInfo,
       const DeepCollectionEquality().hash(_interests),
-      bankAccountDetails,
       const DeepCollectionEquality().hash(_userDownlines),
       const DeepCollectionEquality().hash(_userCarousels));
 
@@ -649,14 +572,12 @@ class _$UserProfileDataModelImpl implements _UserProfileDataModel {
 
 abstract class _UserProfileDataModel implements UserProfileDataModel {
   factory _UserProfileDataModel(
-      {final ProfileModel? profile,
-      final OriginAddressModel? originAddress,
-      final ResidentialAddressModel? residentialAddress,
-      final LocationModel? location,
+      {final UserModel? user,
+      final SubscriptionModel? userSubscription,
+      final ProfileModel? profile,
       final ProfileCounterModel? profileCounters,
       final ReferralInfoModel? referralInfo,
       final List<InterestModel>? interests,
-      final BankAccountDetailModel? bankAccountDetails,
       final List<UserDownlines>? userDownlines,
       final List<UserCarousels>? userCarousels}) = _$UserProfileDataModelImpl;
 
@@ -664,21 +585,17 @@ abstract class _UserProfileDataModel implements UserProfileDataModel {
       _$UserProfileDataModelImpl.fromJson;
 
   @override
+  UserModel? get user;
+  @override
+  SubscriptionModel? get userSubscription;
+  @override
   ProfileModel? get profile;
-  @override
-  OriginAddressModel? get originAddress;
-  @override
-  ResidentialAddressModel? get residentialAddress;
-  @override
-  LocationModel? get location;
   @override
   ProfileCounterModel? get profileCounters;
   @override
   ReferralInfoModel? get referralInfo;
   @override
   List<InterestModel>? get interests;
-  @override
-  BankAccountDetailModel? get bankAccountDetails;
   @override
   List<UserDownlines>? get userDownlines;
   @override
@@ -718,11 +635,10 @@ mixin _$ProfileModel {
   dynamic get profileStatus => throw _privateConstructorUsedError;
   dynamic get lastSeenTime => throw _privateConstructorUsedError;
   dynamic get isOnline => throw _privateConstructorUsedError;
+  OriginAddressModel? get originAddress => throw _privateConstructorUsedError;
   ResidentialAddressModel? get residentialAddress =>
       throw _privateConstructorUsedError;
-  UserModel? get user => throw _privateConstructorUsedError;
-  SubscriptionModel? get userSubscription => throw _privateConstructorUsedError;
-  WalletModel? get wallet => throw _privateConstructorUsedError;
+  LocationModel? get location => throw _privateConstructorUsedError;
 
   /// Serializes this ProfileModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -761,15 +677,13 @@ abstract class $ProfileModelCopyWith<$Res> {
       dynamic profileStatus,
       dynamic lastSeenTime,
       dynamic isOnline,
+      OriginAddressModel? originAddress,
       ResidentialAddressModel? residentialAddress,
-      UserModel? user,
-      SubscriptionModel? userSubscription,
-      WalletModel? wallet});
+      LocationModel? location});
 
+  $OriginAddressModelCopyWith<$Res>? get originAddress;
   $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
-  $UserModelCopyWith<$Res>? get user;
-  $SubscriptionModelCopyWith<$Res>? get userSubscription;
-  $WalletModelCopyWith<$Res>? get wallet;
+  $LocationModelCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -807,10 +721,9 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
     Object? profileStatus = freezed,
     Object? lastSeenTime = freezed,
     Object? isOnline = freezed,
+    Object? originAddress = freezed,
     Object? residentialAddress = freezed,
-    Object? user = freezed,
-    Object? userSubscription = freezed,
-    Object? wallet = freezed,
+    Object? location = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -893,23 +806,33 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      originAddress: freezed == originAddress
+          ? _value.originAddress
+          : originAddress // ignore: cast_nullable_to_non_nullable
+              as OriginAddressModel?,
       residentialAddress: freezed == residentialAddress
           ? _value.residentialAddress
           : residentialAddress // ignore: cast_nullable_to_non_nullable
               as ResidentialAddressModel?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
-      userSubscription: freezed == userSubscription
-          ? _value.userSubscription
-          : userSubscription // ignore: cast_nullable_to_non_nullable
-              as SubscriptionModel?,
-      wallet: freezed == wallet
-          ? _value.wallet
-          : wallet // ignore: cast_nullable_to_non_nullable
-              as WalletModel?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LocationModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of ProfileModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $OriginAddressModelCopyWith<$Res>? get originAddress {
+    if (_value.originAddress == null) {
+      return null;
+    }
+
+    return $OriginAddressModelCopyWith<$Res>(_value.originAddress!, (value) {
+      return _then(_value.copyWith(originAddress: value) as $Val);
+    });
   }
 
   /// Create a copy of ProfileModel
@@ -931,41 +854,13 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res>? get user {
-    if (_value.user == null) {
+  $LocationModelCopyWith<$Res>? get location {
+    if (_value.location == null) {
       return null;
     }
 
-    return $UserModelCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
-
-  /// Create a copy of ProfileModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SubscriptionModelCopyWith<$Res>? get userSubscription {
-    if (_value.userSubscription == null) {
-      return null;
-    }
-
-    return $SubscriptionModelCopyWith<$Res>(_value.userSubscription!, (value) {
-      return _then(_value.copyWith(userSubscription: value) as $Val);
-    });
-  }
-
-  /// Create a copy of ProfileModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $WalletModelCopyWith<$Res>? get wallet {
-    if (_value.wallet == null) {
-      return null;
-    }
-
-    return $WalletModelCopyWith<$Res>(_value.wallet!, (value) {
-      return _then(_value.copyWith(wallet: value) as $Val);
+    return $LocationModelCopyWith<$Res>(_value.location!, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
     });
   }
 }
@@ -999,19 +894,16 @@ abstract class _$$ProfileModelImplCopyWith<$Res>
       dynamic profileStatus,
       dynamic lastSeenTime,
       dynamic isOnline,
+      OriginAddressModel? originAddress,
       ResidentialAddressModel? residentialAddress,
-      UserModel? user,
-      SubscriptionModel? userSubscription,
-      WalletModel? wallet});
+      LocationModel? location});
 
+  @override
+  $OriginAddressModelCopyWith<$Res>? get originAddress;
   @override
   $ResidentialAddressModelCopyWith<$Res>? get residentialAddress;
   @override
-  $UserModelCopyWith<$Res>? get user;
-  @override
-  $SubscriptionModelCopyWith<$Res>? get userSubscription;
-  @override
-  $WalletModelCopyWith<$Res>? get wallet;
+  $LocationModelCopyWith<$Res>? get location;
 }
 
 /// @nodoc
@@ -1047,10 +939,9 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
     Object? profileStatus = freezed,
     Object? lastSeenTime = freezed,
     Object? isOnline = freezed,
+    Object? originAddress = freezed,
     Object? residentialAddress = freezed,
-    Object? user = freezed,
-    Object? userSubscription = freezed,
-    Object? wallet = freezed,
+    Object? location = freezed,
   }) {
     return _then(_$ProfileModelImpl(
       id: freezed == id
@@ -1133,22 +1024,18 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
           ? _value.isOnline
           : isOnline // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      originAddress: freezed == originAddress
+          ? _value.originAddress
+          : originAddress // ignore: cast_nullable_to_non_nullable
+              as OriginAddressModel?,
       residentialAddress: freezed == residentialAddress
           ? _value.residentialAddress
           : residentialAddress // ignore: cast_nullable_to_non_nullable
               as ResidentialAddressModel?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
-      userSubscription: freezed == userSubscription
-          ? _value.userSubscription
-          : userSubscription // ignore: cast_nullable_to_non_nullable
-              as SubscriptionModel?,
-      wallet: freezed == wallet
-          ? _value.wallet
-          : wallet // ignore: cast_nullable_to_non_nullable
-              as WalletModel?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LocationModel?,
     ));
   }
 }
@@ -1177,10 +1064,9 @@ class _$ProfileModelImpl implements _ProfileModel {
       this.profileStatus,
       this.lastSeenTime,
       this.isOnline,
+      this.originAddress,
       this.residentialAddress,
-      this.user,
-      this.userSubscription,
-      this.wallet});
+      this.location});
 
   factory _$ProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileModelImplFromJson(json);
@@ -1226,17 +1112,15 @@ class _$ProfileModelImpl implements _ProfileModel {
   @override
   final dynamic isOnline;
   @override
+  final OriginAddressModel? originAddress;
+  @override
   final ResidentialAddressModel? residentialAddress;
   @override
-  final UserModel? user;
-  @override
-  final SubscriptionModel? userSubscription;
-  @override
-  final WalletModel? wallet;
+  final LocationModel? location;
 
   @override
   String toString() {
-    return 'ProfileModel(id: $id, firstName: $firstName, lastName: $lastName, dateOfBirth: $dateOfBirth, age: $age, gender: $gender, languageCSV: $languageCSV, aboutMe: $aboutMe, bodyType: $bodyType, complexion: $complexion, height: $height, weight: $weight, occupation: $occupation, religion: $religion, tagline: $tagline, maritalStatus: $maritalStatus, profilePhotoURL: $profilePhotoURL, profileStatus: $profileStatus, lastSeenTime: $lastSeenTime, isOnline: $isOnline, residentialAddress: $residentialAddress, user: $user, userSubscription: $userSubscription, wallet: $wallet)';
+    return 'ProfileModel(id: $id, firstName: $firstName, lastName: $lastName, dateOfBirth: $dateOfBirth, age: $age, gender: $gender, languageCSV: $languageCSV, aboutMe: $aboutMe, bodyType: $bodyType, complexion: $complexion, height: $height, weight: $weight, occupation: $occupation, religion: $religion, tagline: $tagline, maritalStatus: $maritalStatus, profilePhotoURL: $profilePhotoURL, profileStatus: $profileStatus, lastSeenTime: $lastSeenTime, isOnline: $isOnline, originAddress: $originAddress, residentialAddress: $residentialAddress, location: $location)';
   }
 
   @override
@@ -1272,12 +1156,12 @@ class _$ProfileModelImpl implements _ProfileModel {
             const DeepCollectionEquality()
                 .equals(other.lastSeenTime, lastSeenTime) &&
             const DeepCollectionEquality().equals(other.isOnline, isOnline) &&
+            (identical(other.originAddress, originAddress) ||
+                other.originAddress == originAddress) &&
             (identical(other.residentialAddress, residentialAddress) ||
                 other.residentialAddress == residentialAddress) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.userSubscription, userSubscription) ||
-                other.userSubscription == userSubscription) &&
-            (identical(other.wallet, wallet) || other.wallet == wallet));
+            (identical(other.location, location) ||
+                other.location == location));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1304,10 +1188,9 @@ class _$ProfileModelImpl implements _ProfileModel {
         const DeepCollectionEquality().hash(profileStatus),
         const DeepCollectionEquality().hash(lastSeenTime),
         const DeepCollectionEquality().hash(isOnline),
+        originAddress,
         residentialAddress,
-        user,
-        userSubscription,
-        wallet
+        location
       ]);
 
   /// Create a copy of ProfileModel
@@ -1348,10 +1231,9 @@ abstract class _ProfileModel implements ProfileModel {
       final dynamic profileStatus,
       final dynamic lastSeenTime,
       final dynamic isOnline,
+      final OriginAddressModel? originAddress,
       final ResidentialAddressModel? residentialAddress,
-      final UserModel? user,
-      final SubscriptionModel? userSubscription,
-      final WalletModel? wallet}) = _$ProfileModelImpl;
+      final LocationModel? location}) = _$ProfileModelImpl;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$ProfileModelImpl.fromJson;
@@ -1397,13 +1279,11 @@ abstract class _ProfileModel implements ProfileModel {
   @override
   dynamic get isOnline;
   @override
+  OriginAddressModel? get originAddress;
+  @override
   ResidentialAddressModel? get residentialAddress;
   @override
-  UserModel? get user;
-  @override
-  SubscriptionModel? get userSubscription;
-  @override
-  WalletModel? get wallet;
+  LocationModel? get location;
 
   /// Create a copy of ProfileModel
   /// with the given fields replaced by the non-null parameter values.
@@ -2857,185 +2737,13 @@ abstract class _SubscriptionModel implements SubscriptionModel {
       throw _privateConstructorUsedError;
 }
 
-WalletModel _$WalletModelFromJson(Map<String, dynamic> json) {
-  return _WalletModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$WalletModel {
-  dynamic get availableBalance => throw _privateConstructorUsedError;
-  dynamic get lastTransactionDate => throw _privateConstructorUsedError;
-
-  /// Serializes this WalletModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of WalletModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $WalletModelCopyWith<WalletModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WalletModelCopyWith<$Res> {
-  factory $WalletModelCopyWith(
-          WalletModel value, $Res Function(WalletModel) then) =
-      _$WalletModelCopyWithImpl<$Res, WalletModel>;
-  @useResult
-  $Res call({dynamic availableBalance, dynamic lastTransactionDate});
-}
-
-/// @nodoc
-class _$WalletModelCopyWithImpl<$Res, $Val extends WalletModel>
-    implements $WalletModelCopyWith<$Res> {
-  _$WalletModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of WalletModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? availableBalance = freezed,
-    Object? lastTransactionDate = freezed,
-  }) {
-    return _then(_value.copyWith(
-      availableBalance: freezed == availableBalance
-          ? _value.availableBalance
-          : availableBalance // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      lastTransactionDate: freezed == lastTransactionDate
-          ? _value.lastTransactionDate
-          : lastTransactionDate // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$WalletModelImplCopyWith<$Res>
-    implements $WalletModelCopyWith<$Res> {
-  factory _$$WalletModelImplCopyWith(
-          _$WalletModelImpl value, $Res Function(_$WalletModelImpl) then) =
-      __$$WalletModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({dynamic availableBalance, dynamic lastTransactionDate});
-}
-
-/// @nodoc
-class __$$WalletModelImplCopyWithImpl<$Res>
-    extends _$WalletModelCopyWithImpl<$Res, _$WalletModelImpl>
-    implements _$$WalletModelImplCopyWith<$Res> {
-  __$$WalletModelImplCopyWithImpl(
-      _$WalletModelImpl _value, $Res Function(_$WalletModelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of WalletModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? availableBalance = freezed,
-    Object? lastTransactionDate = freezed,
-  }) {
-    return _then(_$WalletModelImpl(
-      availableBalance: freezed == availableBalance
-          ? _value.availableBalance
-          : availableBalance // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      lastTransactionDate: freezed == lastTransactionDate
-          ? _value.lastTransactionDate
-          : lastTransactionDate // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$WalletModelImpl implements _WalletModel {
-  _$WalletModelImpl({this.availableBalance, this.lastTransactionDate});
-
-  factory _$WalletModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WalletModelImplFromJson(json);
-
-  @override
-  final dynamic availableBalance;
-  @override
-  final dynamic lastTransactionDate;
-
-  @override
-  String toString() {
-    return 'WalletModel(availableBalance: $availableBalance, lastTransactionDate: $lastTransactionDate)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WalletModelImpl &&
-            const DeepCollectionEquality()
-                .equals(other.availableBalance, availableBalance) &&
-            const DeepCollectionEquality()
-                .equals(other.lastTransactionDate, lastTransactionDate));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(availableBalance),
-      const DeepCollectionEquality().hash(lastTransactionDate));
-
-  /// Create a copy of WalletModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WalletModelImplCopyWith<_$WalletModelImpl> get copyWith =>
-      __$$WalletModelImplCopyWithImpl<_$WalletModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WalletModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _WalletModel implements WalletModel {
-  factory _WalletModel(
-      {final dynamic availableBalance,
-      final dynamic lastTransactionDate}) = _$WalletModelImpl;
-
-  factory _WalletModel.fromJson(Map<String, dynamic> json) =
-      _$WalletModelImpl.fromJson;
-
-  @override
-  dynamic get availableBalance;
-  @override
-  dynamic get lastTransactionDate;
-
-  /// Create a copy of WalletModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WalletModelImplCopyWith<_$WalletModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 InterestModel _$InterestModelFromJson(Map<String, dynamic> json) {
   return _InterestModel.fromJson(json);
 }
 
 /// @nodoc
 mixin _$InterestModel {
-  dynamic get interestId => throw _privateConstructorUsedError;
+  dynamic get id => throw _privateConstructorUsedError;
   dynamic get title => throw _privateConstructorUsedError;
 
   /// Serializes this InterestModel to a JSON map.
@@ -3054,7 +2762,7 @@ abstract class $InterestModelCopyWith<$Res> {
           InterestModel value, $Res Function(InterestModel) then) =
       _$InterestModelCopyWithImpl<$Res, InterestModel>;
   @useResult
-  $Res call({dynamic interestId, dynamic title});
+  $Res call({dynamic id, dynamic title});
 }
 
 /// @nodoc
@@ -3072,13 +2780,13 @@ class _$InterestModelCopyWithImpl<$Res, $Val extends InterestModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? interestId = freezed,
+    Object? id = freezed,
     Object? title = freezed,
   }) {
     return _then(_value.copyWith(
-      interestId: freezed == interestId
-          ? _value.interestId
-          : interestId // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as dynamic,
       title: freezed == title
           ? _value.title
@@ -3096,7 +2804,7 @@ abstract class _$$InterestModelImplCopyWith<$Res>
       __$$InterestModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic interestId, dynamic title});
+  $Res call({dynamic id, dynamic title});
 }
 
 /// @nodoc
@@ -3112,13 +2820,13 @@ class __$$InterestModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? interestId = freezed,
+    Object? id = freezed,
     Object? title = freezed,
   }) {
     return _then(_$InterestModelImpl(
-      interestId: freezed == interestId
-          ? _value.interestId
-          : interestId // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as dynamic,
       title: freezed == title
           ? _value.title
@@ -3131,19 +2839,19 @@ class __$$InterestModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$InterestModelImpl implements _InterestModel {
-  _$InterestModelImpl({this.interestId, this.title});
+  _$InterestModelImpl({this.id, this.title});
 
   factory _$InterestModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InterestModelImplFromJson(json);
 
   @override
-  final dynamic interestId;
+  final dynamic id;
   @override
   final dynamic title;
 
   @override
   String toString() {
-    return 'InterestModel(interestId: $interestId, title: $title)';
+    return 'InterestModel(id: $id, title: $title)';
   }
 
   @override
@@ -3151,8 +2859,7 @@ class _$InterestModelImpl implements _InterestModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InterestModelImpl &&
-            const DeepCollectionEquality()
-                .equals(other.interestId, interestId) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.title, title));
   }
 
@@ -3160,7 +2867,7 @@ class _$InterestModelImpl implements _InterestModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(interestId),
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(title));
 
   /// Create a copy of InterestModel
@@ -3180,14 +2887,14 @@ class _$InterestModelImpl implements _InterestModel {
 }
 
 abstract class _InterestModel implements InterestModel {
-  factory _InterestModel({final dynamic interestId, final dynamic title}) =
+  factory _InterestModel({final dynamic id, final dynamic title}) =
       _$InterestModelImpl;
 
   factory _InterestModel.fromJson(Map<String, dynamic> json) =
       _$InterestModelImpl.fromJson;
 
   @override
-  dynamic get interestId;
+  dynamic get id;
   @override
   dynamic get title;
 
@@ -3795,422 +3502,4 @@ abstract class _UserCarousels implements UserCarousels {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserCarouselsImplCopyWith<_$UserCarouselsImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-BankAccountDetailModel _$BankAccountDetailModelFromJson(
-    Map<String, dynamic> json) {
-  return _BankAccountDetailModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$BankAccountDetailModel {
-  dynamic get userId => throw _privateConstructorUsedError;
-  dynamic get firstName => throw _privateConstructorUsedError;
-  dynamic get lastName => throw _privateConstructorUsedError;
-  dynamic get country => throw _privateConstructorUsedError;
-  dynamic get payOutType => throw _privateConstructorUsedError;
-  dynamic get bankId => throw _privateConstructorUsedError;
-  dynamic get bankName => throw _privateConstructorUsedError;
-  dynamic get bankCode => throw _privateConstructorUsedError;
-  dynamic get branchCode => throw _privateConstructorUsedError;
-  dynamic get accountNumber => throw _privateConstructorUsedError;
-  dynamic get accountCurrency => throw _privateConstructorUsedError;
-  dynamic get routingNumber => throw _privateConstructorUsedError;
-  dynamic get swiftCode => throw _privateConstructorUsedError;
-
-  /// Serializes this BankAccountDetailModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of BankAccountDetailModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BankAccountDetailModelCopyWith<BankAccountDetailModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $BankAccountDetailModelCopyWith<$Res> {
-  factory $BankAccountDetailModelCopyWith(BankAccountDetailModel value,
-          $Res Function(BankAccountDetailModel) then) =
-      _$BankAccountDetailModelCopyWithImpl<$Res, BankAccountDetailModel>;
-  @useResult
-  $Res call(
-      {dynamic userId,
-      dynamic firstName,
-      dynamic lastName,
-      dynamic country,
-      dynamic payOutType,
-      dynamic bankId,
-      dynamic bankName,
-      dynamic bankCode,
-      dynamic branchCode,
-      dynamic accountNumber,
-      dynamic accountCurrency,
-      dynamic routingNumber,
-      dynamic swiftCode});
-}
-
-/// @nodoc
-class _$BankAccountDetailModelCopyWithImpl<$Res,
-        $Val extends BankAccountDetailModel>
-    implements $BankAccountDetailModelCopyWith<$Res> {
-  _$BankAccountDetailModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of BankAccountDetailModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? country = freezed,
-    Object? payOutType = freezed,
-    Object? bankId = freezed,
-    Object? bankName = freezed,
-    Object? bankCode = freezed,
-    Object? branchCode = freezed,
-    Object? accountNumber = freezed,
-    Object? accountCurrency = freezed,
-    Object? routingNumber = freezed,
-    Object? swiftCode = freezed,
-  }) {
-    return _then(_value.copyWith(
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      country: freezed == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      payOutType: freezed == payOutType
-          ? _value.payOutType
-          : payOutType // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      bankId: freezed == bankId
-          ? _value.bankId
-          : bankId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      bankName: freezed == bankName
-          ? _value.bankName
-          : bankName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      bankCode: freezed == bankCode
-          ? _value.bankCode
-          : bankCode // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      branchCode: freezed == branchCode
-          ? _value.branchCode
-          : branchCode // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      accountNumber: freezed == accountNumber
-          ? _value.accountNumber
-          : accountNumber // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      accountCurrency: freezed == accountCurrency
-          ? _value.accountCurrency
-          : accountCurrency // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      routingNumber: freezed == routingNumber
-          ? _value.routingNumber
-          : routingNumber // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      swiftCode: freezed == swiftCode
-          ? _value.swiftCode
-          : swiftCode // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$BankAccountDetailModelImplCopyWith<$Res>
-    implements $BankAccountDetailModelCopyWith<$Res> {
-  factory _$$BankAccountDetailModelImplCopyWith(
-          _$BankAccountDetailModelImpl value,
-          $Res Function(_$BankAccountDetailModelImpl) then) =
-      __$$BankAccountDetailModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {dynamic userId,
-      dynamic firstName,
-      dynamic lastName,
-      dynamic country,
-      dynamic payOutType,
-      dynamic bankId,
-      dynamic bankName,
-      dynamic bankCode,
-      dynamic branchCode,
-      dynamic accountNumber,
-      dynamic accountCurrency,
-      dynamic routingNumber,
-      dynamic swiftCode});
-}
-
-/// @nodoc
-class __$$BankAccountDetailModelImplCopyWithImpl<$Res>
-    extends _$BankAccountDetailModelCopyWithImpl<$Res,
-        _$BankAccountDetailModelImpl>
-    implements _$$BankAccountDetailModelImplCopyWith<$Res> {
-  __$$BankAccountDetailModelImplCopyWithImpl(
-      _$BankAccountDetailModelImpl _value,
-      $Res Function(_$BankAccountDetailModelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BankAccountDetailModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userId = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? country = freezed,
-    Object? payOutType = freezed,
-    Object? bankId = freezed,
-    Object? bankName = freezed,
-    Object? bankCode = freezed,
-    Object? branchCode = freezed,
-    Object? accountNumber = freezed,
-    Object? accountCurrency = freezed,
-    Object? routingNumber = freezed,
-    Object? swiftCode = freezed,
-  }) {
-    return _then(_$BankAccountDetailModelImpl(
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      country: freezed == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      payOutType: freezed == payOutType
-          ? _value.payOutType
-          : payOutType // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      bankId: freezed == bankId
-          ? _value.bankId
-          : bankId // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      bankName: freezed == bankName
-          ? _value.bankName
-          : bankName // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      bankCode: freezed == bankCode
-          ? _value.bankCode
-          : bankCode // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      branchCode: freezed == branchCode
-          ? _value.branchCode
-          : branchCode // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      accountNumber: freezed == accountNumber
-          ? _value.accountNumber
-          : accountNumber // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      accountCurrency: freezed == accountCurrency
-          ? _value.accountCurrency
-          : accountCurrency // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      routingNumber: freezed == routingNumber
-          ? _value.routingNumber
-          : routingNumber // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      swiftCode: freezed == swiftCode
-          ? _value.swiftCode
-          : swiftCode // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$BankAccountDetailModelImpl implements _BankAccountDetailModel {
-  _$BankAccountDetailModelImpl(
-      {this.userId,
-      this.firstName,
-      this.lastName,
-      this.country,
-      this.payOutType,
-      this.bankId,
-      this.bankName,
-      this.bankCode,
-      this.branchCode,
-      this.accountNumber,
-      this.accountCurrency,
-      this.routingNumber,
-      this.swiftCode});
-
-  factory _$BankAccountDetailModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BankAccountDetailModelImplFromJson(json);
-
-  @override
-  final dynamic userId;
-  @override
-  final dynamic firstName;
-  @override
-  final dynamic lastName;
-  @override
-  final dynamic country;
-  @override
-  final dynamic payOutType;
-  @override
-  final dynamic bankId;
-  @override
-  final dynamic bankName;
-  @override
-  final dynamic bankCode;
-  @override
-  final dynamic branchCode;
-  @override
-  final dynamic accountNumber;
-  @override
-  final dynamic accountCurrency;
-  @override
-  final dynamic routingNumber;
-  @override
-  final dynamic swiftCode;
-
-  @override
-  String toString() {
-    return 'BankAccountDetailModel(userId: $userId, firstName: $firstName, lastName: $lastName, country: $country, payOutType: $payOutType, bankId: $bankId, bankName: $bankName, bankCode: $bankCode, branchCode: $branchCode, accountNumber: $accountNumber, accountCurrency: $accountCurrency, routingNumber: $routingNumber, swiftCode: $swiftCode)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BankAccountDetailModelImpl &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
-            const DeepCollectionEquality().equals(other.country, country) &&
-            const DeepCollectionEquality()
-                .equals(other.payOutType, payOutType) &&
-            const DeepCollectionEquality().equals(other.bankId, bankId) &&
-            const DeepCollectionEquality().equals(other.bankName, bankName) &&
-            const DeepCollectionEquality().equals(other.bankCode, bankCode) &&
-            const DeepCollectionEquality()
-                .equals(other.branchCode, branchCode) &&
-            const DeepCollectionEquality()
-                .equals(other.accountNumber, accountNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.accountCurrency, accountCurrency) &&
-            const DeepCollectionEquality()
-                .equals(other.routingNumber, routingNumber) &&
-            const DeepCollectionEquality().equals(other.swiftCode, swiftCode));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName),
-      const DeepCollectionEquality().hash(country),
-      const DeepCollectionEquality().hash(payOutType),
-      const DeepCollectionEquality().hash(bankId),
-      const DeepCollectionEquality().hash(bankName),
-      const DeepCollectionEquality().hash(bankCode),
-      const DeepCollectionEquality().hash(branchCode),
-      const DeepCollectionEquality().hash(accountNumber),
-      const DeepCollectionEquality().hash(accountCurrency),
-      const DeepCollectionEquality().hash(routingNumber),
-      const DeepCollectionEquality().hash(swiftCode));
-
-  /// Create a copy of BankAccountDetailModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BankAccountDetailModelImplCopyWith<_$BankAccountDetailModelImpl>
-      get copyWith => __$$BankAccountDetailModelImplCopyWithImpl<
-          _$BankAccountDetailModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BankAccountDetailModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _BankAccountDetailModel implements BankAccountDetailModel {
-  factory _BankAccountDetailModel(
-      {final dynamic userId,
-      final dynamic firstName,
-      final dynamic lastName,
-      final dynamic country,
-      final dynamic payOutType,
-      final dynamic bankId,
-      final dynamic bankName,
-      final dynamic bankCode,
-      final dynamic branchCode,
-      final dynamic accountNumber,
-      final dynamic accountCurrency,
-      final dynamic routingNumber,
-      final dynamic swiftCode}) = _$BankAccountDetailModelImpl;
-
-  factory _BankAccountDetailModel.fromJson(Map<String, dynamic> json) =
-      _$BankAccountDetailModelImpl.fromJson;
-
-  @override
-  dynamic get userId;
-  @override
-  dynamic get firstName;
-  @override
-  dynamic get lastName;
-  @override
-  dynamic get country;
-  @override
-  dynamic get payOutType;
-  @override
-  dynamic get bankId;
-  @override
-  dynamic get bankName;
-  @override
-  dynamic get bankCode;
-  @override
-  dynamic get branchCode;
-  @override
-  dynamic get accountNumber;
-  @override
-  dynamic get accountCurrency;
-  @override
-  dynamic get routingNumber;
-  @override
-  dynamic get swiftCode;
-
-  /// Create a copy of BankAccountDetailModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BankAccountDetailModelImplCopyWith<_$BankAccountDetailModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }

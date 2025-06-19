@@ -138,7 +138,7 @@ class _IntroScreenState extends State<IntroScreen> with TickerProviderStateMixin
                             title: 'Sign up',
                             invert: true,
                             action: () {
-                              // context.router.push(SignUpRoute());
+                              context.router.push(SignUpRoute());
                             },
                           ),
                         ),

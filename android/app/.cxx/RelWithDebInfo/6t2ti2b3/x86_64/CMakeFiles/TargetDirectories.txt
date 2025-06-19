@@ -1,0 +1,2 @@
+/Users/bert/StudioProjects/Zheeta-API-V3.Mobile/android/app/.cxx/RelWithDebInfo/6t2ti2b3/x86_64/CMakeFiles/edit_cache.dir
+/Users/bert/StudioProjects/Zheeta-API-V3.Mobile/android/app/.cxx/RelWithDebInfo/6t2ti2b3/x86_64/CMakeFiles/rebuild_cache.dir

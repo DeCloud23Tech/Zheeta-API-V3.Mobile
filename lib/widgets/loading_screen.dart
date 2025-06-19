@@ -50,7 +50,7 @@ class _AnimatedLoaderImageState extends State<AnimatedLoaderImage>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 4),
       vsync: this,
     )..repeat();
   }
@@ -67,7 +67,7 @@ class _AnimatedLoaderImageState extends State<AnimatedLoaderImage>
       turns: _controller,
       child: Image.asset(
         widget.imagePath,
-        width: MediaQuery.of(context).size.width * .8, // Set the desired size of the loader image
+        width: MediaQuery.of(context).size.width * .75, // Set the desired size of the loader image
         // height: 50,
       ),
     );

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:zheeta/common/notify/notify_user.dart';
 import 'package:zheeta/common/storage/token_storage/i_token_storage.dart';
+import 'package:zheeta/common/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/core/injection/di.dart';
 import 'package:zheeta/core/router/app_router.gr.dart';
 
@@ -10,8 +11,11 @@ class AppGuard extends AutoRouteGuard {
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     try {
       // Get token storage
+      final IUserStorage userStorage = locator<IUserStorage>();
       final ITokenStorage storage = locator<ITokenStorage>();
       final tokenData = await storage.read();
+      await userStorage.clear();
+
 
       // Check if the token exists
       if (tokenData == null) {

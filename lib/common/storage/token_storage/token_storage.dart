@@ -6,19 +6,26 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/common/model/login_user_model.dart';
 import 'package:zheeta/common/storage/token_storage/i_token_storage.dart';
 
-
 @prod
 @LazySingleton(as: ITokenStorage)
 class TokenStorage implements ITokenStorage {
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = FlutterSecureStorage(
+    aOptions: AndroidOptions(
+      resetOnError: true,
+      encryptedSharedPreferences: true, // Ensures data is removed on uninstall
+    ), // Resets storage on error
+  );
 
   LoginUserModel? cachedUser;
-  @override
-  Future<void> clear() {
-    cachedUser = null;
 
-    return _storage.delete(key: "LOGGEDIN_TOKEN");
+  @override
+  Future<void> clear() async {
+    cachedUser = null;
+    await _storage.delete(key: "LOGGEDIN_TOKEN");
+    // await _storage.delete(key: "REFRESH_TOKEN");
+    // await _storage.delete(key: "TOKEN_EXPIRY");
   }
+
 
   @override
   Future<LoginUserModel?> read() async {

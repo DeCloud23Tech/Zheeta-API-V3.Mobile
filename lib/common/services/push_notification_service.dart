@@ -1,110 +1,182 @@
 import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 
-@prod
-@LazySingleton()
-class PushNotificationService {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await PushNotificationService.instance.setupFlutterNotifications();
+  await PushNotificationService.instance.showNotification(message);
+}
 
-  String? _deviceToken;
+@prod
+@singleton
+class PushNotificationService {
+  PushNotificationService();
+
+  static final PushNotificationService instance = PushNotificationService();
+
+  final _messaging = FirebaseMessaging.instance;
+  final _localNotifications = FlutterLocalNotificationsPlugin();
+  bool _isFlutterLocalNotificationsInitialized = false;
 
   Future<void> initialize() async {
-    // Firebase message handling
-    FirebaseMessaging.onMessage.listen(_firebaseMessageHandler);
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    // Platform-specific initialization
-    const androidInitializationSettings = AndroidInitializationSettings('app_icon');
-    final darwinInitializationSettings = DarwinInitializationSettings(
+    // Request notification permission
+    await _requestNotificationPermission();
+
+    // Setup message handlers
+    await _setupMessageHandlers();
+
+    // // Get device token
+    // await getDeviceToken();
+  }
+
+// ishokarobertt+5@gmail.com
+  // Get the device token for push notifications
+  Future<String?> getDeviceToken() async {
+    String? token;
+    try {
+      if (Platform.isIOS) {
+        final apnsToken = await _messaging.getAPNSToken();
+        token = apnsToken;
+        debugPrint("APNs Token: $apnsToken");
+      } else {
+        token = await _messaging.getToken();
+        debugPrint("FCM Token: $token");
+      }
+
+      if (token != null) {
+        // You can send the token to your backend server for storing or subscription
+        return token;
+      }
+    } catch (e) {
+      debugPrint('Error getting device token: $e');
+    }
+    return null;
+  }
+
+  Future<void> _requestNotificationPermission() async {
+    final settings = await _messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+      announcement: false,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+    );
+
+    debugPrint('Permission status: ${settings.authorizationStatus}');
+  }
+
+  Future<void> setupFlutterNotifications() async {
+    if (_isFlutterLocalNotificationsInitialized) {
+      return;
+    }
+
+    // Android setup
+    const AndroidNotificationChannel instantChannel =
+        AndroidNotificationChannel(
+      'instant_notification_channel', // ID
+      'Instant Notifications', // Name
+      description: 'Channel for instant notifications', // Description
+      importance: Importance.high,
+    );
+
+    await _localNotifications
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(instantChannel);
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    // iOS setup
+    const DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
 
-    final initializationSettings = InitializationSettings(
-      android: androidInitializationSettings,
-      iOS: darwinInitializationSettings,
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
     );
 
-    await flutterLocalNotificationsPlugin.initialize(
+    await _localNotifications.initialize(
       initializationSettings,
+      onDidReceiveNotificationResponse: _onNotificationTap,
+      onDidReceiveBackgroundNotificationResponse: _onNotificationTap,
     );
 
-    // Request permissions for push notifications
-    if (Platform.isIOS) {
-      await _firebaseMessaging.requestPermission();
+    _isFlutterLocalNotificationsInitialized = true;
+  }
+
+  Future<void> showNotification(RemoteMessage message) async {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null) {
+      await _localNotifications.show(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            'instant_notification_channel', // Use the created channel ID
+            'Instant Notifications',
+            channelDescription: 'Channel for instant notifications',
+            importance: Importance.high,
+            priority: Priority.high,
+            ticker: 'ticker',
+            icon: '@mipmap/ic_launcher',
+          ),
+          iOS: const DarwinNotificationDetails(
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+          ),
+        ),
+        payload: message.data.toString(),
+      );
     }
-
-    if (Platform.isAndroid) {
-      await _createNotificationChannel();
-    }
-
-    // Fetch the device token
-    await _fetchDeviceToken();
   }
 
-  Future<void> _fetchDeviceToken() async {
-    try {
-      if (Platform.isAndroid) {
-        _deviceToken = await _firebaseMessaging.getToken();
-        print('FCM Token for Android: $_deviceToken');
-      } else if (Platform.isIOS) {
-        _deviceToken = await _firebaseMessaging.getAPNSToken();
-        print('APNS Token for iOS: $_deviceToken');
-      }
+  Future<void> _setupMessageHandlers() async {
+    // Foreground handler
+    FirebaseMessaging.onMessage.listen((message) {
+      debugPrint('Foreground message: ${message.data}');
+      showNotification(message);
+    });
 
-      if (_deviceToken == null) {
-        print('Failed to fetch device token.');
-      }
-    } catch (e) {
-      print('Error fetching device token: $e');
+    // Background handler
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleBackgroundMessage);
+
+    // Opened app from terminated state
+    final initialMessage = await _messaging.getInitialMessage();
+    if (initialMessage != null) {
+      _handleBackgroundMessage(initialMessage);
     }
   }
 
-  Future<void> _firebaseMessageHandler(RemoteMessage message) async {
-    print('Received push message: ${message.notification?.title}');
-
-    // Show notification using Flutter Local Notifications Plugin
-    await _showNotification(message);
+  void _handleBackgroundMessage(RemoteMessage message) {
+    debugPrint('Background message: ${message.data}');
+    if (message.data['type'] == 'reminder') {
+      // Open reminder screen
+    }
   }
 
-  Future<void> _showNotification(RemoteMessage message) async {
-    const notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails(
-        'your_channel_id', // Unique ID for the notification channel
-        'your_channel_name', // Channel name visible to users
-        importance: Importance.max,
-        priority: Priority.high,
-      ),
-      iOS: DarwinNotificationDetails(),
-    );
-
-    await flutterLocalNotificationsPlugin.show(
-      message.hashCode, // Unique ID for the notification
-      message.notification?.title ?? 'No Title',
-      message.notification?.body ?? 'No Body',
-      notificationDetails,
-    );
+  void _onNotificationTap(NotificationResponse response) {
+    debugPrint('Notification tapped: ${response.payload}');
+    // Handle notification tap (e.g., navigate to a specific screen)
+    if (response.payload != null) {
+      final payload = response.payload!;
+      // Parse payload and navigate accordingly
+    }
   }
-
-  Future<void> _createNotificationChannel() async {
-    const androidNotificationChannel = AndroidNotificationChannel(
-      'your_channel_id', // Must match the ID in AndroidNotificationDetails
-      'your_channel_name', // Channel name
-      description: 'This is your channel description',
-      importance: Importance.max,
-    );
-
-    final androidFlutterLocalNotificationsPlugin =
-    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>();
-
-    await androidFlutterLocalNotificationsPlugin
-        ?.createNotificationChannel(androidNotificationChannel);
-  }
-
-  String? get deviceToken => _deviceToken;
 }

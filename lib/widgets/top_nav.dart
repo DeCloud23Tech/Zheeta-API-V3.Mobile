@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/common/constants/color.dart';
 import 'package:zheeta/common/enums/others.dart';
-
+import 'package:zheeta/core/router/app_router.gr.dart';
+import 'package:zheeta/features/discover/presentation/widgets/match_filter_bottom_sheet.dart';
 
 class TopNavBtn extends StatelessWidget {
   final IconType iconType;
@@ -30,15 +32,16 @@ class TopNavBtn extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (iconType == IconType.menu) {
           Scaffold.of(context).openDrawer();
         } else if (iconType == IconType.filter) {
-          // Handle filter action, if needed
+          // Open the bottom sheet and await the result
+          matchCriteriaBottomSheetView(context);
         } else if (iconType == IconType.bell) {
-          // context.router.push(NotificationRoute());
+          context.router.push(NotificationRoute());
         } else if (iconType == IconType.photo) {
-          // context.router.push(ProfileEditCarouselRoute());
+          context.router.push(ProfileEditCarouselRoute());
         }
       },
       child: Padding(

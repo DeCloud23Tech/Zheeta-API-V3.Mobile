@@ -36,8 +36,6 @@ extension SubscriptionStatusExtension on SubscriptionStatus {
         return 'Active';
       case SubscriptionStatus.inactive:
         return 'Inactive';
-      default:
-        return '';
-    }
+      }
   }
 }

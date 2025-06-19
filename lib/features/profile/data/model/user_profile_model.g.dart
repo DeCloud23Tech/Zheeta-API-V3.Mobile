@@ -23,20 +23,16 @@ Map<String, dynamic> _$$UserProfileModelImplToJson(
 _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$UserProfileDataModelImpl(
+      user: json['user'] == null
+          ? null
+          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      userSubscription: json['userSubscription'] == null
+          ? null
+          : SubscriptionModel.fromJson(
+              json['userSubscription'] as Map<String, dynamic>),
       profile: json['profile'] == null
           ? null
           : ProfileModel.fromJson(json['profile'] as Map<String, dynamic>),
-      originAddress: json['originAddress'] == null
-          ? null
-          : OriginAddressModel.fromJson(
-              json['originAddress'] as Map<String, dynamic>),
-      residentialAddress: json['residentialAddress'] == null
-          ? null
-          : ResidentialAddressModel.fromJson(
-              json['residentialAddress'] as Map<String, dynamic>),
-      location: json['location'] == null
-          ? null
-          : LocationModel.fromJson(json['location'] as Map<String, dynamic>),
       profileCounters: json['profileCounters'] == null
           ? null
           : ProfileCounterModel.fromJson(
@@ -48,10 +44,6 @@ _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
       interests: (json['interests'] as List<dynamic>?)
           ?.map((e) => InterestModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      bankAccountDetails: json['bankAccountDetails'] == null
-          ? null
-          : BankAccountDetailModel.fromJson(
-              json['bankAccountDetails'] as Map<String, dynamic>),
       userDownlines: (json['userDownlines'] as List<dynamic>?)
           ?.map((e) => UserDownlines.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -63,14 +55,12 @@ _$UserProfileDataModelImpl _$$UserProfileDataModelImplFromJson(
 Map<String, dynamic> _$$UserProfileDataModelImplToJson(
         _$UserProfileDataModelImpl instance) =>
     <String, dynamic>{
+      'user': instance.user,
+      'userSubscription': instance.userSubscription,
       'profile': instance.profile,
-      'originAddress': instance.originAddress,
-      'residentialAddress': instance.residentialAddress,
-      'location': instance.location,
       'profileCounters': instance.profileCounters,
       'referralInfo': instance.referralInfo,
       'interests': instance.interests,
-      'bankAccountDetails': instance.bankAccountDetails,
       'userDownlines': instance.userDownlines,
       'userCarousels': instance.userCarousels,
     };
@@ -97,20 +87,17 @@ _$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
       profileStatus: json['profileStatus'],
       lastSeenTime: json['lastSeenTime'],
       isOnline: json['isOnline'],
+      originAddress: json['originAddress'] == null
+          ? null
+          : OriginAddressModel.fromJson(
+              json['originAddress'] as Map<String, dynamic>),
       residentialAddress: json['residentialAddress'] == null
           ? null
           : ResidentialAddressModel.fromJson(
               json['residentialAddress'] as Map<String, dynamic>),
-      user: json['user'] == null
+      location: json['location'] == null
           ? null
-          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
-      userSubscription: json['userSubscription'] == null
-          ? null
-          : SubscriptionModel.fromJson(
-              json['userSubscription'] as Map<String, dynamic>),
-      wallet: json['wallet'] == null
-          ? null
-          : WalletModel.fromJson(json['wallet'] as Map<String, dynamic>),
+          : LocationModel.fromJson(json['location'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
@@ -135,10 +122,9 @@ Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
       'profileStatus': instance.profileStatus,
       'lastSeenTime': instance.lastSeenTime,
       'isOnline': instance.isOnline,
+      'originAddress': instance.originAddress,
       'residentialAddress': instance.residentialAddress,
-      'user': instance.user,
-      'userSubscription': instance.userSubscription,
-      'wallet': instance.wallet,
+      'location': instance.location,
     };
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
@@ -271,27 +257,15 @@ const _$SubscriptionStatusEnumMap = {
   SubscriptionStatus.inactive: 0,
 };
 
-_$WalletModelImpl _$$WalletModelImplFromJson(Map<String, dynamic> json) =>
-    _$WalletModelImpl(
-      availableBalance: json['availableBalance'],
-      lastTransactionDate: json['lastTransactionDate'],
-    );
-
-Map<String, dynamic> _$$WalletModelImplToJson(_$WalletModelImpl instance) =>
-    <String, dynamic>{
-      'availableBalance': instance.availableBalance,
-      'lastTransactionDate': instance.lastTransactionDate,
-    };
-
 _$InterestModelImpl _$$InterestModelImplFromJson(Map<String, dynamic> json) =>
     _$InterestModelImpl(
-      interestId: json['interestId'],
+      id: json['id'],
       title: json['title'],
     );
 
 Map<String, dynamic> _$$InterestModelImplToJson(_$InterestModelImpl instance) =>
     <String, dynamic>{
-      'interestId': instance.interestId,
+      'id': instance.id,
       'title': instance.title,
     };
 
@@ -339,40 +313,4 @@ Map<String, dynamic> _$$UserCarouselsImplToJson(_$UserCarouselsImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'carouselPhotoUrl': instance.carouselPhotoUrl,
-    };
-
-_$BankAccountDetailModelImpl _$$BankAccountDetailModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$BankAccountDetailModelImpl(
-      userId: json['userId'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      country: json['country'],
-      payOutType: json['payOutType'],
-      bankId: json['bankId'],
-      bankName: json['bankName'],
-      bankCode: json['bankCode'],
-      branchCode: json['branchCode'],
-      accountNumber: json['accountNumber'],
-      accountCurrency: json['accountCurrency'],
-      routingNumber: json['routingNumber'],
-      swiftCode: json['swiftCode'],
-    );
-
-Map<String, dynamic> _$$BankAccountDetailModelImplToJson(
-        _$BankAccountDetailModelImpl instance) =>
-    <String, dynamic>{
-      'userId': instance.userId,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'country': instance.country,
-      'payOutType': instance.payOutType,
-      'bankId': instance.bankId,
-      'bankName': instance.bankName,
-      'bankCode': instance.bankCode,
-      'branchCode': instance.branchCode,
-      'accountNumber': instance.accountNumber,
-      'accountCurrency': instance.accountCurrency,
-      'routingNumber': instance.routingNumber,
-      'swiftCode': instance.swiftCode,
     };

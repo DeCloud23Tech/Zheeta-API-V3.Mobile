@@ -18,14 +18,12 @@ class UserProfileModel with _$UserProfileModel {
 @freezed
 class UserProfileDataModel with _$UserProfileDataModel {
   factory UserProfileDataModel({
+    UserModel? user,
+    SubscriptionModel? userSubscription,
     ProfileModel? profile,
-    OriginAddressModel? originAddress,
-    ResidentialAddressModel? residentialAddress,
-    LocationModel? location,
     ProfileCounterModel? profileCounters,
     ReferralInfoModel? referralInfo,
     List<InterestModel>? interests,
-    BankAccountDetailModel? bankAccountDetails,
     List<UserDownlines>? userDownlines,
     List<UserCarousels>? userCarousels,
   }) = _UserProfileDataModel;
@@ -33,6 +31,7 @@ class UserProfileDataModel with _$UserProfileDataModel {
   factory UserProfileDataModel.fromJson(Map<String, dynamic> json) =>
       _$UserProfileDataModelFromJson(json);
 }
+
 
 @freezed
 class ProfileModel with _$ProfileModel {
@@ -47,7 +46,7 @@ class ProfileModel with _$ProfileModel {
     dynamic languageCSV,
     dynamic aboutMe,
     dynamic bodyType,
-     dynamic complexion,
+    dynamic complexion,
     dynamic height,
     dynamic weight,
     dynamic occupation,
@@ -58,15 +57,31 @@ class ProfileModel with _$ProfileModel {
     dynamic profileStatus,
     dynamic lastSeenTime,
     dynamic isOnline,
+    OriginAddressModel? originAddress,
     ResidentialAddressModel? residentialAddress,
-    UserModel? user,
-    SubscriptionModel? userSubscription,
-    WalletModel? wallet,
+    LocationModel? location,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$ProfileModelFromJson(json);
 }
+
+
+
+// @freezed
+// class MatchCriteriaModel with _$MatchCriteriaModel {
+//   factory MatchCriteriaModel({
+//     required String gender,
+//     required int minAge,
+//     required int maxAge,
+//     required int distance,
+//     required String country,
+//     required String city,
+//   }) = _MatchCriteriaModel;
+//
+//   factory MatchCriteriaModel.fromJson(Map<String, dynamic> json) => _$MatchCriteriaModelFromJson(json);
+// }
+
 
 @freezed
 class UserModel with _$UserModel {
@@ -160,22 +175,10 @@ class SubscriptionModel with _$SubscriptionModel {
 }
 
 @freezed
-class WalletModel with _$WalletModel {
-
-  factory WalletModel({
-    dynamic availableBalance,
-    dynamic lastTransactionDate,
-  }) = _WalletModel;
-
-  factory WalletModel.fromJson(Map<String, dynamic> json) =>
-      _$WalletModelFromJson(json);
-}
-
-@freezed
 class InterestModel with _$InterestModel {
 
   factory InterestModel({
-    dynamic interestId,
+    dynamic id,
     dynamic title,
   }) = _InterestModel;
 
@@ -222,27 +225,4 @@ class UserCarousels with _$UserCarousels {
 
   factory UserCarousels.fromJson(Map<String, dynamic> json) =>
       _$UserCarouselsFromJson(json);
-}
-
-@freezed
-class BankAccountDetailModel with _$BankAccountDetailModel {
-
-  factory BankAccountDetailModel({
-    dynamic userId,
-    dynamic firstName,
-    dynamic lastName,
-    dynamic country,
-    dynamic payOutType,
-    dynamic bankId,
-    dynamic bankName,
-    dynamic bankCode,
-    dynamic branchCode,
-    dynamic accountNumber,
-    dynamic accountCurrency,
-    dynamic routingNumber,
-    dynamic swiftCode,
-  }) = _BankAccountDetailModel;
-
-  factory BankAccountDetailModel.fromJson(Map<String, dynamic> json) =>
-      _$BankAccountDetailModelFromJson(json);
 }

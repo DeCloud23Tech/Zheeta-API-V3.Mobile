@@ -1,19 +1,28 @@
 // import 'dart:convert';
 // import 'package:flutter/services.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:zheeta/profile/presentation/bloc/profile_cubit/profile_cubit.dart';
+// import 'package:zheeta/features/profile/data/model/country_states_model.dart';
 //
 // mixin AsyncDataLoaderMixin {
-//   /// Load countries from a JSON file in the assets folder.
-//   Future<List<String>> loadCountries() async {
+//   Future<void> loadCountries(Function setState, List<String> allCountries) async {
 //     final data = await rootBundle.loadString('assets/json/countries.json');
 //     final jsonData = jsonDecode(data) as Map<String, dynamic>;
-//     return jsonData.keys.toList();
+//     setState(() {
+//       allCountries = jsonData.keys.toList();
+//     });
 //   }
 //
-//   /// Load interests via the ProfileCubit or any other logic.
-//   Future<void> loadInterests(BuildContext context) async {
-//     await context.read<ProfileCubit>().getInterestsCubit();
+//   Future<void> loadStatesForCountry(
+//       Function setState, String country, List<String> allStates, String selectedState) async {
+//     final data = await rootBundle.loadString('assets/json/countries_states.json');
+//     final jsonData = jsonDecode(data) as List<dynamic>;
+//
+//     final countryStates = jsonData
+//         .map((e) => CountryState.fromJson(e))
+//         .firstWhere((cs) => cs.name == country, orElse: () => CountryState(name: country, states: []));
+//
+//     setState(() {
+//       allStates = countryStates.states?.map((state) => state.name ?? '').toList() ?? [];
+//       selectedState = allStates.isNotEmpty ? allStates[0] : '';
+//     });
 //   }
 // }

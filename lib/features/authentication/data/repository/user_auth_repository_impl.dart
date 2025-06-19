@@ -35,8 +35,9 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
+      return left(ApiError(
+          message: ex.response?.data['message'],
+          statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -48,8 +49,9 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
+      return left(ApiError(
+          message: ex.response?.data['message'],
+          statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -79,8 +81,9 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
+      return left(ApiError(
+          message: ex.response?.data['message'],
+          statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -121,8 +124,9 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
+      return left(ApiError(
+          message: ex.response?.data['message'],
+          statusCode: ex.response!.statusCode!));
     }
   }
 
@@ -135,8 +139,9 @@ class UserAuthRepositoryImpl implements UserAuthRepository {
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));
     } on DioException catch (ex) {
-      return left(
-          ApiError(message: ex.response?.data['message'], statusCode: ex.response!.statusCode!));
+      return left(ApiError(
+          message: ex.response?.data['message'],
+          statusCode: ex.response!.statusCode!));
     }
   }
 }

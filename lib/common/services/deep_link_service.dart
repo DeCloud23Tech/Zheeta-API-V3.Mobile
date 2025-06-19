@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:zheeta/core/router/app_router.dart';
+import 'package:zheeta/core/router/app_router.gr.dart';
 
 @prod
 @LazySingleton()
@@ -23,7 +25,7 @@ class DeepLinkService {
     final referralCode = _extractReferralCode(uri);
     if (referralCode != null) {
       debugPrint('Referral code: $referralCode');
-      // Handle referral logic here
+      router.push(SignUpRoute(referralCode: referralCode));
     }
   }
 

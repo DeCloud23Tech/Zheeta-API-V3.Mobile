@@ -13,6 +13,5 @@
 //
 // const googleAPI = "AIzaSyDWijmMYqAgaaHeyYynqLoSaHpqRna_kOc";
 //
-const baseUrl = "https://test-api.zheeta.com/api";
 //
 // // const googleAPICloud23 = "AIzaSyAyMTZ7cL7W_FeepnMQKu8QDWd9norRijE";

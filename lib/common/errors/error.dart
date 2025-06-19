@@ -17,16 +17,14 @@ abstract class ZheetaError extends Equatable {
 }
 
 class ApiError extends ZheetaError {
-  ApiError({required String message, int statusCode = 500})
-      : super(message: message, statusCode: statusCode);
+  const ApiError({required super.message, super.statusCode});
 
   @override
   String toString() => 'ApiError: $message (Status Code: $statusCode)';
 }
 
 class StorageError extends ZheetaError {
-  StorageError({required String message, int statusCode = 500})
-      : super(message: message, statusCode: statusCode);
+  const StorageError({required super.message, super.statusCode});
 
   @override
   String toString() => 'StorageError: $message (Status Code: $statusCode)';
@@ -34,8 +32,7 @@ class StorageError extends ZheetaError {
 
 // Optionally, add other error types here as needed:
 class ValidationError extends ZheetaError {
-  ValidationError({required String message, int statusCode = 400})
-      : super(message: message, statusCode: statusCode);
+  const ValidationError({required super.message, super.statusCode = 400});
 
   @override
   String toString() => 'ValidationError: $message (Status Code: $statusCode)';

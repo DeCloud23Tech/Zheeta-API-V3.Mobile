@@ -1,60 +1,60 @@
-// // UserBioWidget
-// import 'package:flutter/material.dart';
-//
-// import '../../../app/common/color.dart';
-// import '../../../widgets/transparent_button.dart';
-// import '../../data/model/user_profile_model.dart';
-//
-// class UserBioWidget extends StatelessWidget {
-//   final UserProfileDataModel? user;
-//   final bool showFullBio;
-//   final VoidCallback toggleBio;
-//
-//   UserBioWidget({
-//     required this.user,
-//     required this.showFullBio,
-//     required this.toggleBio,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         if (user?.profile?.aboutMe?.isNotEmpty ?? false) SizedBox(height: 20),
-//         if (user?.profile?.aboutMe?.isNotEmpty ?? false)
-//           Padding(
-//             padding: const EdgeInsets.symmetric(vertical: 8.0),
-//             child: Text(
-//               '${user?.profile?.firstName} ${user?.profile?.lastName}',
-//               style: const TextStyle(
-//                 color: AppColors.primaryDark,
-//                 fontWeight: FontWeight.w500,
-//                 fontSize: 18,
-//               ),
-//             ),
-//           ),
-//         Text(
-//           (user?.profile?.aboutMe?.length ?? 0) > 150 && showFullBio
-//               ? '${user?.profile?.aboutMe?.substring(0, 150)}...'
-//               : user?.profile?.aboutMe ?? '',
-//           style: const TextStyle(
-//             color: AppColors.grayscale,
-//             fontWeight: FontWeight.w400,
-//             fontSize: 14,
-//           ),
-//         ),
-//         if (user?.profile?.aboutMe?.isNotEmpty?? false) SizedBox(height: 5),
-//         Align(
-//           alignment: Alignment.centerRight,
-//           child: TransparentButtonNew(
-//             title: showFullBio ? 'Show More' : 'Show Less',
-//             action: toggleBio,
-//             size: 12,
-//           ),
-//         ),
-//         SizedBox(height: 20),
-//       ],
-//     );
-//   }
-// }
+// UserBioWidget
+import 'package:flutter/material.dart';
+import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/features/profile/data/model/user_profile_model.dart';
+import 'package:zheeta/widgets/transparent_button.dart';
+
+
+class UserBioWidget extends StatelessWidget {
+  final UserProfileDataModel? user;
+  final bool showFullBio;
+  final VoidCallback toggleBio;
+
+  const UserBioWidget({
+    required this.user,
+    required this.showFullBio,
+    required this.toggleBio,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (user?.profile?.aboutMe?.isNotEmpty ?? false) SizedBox(height: 20),
+        if (user?.profile?.aboutMe?.isNotEmpty ?? false)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              '${user?.profile?.firstName} ${user?.profile?.lastName}',
+              style: const TextStyle(
+                color: AppColors.primaryDark,
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        Text(
+          (user?.profile?.aboutMe?.length ?? 0) > 150 && showFullBio
+              ? '${user?.profile?.aboutMe?.substring(0, 150)}...'
+              : user?.profile?.aboutMe ?? '',
+          style: const TextStyle(
+            color: AppColors.grayscale,
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+          ),
+        ),
+        if (user?.profile?.aboutMe?.isNotEmpty?? false) SizedBox(height: 5),
+        Align(
+          alignment: Alignment.centerRight,
+          child: TransparentButtonNew(
+            title: showFullBio ? 'Show More' : 'Show Less',
+            action: toggleBio,
+            size: 12,
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
+    );
+  }
+}

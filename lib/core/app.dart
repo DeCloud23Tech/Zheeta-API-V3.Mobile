@@ -5,9 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/core/bloc_providers.dart';
 import 'package:zheeta/core/router/app_router.dart';
+import 'package:zheeta/widgets/maintenance_page.dart';
 import '../common/constants/color.dart';
 import '../common/services/deep_link_service.dart';
 import '../common/services/push_notification_service.dart';
+import '../common/storage/token_storage/i_token_storage.dart';
+import '../common/storage/user_storage/i_user_storage.dart';
 import '../features/splash_screen/presentation/cubit/maintenance_mode_cubit.dart';
 import 'firebase_options.dart';
 import 'injection/di.dart';
@@ -55,7 +58,6 @@ class _MyAppState extends State<MyApp> {
 
       // Initialize PushNotificationService
       _pushNotificationService = locator<PushNotificationService>();
-      //TODO fix later
       _pushNotificationService.initialize();
     } catch (e, stackTrace) {
       debugPrint('Error initializing services: $e\n$stackTrace');
@@ -90,10 +92,10 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   child ?? SizedBox.shrink(),
                   if (state.isMaintenanceMode)
-                    Scaffold(
-                      appBar: AppBar(title: Text(state.title)),
-                      body: Center(child: Text(state.message)),
-                    ),
+                    MaintenanceView(
+                      title: state.title,
+                      message: state.message,
+                    )
                 ],
               );
             },

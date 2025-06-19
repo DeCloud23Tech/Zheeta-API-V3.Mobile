@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/utils/launch_url.dart';
 
 class SocialButton extends StatelessWidget {
   final String icon;
@@ -20,25 +21,14 @@ class SocialButton extends StatelessWidget {
     this.link,
   });
 
-  Future<void> _launchUrl(String url) async {
-    try {
-      final Uri uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
-        throw 'Could not launch $url';
-      }
-    } catch (e) {
-      debugPrint('Error launching URL: $e');
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: link != null
           ? () async {
-        await _launchUrl(link!);
+        await customLaunchUrl(link!);
       }
           : null,
       child: Container(

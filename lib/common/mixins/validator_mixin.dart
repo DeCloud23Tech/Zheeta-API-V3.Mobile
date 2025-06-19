@@ -44,11 +44,13 @@ mixin Validator {
     if (data == null) return 'Input is empty';
     data = data.trim();
     if (data.isEmpty) return 'Input is empty';
-    if (data.length < (minLength == 5 ? 1 : minLength ?? 1))
+    if (data.length < (minLength == 5 ? 1 : minLength ?? 1)) {
       return 'Input is lesser than $minLength characters.';
+    }
     if (maxLength != null) {
-      if (data.length > maxLength)
+      if (data.length > maxLength) {
         return "Input must be at most $maxLength characters.";
+      }
     }
 
     return null;

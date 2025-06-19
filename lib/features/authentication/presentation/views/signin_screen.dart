@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zheeta/common/constants/color.dart';
 import 'package:zheeta/common/constants/constansts.dart';
 import 'package:zheeta/common/constants/strings.dart';
@@ -10,6 +11,8 @@ import 'package:zheeta/common/constants/text_style.dart';
 import 'package:zheeta/common/mixins/validator_mixin.dart';
 import 'package:zheeta/common/notify/notify_user.dart';
 import 'package:zheeta/common/services/push_notification_service.dart';
+import 'package:zheeta/common/storage/token_storage/i_token_storage.dart';
+import 'package:zheeta/common/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/core/injection/di.dart';
 import 'package:zheeta/core/router/app_router.dart';
 import 'package:zheeta/core/router/app_router.gr.dart';
@@ -34,6 +37,26 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
   final TextEditingController emailController = TextEditingController();
   final ValueNotifier<bool> _isPasswordObscure = ValueNotifier(true);
 
+  final IUserStorage userStorage = locator<IUserStorage>();
+  final ITokenStorage storage = locator<ITokenStorage>();
+  //
+
+  @override
+  void initState() {
+    super.initState();
+    // userStorage.clear();
+    // storage.clear();
+    _loadSavedEmail();
+  }
+
+  Future<void> _loadSavedEmail() async {
+    final savedEmail = await userStorage.getEmail();
+    if (savedEmail != null && savedEmail.isNotEmpty) {
+      emailController.text = savedEmail;
+      setState(() {}); // Ensure UI updates
+    }
+  }
+
   @override
   void dispose() {
     passwordController.dispose();
@@ -48,15 +71,16 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
       final deviceToken = await pushNotificationService.getDeviceToken();
       final platform = Platform.isIOS ? 'APNS' : 'GCM';
 
-      if(!context.mounted) return;
+      if (!context.mounted) return;
       context.read<AuthenticationCubit>().loginUserCubit(
-        request: LoginRequest(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-          userDeviceToken: deviceToken ?? '',
-          platform: platform,
-        ),
-      );
+            request: LoginRequest(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim(),
+              userDeviceToken: deviceToken ??
+                  '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef',
+              platform: platform,
+            ),
+          );
     }
   }
 
@@ -85,10 +109,14 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
       body: BlocListener<AuthenticationCubit, AuthenticationState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is AuthenticationErrorState) {
             NotifyUser.showSnackBar(state.errorMessage);
           } else if (state is AuthenticationLoggedInState) {
+            // final SharedPreferences prefs = await SharedPreferences.getInstance();
+            // await prefs.setBool(_HomeScreenState._agreementShownKey, false);
+            // await prefs.setInt(_HomeScreenState._lastLoginTimeKey, DateTime.now().millisecondsSinceEpoch);
+            userStorage.saveEmail(emailController.text);
             context.router.pushAndPopUntil(
               const HomeRoute(),
               predicate: (route) => false, // Removes all previous routes
@@ -162,9 +190,10 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                       _buildDivider(),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(//signinAlt,
-                          'Contact Support',
-                           style: authAltStyle),
+                        child: Text(
+                            //signinAlt,
+                            'Contact Support',
+                            style: authAltStyle),
                       ),
                       _buildDivider(),
                     ],

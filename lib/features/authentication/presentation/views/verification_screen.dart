@@ -50,9 +50,9 @@ class _VerificationScreenState extends State<VerificationScreen>
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.isPhoneNumber) {
-        context
-            .read<AuthenticationCubit>()
-            .sendPhoneVerifyOtpCubit(phone: widget.phoneNumber);
+        // context
+        //     .read<AuthenticationCubit>()
+        //     .sendPhoneVerifyOtpCubit(phone: widget.phoneNumber);
       }
       // _startResendOtpTimer();
     });

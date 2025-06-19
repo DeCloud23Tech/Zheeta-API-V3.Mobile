@@ -5,22 +5,18 @@ class AppLists {
   static List<String> maritalStatus = ['Single', 'Married', 'Divorced', 'Widowed', 'Separated', 'Other'];
   // static List<String> interests = ['Long-term partner', 'Short-term partner', 'Long-term, but short-term OK', 'Short-term, but long-term OK', 'Short-term fun', 'New friends', 'Social Networking', 'Hangout', 'Massage', 'Massage Plus', 'Earn Income', 'Sell Product', 'Still figuring out'];
 
-  // static Map<String, int> interestMapping = {
-  //   'Long-term partner': 1,
-  //   'Short-term partner': 2,
-  //   'Long-term, but short-term OK': 3,
-  //   'Short-term, but long-term OK': 4,
-  //   'Short-term fun': 5,
-  //   'New friends': 6,
-  //   'Social Networking': 7,
-  //   'Hangout': 8,
-  //   'Massage': 9,
-  //   'Massage Plus': 10,
-  //   'Earn Income': 11,
-  //   'Sell Product': 12,
-  //   'Still figuring out': 13,
-  // };
+  static List<String> currencies = [
+    'NGN', // Nigeria
+    'GHS', // Ghana
+    'EUR', // Europe
+    'GBP', // Great Britain
+    'KES', // Kenya
+    'RWF', // Rwanda
+    'USD', // United States of America
+  ];
+
   static List<String> occupations = [
+    "Others",
     "Academic Librarian",
     "Accountant",
     "Accounting Technician",
@@ -566,4 +562,70 @@ class AppLists {
     'Zhuang',
     'Zulu'
   ];
+
+  static List<String> eventCategories = [
+    'Outdoor',
+    'Indoor',
+    'Adventure',
+    'Fitness & Sports',
+    'Networking',
+    'Education & Workshops',
+    'Music & Entertainment',
+    'Food & Drinks',
+    'Arts & Culture',
+    'Gaming & Esports',
+    'Health & Wellness',
+    'Tech & Innovation',
+    'Business & Finance',
+    'Travel & Exploration',
+    'Volunteer & Charity',
+    'Spiritual & Mindfulness',
+    'Family & Kids',
+    'Community & Social',
+    'Fashion & Lifestyle',
+    'Science & Engineering'
+  ];
+
+  static List<String> eventTags = [
+    'activities',
+    'recreation',
+    'outdoor',
+    'education',
+    'networking',
+    'fitness',
+    'adventure',
+    'sports',
+    'music',
+    'entertainment',
+    'food',
+    'drinks',
+    'art',
+    'culture',
+    'gaming',
+    'health',
+    'wellness',
+    'technology',
+    'business',
+    'finance',
+    'travel',
+    'volunteering',
+    'charity',
+    'spiritual',
+    'mindfulness',
+    'family',
+    'community',
+    'social',
+    'fashion',
+    'lifestyle',
+    'science',
+    'engineering',
+    'career',
+    'self-improvement',
+    'workshop',
+    'seminar',
+    'conference',
+    'festival'
+  ];
+
+
 }

@@ -7,7 +7,7 @@ class BasicProfileProp extends StatelessWidget {
   final String? rightTitle;
   final String? rightValue;
 
-  BasicProfileProp({
+  const BasicProfileProp({
     super.key,
     this.leftTitle,
     this.leftValue,
