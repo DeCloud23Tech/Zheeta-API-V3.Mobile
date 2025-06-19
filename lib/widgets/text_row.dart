@@ -6,7 +6,7 @@ class TextRow extends StatelessWidget {
   final TextStyle? leftTextStyle;
   final TextStyle? rightTextStyle;
 
-  TextRow({
+  const TextRow({
     super.key,
     required this.leftText,
     required this.rightText,
@@ -17,24 +17,36 @@ class TextRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            leftText,
-            style: leftTextStyle ?? TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+          Expanded(
+            flex: 3,
+            child: Text(
+              leftText,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: leftTextStyle ??
+                  Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
             ),
           ),
-          Text(
-            rightText,
-            style: rightTextStyle ?? TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
+          const SizedBox(width: 10),
+          Expanded(
+            flex: 2,
+            child: Text(
+              rightText,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.right,
+              style: rightTextStyle ??
+                  Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.black,
+                  ),
             ),
           ),
         ],

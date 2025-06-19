@@ -6,7 +6,8 @@ class ReusableCustomContainer extends StatelessWidget {
   final double padding;
   final double borderRadius;
 
-  ReusableCustomContainer({
+  const ReusableCustomContainer({
+    super.key,
     required this.child,
     this.color = Colors.white,
     this.padding = 15.0,
@@ -16,7 +17,8 @@ class ReusableCustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(padding),
+      padding:
+          EdgeInsets.symmetric(horizontal: padding+4, vertical: padding),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(borderRadius),

@@ -1,62 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/common/constants/color.dart';
 
 class AppRadioButton extends StatelessWidget {
   final String value;
   final String? groupValue;
-  final Function(dynamic) onChanged;
+  final ValueChanged<String> onChanged;
   final bool showTitle;
+  final String? title;
+  final double size;
+  final Color activeColor;
+  final Color borderColor;
+  final Color textColor;
+
   const AppRadioButton({
     super.key,
     required this.value,
-    this.showTitle = true,
     required this.groupValue,
     required this.onChanged,
+    this.showTitle = true,
+    this.title,
+    this.textColor = AppColors.grayscale,
+    this.size = 18,
+    this.activeColor = AppColors.primaryDark,
+    this.borderColor = AppColors.primaryDark,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5, top: 10),
+    return GestureDetector(
+      onTap: () => onChanged(value),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap: () {
-              onChanged(value);
-            },
-            child: Container(
-              width: 24,
-              height: 24,
-              padding: EdgeInsets.all(1),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primaryDark, width: 1),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: value == groupValue
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryDark,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    )
-                  : SizedBox.shrink(),
-            ),
-          ),
-          if (showTitle) SizedBox(width: 8),
-          if (showTitle)
+          _buildRadio(),
+          if (showTitle && title != null) SizedBox(width: 8),
+          if (showTitle && title != null)
             GestureDetector(
-              onTap: () {
-                onChanged(value);
-              },
+              onTap: () => onChanged(value),
               child: Text(
-                value,
-                style: TextStyle(fontSize: 12),
+                title!,
+                style: TextStyle(fontSize: 14, color: textColor),
               ),
             ),
-          if (showTitle) SizedBox(width: 14),
         ],
       ),
+    );
+  }
+
+  Widget _buildRadio() {
+    return Container(
+      width: size,
+      height: size,
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: borderColor, width: 1),
+      ),
+      child: value == groupValue
+          ? Container(
+              decoration: BoxDecoration(
+                color: activeColor,
+                shape: BoxShape.circle,
+              ),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }
@@ -64,53 +71,66 @@ class AppRadioButton extends StatelessWidget {
 class AppMultipleSelectRadioButton extends StatelessWidget {
   final String value;
   final bool isActive;
-  final Function(dynamic) onChanged;
+  final ValueChanged<String> onChanged;
   final bool showTitle;
-  const AppMultipleSelectRadioButton({super.key, required this.value, this.showTitle = true, required this.isActive, required this.onChanged});
+  final String? title;
+  final double size;
+  final Color activeColor;
+  final Color borderColor;
+  final Color textColor;
+
+  const AppMultipleSelectRadioButton({
+    super.key,
+    required this.value,
+    required this.isActive,
+    required this.onChanged,
+    this.showTitle = true,
+    this.title,
+    this.textColor = AppColors.grayscale,
+    this.size = 18,
+    this.activeColor = AppColors.primaryDark,
+    this.borderColor = AppColors.primaryDark,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5, top: 10),
+    return GestureDetector(
+      onTap: () => onChanged(value),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap: () {
-              onChanged(value);
-            },
-            child: Container(
-              width: 24,
-              height: 24,
-              padding: EdgeInsets.all(1),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primaryDark, width: 1),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: isActive
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryDark,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    )
-                  : SizedBox.shrink(),
-            ),
-          ),
-          if (showTitle) SizedBox(width: 8),
-          if (showTitle)
+          _buildRadio(),
+          if (showTitle && title != null) SizedBox(width: 8),
+          if (showTitle && title != null)
             GestureDetector(
-              onTap: () {
-                onChanged(value);
-              },
+              onTap: () => onChanged(value),
               child: Text(
-                value,
-                style: TextStyle(fontSize: 12),
+                title!,
+                style: TextStyle(fontSize: 14, color: textColor),
               ),
             ),
-          if (showTitle) SizedBox(width: 14),
         ],
       ),
+    );
+  }
+
+  Widget _buildRadio() {
+    return Container(
+      width: size,
+      height: size,
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: borderColor, width: 1),
+      ),
+      child: isActive
+          ? Container(
+              decoration: BoxDecoration(
+                color: activeColor,
+                shape: BoxShape.circle,
+              ),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }

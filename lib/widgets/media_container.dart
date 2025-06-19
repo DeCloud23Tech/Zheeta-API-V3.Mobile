@@ -1,99 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/common/utility.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:zheeta/common/constants/utility.dart';
 
 class MediaContainer extends StatefulWidget {
-  String mediaPath;
-  MediaContainer({super.key, required this.mediaPath});
+  final String mediaPath;
+
+  const MediaContainer({super.key, required this.mediaPath});
 
   @override
   State<MediaContainer> createState() => _MediaContainerState();
 }
 
 class _MediaContainerState extends State<MediaContainer> {
-  MediaType mediaType = MediaType.IMAGE;
-  ImageProvider? videoThumb;
+  late final MediaType mediaType;
 
   @override
   void initState() {
-    mediaType = Utility.getMediaType(widget.mediaPath);
     super.initState();
+    mediaType = Utility.getMediaType(widget.mediaPath);
   }
 
-  Future<ImageProvider<Object>>? processImage() async {
-    var theData = await Utility.getVideoThumbnail(widget.mediaPath);
-
-    // videoThumb = mediaType == MediaType.VIDEO && theData != null
-    //     ? await Utility.processImage(theData)
-    //     : null;
-    if (theData != null) return MemoryImage(theData);
-    throw Exception();
-  }
+  // Future<ImageProvider<Object>> _getVideoThumbnail() async {
+  //   final thumbnailData = await Utility.getVideoThumbnail(widget.mediaPath);
+  //   return thumbnailData != null
+  //       ? MemoryImage(thumbnailData)
+  //       : throw Exception("Failed to load thumbnail");
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return mediaType == MediaType.VIDEO
-        ? FutureBuilder(
-            future: processImage(),
-            builder: (context, snapshot) {
-              if (snapshot.data != null) {
-                return Container(
-                    height: 170,
-                    width: 122,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            fit: BoxFit.cover, image: snapshot.data!)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Icon(
-                          Icons.video_camera_back_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ));
-              } else {
-                return SizedBox();
-              }
-            })
-        : Container(
-            height: 170,
-            width: 122,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(widget.mediaPath))));
-    // return Container(
-    //   height: 170,
-    //   width: 122,
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.circular(10),
-    //   ),
-    //   clipBehavior: Clip.hardEdge,
-    //   child: Stack(
-    //     children: [
-    //       mediaType == MediaType.VIDEO
-    //           ? FutureBuilder(
-    //               future: processImage(),
-    //               builder: (context, snapshot) {
-    //                 if (snapshot.data != null) {
-    //                   return Image(
-    //                     image: snapshot.data!,
-    //                   );
-    //                 } else {
-    //                   return SizedBox();
-    //                 }
-    //               })
-    //           : Image.network(widget.mediaPath),
-    //       if (mediaType == MediaType.VIDEO)
-    //         Positioned(
-    //           child: Icon(Icons.video_camera_back_rounded),
-    //           top: 10,
-    //           right: 10,
-    //         )
-    //     ],
-    //   ),
-    // );
+    return CachedNetworkImage(
+      imageUrl: widget.mediaPath,
+      height: 150,
+      width: 125,
+      fit: BoxFit.cover,
+      imageBuilder: (context, imageProvider) =>
+          _buildMediaContainer(imageProvider),
+      // placeholder: (context, url) =>
+      //     const Center(child: CircularProgressIndicator()),
+      // errorWidget: (context, url, error) => const Icon(Icons.error),
+    );
+  }
+
+  Widget _buildMediaContainer(ImageProvider<Object> imageProvider) {
+    return Container(
+      height: 170,
+      width: 122,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: imageProvider,
+        ),
+      ),
+      child: mediaType == MediaType.VIDEO
+          ? const Align(
+              alignment: Alignment.topRight,
+              child: Icon(
+                Icons.video_camera_back_rounded,
+                color: Colors.white,
+              ),
+            )
+          : null,
+    );
   }
 }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/app/common/color.dart';
+import 'package:zheeta/common/constants/color.dart';
 
 class LoadingScreen extends StatelessWidget {
   final Color? backgroundColor;
-  final Color? indicatorColor;
-  const LoadingScreen({super.key, this.backgroundColor, this.indicatorColor});
+  final String? loaderImagePath;
+
+  const LoadingScreen({
+    super.key,
+    this.backgroundColor,
+    this.loaderImagePath = "assets/images/welcome.png",
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,22 +18,58 @@ class LoadingScreen extends StatelessWidget {
       children: [
         ModalBarrier(
           dismissible: false,
-          color: backgroundColor ?? AppColors.primaryDark.withOpacity(0.7),
+          color: backgroundColor ?? AppColors.primaryDark,
           semanticsLabel: 'Loading',
           barrierSemanticsDismissible: false,
         ),
         Align(
           alignment: Alignment.center,
-          child: SizedBox(
-            width: 20,
-            height: 20,
-            child: CircularProgressIndicator(
-              color: indicatorColor ?? Colors.white,
-              strokeWidth: 2,
-            ),
+          child: AnimatedLoaderImage(
+            imagePath: loaderImagePath ?? "assets/images/welcome.png",
           ),
         ),
       ],
+    );
+  }
+}
+
+class AnimatedLoaderImage extends StatefulWidget {
+  final String imagePath;
+
+  const AnimatedLoaderImage({super.key, required this.imagePath});
+
+  @override
+  State<AnimatedLoaderImage> createState() => _AnimatedLoaderImageState();
+}
+
+class _AnimatedLoaderImageState extends State<AnimatedLoaderImage>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 4),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RotationTransition(
+      turns: _controller,
+      child: Image.asset(
+        widget.imagePath,
+        width: MediaQuery.of(context).size.width * .75, // Set the desired size of the loader image
+        // height: 50,
+      ),
     );
   }
 }

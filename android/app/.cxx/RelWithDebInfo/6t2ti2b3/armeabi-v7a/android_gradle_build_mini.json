@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/bert/development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/bert/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/bert/StudioProjects/Zheeta-API-V3.Mobile/android/app/.cxx/RelWithDebInfo/6t2ti2b3/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/bert/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/bert/StudioProjects/Zheeta-API-V3.Mobile/android/app/.cxx/RelWithDebInfo/6t2ti2b3/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

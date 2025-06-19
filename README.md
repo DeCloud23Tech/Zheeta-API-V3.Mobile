@@ -1,6 +1,6 @@
-# zheeta
+# zheeta_migrated
 
-Zheeta Moble App
+A new Flutter project.
 
 ## Getting Started
 
