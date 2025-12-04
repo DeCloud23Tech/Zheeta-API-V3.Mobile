@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/utils/format_utils.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/utils/extensions/int_extension.dart';
 
 Widget buildCounterWidget({int? count, String? label}) {
   return Padding(
@@ -8,7 +8,7 @@ Widget buildCounterWidget({int? count, String? label}) {
     child: Column(
       children: [
         Text(
-          formatCount(count),
+          (count).toAbbreviatedCount(),
           style: TextStyle(
             color: AppColors.grayscale,
             fontSize: 18,
@@ -28,4 +28,3 @@ Widget buildCounterWidget({int? count, String? label}) {
     ),
   );
 }
-

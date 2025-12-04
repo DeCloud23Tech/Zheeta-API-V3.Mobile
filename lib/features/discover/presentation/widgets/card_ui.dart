@@ -2,12 +2,14 @@ import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/common/extensions/string_extension.dart';
-import 'package:zheeta/features/discover/data/model/match_model.dart';
-import 'package:zheeta/widgets/gender_age.dart';
-import 'package:zheeta/widgets/gender_indicator.dart';
-import 'package:zheeta/widgets/network_image.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/utils/extensions/string_extension.dart';
+import 'package:zheeta/features/discover/data/models/match_model.dart';
+import 'package:zheeta/router/app_router.dart';
+import 'package:zheeta/router/app_router.gr.dart';
+import 'package:zheeta/shared/widgets/gender_age.dart';
+import 'package:zheeta/shared/widgets/gender_indicator.dart';
+import 'package:zheeta/shared/widgets/network_image.dart';
 
 class ExampleCard extends StatelessWidget {
   final MatchModel match;
@@ -27,7 +29,7 @@ class ExampleCard extends StatelessWidget {
         color: CupertinoColors.white,
         boxShadow: [
           BoxShadow(
-            color: CupertinoColors.systemGrey.withOpacity(0.2),
+            color: CupertinoColors.systemGrey.withValues(alpha: 0.2),
             spreadRadius: 8,
             blurRadius: 10,
             offset: const Offset(0, 5),
@@ -58,7 +60,7 @@ class ExampleCard extends StatelessWidget {
                 color: AppColors.white,
               ),
               child: GestureDetector(
-                // onTap: () => router.push(ProfileViewRoute(profileId: match.id)),
+                onTap: () => router.push(ProfileViewRoute(profileId: match.id)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -103,8 +105,7 @@ class ExampleCard extends StatelessWidget {
                     ),
                     Text(
                       '${match.location} (${match.distance.toString().roundToInt}km away)',
-                      style:
-                          const TextStyle(color: Colors.grey, fontSize: 15),
+                      style: const TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                   ],
                 ),
@@ -124,7 +125,7 @@ class ExampleCard extends StatelessWidget {
                       overlayColor:
                           WidgetStateProperty.all<Color>(AppColors.white),
                       shadowColor: WidgetStateProperty.all<Color>(
-                          AppColors.black.withOpacity(0.7)),
+                          AppColors.black.withValues(alpha: 0.7)),
                       elevation: WidgetStateProperty.all(5),
                       backgroundColor:
                           WidgetStateProperty.all<Color>(AppColors.white),
@@ -150,7 +151,7 @@ class ExampleCard extends StatelessWidget {
                       overlayColor:
                           WidgetStateProperty.all<Color>(AppColors.white),
                       shadowColor: WidgetStateProperty.all<Color>(
-                          AppColors.black.withOpacity(0.7)),
+                          AppColors.black.withValues(alpha: 0.7)),
                       elevation: WidgetStateProperty.all(5),
                       backgroundColor:
                           WidgetStateProperty.all<Color>(AppColors.white),
@@ -177,7 +178,7 @@ class ExampleCard extends StatelessWidget {
                       overlayColor:
                           WidgetStateProperty.all<Color>(AppColors.white),
                       shadowColor: WidgetStateProperty.all<Color>(
-                          AppColors.black.withOpacity(0.7)),
+                          AppColors.black.withValues(alpha: 0.7)),
                       elevation: WidgetStateProperty.all(5),
                       backgroundColor:
                           WidgetStateProperty.all<Color>(AppColors.white),

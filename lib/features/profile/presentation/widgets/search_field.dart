@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/core/constants/color.dart';
 
 class SearchField extends StatelessWidget {
   final TextEditingController searchController;
@@ -52,7 +52,7 @@ class SearchField extends StatelessWidget {
             ),
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle: TextStyle(color: textColor.withOpacity(0.6)),
+            hintStyle: TextStyle(color: textColor.withValues(alpha: 0.6)),
             focusedBorder: OutlineInputBorder(
               borderSide:
                   const BorderSide(color: AppColors.primaryDark, width: 2.0),

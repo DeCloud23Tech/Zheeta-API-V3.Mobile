@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/utils/extensions/double_extension.dart';
+import 'package:zheeta/features/wallet_and_transactions/presentation/widgets/linear_progress_indicator.dart';
 
-import '../../../../common/constants/color.dart';
-import '../../../../utils/format_utils.dart';
 import 'bullet_point_text.dart';
 
 class BalanceCard extends StatelessWidget {
@@ -43,22 +44,24 @@ class BalanceCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       spreadRadius: 0,
                       blurRadius: 10,
-                      offset: Offset(0, 2), // changes position of shadow
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    BulletPointRow(
-                      text: 'Silver Downlines',
-                      value: silverCount,
-                      iconColor: AppColors.orange,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: BulletPointRow(
+                        text: 'Silver Downlines',
+                        value: silverCount,
+                        iconColor: AppColors.orange,
+                      ),
                     ),
-                    SizedBox(height: 27),
                   ],
                 ),
               ),
@@ -69,20 +72,21 @@ class BalanceCard extends StatelessWidget {
               right: 0,
               child: Container(
                 width: MediaQuery.of(context).size.width / 2,
-                height: 145,
+                height: 248,
                 decoration: BoxDecoration(
                   color: AppColors.primaryLightBackground,
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SizedBox(height: 40),
-                    BulletPointRow(
-                      text: 'Gold Downlines',
-                      value: goldCount,
-                      iconColor: AppColors.white,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: BulletPointRow(
+                        text: 'Gold Downlines',
+                        value: goldCount,
+                        iconColor: AppColors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -95,16 +99,15 @@ class BalanceCard extends StatelessWidget {
               left: 0,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 157,
                 decoration: BoxDecoration(
                   color: AppColors.secondaryLight,
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       spreadRadius: 0,
                       blurRadius: 10,
-                      offset: Offset(0, 2), // changes position of shadow
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -114,6 +117,43 @@ class BalanceCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      /// About Zheeta Credit (with info icon)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: const Text("About Zheeta Credit"),
+                                  content: const Text(
+                                    "Zheeta credit is intended solely for use within "
+                                    "physical events organized through our app as part "
+                                    "of the Buddy Event feature. It cannot be used for "
+                                    "digital purchases or services outside of this context.",
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Icon(
+                              Icons.info_outline,
+                              size: 16,
+                              color: AppColors.grayscale,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          const Text(
+                            'About Zheeta Credit',
+                            style: TextStyle(
+                              color: AppColors.grayscale,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
                       Center(
                         child: RichText(
                           text: TextSpan(
@@ -128,19 +168,11 @@ class BalanceCard extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: formatCurrency(balance),
+                                text: balance.toFormattedCurrency(),
                                 style: TextStyle(
                                   color: AppColors.grayscale,
                                   fontSize: 32,
                                   fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '00',
-                                style: TextStyle(
-                                  color: AppColors.grayscale,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
@@ -157,20 +189,20 @@ class BalanceCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // SizedBox(height: 20),
-                      // LinearProgressTracking(
-                      //   values: progressValues,
-                      //   colors: progressColors,
-                      // ),
-                      // SizedBox(height: 4),
-                      // Text(
-                      //   'Your Affiliate Earning Strength',
-                      //   style: TextStyle(
-                      //     color: Colors.black, // Change to your desired color
-                      //     fontSize: 12,
-                      //     fontWeight: FontWeight.w400,
-                      //   ),
-                      // ),
+                      const SizedBox(height: 10),
+                      LinearProgressTracking(
+                        values: progressValues,
+                        colors: progressColors,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Your Affiliate Earning Strength',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                     ],
                   ),
                 ),

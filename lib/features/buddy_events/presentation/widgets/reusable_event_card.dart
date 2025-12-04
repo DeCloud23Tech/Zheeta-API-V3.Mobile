@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/core/constants/color.dart';
 
 import 'event_date.dart';
 
@@ -51,57 +51,37 @@ class EventCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Stack(
-                  children: [
-                    eventMainPhoto != null
-                        ? Image.file(
-                            eventMainPhoto!,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height * 0.18,
-                          )
-                        : Image.network(
-                            eventMainPhotoUrl,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height * 0.18,
-                            errorBuilder: (context, error, stackTrace) => Icon(Icons
-                                .image_not_supported), // Handle errors gracefully
-                          ),
-                    Positioned(
-                      top: 10,
-                      left: 10,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: formatEventDateWidget(startDate),
-                      ),
-                    ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          category,
-                          style: TextStyle(
-                            color: AppColors.primaryDark,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 180, // Fixed height for consistency
+                  child: () {
+                    if (eventMainPhoto != null) {
+                      return Image.file(
+                        eventMainPhoto!,
+                        fit: BoxFit.cover,
+                      );
+                    } else if (eventMainPhotoUrl.isNotEmpty) {
+                      return Image.network(
+                        eventMainPhotoUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            _buildPlaceholder(),
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return _buildPlaceholder();
+                    }
+                  }(),
                 ),
               ),
               const SizedBox(height: 10),
@@ -208,4 +188,15 @@ class EventCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildPlaceholder() {
+  return Container(
+    color: Colors.grey.shade200,
+    child: const Icon(
+      Icons.image_not_supported,
+      size: 60,
+      color: Colors.grey,
+    ),
+  );
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/common/extensions/string_extension.dart';
-
-import '../../../../utils/format_utils.dart';
-
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/utils/extensions/int_extension.dart';
+import 'package:zheeta/core/utils/extensions/string_extension.dart';
 
 class BulletPointRow extends StatelessWidget {
   final String text;
@@ -43,7 +41,7 @@ class BulletPointRow extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              formatCount(value.roundToInt),
+              (value.roundToInt).toAbbreviatedCount(),
               style: TextStyle(
                 color: iconColor == AppColors.white
                     ? AppColors.white

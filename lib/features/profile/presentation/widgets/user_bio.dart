@@ -1,9 +1,8 @@
 // UserBioWidget
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/features/profile/data/model/user_profile_model.dart';
-import 'package:zheeta/widgets/transparent_button.dart';
-
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
+import 'package:zheeta/shared/widgets/transparent_button.dart';
 
 class UserBioWidget extends StatelessWidget {
   final UserProfileDataModel? user;
@@ -11,6 +10,7 @@ class UserBioWidget extends StatelessWidget {
   final VoidCallback toggleBio;
 
   const UserBioWidget({
+    super.key,
     required this.user,
     required this.showFullBio,
     required this.toggleBio,
@@ -18,15 +18,22 @@ class UserBioWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final name =
+        '${user?.profile?.firstName ?? ''} ${user?.profile?.lastName ?? ''}';
+    final aboutMe = user?.profile?.aboutMe ?? '';
+    final isLongBio = aboutMe.length > 150;
+    final displayedBio =
+        !showFullBio && isLongBio ? '${aboutMe.substring(0, 150)}...' : aboutMe;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (user?.profile?.aboutMe?.isNotEmpty ?? false) SizedBox(height: 20),
-        if (user?.profile?.aboutMe?.isNotEmpty ?? false)
+        // Name
+        if (name.trim().isNotEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              '${user?.profile?.firstName} ${user?.profile?.lastName}',
+              name,
               style: const TextStyle(
                 color: AppColors.primaryDark,
                 fontWeight: FontWeight.w500,
@@ -34,26 +41,30 @@ class UserBioWidget extends StatelessWidget {
               ),
             ),
           ),
-        Text(
-          (user?.profile?.aboutMe?.length ?? 0) > 150 && showFullBio
-              ? '${user?.profile?.aboutMe?.substring(0, 150)}...'
-              : user?.profile?.aboutMe ?? '',
-          style: const TextStyle(
-            color: AppColors.grayscale,
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
+
+        // Bio text
+        if (aboutMe.isNotEmpty)
+          Text(
+            displayedBio,
+            style: const TextStyle(
+              color: AppColors.grayscale,
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+            ),
           ),
-        ),
-        if (user?.profile?.aboutMe?.isNotEmpty?? false) SizedBox(height: 5),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TransparentButtonNew(
-            title: showFullBio ? 'Show More' : 'Show Less',
-            action: toggleBio,
-            size: 12,
+
+        // Show More / Show Less button
+        if (isLongBio)
+          Align(
+            alignment: Alignment.centerRight,
+            child: TransparentButton(
+              title: showFullBio ? 'Show Less' : 'Show More',
+              action: toggleBio,
+              size: 12,
+            ),
           ),
-        ),
-        SizedBox(height: 20),
+
+        const SizedBox(height: 40),
       ],
     );
   }

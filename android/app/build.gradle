@@ -34,8 +34,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.decloud23tech.zheeta"
-    compileSdk 34//flutter.compileSdkVersion
-    ndkVersion = "25.1.8937393"//ndkVersion flutter.ndkVersion
+    compileSdk 35//flutter.compileSdkVersion
+    ndkVersion = "26.1.10909125"//ndkVersion flutter.ndkVersion
 
     compileOptions {
         coreLibraryDesugaringEnabled true

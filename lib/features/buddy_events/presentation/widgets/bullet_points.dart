@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BulletPoint extends StatelessWidget {
-  final List<String> items;
+  final List<String?> items;
   final TextStyle textStyle;
 
   const BulletPoint({
@@ -14,9 +14,8 @@ class BulletPoint extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:  items
-          .where((item) => item.toString().trim().isNotEmpty)
-          .map((item) {
+      children:
+          items.where((item) => item.toString().trim().isNotEmpty).map((item) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 4.0, left: 8.0),
           child: Row(
@@ -28,7 +27,7 @@ class BulletPoint extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  item,
+                  item ?? '',
                   style: textStyle,
                 ),
               ),

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/features/profile/presentation/widgets/profile_image_container.dart';
-import 'package:zheeta/widgets/primary_button.dart';
+import 'package:zheeta/shared/widgets/primary_button.dart';
 
 class ProfileImageSection extends StatelessWidget {
   final String? profilePhotoUrl;

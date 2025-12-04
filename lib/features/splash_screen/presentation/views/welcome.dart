@@ -1,14 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/common/constants/strings.dart';
-import 'package:zheeta/common/notify/notify_user.dart';
-import 'package:zheeta/common/storage/token_storage/i_token_storage.dart';
-import 'package:zheeta/core/injection/di.dart';
-import 'package:zheeta/core/router/app_router.gr.dart';
-import 'package:zheeta/features/profile/data/model/user_profile_model.dart';
-import 'package:zheeta/utils/logout_utils.dart';
-import 'package:zheeta/widgets/primary_button.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/constants/strings.dart';
+import 'package:zheeta/core/utils/logout_utils.dart';
+import 'package:zheeta/core/utils/notify.dart';
+import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
+import 'package:zheeta/shared/widgets/primary_button.dart';
 
 @RoutePage()
 class WelcomeScreen extends StatelessWidget {
@@ -28,17 +25,17 @@ class WelcomeScreen extends StatelessWidget {
 
     void handleProceedAction(BuildContext context) {
       if (userProfile == null) {
-        context.router.push(const BioDataRoute());
+        // context.router.push(const BioDataRoute());
         return;
       }
 
       if (userProfile.profilePhotoURL == null) {
-        context.router.push(ProfilePhotoRoute());
+        // context.router.push(ProfilePhotoRoute());
         return;
       }
 
       if (userCarousels!.isEmpty) {
-        context.router.push(ProfileCarouselRoute());
+        // context.router.push(ProfileCarouselRoute());
         return;
       }
 

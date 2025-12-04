@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/core/constants/color.dart';
 
 Widget formatEventDateWidget(DateTime date) {
   final day = DateFormat('d').format(date);
