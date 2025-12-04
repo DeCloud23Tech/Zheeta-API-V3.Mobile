@@ -1,0 +1,31 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'match_model.freezed.dart';
+part 'match_model.g.dart';
+
+@freezed
+abstract class MatchModel with _$MatchModel {
+  factory MatchModel({
+    dynamic id,
+    dynamic username,
+    dynamic profilePhotoURL,
+    dynamic location,
+    dynamic distance,
+    dynamic age,
+    dynamic gender,
+    dynamic totalWeight,
+  }) = _MatchModel;
+
+  factory MatchModel.fromJson(Map<String, dynamic> json) =>
+      _$MatchModelFromJson(json);
+}
+
+@freezed
+abstract class MatchListModel with _$MatchListModel {
+  factory MatchListModel({
+    List<MatchModel>? data,
+  }) = _MatchListModel;
+
+  factory MatchListModel.fromJson(Map<String, dynamic> json) =>
+      _$MatchListModelFromJson(json);
+}

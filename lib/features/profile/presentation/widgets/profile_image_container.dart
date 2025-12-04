@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/widgets/loader.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/shared/widgets/loader.dart';
 
 Widget buildProfileImageContainer(String imagePath, String? profilePhotoURL) {
   return Stack(

@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/common/mixins/image_picker.dart';
-import 'package:zheeta/core/router/app_router.gr.dart';
-import 'package:zheeta/features/profile/data/model/user_profile_model.dart';
-import 'package:zheeta/widgets/network_image.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/mixin/image_picker.dart';
+import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
+import 'package:zheeta/shared/widgets/network_image.dart';
 
 class ImageSelectionGrid extends StatefulWidget {
   final List<File> selectedImages;
@@ -201,12 +200,12 @@ class ImageSelectionGridState extends State<ImageSelectionGrid>
                   child: AspectRatio(
                     aspectRatio: .65,
                     child: DottedBorder(
-                      dashPattern: [8, 4],
-                      strokeWidth: 1.5,
-                      color: AppColors.grayscale,
-                      strokeCap: StrokeCap.round,
-                      borderType: BorderType.RRect,
-                      radius: Radius.circular(5),
+                      options: RectDottedBorderOptions(
+                        dashPattern: [8, 4],
+                        strokeWidth: 1.5,
+                        color: AppColors.grey.withValues(alpha: 0.5),
+                        strokeCap: StrokeCap.round,
+                      ),
                       child: Container(
                         color: AppColors.primaryLightBackground,
                       ),
@@ -273,7 +272,7 @@ class CarouselImageEditorState extends State<CarouselImageEditor>
     // Initialize replacedImages with null values for each image URL
     replacedImages = List.generate(
       widget.imageUrls?.length ?? 0,
-          (index) => ValueNotifier<File?>(null),
+      (index) => ValueNotifier<File?>(null),
     );
     // Initialize newImages with the selectedImages
     newImages = widget.selectedImages
@@ -316,9 +315,8 @@ class CarouselImageEditorState extends State<CarouselImageEditor>
     // Calculate total items (existing + new + empty slots up to 6)
     final totalExisting = widget.imageUrls?.length ?? 0;
     final totalNew = newImages.length;
-    final totalItems = totalExisting + totalNew < 6
-        ? 6
-        : totalExisting + totalNew;
+    final totalItems =
+        totalExisting + totalNew < 6 ? 6 : totalExisting + totalNew;
 
     return GridView.builder(
       shrinkWrap: true,
@@ -360,12 +358,12 @@ class CarouselImageEditorState extends State<CarouselImageEditor>
                   child: file != null
                       ? Image.file(file, fit: BoxFit.cover)
                       : GestureDetector(
-                    onTap: () => _replaceImage(index),
-                    child: CustomNetworkImage(
-                      imageUrl: widget.imageUrls![index].carouselPhotoUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                          onTap: () => _replaceImage(index),
+                          child: CustomNetworkImage(
+                            imageUrl: widget.imageUrls![index].carouselPhotoUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 ),
               ),
             ),
@@ -378,8 +376,7 @@ class CarouselImageEditorState extends State<CarouselImageEditor>
                     shape: BoxShape.circle,
                     color: Colors.black54,
                   ),
-                  child: const Icon(Icons.edit,
-                      color: Colors.white, size: 20),
+                  child: const Icon(Icons.edit, color: Colors.white, size: 20),
                 ),
               ),
             ),
@@ -409,14 +406,14 @@ class CarouselImageEditorState extends State<CarouselImageEditor>
             Align(
               alignment: Alignment.topRight,
               child: GestureDetector(
-                onTap: () => _replaceImage(index + (widget.imageUrls?.length ?? 0)),
+                onTap: () =>
+                    _replaceImage(index + (widget.imageUrls?.length ?? 0)),
                 child: Container(
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.black54,
                   ),
-                  child: const Icon(Icons.edit,
-                      color: Colors.white, size: 20),
+                  child: const Icon(Icons.edit, color: Colors.white, size: 20),
                 ),
               ),
             ),

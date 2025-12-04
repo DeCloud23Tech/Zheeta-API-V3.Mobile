@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:zheeta/common/constants/constansts.dart';
-import 'package:zheeta/common/constants/strings.dart';
-import 'package:zheeta/common/constants/text_style.dart';
-import 'package:zheeta/core/router/app_router.dart';
-import 'package:zheeta/core/router/app_router.gr.dart';
-import 'package:zheeta/widgets/primary_button.dart';
+import 'package:zheeta/core/constants/constansts.dart';
+import 'package:zheeta/core/constants/strings.dart';
+import 'package:zheeta/core/constants/text_style.dart';
+import 'package:zheeta/router/app_router.dart';
+import 'package:zheeta/router/app_router.gr.dart';
+import 'package:zheeta/shared/widgets/primary_button.dart';
 
 class EmptyMatches extends StatelessWidget {
   const EmptyMatches({super.key});
@@ -18,7 +18,7 @@ class EmptyMatches extends StatelessWidget {
         color: CupertinoColors.white,
         boxShadow: [
           BoxShadow(
-            color: CupertinoColors.systemGrey.withOpacity(0.2),
+            color: CupertinoColors.systemGrey.withValues(alpha: 0.2),
             spreadRadius: 8,
             blurRadius: 10,
             offset: const Offset(0, 5),

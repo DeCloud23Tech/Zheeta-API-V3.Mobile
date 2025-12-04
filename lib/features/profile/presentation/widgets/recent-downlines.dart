@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/features/profile/data/model/user_profile_model.dart';
-import 'package:zheeta/widgets/transparent_button.dart';
-
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
+import 'package:zheeta/shared/widgets/transparent_button.dart';
 
 class RecentDownlinesWidget extends StatelessWidget {
   final List<UserDownlines> userDownlines;
   final VoidCallback onViewAll;
 
-  const RecentDownlinesWidget({super.key,
+  const RecentDownlinesWidget({
+    super.key,
     required this.userDownlines,
     required this.onViewAll,
   });
@@ -18,6 +18,7 @@ class RecentDownlinesWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Section title
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -25,21 +26,31 @@ class RecentDownlinesWidget extends StatelessWidget {
               "My Recent Downlines",
               style: TextStyle(
                 color: AppColors.grayscale,
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            TransparentButtonNew(
-              title: 'View all',
-              size: 16,
-              isBold: true,
-              action: onViewAll,
+            // "View All" button aligned to the end
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: TransparentButton(
+                  title: 'View all',
+                  size: 12,
+                  isBold: true,
+                  action: onViewAll,
+                ),
+              ),
             ),
           ],
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
+
+        // Horizontal scroll of downline images
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             children: userDownlines.take(7).map((e) {
               return Padding(
@@ -57,7 +68,8 @@ class RecentDownlinesWidget extends StatelessWidget {
             }).toList(),
           ),
         ),
-        SizedBox(height: 20),
+
+        const SizedBox(height: 20),
       ],
     );
   }

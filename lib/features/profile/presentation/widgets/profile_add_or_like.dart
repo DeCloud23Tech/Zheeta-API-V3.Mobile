@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/common/enums/type_of_request.dart';
-import 'package:zheeta/common/notify/notify_user.dart';
-import 'package:zheeta/core/injection/di.dart';
-import 'package:zheeta/features/connections/presentation/bloc/friends_cubit/friends_cubit.dart';
-import 'package:zheeta/features/profile/data/model/view_profile_model.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/utils/notify.dart';
+import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/connections/presentation/cubits/friends_cubit/friends_cubit.dart';
+import 'package:zheeta/features/profile/data/models/view_profile_model.dart';
+import 'package:zheeta/shared/enums/type_of_request.dart';
 
 class ProfileAddOrLike extends StatelessWidget {
   final ViewProfileModel? visitProfile;
@@ -20,104 +20,130 @@ class ProfileAddOrLike extends StatelessWidget {
   Widget build(BuildContext context) {
     final FriendsCubit friendsCubit = locator<FriendsCubit>();
 
-    return BlocConsumer<FriendsCubit, FriendsState>(listener: (context, state) {
-      if (state is SendFriendRequestError) {
-        NotifyUser.showSnackBar(state.message);
-      } else if (state is SendFriendRequestSuccess) {
-        NotifyUser.showSnackBar('Friend Request Sent');
-      }
-    }, builder: (context, state) {
-      return Positioned(
-        bottom: 10,
-        left: 0,
-        right: 0,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            children: [
-              if (!visitProfile!.isFriend) ...[
-                SizedBox(width: 15),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      friendsCubit.sendFriendRequestCubit(
-                        receiverId: visitProfile?.profile.user?.userId,
-                        type: TypeOfRequest.friendRequest,
-                      );
-                    },
-                    child: _buildButton(
-                      context,
-                      'assets/images/icons/add_friend.svg',
-                      'Send-FR',
+    return BlocConsumer<FriendsCubit, FriendsState>(
+      listener: (context, state) {
+        if (state is FriendRequestSentSuccessState) {
+          NotifyUser.showSnackBar('Friend request sent');
+        } else if (state is FriendRequestProcessedSuccessState) {
+          NotifyUser.showSnackBar('Friend request processed');
+        } else if (state.errorMessage != null &&
+            state.errorMessage!.isNotEmpty) {
+          NotifyUser.showSnackBar(state.errorMessage!);
+        }
+      },
+      builder: (context, state) {
+        final isSending = state.isSendingFriendRequest;
+
+        return Positioned(
+          bottom: 10,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                if (!visitProfile!.isFriend) ...[
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: InkWell(
+                      onTap: isSending
+                          ? null
+                          : () {
+                              friendsCubit.sendFriendRequestCubit(
+                                receiverId: visitProfile!.profile.user!.userId!,
+                                type: TypeOfRequest.friendRequest,
+                              );
+                            },
+                      child: _buildButton(
+                        context,
+                        'assets/images/icons/add_friend.svg',
+                        'Send-FR',
+                        isLoading: isSending,
+                      ),
                     ),
                   ),
-                ),
-              ],
-              SizedBox(width: 4),
-              if (!visitProfile!.isFriend) ...[
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      friendsCubit.sendFriendRequestCubit(
-                        receiverId: visitProfile?.profile.user?.userId,
-                        type: TypeOfRequest.superLike,
-                      );
-                    },
-                    child: _buildButton(
-                      context,
-                      'assets/images/icons/star.svg',
-                      'Send Super-FR',
+                ],
+                SizedBox(width: 4),
+                if (!visitProfile!.isFriend) ...[
+                  Expanded(
+                    child: InkWell(
+                      onTap: isSending
+                          ? null
+                          : () {
+                              friendsCubit.sendFriendRequestCubit(
+                                receiverId: visitProfile!.profile.user!.userId!,
+                                type: TypeOfRequest.superLike,
+                              );
+                            },
+                      child: _buildButton(
+                        context,
+                        'assets/images/icons/star.svg',
+                        'Send Super-FR',
+                        isLoading: isSending,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 15),
+                  SizedBox(width: 15),
+                ],
+                // if (visitProfile?.isFriend ?? false) ...[
+                //   SizedBox(width: 15),
+                //   Expanded(
+                //     child: _buildButton(
+                //       context,
+                //       null,
+                //       'Unfriend',
+                //     ),
+                //   ),
+                // ],
+                SizedBox(width: 4),
+                // if (visitProfile!.canMessage && visitProfile!.isFriend) ...[
+                //   Expanded(
+                //     child: _buildButton(
+                //       context,
+                //       'assets/images/icons/chat_user.svg',
+                //       'Chat User',
+                //     ),
+                //   ),
+                //   SizedBox(width: 15),
+                // ],
               ],
-              // if (visitProfile?.isFriend ?? false) ...[
-              //   SizedBox(width: 15),
-              //   Expanded(
-              //     child: _buildButton(
-              //       context,
-              //       null,
-              //       'Unfriend',
-              //     ),
-              //   ),
-              // ],
-              SizedBox(width: 4),
-              // if (visitProfile!.canMessage && visitProfile!.isFriend) ...[
-              //   Expanded(
-              //     child: _buildButton(
-              //       context,
-              //       'assets/images/icons/chat_user.svg',
-              //       'Chat User',
-              //     ),
-              //   ),
-              //   SizedBox(width: 15),
-              // ],
-            ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
-  Widget _buildButton(BuildContext context, String? iconPath, String label) {
+  Widget _buildButton(BuildContext context, String? iconPath, String label,
+      {bool isLoading = false}) {
     return Container(
       color: AppColors.primaryDark,
       height: 45,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (iconPath != null) SvgPicture.asset(iconPath),
-          if (iconPath != null) SizedBox(width: 10),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: AppColors.white,
-            ),
-          ),
-        ],
+      child: Center(
+        child: isLoading
+            ? SizedBox(
+                height: 18,
+                width: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (iconPath != null) SvgPicture.asset(iconPath),
+                  if (iconPath != null) SizedBox(width: 10),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white,
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }

@@ -1,11 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/features/profile/data/model/user_profile_model.dart';
-
+import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 
 class CarouselSliderWidget extends StatelessWidget {
   final UserProfileDataModel theUser;
@@ -19,47 +16,41 @@ class CarouselSliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasMultipleImages =
-        theUser.userCarousels != null && theUser.userCarousels!.length > 1;
+    final userCarousels = theUser.userCarousels;
+    final profilePhoto = theUser.profile?.profilePhotoURL ?? '';
+    final int itemCount = (userCarousels != null && userCarousels.isNotEmpty)
+        ? (userCarousels.length > 6 ? 6 : userCarousels.length)
+        : 1;
+
+    final double carouselHeight = MediaQuery.of(context).size.height * 0.65;
 
     return CarouselSlider.builder(
-      itemCount: hasMultipleImages
-          ? (theUser.userCarousels!.length > 6
-              ? 6
-              : theUser.userCarousels!.length)
-          : 1,
-      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-        String imageUrl = theUser.userCarousels?.isNotEmpty ?? false
-            ? theUser.userCarousels![itemIndex].carouselPhotoUrl!
-            : theUser.profile?.profilePhotoURL ?? '';
+      itemCount: itemCount,
+      itemBuilder: (context, index, _) {
+        final imageUrl = (userCarousels != null && userCarousels.isNotEmpty)
+            ? userCarousels[index].carouselPhotoUrl ?? profilePhoto
+            : profilePhoto;
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: CachedNetworkImage(
             imageUrl: imageUrl,
             fit: BoxFit.cover,
-            height: MediaQuery.of(context).size.height * 0.55,
+            height: carouselHeight * 0.85,
             width: double.infinity,
-            placeholder: (context, url) => const Center(
-              child: CupertinoActivityIndicator(),
-            ),
+            placeholder: (context, url) =>
+                const Center(child: CupertinoActivityIndicator()),
             errorWidget: (context, url, error) => const Center(
-              child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
-            ),
+                child: Icon(Icons.broken_image, size: 50, color: Colors.grey)),
           ),
         );
       },
       options: CarouselOptions(
-        autoPlay: hasMultipleImages,
-        height: MediaQuery.of(context).size.height * 0.65,
+        autoPlay: false,
+        height: carouselHeight,
         viewportFraction: 1.0,
-        enableInfiniteScroll: hasMultipleImages,
-        initialPage: 0,
-        onPageChanged: (index, reason) {
-          if (hasMultipleImages) {
-            updateCurrentIndex(index);
-          }
-        },
+        enableInfiniteScroll: false,
+        onPageChanged: (index, _) => updateCurrentIndex(index),
       ),
     );
   }

@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/common/constants/strings.dart';
-import 'package:zheeta/common/constants/text_style.dart';
-import 'package:zheeta/common/storage/token_storage/i_token_storage.dart';
-import 'package:zheeta/core/injection/di.dart';
-import 'package:zheeta/core/router/app_router.gr.dart';
-import 'package:zheeta/widgets/primary_button.dart';
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/constants/strings.dart';
+import 'package:zheeta/core/constants/text_style.dart';
+import 'package:zheeta/core/storage/token_storage/i_token_storage.dart';
+import 'package:zheeta/di/di.dart';
+import 'package:zheeta/router/app_router.gr.dart';
+import 'package:zheeta/shared/widgets/primary_button.dart';
 
 @RoutePage()
 class IntroScreen extends StatefulWidget {
@@ -16,7 +16,8 @@ class IntroScreen extends StatefulWidget {
   State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> with TickerProviderStateMixin {
+class _IntroScreenState extends State<IntroScreen>
+    with TickerProviderStateMixin {
   late final AnimationController _animationController;
   final ITokenStorage _tokenStorage = locator<ITokenStorage>();
 
@@ -93,7 +94,7 @@ class _IntroScreenState extends State<IntroScreen> with TickerProviderStateMixin
           ),
           Center(
             child: Container(
-              color: AppColors.primaryDark.withOpacity(0.4),
+              color: AppColors.primaryDark.withValues(alpha: 0.4),
               padding: const EdgeInsets.all(20),
               width: double.infinity,
               child: Column(
@@ -122,25 +123,19 @@ class _IntroScreenState extends State<IntroScreen> with TickerProviderStateMixin
                     opacity: buttonFade,
                     child: Column(
                       children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: PrimaryButton(
-                            title: 'Login',
-                            action: () {
-                              context.router.push(SignInRoute());
-                            },
-                          ),
+                        PrimaryButton(
+                          title: 'Login',
+                          action: () {
+                            context.router.push(SignInRoute());
+                          },
                         ),
                         const SizedBox(height: 10),
-                        SizedBox(
-                          width: double.infinity,
-                          child: PrimaryButton(
-                            title: 'Sign up',
-                            invert: true,
-                            action: () {
-                              context.router.push(SignUpRoute());
-                            },
-                          ),
+                        PrimaryButton(
+                          title: 'Sign up',
+                          invert: true,
+                          action: () {
+                            context.router.push(SignUpRoute());
+                          },
                         ),
                       ],
                     ),

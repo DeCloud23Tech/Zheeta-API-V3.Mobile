@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/core/injection/di.dart';
-import 'package:zheeta/features/profile/data/model/user_profile_model.dart';
-import 'package:zheeta/features/profile/presentation/bloc/profile_cubit/profile_cubit.dart';
-import 'package:zheeta/widgets/back_button.dart';
-import 'package:zheeta/widgets/media_container.dart';
-
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
+import 'package:zheeta/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
+import 'package:zheeta/shared/widgets/back_button.dart';
+import 'package:zheeta/shared/widgets/media_container.dart';
 
 class UserPostsBottomSheetView extends StatefulWidget {
   final String subscriptionPlan;
@@ -23,17 +22,17 @@ class UserPostsBottomSheetView extends StatefulWidget {
   });
 
   @override
-  UserPostsBottomSheetViewState createState() =>
-      UserPostsBottomSheetViewState();
+  State<UserPostsBottomSheetView> createState() =>
+      _UserPostsBottomSheetViewState();
 }
 
-class UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
-  late List<UserCarousels> _selectedMedias;
+class _UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
+  late Set<UserCarousels> _selectedMedias;
 
   @override
   void initState() {
     super.initState();
-    _selectedMedias = List.from(widget.selectedMedias);
+    _selectedMedias = widget.selectedMedias.toSet();
   }
 
   @override
@@ -42,7 +41,9 @@ class UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
       decoration: const BoxDecoration(
         color: Color(0xffFFF1F7),
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
       ),
       child: Stack(
         children: [
@@ -55,22 +56,23 @@ class UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
                   width: 50,
                   height: 4,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(2),
-                      color: Color(0xffDADADA)),
+                    borderRadius: BorderRadius.circular(2),
+                    color: const Color(0xffDADADA),
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  AppBackButton(
-                    onTap: () => Navigator.of(context).pop(),
-                  ),
-                  Flexible(
+                  AppBackButton(onTap: () => Navigator.of(context).pop()),
+                  const Flexible(
                     child: Text(
                       'Select Media for Promote profile',
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -78,17 +80,15 @@ class UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
                 ],
               ),
               const SizedBox(height: 5),
-              Divider(color: AppColors.grey.withOpacity(0.5)),
+              Divider(color: AppColors.grey.withValues(alpha: 0.5)),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                 child: SelectPostsWidget(
                   subscriptionPlan: widget.subscriptionPlan,
-                  selectedMedias: _selectedMedias,
-                  onSelectionChanged: (selectedMedias) {
-                    setState(() {
-                      _selectedMedias = selectedMedias;
-                    });
+                  selectedMedias: _selectedMedias.toList(),
+                  onSelectionChanged: (selected) {
+                    setState(() => _selectedMedias = selected.toSet());
                   },
                   scrollController: widget.scrollController,
                 ),
@@ -105,51 +105,48 @@ class UserPostsBottomSheetViewState extends State<UserPostsBottomSheetView> {
               child: Container(
                 color: AppColors.secondarySwirl,
                 height: 70,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _selectedMedias.length,
-                            itemBuilder: (context, index) {
-                              final media = _selectedMedias[index];
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    media.carouselPhotoUrl.isNotEmpty
-                                        ? media.carouselPhotoUrl
-                                        : 'assets/images/placeholder.png',
-                                    height: 54,
-                                    width: 54,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          widget.onSelect(_selectedMedias);
-                          Navigator.of(context).pop();
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _selectedMedias.length,
+                        itemBuilder: (context, index) {
+                          final media = _selectedMedias.elementAt(index);
+                          final url = media.carouselPhotoUrl;
+                          if (url == null || url.isEmpty)
+                            return const SizedBox();
+
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                url,
+                                height: 54,
+                                width: 54,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
                         },
-                        icon: const Icon(
-                          size: 48,
-                          Icons.check_circle,
-                          color: AppColors.primaryDark,
-                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        widget.onSelect(_selectedMedias.toList());
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.check_circle,
+                        size: 48,
+                        color: AppColors.primaryDark,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -175,111 +172,115 @@ class SelectPostsWidget extends StatefulWidget {
   });
 
   @override
-  SelectPostsWidgetState createState() => SelectPostsWidgetState();
+  State<SelectPostsWidget> createState() => _SelectPostsWidgetState();
 }
 
-class SelectPostsWidgetState extends State<SelectPostsWidget> {
-  late List<UserCarousels> _selectedMedias;
-  late ProfileCubit profileCubit;
+class _SelectPostsWidgetState extends State<SelectPostsWidget> {
+  late Set<UserCarousels> _selectedMedias;
+  late final ProfileCubit profileCubit;
 
   @override
   void initState() {
     super.initState();
     profileCubit = locator<ProfileCubit>();
-    _selectedMedias = List.from(widget.selectedMedias);
+    _selectedMedias = widget.selectedMedias.toSet();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
+      bloc: profileCubit,
       builder: (context, state) {
         if (state is ProfileLoadedState) {
-          final List<UserCarousels>? medias =
-              state.profile?.data?.userCarousels;
+          final medias = state.profile?.data?.userCarousels
+              ?.where((e) => e.carouselPhotoUrl?.isNotEmpty ?? false)
+              .toList();
+
+          if (medias == null || medias.isEmpty) {
+            return const Center(child: Text('No posts available.'));
+          }
+
           return LayoutBuilder(
             builder: (context, constraints) {
+              final itemWidth = constraints.maxWidth / 3.2;
+
               return Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Wrap(
-                    runSpacing: 10,
-                    spacing: 2,
-                    alignment: WrapAlignment.spaceBetween,
-                    runAlignment: WrapAlignment.spaceBetween,
-                    children: medias!
-                        .where((e) =>
-                            e.carouselPhotoUrl != null &&
-                            e.carouselPhotoUrl.isNotEmpty)
-                        .map((e) => InkWell(
-                              onTap: () {
-                                setState(() {
-                                  // Simplified logic
-                                  if (_selectedMedias.contains(e)) {
-                                    _selectedMedias.remove(e);
-                                  } else {
-                                    if (widget.subscriptionPlan.isNotEmpty &&
-                                        _selectedMedias.isNotEmpty) {
-                                      _selectedMedias = [e];
-                                    } else {
-                                      _selectedMedias.add(e);
-                                    }
-                                  }
-                                  widget.onSelectionChanged(_selectedMedias);
-                                });
-                              },
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    width: constraints.maxWidth / 3.2,
-                                    child: MediaContainer(
-                                        mediaPath: e.carouselPhotoUrl),
-                                  ),
-                                  if (_selectedMedias.contains(e))
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 8,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primaryDark,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(7.0),
-                                          child: Text(
-                                            (_selectedMedias.indexOf(e) + 1)
-                                                .toString(),
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                child: Wrap(
+                  runSpacing: 10,
+                  spacing: 2,
+                  alignment: WrapAlignment.spaceBetween,
+                  runAlignment: WrapAlignment.spaceBetween,
+                  children: medias.map((e) {
+                    final isSelected = _selectedMedias.contains(e);
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          if (isSelected) {
+                            _selectedMedias.remove(e);
+                          } else {
+                            if (widget.subscriptionPlan.isNotEmpty &&
+                                _selectedMedias.isNotEmpty) {
+                              _selectedMedias = {e};
+                            } else {
+                              _selectedMedias.add(e);
+                            }
+                          }
+                          widget.onSelectionChanged(_selectedMedias.toList());
+                        });
+                      },
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            width: itemWidth,
+                            child: MediaContainer(
+                              mediaPath: e.carouselPhotoUrl!,
+                            ),
+                          ),
+                          if (isSelected)
+                            Positioned(
+                              bottom: 0,
+                              right: 8,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.primaryDark,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(7.0),
+                                  child: Text(
+                                    (_selectedMedias.toList().indexOf(e) + 1)
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                ],
+                                  ),
+                                ),
                               ),
-                            ))
-                        .toList(),
-                  ),
+                            ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
                 ),
               );
             },
           );
-        } else {
-          return const Center(child: Text('No posts available.'));
         }
+        return const Center(child: Text('No posts available.'));
       },
     );
   }
 }
 
 Future userPostsBottomSheet(
-    BuildContext context,
-    String subscriptionPlan,
-    List<UserCarousels> selectedMedias,
-    Function(List<UserCarousels>) onSelect) {
+  BuildContext context,
+  String subscriptionPlan,
+  List<UserCarousels> selectedMedias,
+  Function(List<UserCarousels>) onSelect,
+) {
   return showModalBottomSheet(
     context: context,
     isDismissible: true,

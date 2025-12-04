@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zheeta/common/constants/color.dart';
-import 'package:zheeta/common/notify/notify_user.dart';
-
+import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/utils/notify.dart';
 
 class LinkText extends StatelessWidget {
   final String linkText;
@@ -31,9 +30,7 @@ class LinkText extends StatelessWidget {
           child: Text(
             'Copy',
             style: TextStyle(
-              color: AppColors.primaryDark,
-              fontWeight: FontWeight.w600
-            ),
+                color: AppColors.primaryDark, fontWeight: FontWeight.w600),
           ),
         ),
       ],

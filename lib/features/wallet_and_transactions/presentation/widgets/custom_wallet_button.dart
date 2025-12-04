@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/core/constants/color.dart';
 
 class CustomIconButton extends StatelessWidget {
   final IconData icon;
@@ -8,7 +8,8 @@ class CustomIconButton extends StatelessWidget {
   final Color? textColor;
   final VoidCallback? onPressed;
 
-  const CustomIconButton({super.key,
+  const CustomIconButton({
+    super.key,
     required this.icon,
     required this.text,
     this.textColor,
@@ -41,10 +42,9 @@ class CustomIconButton extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            color: textColor ?? Colors.white, // Default color
-            fontSize: 12,
-            fontWeight: FontWeight.w400
-          ),
+              color: textColor ?? Colors.white, // Default color
+              fontSize: 12,
+              fontWeight: FontWeight.w400),
           textAlign: TextAlign.center,
         )
       ],
@@ -52,9 +52,11 @@ class CustomIconButton extends StatelessWidget {
   }
 }
 
-
 Widget buildButton(
-    {required String text, required IconData icon, bool isActive = false, onTap}) {
+    {required String text,
+    required IconData icon,
+    bool isActive = false,
+    onTap}) {
   return InkWell(
     onTap: onTap,
     child: Container(

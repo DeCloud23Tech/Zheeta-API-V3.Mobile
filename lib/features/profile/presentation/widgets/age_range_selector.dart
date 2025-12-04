@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zheeta/common/constants/color.dart';
+import 'package:zheeta/core/constants/color.dart';
 
 class AgeRangeSelector extends StatefulWidget {
   final Function(int, int) onAgeRangeChanged;
