@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/services/agreement_service.dart';
 import 'package:zheeta/di/di.dart';
@@ -14,10 +13,8 @@ import 'package:zheeta/features/authentication/presentation/screens/phone_verifi
 import 'package:zheeta/features/buddy_events/presentation/screens/events_feed/event_feed_screen.dart';
 import 'package:zheeta/features/discover/presentation/screens/discover_screen.dart';
 import 'package:zheeta/features/messages/presentation/screens/chat_conversation_screen.dart';
-import 'package:zheeta/features/messages/presentation/screens/chat_messages.dart';
 import 'package:zheeta/features/profile/presentation/screens/profile/profile_screen.dart';
 import 'package:zheeta/features/splash_screen/presentation/views/welcome.dart';
-import 'package:zheeta/main.dart';
 import 'package:zheeta/shared/enums/icon_type_enum.dart';
 import 'package:zheeta/shared/widgets/drawer.dart';
 import 'package:zheeta/shared/widgets/error_page.dart';

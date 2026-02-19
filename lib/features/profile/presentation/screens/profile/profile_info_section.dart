@@ -17,17 +17,11 @@ import 'package:zheeta/shared/widgets/gender_age.dart';
 import 'package:zheeta/shared/widgets/gender_indicator.dart';
 import 'package:zheeta/shared/widgets/primary_button.dart';
 import 'package:zheeta/shared/widgets/subscription_badge.dart';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/utils/pagination_controller.dart';
 import 'package:zheeta/features/buddy_events/data/models/created_buddy_event.dart';
-import 'package:zheeta/features/buddy_events/presentation/cubits/event_cubit/created_events_cubit.dart';
 import 'package:zheeta/features/buddy_events/presentation/widgets/reusable_event_card.dart';
 import 'package:zheeta/shared/widgets/loader.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:zheeta/router/app_router.gr.dart';
 
 class BuildUserInfo extends StatefulWidget {
   final UserProfileDataModel theUser;
@@ -86,8 +80,8 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           _buildUserHeader(),
           const SizedBox(height: 20),
           _buildProfileCounters(),
-          const SizedBox(height: 20),
-          _buildBoostProfileButton(context),
+          //const SizedBox(height: 20),
+          //_buildBoostProfileButton(context),
           const SizedBox(height: 20),
           _buildTabButtons(),
           const SizedBox(height: 20),
@@ -185,20 +179,20 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
               titles: [
                 'Manage profile',
                 'Manage interests',
-                'Boost insights',
+                //'Boost insights',
                 'Manage access'
               ],
               icons: [
                 'assets/images/icons/user-profile.svg',
                 'assets/images/icons/interests-outline-rounded.svg',
-                'assets/images/icons/boost-insight.svg',
+                //'assets/images/icons/boost-insight.svg',
                 'assets/images/icons/user-access.svg'
               ],
               actions: [
                 () => context.router.push(ProfileEditRoute(activeTab: 1)),
                 () => context.router.push(ProfileEditRoute(activeTab: 2)),
-                () => context.router.push(ProfileBoostInsightRoute(
-                    userName: widget.theUser.user?.userName ?? '')),
+                // () => context.router.push(ProfileBoostInsightRoute(
+                //     userName: widget.theUser.user?.userName ?? '')),
                 () => context.router.push(ProfileAccessManagementRoute()),
               ],
             );

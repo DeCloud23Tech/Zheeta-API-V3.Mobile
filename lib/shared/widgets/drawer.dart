@@ -41,86 +41,88 @@ class SideDrawer extends StatelessWidget {
       width: screenWidth,
       child: Drawer(
         elevation: 0.0,
-        child: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(color: AppColors.primaryDark),
-            child: Column(
-              children: [
-                // Pinned top section
-                buildUserProfile(context),
-                buildProfileCounters(context),
-                SizedBox(
-                  height: buttonHeight,
-                  width: screenWidth,
-                  child: PrimaryButton(
-                    invert: true,
-                    icon: "assets/images/icons/manage.svg",
-                    title: 'Edit profile',
-                    fontSize: fontSize,
-                    action: () {
-                      context.router.push(ProfileEditRoute(activeTab: 1));
-                    },
-                  ),
+        child: Container(
+          padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              bottom: 16,
+              top: 16 + MediaQuery.of(context).padding.top),
+          decoration: const BoxDecoration(color: AppColors.primaryDark),
+          child: Column(
+            children: [
+              // Pinned top section
+              buildUserProfile(context),
+              buildProfileCounters(context),
+              SizedBox(
+                height: buttonHeight,
+                width: screenWidth,
+                child: PrimaryButton(
+                  invert: true,
+                  icon: "assets/images/icons/manage.svg",
+                  title: 'Edit profile',
+                  fontSize: fontSize,
+                  action: () {
+                    context.router.push(ProfileEditRoute(activeTab: 1));
+                  },
                 ),
-                SizedBox(height: verticalSpacing),
+              ),
+              SizedBox(height: verticalSpacing),
 
-                // Scrollable content
-                Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    children: [
-                      Center(child: buildMenuItems(context)),
-                      SizedBox(height: verticalSpacing),
-                      SizedBox(
-                        height: buttonHeight,
-                        child: PrimaryButton(
-                          invert: true,
-                          icon: "assets/images/icons/support.svg",
-                          title: 'WhatsApp Support',
-                          fontSize: fontSize,
-                          action: () => customLaunchUrl(
-                            context,
-                            launchWhatsApp,
-                          ),
+              // Scrollable content
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  children: [
+                    Center(child: buildMenuItems(context)),
+                    SizedBox(height: verticalSpacing),
+                    SizedBox(
+                      height: buttonHeight,
+                      child: PrimaryButton(
+                        invert: true,
+                        icon: "assets/images/icons/support.svg",
+                        title: 'WhatsApp Support',
+                        fontSize: fontSize,
+                        action: () => customLaunchUrl(
+                          context,
+                          launchWhatsApp,
                         ),
                       ),
-                      SizedBox(height: verticalSpacing),
-                      if (profileState is ProfileLoadedState)
-                        buildCurrencyInfo(countryName ?? ''),
-                      SizedBox(height: verticalSpacing),
-                      SizedBox(
-                        height: buttonHeight,
-                        child: PrimaryButton(
-                          invert: true,
-                          icon: "assets/images/icons/logout.svg",
-                          title: 'Logout',
-                          fontSize: fontSize,
-                          action: () => logout(context),
-                        ),
+                    ),
+                    SizedBox(height: verticalSpacing),
+                    if (profileState is ProfileLoadedState)
+                      buildCurrencyInfo(countryName ?? ''),
+                    SizedBox(height: verticalSpacing),
+                    SizedBox(
+                      height: buttonHeight,
+                      child: PrimaryButton(
+                        invert: true,
+                        icon: "assets/images/icons/logout.svg",
+                        title: 'Logout',
+                        fontSize: fontSize,
+                        action: () => logout(context),
                       ),
-                      SizedBox(height: verticalSpacing * 0.8),
-                      if (profileState is! ProfileLoadedState)
-                        Center(
-                          child: profileState is ProfileLoadingState
-                              ? loadingIndicator()
-                              : SizedBox(
-                                  height: buttonHeight,
-                                  child: PrimaryButton(
-                                    invert: true,
-                                    title: 'Tap to Refresh Profile',
-                                    fontSize: fontSize,
-                                    action: () => context
-                                        .read<ProfileCubit>()
-                                        .getSingleUserProfileCubit(),
-                                  ),
+                    ),
+                    SizedBox(height: verticalSpacing * 0.8),
+                    if (profileState is! ProfileLoadedState)
+                      Center(
+                        child: profileState is ProfileLoadingState
+                            ? loadingIndicator()
+                            : SizedBox(
+                                height: buttonHeight,
+                                child: PrimaryButton(
+                                  invert: true,
+                                  title: 'Tap to Refresh Profile',
+                                  fontSize: fontSize,
+                                  action: () => context
+                                      .read<ProfileCubit>()
+                                      .getSingleUserProfileCubit(),
                                 ),
-                        ),
-                    ],
-                  ),
+                              ),
+                      ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
