@@ -32,67 +32,67 @@ class BalanceCard extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             // Background Container
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                width: double.infinity,
-                height: 248,
-                decoration: BoxDecoration(
-                  color: AppColors.secondaryLight,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.3),
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: BulletPointRow(
-                        text: 'Silver Downlines',
-                        value: silverCount,
-                        iconColor: AppColors.orange,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Bottom Right Container
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width / 2,
-                height: 248,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryLightBackground,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: BulletPointRow(
-                        text: 'Gold Downlines',
-                        value: goldCount,
-                        iconColor: AppColors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Top Container with Balance and Progress
+            // Positioned(
+            //   top: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: Container(
+            //     width: double.infinity,
+            //     height: 248,
+            //     decoration: BoxDecoration(
+            //       color: AppColors.secondaryLight,
+            //       borderRadius: BorderRadius.circular(30),
+            //       boxShadow: [
+            //         BoxShadow(
+            //           color: Colors.black.withValues(alpha: 0.3),
+            //           spreadRadius: 0,
+            //           blurRadius: 10,
+            //           offset: const Offset(0, 2),
+            //         ),
+            //       ],
+            //     ),
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.end,
+            //       children: [
+            //         Padding(
+            //           padding: const EdgeInsets.all(10.0),
+            //           child: BulletPointRow(
+            //             text: 'Silver Downlines',
+            //             value: silverCount,
+            //             iconColor: AppColors.orange,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // // Bottom Right Container
+            // Positioned(
+            //   bottom: 0,
+            //   right: 0,
+            //   child: Container(
+            //     width: MediaQuery.of(context).size.width / 2,
+            //     height: 248,
+            //     decoration: BoxDecoration(
+            //       color: AppColors.primaryLightBackground,
+            //       borderRadius: BorderRadius.circular(30),
+            //     ),
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.end,
+            //       children: [
+            //         Padding(
+            //           padding: const EdgeInsets.all(10.0),
+            //           child: BulletPointRow(
+            //             text: 'Gold Downlines',
+            //             value: goldCount,
+            //             iconColor: AppColors.white,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // // Top Container with Balance and Progress
             Positioned(
               top: 0,
               right: 0,

@@ -21,37 +21,37 @@ class CarouselSliderWidget extends StatelessWidget {
     final int itemCount = (userCarousels != null && userCarousels.isNotEmpty)
         ? (userCarousels.length > 6 ? 6 : userCarousels.length)
         : 1;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double carouselHeight = constraints.maxHeight;
+        return CarouselSlider.builder(
+          itemCount: itemCount,
+          itemBuilder: (context, index, _) {
+            final imageUrl = (userCarousels != null && userCarousels.isNotEmpty)
+                ? userCarousels[index].carouselPhotoUrl ?? profilePhoto
+                : profilePhoto;
 
-    final double carouselHeight = MediaQuery.of(context).size.height * 0.65;
-
-    return CarouselSlider.builder(
-      itemCount: itemCount,
-      itemBuilder: (context, index, _) {
-        final imageUrl = (userCarousels != null && userCarousels.isNotEmpty)
-            ? userCarousels[index].carouselPhotoUrl ?? profilePhoto
-            : profilePhoto;
-
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
-            height: carouselHeight * 0.85,
-            width: double.infinity,
-            placeholder: (context, url) =>
-                const Center(child: CupertinoActivityIndicator()),
-            errorWidget: (context, url, error) => const Center(
-                child: Icon(Icons.broken_image, size: 50, color: Colors.grey)),
+            return CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+              height: carouselHeight,
+              width: double.infinity,
+              placeholder: (context, url) =>
+                  const Center(child: CupertinoActivityIndicator()),
+              errorWidget: (context, url, error) => const Center(
+                child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+              ),
+            );
+          },
+          options: CarouselOptions(
+            autoPlay: false,
+            height: carouselHeight,
+            viewportFraction: 1.0,
+            enableInfiniteScroll: false,
+            onPageChanged: (index, _) => updateCurrentIndex(index),
           ),
         );
       },
-      options: CarouselOptions(
-        autoPlay: false,
-        height: carouselHeight,
-        viewportFraction: 1.0,
-        enableInfiniteScroll: false,
-        onPageChanged: (index, _) => updateCurrentIndex(index),
-      ),
     );
   }
 }

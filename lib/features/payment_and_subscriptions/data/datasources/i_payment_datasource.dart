@@ -2,7 +2,7 @@ import 'package:zheeta/features/payment_and_subscriptions/data/models/generate_p
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_types_model.dart';
 
 abstract class IPaymentDataSource {
-  Future<List<PaymentType>> getPaymentTypes();
+  Future<List<PaymentType>> getPaymentTypes(String currency);
 
   Future<GeneratePaymentLinkData> generatePaymentLink({
     required String userId,

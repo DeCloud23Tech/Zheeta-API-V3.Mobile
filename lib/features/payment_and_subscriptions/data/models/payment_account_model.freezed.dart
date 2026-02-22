@@ -19,7 +19,7 @@ mixin _$PaymentAccount {
   String get userId;
   String get firstName;
   String get lastName;
-  String get countryIso2Code;
+  String? get countryIso2Code;
   String get payOutType;
   String get currency;
   String? get bankId;
@@ -125,7 +125,7 @@ abstract mixin class $PaymentAccountCopyWith<$Res> {
       String userId,
       String firstName,
       String lastName,
-      String countryIso2Code,
+      String? countryIso2Code,
       String payOutType,
       String currency,
       String? bankId,
@@ -158,7 +158,7 @@ class _$PaymentAccountCopyWithImpl<$Res>
     Object? userId = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? countryIso2Code = null,
+    Object? countryIso2Code = freezed,
     Object? payOutType = null,
     Object? currency = null,
     Object? bankId = freezed,
@@ -190,10 +190,10 @@ class _$PaymentAccountCopyWithImpl<$Res>
           ? _self.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      countryIso2Code: null == countryIso2Code
+      countryIso2Code: freezed == countryIso2Code
           ? _self.countryIso2Code
           : countryIso2Code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       payOutType: null == payOutType
           ? _self.payOutType
           : payOutType // ignore: cast_nullable_to_non_nullable
@@ -258,7 +258,7 @@ class _PaymentAccount implements PaymentAccount {
       required this.userId,
       required this.firstName,
       required this.lastName,
-      required this.countryIso2Code,
+      this.countryIso2Code,
       required this.payOutType,
       required this.currency,
       this.bankId,
@@ -284,7 +284,7 @@ class _PaymentAccount implements PaymentAccount {
   @override
   final String lastName;
   @override
-  final String countryIso2Code;
+  final String? countryIso2Code;
   @override
   final String payOutType;
   @override
@@ -409,7 +409,7 @@ abstract mixin class _$PaymentAccountCopyWith<$Res>
       String userId,
       String firstName,
       String lastName,
-      String countryIso2Code,
+      String? countryIso2Code,
       String payOutType,
       String currency,
       String? bankId,
@@ -442,7 +442,7 @@ class __$PaymentAccountCopyWithImpl<$Res>
     Object? userId = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? countryIso2Code = null,
+    Object? countryIso2Code = freezed,
     Object? payOutType = null,
     Object? currency = null,
     Object? bankId = freezed,
@@ -474,10 +474,10 @@ class __$PaymentAccountCopyWithImpl<$Res>
           ? _self.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      countryIso2Code: null == countryIso2Code
+      countryIso2Code: freezed == countryIso2Code
           ? _self.countryIso2Code
           : countryIso2Code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       payOutType: null == payOutType
           ? _self.payOutType
           : payOutType // ignore: cast_nullable_to_non_nullable

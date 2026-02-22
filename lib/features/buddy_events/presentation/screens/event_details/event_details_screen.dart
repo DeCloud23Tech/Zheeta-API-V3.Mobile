@@ -266,7 +266,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         margin: const EdgeInsets.symmetric(horizontal: 25),
         height: 52,
         decoration: BoxDecoration(
-          color: AppColors.primaryLightBackground,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
@@ -293,7 +293,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                   '${event.noOfBuddiesJoined}/${event.noOfBuddiesWanted} needed',
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Colors.white,
+                    color: AppColors.primaryDark,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -305,7 +305,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 width: 117,
                 height: 36,
                 child: PrimaryButton(
-                  invert: true,
+                  invert: false,
                   title: 'Invite',
                   action: () => _showInviteBottomSheet(context, event),
                 ),
@@ -397,7 +397,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
   Widget _buildEventDetailsContainer(BuddyEventId event) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.primaryLightBackground,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(12.0),
@@ -408,7 +408,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
           _buildLocation(event),
           const SizedBox(height: 10),
           _buildEventDate(event),
-          const Divider(thickness: 1, color: AppColors.white),
+          const Divider(thickness: 1, color: AppColors.primaryDark),
           _buildCreatorInfo(event),
         ],
       ),
@@ -557,13 +557,13 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     return Row(
       children: [
         const Icon(Icons.location_on_outlined,
-            color: AppColors.white, size: 18),
+            color: AppColors.primaryDark, size: 18),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
             event.eventLocationAddress,
             style: const TextStyle(
-              color: AppColors.white,
+              color: AppColors.primaryDark,
               fontSize: 12,
               fontWeight: FontWeight.w400,
             ),
@@ -784,12 +784,12 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     return Row(
       children: [
         const Icon(Icons.calendar_month_outlined,
-            color: AppColors.white, size: 18),
+            color: AppColors.primaryDark, size: 18),
         const SizedBox(width: 8),
         Text(
           formatEventDate(event.startDate),
           style: const TextStyle(
-            color: AppColors.white,
+            color: AppColors.primaryDark,
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),
@@ -814,7 +814,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 Text(
                   event.creatorUsername.toLowerCase(),
                   style: const TextStyle(
-                    color: AppColors.white,
+                    color: AppColors.primaryDark,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -823,7 +823,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 const Text(
                   'Event creator',
                   style: TextStyle(
-                    color: AppColors.white,
+                    color: AppColors.primaryDark,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                   ),

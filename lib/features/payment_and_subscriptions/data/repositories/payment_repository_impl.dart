@@ -40,9 +40,9 @@ class PaymentRepositoryImpl implements IPaymentRepository {
   }
 
   @override
-  ResultFuture<List<PaymentType>> getPaymentTypes() async {
+  ResultFuture<List<PaymentType>> getPaymentTypes(String currency) async {
     try {
-      final result = await _datasource.getPaymentTypes();
+      final result = await _datasource.getPaymentTypes(currency);
       return right(result);
     } on ApiException catch (ex) {
       return left(ApiError(message: ex.message, statusCode: ex.statusCode));

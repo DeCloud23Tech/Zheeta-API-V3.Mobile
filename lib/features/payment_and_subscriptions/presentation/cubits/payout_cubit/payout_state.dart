@@ -47,9 +47,15 @@ class PayoutAccountLoaded extends PayoutState {
 
 class PayoutCountriesLoaded extends PayoutState {
   final List<CountryData> countries;
+  final List<String> payoutMethods;
+  final List<BankProvider> banks;
 
-  PayoutCountriesLoaded({required this.countries});
+  PayoutCountriesLoaded({
+    required this.countries,
+    required this.payoutMethods,
+    required this.banks,
+  });
 
   @override
-  List<Object> get props => [countries];
+  List<Object> get props => [countries, payoutMethods, banks];
 }

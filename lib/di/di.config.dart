@@ -1104,6 +1104,19 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i675.GetPayoutCountries(gh<_i26.IPayoutAccountRepository>()),
       registerFor: {_prod},
     );
+    gh.lazySingleton<_i675.GetPayoutMethodsByCurrency>(
+      () =>
+          _i675.GetPayoutMethodsByCurrency(gh<_i26.IPayoutAccountRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i675.GetAllBanksByCurrency>(
+      () => _i675.GetAllBanksByCurrency(gh<_i26.IPayoutAccountRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i675.CreatePayoutAccount>(
+      () => _i675.CreatePayoutAccount(gh<_i26.IPayoutAccountRepository>()),
+      registerFor: {_prod},
+    );
     gh.lazySingleton<_i126.IUserOtpRepository>(
       () => _i431.UserOtpRepositoryImpl(gh<_i777.IUserOtpDataSource>()),
       registerFor: {_prod},
@@ -1150,6 +1163,22 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i588.UnBlockAccount>(
       () => _i588.UnBlockAccount(gh<_i354.IUserProfileAccessRepository>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i465.PayoutCubit>(
+      () => _i465.PayoutCubit(
+        addBankAccount: gh<_i675.AddBankAccount>(),
+        addMobileMoneyAccount: gh<_i675.AddMobileMoneyAccount>(),
+        addPaypalAccount: gh<_i675.AddPaypalAccount>(),
+        addCryptoAccount: gh<_i675.AddCryptoAccount>(),
+        getAllAccounts: gh<_i675.GetAllAccounts>(),
+        getAccountById: gh<_i675.GetAccountById>(),
+        deleteAccountById: gh<_i675.DeleteAccountById>(),
+        getPayoutCountries: gh<_i675.GetPayoutCountries>(),
+        getPayoutMethodsByCurrency: gh<_i675.GetPayoutMethodsByCurrency>(),
+        getAllBanksByCurrency: gh<_i675.GetAllBanksByCurrency>(),
+        createPayoutAccount: gh<_i675.CreatePayoutAccount>(),
+      ),
       registerFor: {_prod},
     );
     gh.lazySingleton<_i345.GetJoinRequests>(
@@ -1233,19 +1262,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i485.NearbySettingsCubit(
         gh<_i763.GetNearbySettings>(),
         gh<_i7.UpdateNearbySettings>(),
-      ),
-      registerFor: {_prod},
-    );
-    gh.lazySingleton<_i465.PayoutCubit>(
-      () => _i465.PayoutCubit(
-        addBankAccount: gh<_i675.AddBankAccount>(),
-        addMobileMoneyAccount: gh<_i675.AddMobileMoneyAccount>(),
-        addPaypalAccount: gh<_i675.AddPaypalAccount>(),
-        addCryptoAccount: gh<_i675.AddCryptoAccount>(),
-        getAllAccounts: gh<_i675.GetAllAccounts>(),
-        getAccountById: gh<_i675.GetAccountById>(),
-        deleteAccountById: gh<_i675.DeleteAccountById>(),
-        getPayoutCountries: gh<_i675.GetPayoutCountries>(),
       ),
       registerFor: {_prod},
     );

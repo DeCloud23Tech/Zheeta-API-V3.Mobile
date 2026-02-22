@@ -15,10 +15,11 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$CountryData {
-  String? get countryName;
-  String get countryCode;
-  String get countryCurrency;
-  List<PaymentOption> get paymentOptions;
+  String get code;
+  String get code2Iso;
+  String get name;
+  String? get phoneCode;
+  String get currency;
 
   /// Create a copy of CountryData
   /// with the given fields replaced by the non-null parameter values.
@@ -35,24 +36,24 @@ mixin _$CountryData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CountryData &&
-            (identical(other.countryName, countryName) ||
-                other.countryName == countryName) &&
-            (identical(other.countryCode, countryCode) ||
-                other.countryCode == countryCode) &&
-            (identical(other.countryCurrency, countryCurrency) ||
-                other.countryCurrency == countryCurrency) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentOptions, paymentOptions));
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.code2Iso, code2Iso) ||
+                other.code2Iso == code2Iso) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phoneCode, phoneCode) ||
+                other.phoneCode == phoneCode) &&
+            (identical(other.currency, currency) ||
+                other.currency == currency));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, countryName, countryCode,
-      countryCurrency, const DeepCollectionEquality().hash(paymentOptions));
+  int get hashCode =>
+      Object.hash(runtimeType, code, code2Iso, name, phoneCode, currency);
 
   @override
   String toString() {
-    return 'CountryData(countryName: $countryName, countryCode: $countryCode, countryCurrency: $countryCurrency, paymentOptions: $paymentOptions)';
+    return 'CountryData(code: $code, code2Iso: $code2Iso, name: $name, phoneCode: $phoneCode, currency: $currency)';
   }
 }
 
@@ -63,10 +64,11 @@ abstract mixin class $CountryDataCopyWith<$Res> {
       _$CountryDataCopyWithImpl;
   @useResult
   $Res call(
-      {String? countryName,
-      String countryCode,
-      String countryCurrency,
-      List<PaymentOption> paymentOptions});
+      {String code,
+      String code2Iso,
+      String name,
+      String? phoneCode,
+      String currency});
 }
 
 /// @nodoc
@@ -81,28 +83,33 @@ class _$CountryDataCopyWithImpl<$Res> implements $CountryDataCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? countryName = freezed,
-    Object? countryCode = null,
-    Object? countryCurrency = null,
-    Object? paymentOptions = null,
+    Object? code = null,
+    Object? code2Iso = null,
+    Object? name = null,
+    Object? phoneCode = freezed,
+    Object? currency = null,
   }) {
     return _then(_self.copyWith(
-      countryName: freezed == countryName
-          ? _self.countryName
-          : countryName // ignore: cast_nullable_to_non_nullable
+      code: null == code
+          ? _self.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      code2Iso: null == code2Iso
+          ? _self.code2Iso
+          : code2Iso // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneCode: freezed == phoneCode
+          ? _self.phoneCode
+          : phoneCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      countryCode: null == countryCode
-          ? _self.countryCode
-          : countryCode // ignore: cast_nullable_to_non_nullable
+      currency: null == currency
+          ? _self.currency
+          : currency // ignore: cast_nullable_to_non_nullable
               as String,
-      countryCurrency: null == countryCurrency
-          ? _self.countryCurrency
-          : countryCurrency // ignore: cast_nullable_to_non_nullable
-              as String,
-      paymentOptions: null == paymentOptions
-          ? _self.paymentOptions
-          : paymentOptions // ignore: cast_nullable_to_non_nullable
-              as List<PaymentOption>,
     ));
   }
 }
@@ -111,27 +118,24 @@ class _$CountryDataCopyWithImpl<$Res> implements $CountryDataCopyWith<$Res> {
 @JsonSerializable()
 class _CountryData implements CountryData {
   const _CountryData(
-      {this.countryName,
-      required this.countryCode,
-      required this.countryCurrency,
-      required final List<PaymentOption> paymentOptions})
-      : _paymentOptions = paymentOptions;
+      {required this.code,
+      required this.code2Iso,
+      required this.name,
+      this.phoneCode,
+      required this.currency});
   factory _CountryData.fromJson(Map<String, dynamic> json) =>
       _$CountryDataFromJson(json);
 
   @override
-  final String? countryName;
+  final String code;
   @override
-  final String countryCode;
+  final String code2Iso;
   @override
-  final String countryCurrency;
-  final List<PaymentOption> _paymentOptions;
+  final String name;
   @override
-  List<PaymentOption> get paymentOptions {
-    if (_paymentOptions is EqualUnmodifiableListView) return _paymentOptions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_paymentOptions);
-  }
+  final String? phoneCode;
+  @override
+  final String currency;
 
   /// Create a copy of CountryData
   /// with the given fields replaced by the non-null parameter values.
@@ -153,24 +157,24 @@ class _CountryData implements CountryData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CountryData &&
-            (identical(other.countryName, countryName) ||
-                other.countryName == countryName) &&
-            (identical(other.countryCode, countryCode) ||
-                other.countryCode == countryCode) &&
-            (identical(other.countryCurrency, countryCurrency) ||
-                other.countryCurrency == countryCurrency) &&
-            const DeepCollectionEquality()
-                .equals(other._paymentOptions, _paymentOptions));
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.code2Iso, code2Iso) ||
+                other.code2Iso == code2Iso) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phoneCode, phoneCode) ||
+                other.phoneCode == phoneCode) &&
+            (identical(other.currency, currency) ||
+                other.currency == currency));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, countryName, countryCode,
-      countryCurrency, const DeepCollectionEquality().hash(_paymentOptions));
+  int get hashCode =>
+      Object.hash(runtimeType, code, code2Iso, name, phoneCode, currency);
 
   @override
   String toString() {
-    return 'CountryData(countryName: $countryName, countryCode: $countryCode, countryCurrency: $countryCurrency, paymentOptions: $paymentOptions)';
+    return 'CountryData(code: $code, code2Iso: $code2Iso, name: $name, phoneCode: $phoneCode, currency: $currency)';
   }
 }
 
@@ -183,10 +187,11 @@ abstract mixin class _$CountryDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? countryName,
-      String countryCode,
-      String countryCurrency,
-      List<PaymentOption> paymentOptions});
+      {String code,
+      String code2Iso,
+      String name,
+      String? phoneCode,
+      String currency});
 }
 
 /// @nodoc
@@ -201,28 +206,33 @@ class __$CountryDataCopyWithImpl<$Res> implements _$CountryDataCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? countryName = freezed,
-    Object? countryCode = null,
-    Object? countryCurrency = null,
-    Object? paymentOptions = null,
+    Object? code = null,
+    Object? code2Iso = null,
+    Object? name = null,
+    Object? phoneCode = freezed,
+    Object? currency = null,
   }) {
     return _then(_CountryData(
-      countryName: freezed == countryName
-          ? _self.countryName
-          : countryName // ignore: cast_nullable_to_non_nullable
+      code: null == code
+          ? _self.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      code2Iso: null == code2Iso
+          ? _self.code2Iso
+          : code2Iso // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneCode: freezed == phoneCode
+          ? _self.phoneCode
+          : phoneCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      countryCode: null == countryCode
-          ? _self.countryCode
-          : countryCode // ignore: cast_nullable_to_non_nullable
+      currency: null == currency
+          ? _self.currency
+          : currency // ignore: cast_nullable_to_non_nullable
               as String,
-      countryCurrency: null == countryCurrency
-          ? _self.countryCurrency
-          : countryCurrency // ignore: cast_nullable_to_non_nullable
-              as String,
-      paymentOptions: null == paymentOptions
-          ? _self._paymentOptions
-          : paymentOptions // ignore: cast_nullable_to_non_nullable
-              as List<PaymentOption>,
     ));
   }
 }

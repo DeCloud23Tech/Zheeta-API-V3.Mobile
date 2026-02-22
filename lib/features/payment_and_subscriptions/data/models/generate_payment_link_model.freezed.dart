@@ -19,9 +19,12 @@ mixin _$GeneratePaymentLinkData {
   PaymentGenerationData get paymentGenerationData;
   VerificationData? get verificationData;
   int get statusCode;
-  String get message;
+  String? get message;
   bool get success;
-  dynamic get data;
+  dynamic get totalCount;
+  dynamic
+      get data; // Keeps the data type dynamic for cases where data is null or holds other types.
+  dynamic get error;
 
   /// Create a copy of GeneratePaymentLinkData
   /// with the given fields replaced by the non-null parameter values.
@@ -49,7 +52,10 @@ mixin _$GeneratePaymentLinkData {
                 other.statusCode == statusCode) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.success, success) || other.success == success) &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality()
+                .equals(other.totalCount, totalCount) &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -62,11 +68,13 @@ mixin _$GeneratePaymentLinkData {
       statusCode,
       message,
       success,
-      const DeepCollectionEquality().hash(data));
+      const DeepCollectionEquality().hash(totalCount),
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(error));
 
   @override
   String toString() {
-    return 'GeneratePaymentLinkData(paymentProvider: $paymentProvider, paymentGenerationData: $paymentGenerationData, verificationData: $verificationData, statusCode: $statusCode, message: $message, success: $success, data: $data)';
+    return 'GeneratePaymentLinkData(paymentProvider: $paymentProvider, paymentGenerationData: $paymentGenerationData, verificationData: $verificationData, statusCode: $statusCode, message: $message, success: $success, totalCount: $totalCount, data: $data, error: $error)';
   }
 }
 
@@ -81,9 +89,11 @@ abstract mixin class $GeneratePaymentLinkDataCopyWith<$Res> {
       PaymentGenerationData paymentGenerationData,
       VerificationData? verificationData,
       int statusCode,
-      String message,
+      String? message,
       bool success,
-      dynamic data});
+      dynamic totalCount,
+      dynamic data,
+      dynamic error});
 
   $PaymentGenerationDataCopyWith<$Res> get paymentGenerationData;
   $VerificationDataCopyWith<$Res>? get verificationData;
@@ -106,9 +116,11 @@ class _$GeneratePaymentLinkDataCopyWithImpl<$Res>
     Object? paymentGenerationData = null,
     Object? verificationData = freezed,
     Object? statusCode = null,
-    Object? message = null,
+    Object? message = freezed,
     Object? success = null,
+    Object? totalCount = freezed,
     Object? data = freezed,
+    Object? error = freezed,
   }) {
     return _then(_self.copyWith(
       paymentProvider: null == paymentProvider
@@ -127,17 +139,25 @@ class _$GeneratePaymentLinkDataCopyWithImpl<$Res>
           ? _self.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
               as int,
-      message: null == message
+      message: freezed == message
           ? _self.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       success: null == success
           ? _self.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool,
+      totalCount: freezed == totalCount
+          ? _self.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       data: freezed == data
           ? _self.data
           : data // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      error: freezed == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
               as dynamic,
     ));
   }
@@ -176,9 +196,11 @@ class _GeneratePaymentLinkData implements GeneratePaymentLinkData {
       required this.paymentGenerationData,
       this.verificationData,
       required this.statusCode,
-      required this.message,
+      this.message,
       required this.success,
-      this.data});
+      this.totalCount,
+      this.data,
+      this.error});
   factory _GeneratePaymentLinkData.fromJson(Map<String, dynamic> json) =>
       _$GeneratePaymentLinkDataFromJson(json);
 
@@ -191,11 +213,16 @@ class _GeneratePaymentLinkData implements GeneratePaymentLinkData {
   @override
   final int statusCode;
   @override
-  final String message;
+  final String? message;
   @override
   final bool success;
   @override
+  final dynamic totalCount;
+  @override
   final dynamic data;
+// Keeps the data type dynamic for cases where data is null or holds other types.
+  @override
+  final dynamic error;
 
   /// Create a copy of GeneratePaymentLinkData
   /// with the given fields replaced by the non-null parameter values.
@@ -228,7 +255,10 @@ class _GeneratePaymentLinkData implements GeneratePaymentLinkData {
                 other.statusCode == statusCode) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.success, success) || other.success == success) &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality()
+                .equals(other.totalCount, totalCount) &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -241,11 +271,13 @@ class _GeneratePaymentLinkData implements GeneratePaymentLinkData {
       statusCode,
       message,
       success,
-      const DeepCollectionEquality().hash(data));
+      const DeepCollectionEquality().hash(totalCount),
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(error));
 
   @override
   String toString() {
-    return 'GeneratePaymentLinkData(paymentProvider: $paymentProvider, paymentGenerationData: $paymentGenerationData, verificationData: $verificationData, statusCode: $statusCode, message: $message, success: $success, data: $data)';
+    return 'GeneratePaymentLinkData(paymentProvider: $paymentProvider, paymentGenerationData: $paymentGenerationData, verificationData: $verificationData, statusCode: $statusCode, message: $message, success: $success, totalCount: $totalCount, data: $data, error: $error)';
   }
 }
 
@@ -262,9 +294,11 @@ abstract mixin class _$GeneratePaymentLinkDataCopyWith<$Res>
       PaymentGenerationData paymentGenerationData,
       VerificationData? verificationData,
       int statusCode,
-      String message,
+      String? message,
       bool success,
-      dynamic data});
+      dynamic totalCount,
+      dynamic data,
+      dynamic error});
 
   @override
   $PaymentGenerationDataCopyWith<$Res> get paymentGenerationData;
@@ -289,9 +323,11 @@ class __$GeneratePaymentLinkDataCopyWithImpl<$Res>
     Object? paymentGenerationData = null,
     Object? verificationData = freezed,
     Object? statusCode = null,
-    Object? message = null,
+    Object? message = freezed,
     Object? success = null,
+    Object? totalCount = freezed,
     Object? data = freezed,
+    Object? error = freezed,
   }) {
     return _then(_GeneratePaymentLinkData(
       paymentProvider: null == paymentProvider
@@ -310,17 +346,25 @@ class __$GeneratePaymentLinkDataCopyWithImpl<$Res>
           ? _self.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
               as int,
-      message: null == message
+      message: freezed == message
           ? _self.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       success: null == success
           ? _self.success
           : success // ignore: cast_nullable_to_non_nullable
               as bool,
+      totalCount: freezed == totalCount
+          ? _self.totalCount
+          : totalCount // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       data: freezed == data
           ? _self.data
           : data // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      error: freezed == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
               as dynamic,
     ));
   }

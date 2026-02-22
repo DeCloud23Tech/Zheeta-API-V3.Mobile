@@ -10,10 +10,12 @@ abstract class GeneratePaymentLinkData with _$GeneratePaymentLinkData {
     required PaymentGenerationData paymentGenerationData,
     VerificationData? verificationData,
     required int statusCode,
-    required String message,
+    String? message,
     required bool success,
+    dynamic totalCount,
     dynamic
         data, // Keeps the data type dynamic for cases where data is null or holds other types.
+    dynamic error,
   }) = _GeneratePaymentLinkData;
 
   factory GeneratePaymentLinkData.fromJson(Map<String, dynamic> json) =>

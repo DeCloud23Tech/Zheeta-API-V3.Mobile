@@ -13,7 +13,6 @@ import 'package:zheeta/features/profile/presentation/screens/profile_view/profil
 import 'package:zheeta/features/profile/presentation/widgets/carousel_slider.dart';
 import 'package:zheeta/features/profile/presentation/widgets/profile_add_or_like.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
-import 'package:zheeta/shared/widgets/drawer.dart';
 import 'package:zheeta/shared/widgets/error_page.dart';
 import 'package:zheeta/shared/widgets/loader.dart';
 
@@ -52,12 +51,9 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final double topPadding = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryLight,
-        leading: AppBackButton(),
-      ),
       body: BlocBuilder<ProfileViewCubit, ProfileViewState>(
         builder: (context, state) {
           if (state is ProfileViewLoading) {
@@ -68,7 +64,12 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
             return CustomScrollView(
               controller: scrollController,
               slivers: [
-                _buildSliverAppBar(theUser, profileData, screenHeight),
+                _buildSliverAppBar(
+                  theUser,
+                  profileData,
+                  screenHeight,
+                  topPadding,
+                ),
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 100),
@@ -115,14 +116,19 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
     );
   }
 
-  Widget _buildSliverAppBar(UserProfileDataModel theUser,
-      ViewProfileModel profileData, double screenHeight) {
+  Widget _buildSliverAppBar(
+    UserProfileDataModel theUser,
+    ViewProfileModel profileData,
+    double screenHeight,
+    double topPadding,
+  ) {
     return SliverAppBar(
       elevation: 0,
       backgroundColor: AppColors.secondaryLight,
       pinned: true,
-      expandedHeight: screenHeight * 0.55,
-      automaticallyImplyLeading: false,
+      expandedHeight: screenHeight * 0.50,
+      collapsedHeight: kToolbarHeight + topPadding,
+      leading: const AppBackButton(),
       actions: [
         // Optional: Add menu or notifications here
       ],

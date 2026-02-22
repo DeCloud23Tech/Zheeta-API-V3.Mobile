@@ -135,8 +135,8 @@ class _WalletScreenState extends State<WalletScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // _walletActionButton(
-        //     Icons.add_card_outlined, 'Add Funds', PaymentTypeRoute()),
+        _walletActionButton(
+            Icons.add_card_outlined, 'Add Funds', PaymentTypeRoute()),
         _walletActionButton(Icons.wallet, 'Send Coins', SendCoinRoute()),
         _walletActionButton(Icons.account_balance_wallet_outlined,
             'Payout Accounts', PayoutMenuRoute()),

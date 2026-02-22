@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,6 +10,7 @@ import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/models/generate_payment_link_model.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
 
+@RoutePage()
 class PaymentLinkScreen extends StatelessWidget {
   final GeneratePaymentLinkData? paymentLinkData;
 

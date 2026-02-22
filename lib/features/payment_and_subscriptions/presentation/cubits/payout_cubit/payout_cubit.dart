@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_countries_model.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_account_model.dart';
+import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_banks_model.dart';
+import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_countries_model.dart';
 import 'package:zheeta/features/payment_and_subscriptions/domain/usecases/payout_usecase.dart';
 
 part 'payout_state.dart';
@@ -18,6 +19,12 @@ class PayoutCubit extends Cubit<PayoutState> {
   final GetAccountById getAccountById;
   final DeleteAccountById deleteAccountById;
   final GetPayoutCountries getPayoutCountries;
+  final GetPayoutMethodsByCurrency getPayoutMethodsByCurrency;
+  final GetAllBanksByCurrency getAllBanksByCurrency;
+  final CreatePayoutAccount createPayoutAccount;
+  List<CountryData> _cachedCountries = const [];
+  List<String> _cachedMethods = const [];
+  List<BankProvider> _cachedBanks = const [];
 
   PayoutCubit({
     required this.addBankAccount,
@@ -28,6 +35,9 @@ class PayoutCubit extends Cubit<PayoutState> {
     required this.getAccountById,
     required this.deleteAccountById,
     required this.getPayoutCountries,
+    required this.getPayoutMethodsByCurrency,
+    required this.getAllBanksByCurrency,
+    required this.createPayoutAccount,
   }) : super(PayoutInitial());
 
   // Add Bank Account
@@ -111,6 +121,60 @@ class PayoutCubit extends Cubit<PayoutState> {
     emit(PayoutLoading());
     final result = await getPayoutCountries();
     result.fold((failure) => emit(PayoutError(message: failure.message)),
-        (countries) => emit(PayoutCountriesLoaded(countries: countries)));
+        (countries) {
+      _cachedCountries = countries;
+      _cachedMethods = const [];
+      _cachedBanks = const [];
+      emit(PayoutCountriesLoaded(
+        countries: countries,
+        payoutMethods: const [],
+        banks: const [],
+      ));
+    });
+  }
+
+  Future<void> fetchPayoutMethods(String currency) async {
+    final result = await getPayoutMethodsByCurrency(currency);
+    result.fold(
+      (failure) => emit(PayoutError(message: failure.message)),
+      (methods) {
+        _cachedMethods = methods;
+        emit(
+          PayoutCountriesLoaded(
+            countries: _cachedCountries,
+            payoutMethods: methods,
+            banks: _cachedBanks,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> fetchBanks(String currency) async {
+    final result = await getAllBanksByCurrency(currency);
+    result.fold(
+      (failure) => emit(PayoutError(message: failure.message)),
+      (banks) {
+        _cachedBanks = banks;
+        emit(
+          PayoutCountriesLoaded(
+            countries: _cachedCountries,
+            payoutMethods: _cachedMethods,
+            banks: banks,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> createPayoutAccountMethod(
+      CreatePayoutAccountParams params) async {
+    emit(PayoutLoading());
+    final result = await createPayoutAccount(params);
+    result.fold(
+      (failure) => emit(PayoutError(message: failure.message)),
+      (success) =>
+          emit(PayoutSuccess(message: 'Payout account created successfully')),
+    );
   }
 }

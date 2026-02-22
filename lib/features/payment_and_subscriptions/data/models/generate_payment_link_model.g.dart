@@ -17,9 +17,11 @@ _GeneratePaymentLinkData _$GeneratePaymentLinkDataFromJson(
           : VerificationData.fromJson(
               json['verificationData'] as Map<String, dynamic>),
       statusCode: (json['statusCode'] as num).toInt(),
-      message: json['message'] as String,
+      message: json['message'] as String?,
       success: json['success'] as bool,
+      totalCount: json['totalCount'],
       data: json['data'],
+      error: json['error'],
     );
 
 Map<String, dynamic> _$GeneratePaymentLinkDataToJson(
@@ -31,7 +33,9 @@ Map<String, dynamic> _$GeneratePaymentLinkDataToJson(
       'statusCode': instance.statusCode,
       'message': instance.message,
       'success': instance.success,
+      'totalCount': instance.totalCount,
       'data': instance.data,
+      'error': instance.error,
     };
 
 _PaymentGenerationData _$PaymentGenerationDataFromJson(

@@ -12,7 +12,7 @@ _PaymentAccount _$PaymentAccountFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
-      countryIso2Code: json['countryIso2Code'] as String,
+      countryIso2Code: json['countryIso2Code'] as String?,
       payOutType: json['payOutType'] as String,
       currency: json['currency'] as String,
       bankId: json['bankId'] as String?,

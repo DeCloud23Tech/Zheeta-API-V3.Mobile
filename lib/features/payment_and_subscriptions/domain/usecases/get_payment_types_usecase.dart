@@ -6,11 +6,12 @@ import 'package:zheeta/features/payment_and_subscriptions/domain/repositories/pa
 
 @prod
 @LazySingleton()
-class GetAllPaymentTypes extends UsecaseWithoutParams<List<PaymentType>> {
+class GetAllPaymentTypes extends UsecaseWithParams<List<PaymentType>, String> {
   const GetAllPaymentTypes(this._repo);
 
   final IPaymentRepository _repo;
 
   @override
-  ResultFuture<List<PaymentType>> call() async => await _repo.getPaymentTypes();
+  ResultFuture<List<PaymentType>> call(String currency) async =>
+      await _repo.getPaymentTypes(currency);
 }

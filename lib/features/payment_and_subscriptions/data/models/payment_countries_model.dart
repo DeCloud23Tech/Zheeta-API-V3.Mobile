@@ -6,10 +6,11 @@ part 'payment_countries_model.g.dart';
 @freezed
 abstract class CountryData with _$CountryData {
   const factory CountryData({
-    String? countryName,
-    required String countryCode,
-    required String countryCurrency,
-    required List<PaymentOption> paymentOptions,
+    required String code,
+    required String code2Iso,
+    required String name,
+    String? phoneCode,
+    required String currency,
   }) = _CountryData;
 
   factory CountryData.fromJson(Map<String, dynamic> json) =>

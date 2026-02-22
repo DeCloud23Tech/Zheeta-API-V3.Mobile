@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/core/common/usecase/usecases.dart';
 import 'package:zheeta/core/constants/type_def.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_account_model.dart';
+import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_banks_model.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_countries_model.dart';
 import 'package:zheeta/features/payment_and_subscriptions/domain/repositories/payout_account_repository.dart';
 
@@ -231,4 +232,77 @@ class GetPayoutCountries extends UsecaseWithoutParams<List<CountryData>> {
   @override
   ResultFuture<List<CountryData>> call() async =>
       await _repo.getPayoutCountries();
+}
+
+// Get Payout Methods By Currency
+@prod
+@LazySingleton()
+class GetPayoutMethodsByCurrency
+    extends UsecaseWithParams<List<String>, String> {
+  const GetPayoutMethodsByCurrency(this._repo);
+
+  final IPayoutAccountRepository _repo;
+
+  @override
+  ResultFuture<List<String>> call(String currency) async =>
+      await _repo.getPayoutMethodsByCurrency(currency);
+}
+
+// Get All Banks By Currency
+@prod
+@LazySingleton()
+class GetAllBanksByCurrency
+    extends UsecaseWithParams<List<BankProvider>, String> {
+  const GetAllBanksByCurrency(this._repo);
+
+  final IPayoutAccountRepository _repo;
+
+  @override
+  ResultFuture<List<BankProvider>> call(String currency) async =>
+      await _repo.getAllBanksByCurrency(currency);
+}
+
+// Create Payout Account
+@prod
+@LazySingleton()
+class CreatePayoutAccount
+    extends UsecaseWithParams<bool, CreatePayoutAccountParams> {
+  const CreatePayoutAccount(this._repo);
+
+  final IPayoutAccountRepository _repo;
+
+  @override
+  ResultFuture<bool> call(CreatePayoutAccountParams params) async =>
+      await _repo.createPayoutAccount(
+        firstName: params.firstName,
+        lastName: params.lastName,
+        countryCode: params.countryCode,
+        currency: params.currency,
+        providerCode: params.providerCode,
+        providerName: params.providerName,
+        providerAccountNumber: params.providerAccountNumber,
+        type: params.type,
+      );
+}
+
+class CreatePayoutAccountParams {
+  final String firstName;
+  final String lastName;
+  final String countryCode;
+  final String currency;
+  final String providerCode;
+  final String providerName;
+  final String providerAccountNumber;
+  final int type;
+
+  CreatePayoutAccountParams({
+    required this.firstName,
+    required this.lastName,
+    required this.countryCode,
+    required this.currency,
+    required this.providerCode,
+    required this.providerName,
+    required this.providerAccountNumber,
+    required this.type,
+  });
 }

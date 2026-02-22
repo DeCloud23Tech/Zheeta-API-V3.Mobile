@@ -4,6 +4,7 @@ import 'package:zheeta/core/network/api.dart';
 import 'package:zheeta/core/utils/token_utils.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/datasources/i_payout_account_datasource.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_account_model.dart';
+import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_banks_model.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_countries_model.dart';
 
 @prod
@@ -202,5 +203,91 @@ class PayoutAccountRepositoryImpl implements IPayoutAccountDataSource {
         response: response,
       );
     }
+  }
+
+  @override
+  Future<List<String>> getPayoutMethodsByCurrency(String currency) async {
+    final response = await _api.dio.get(
+      '/payment/get-currency-pay-out-methods?currency=$currency',
+      options: Options(contentType: Headers.jsonContentType),
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = response.data['data'] ?? [];
+      return data.map((e) => e.toString()).toList();
+    } else {
+      throw DioException.badResponse(
+        statusCode: response.statusCode ?? 400,
+        requestOptions: response.requestOptions,
+        response: response,
+      );
+    }
+  }
+
+  @override
+  Future<List<BankProvider>> getAllBanksByCurrency(String currency) async {
+    final response = await _api.dio.get(
+      '/payment/get-all-banks?currency=$currency',
+      options: Options(contentType: Headers.jsonContentType),
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = response.data['data'] ?? [];
+      return data.map((raw) {
+        if (raw is String) {
+          return BankProvider(code: raw, name: raw);
+        }
+        final json = raw as Map<String, dynamic>;
+        final code = (json['code'] ??
+                json['bankCode'] ??
+                json['providerCode'] ??
+                json['id'] ??
+                '')
+            .toString();
+        final name = (json['name'] ??
+                json['bankName'] ??
+                json['providerName'] ??
+                code)
+            .toString();
+        return BankProvider(code: code, name: name);
+      }).toList();
+    } else {
+      throw DioException.badResponse(
+        statusCode: response.statusCode ?? 400,
+        requestOptions: response.requestOptions,
+        response: response,
+      );
+    }
+  }
+
+  @override
+  Future<bool> createPayoutAccount({
+    required String firstName,
+    required String lastName,
+    required String countryCode,
+    required String currency,
+    required String providerCode,
+    required String providerName,
+    required String providerAccountNumber,
+    required int type,
+  }) async {
+    final String? userId = await TokenUtil.getUserId();
+    final response = await _api.dio.post(
+      '/payment/account',
+      data: {
+        'userId': userId,
+        'firstName': firstName,
+        'lastName': lastName,
+        'countryCode': countryCode,
+        'currency': currency,
+        'providerCode': providerCode,
+        'providerName': providerName,
+        'providerAccountNumber': providerAccountNumber,
+        'type': type,
+      },
+      options: Options(contentType: Headers.jsonContentType),
+    );
+
+    return response.statusCode == 200 && response.data['success'] == true;
   }
 }

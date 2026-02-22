@@ -7,7 +7,8 @@ class AppColors {
   static const Color primaryDark = Color(0xFFE52C6D); // #E52C6D
   static const Color primaryLight = Color(0xFFF55FA3); // #F55FA3
   static const Color primaryLight40 = Color(0xFFF66397); // #F66397
-  static const Color secondaryLight = Color(0xFFFFF1F7); // #FFF1F7
+  static const Color secondaryLight =
+      Color.fromARGB(255, 252, 227, 237); // #FFF1F7
   static const Color primarySwirl = Color(0xFFFD5DA0); // #FD5DA0
   static const Color primaryLightBackground = Color(0xFFe94f85); // #DF4F84
   static const Color secondarySwirl = Color(0xFFF6B9CD); // #F6B9CD

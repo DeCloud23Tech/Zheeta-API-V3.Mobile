@@ -17,10 +17,18 @@ class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit({required this.getAllPaymentTypes, required this.getPaymentLink})
       : super(const PaymentState());
 
+  void resetPaymentLink() {
+    emit(state.copyWith(
+      paymentLinkStatus: PaymentLinkStatus.initial,
+      paymentLinkData: null,
+      errorMessage: null,
+    ));
+  }
+
   // Fetch payment types
-  Future<void> fetchPaymentTypes() async {
+  Future<void> fetchPaymentTypes(String currency) async {
     emit(state.copyWith(paymentTypeStatus: PaymentTypeStatus.loading));
-    final result = await getAllPaymentTypes();
+    final result = await getAllPaymentTypes(currency);
 
     result.fold(
       (failure) {

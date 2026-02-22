@@ -93,7 +93,8 @@ class AppRouter extends RootStackRouter {
             // // Payments and Subscription Routes
             AutoRoute(page: MembershipSubscriptionRoute.page),
             AutoRoute(page: ChargeListRoute.page),
-            // AutoRoute(page: PaymentTypesRoute.page),
+            AutoRoute(page: PaymentTypeRoute.page),
+            AutoRoute(page: PaymentLinkRoute.page),
             AutoRoute(page: PayoutMenuRoute.page),
             AutoRoute(page: PayoutAccountRoute.page),
             AutoRoute(page: PayoutCreateAccount.page),

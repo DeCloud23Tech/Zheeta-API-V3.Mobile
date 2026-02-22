@@ -7,20 +7,20 @@ part of 'payment_countries_model.dart';
 // **************************************************************************
 
 _CountryData _$CountryDataFromJson(Map<String, dynamic> json) => _CountryData(
-      countryName: json['countryName'] as String?,
-      countryCode: json['countryCode'] as String,
-      countryCurrency: json['countryCurrency'] as String,
-      paymentOptions: (json['paymentOptions'] as List<dynamic>)
-          .map((e) => PaymentOption.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      code: json['code'] as String,
+      code2Iso: json['code2Iso'] as String,
+      name: json['name'] as String,
+      phoneCode: json['phoneCode'] as String?,
+      currency: json['currency'] as String,
     );
 
 Map<String, dynamic> _$CountryDataToJson(_CountryData instance) =>
     <String, dynamic>{
-      'countryName': instance.countryName,
-      'countryCode': instance.countryCode,
-      'countryCurrency': instance.countryCurrency,
-      'paymentOptions': instance.paymentOptions,
+      'code': instance.code,
+      'code2Iso': instance.code2Iso,
+      'name': instance.name,
+      'phoneCode': instance.phoneCode,
+      'currency': instance.currency,
     };
 
 _PaymentOption _$PaymentOptionFromJson(Map<String, dynamic> json) =>

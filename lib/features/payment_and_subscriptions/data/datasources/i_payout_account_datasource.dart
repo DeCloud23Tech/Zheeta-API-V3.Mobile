@@ -1,4 +1,5 @@
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_account_model.dart';
+import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_banks_model.dart';
 import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_countries_model.dart';
 
 abstract class IPayoutAccountDataSource {
@@ -53,4 +54,19 @@ abstract class IPayoutAccountDataSource {
   Future<bool> deleteAccountById(String accountId);
 
   Future<List<CountryData>> getPayoutCountries();
+
+  Future<List<String>> getPayoutMethodsByCurrency(String currency);
+
+  Future<List<BankProvider>> getAllBanksByCurrency(String currency);
+
+  Future<bool> createPayoutAccount({
+    required String firstName,
+    required String lastName,
+    required String countryCode,
+    required String currency,
+    required String providerCode,
+    required String providerName,
+    required String providerAccountNumber,
+    required int type,
+  });
 }

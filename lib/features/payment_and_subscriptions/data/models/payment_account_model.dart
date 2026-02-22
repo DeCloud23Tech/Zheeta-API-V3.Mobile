@@ -10,7 +10,7 @@ abstract class PaymentAccount with _$PaymentAccount {
     required String userId,
     required String firstName,
     required String lastName,
-    required String countryIso2Code,
+    String? countryIso2Code,
     required String payOutType,
     required String currency,
     String? bankId,

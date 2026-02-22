@@ -43,21 +43,61 @@ class PaymentDataSourceImpl implements IPaymentDataSource {
   }
 
   @override
-  Future<List<PaymentType>> getPaymentTypes() async {
+  Future<List<PaymentType>> getPaymentTypes(String currency) async {
     var response = await _api.dio.get(
-      '/payment/payment-types',
+      '/payment/payin-types?currency=$currency',
       options: Options(
         contentType: Headers.jsonContentType,
       ),
     );
     if (response.statusCode == 200) {
       List<dynamic> data = response.data['data'] ?? [];
-      return data.map((json) => PaymentType.fromJson(json)).toList();
+      return data.map((raw) {
+        if (raw is String) {
+          return PaymentType(
+            id: _mapPayInTypeId(raw),
+            name: raw,
+          );
+        }
+        final json = raw as Map<String, dynamic>;
+        final name = (json['name'] ??
+                json['typeName'] ??
+                json['paymentType'] ??
+                json['type'] ??
+                '')
+            .toString();
+        final dynamic idValue =
+            json['id'] ?? json['type'] ?? json['payInType'];
+        final id = idValue is int
+            ? idValue
+            : int.tryParse(idValue?.toString() ?? '') ??
+                _mapPayInTypeId(name);
+        return PaymentType(id: id, name: name);
+      }).where((type) => type.id != 0 && type.name.isNotEmpty).toList();
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,
           requestOptions: response.requestOptions,
           response: response);
+    }
+  }
+
+  int _mapPayInTypeId(String name) {
+    switch (name.trim().toLowerCase()) {
+      case 'cardorbanktransfer':
+        return 1;
+      case 'crypto':
+        return 2;
+      case 'bank-transfer':
+      case 'bank transfer':
+      case 'bank-account':
+      case 'bank account':
+        return 1;
+      case 'mobile-money':
+      case 'mobile money':
+        return 2;
+      default:
+        return 0;
     }
   }
 }
