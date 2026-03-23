@@ -28,6 +28,8 @@ class AppGuard extends AutoRouteGuard {
         return;
       }
 
+      //TODO: Add Clause for onboarding flow, don't navigate when onboarding is true.
+
       // If the token is valid and not expired, proceed to the next route
       resolver.next(true);
     } catch (e, stackTrace) {

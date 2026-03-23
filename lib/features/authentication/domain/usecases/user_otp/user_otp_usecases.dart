@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/core/common/usecase/usecases.dart';
 import 'package:zheeta/core/constants/type_def.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
+import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
 import 'package:zheeta/features/authentication/domain/repositories/user_otp_repository.dart';
 
@@ -43,24 +44,24 @@ class SendPasswordResetOtp extends UsecaseWithParams<void, String> {
 
 @prod
 @LazySingleton()
-class VerifyPhoneOtp extends UsecaseWithParams<void, VerifyPhoneOtpRequest> {
+class VerifyPhoneOtp extends UsecaseWithParams<void, VerifyOtpRequest> {
   const VerifyPhoneOtp(this._repo);
 
   final IUserOtpRepository _repo;
 
   @override
-  ResultVoid call(VerifyPhoneOtpRequest params) async =>
+  ResultVoid call(VerifyOtpRequest params) async =>
       await _repo.verifyPhoneOtpRepo(params);
 }
 
 @prod
 @LazySingleton()
-class VerifyEmailOtp extends UsecaseWithParams<void, VerifyEmailOtpRequest> {
+class VerifyEmailOtp extends UsecaseWithParams<void, VerifyOtpRequest> {
   const VerifyEmailOtp(this._repo);
 
   final IUserOtpRepository _repo;
 
   @override
-  ResultVoid call(VerifyEmailOtpRequest params) async =>
+  ResultVoid call(VerifyOtpRequest params) async =>
       await _repo.verifyEmailOtpRepo(params);
 }

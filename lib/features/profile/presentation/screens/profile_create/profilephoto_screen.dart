@@ -14,6 +14,7 @@ import 'package:zheeta/core/utils/token_utils.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/profile/domain/usecases/user_profile_usecases.dart';
 import 'package:zheeta/features/profile/presentation/cubits/profile_create_cubit/profile_create_cubit.dart';
+import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
 import 'package:http_parser/http_parser.dart' as http_parser;
 import 'package:zheeta/shared/widgets/primary_button.dart';
@@ -70,7 +71,7 @@ class _ProfilePhotoScreenState extends State<ProfilePhotoScreen>
           NotifyUser.showSnackBar(state.errorMessage);
         } else if (state is ProfilePictureCreateSuccess) {
           if (mounted) {
-            // context.router.replace(const ProfileCarouselRoute());
+            context.router.replace(const ProfileCarouselRoute());
           }
         }
       },

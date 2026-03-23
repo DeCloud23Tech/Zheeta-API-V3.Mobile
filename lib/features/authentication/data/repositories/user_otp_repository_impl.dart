@@ -6,6 +6,7 @@ import 'package:zheeta/core/error/error.dart';
 import 'package:zheeta/core/error/exception.dart';
 import 'package:zheeta/features/authentication/data/datasources/i_user_otp_datasource.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
+import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
 import 'package:zheeta/features/authentication/domain/repositories/user_otp_repository.dart';
 
@@ -50,7 +51,7 @@ class UserOtpRepositoryImpl implements IUserOtpRepository {
   }
 
   @override
-  ResultVoid verifyPhoneOtpRepo(VerifyPhoneOtpRequest request) async {
+  ResultVoid verifyPhoneOtpRepo(VerifyOtpRequest request) async {
     try {
       final result = await _datasource.verifyPhoneOtpNew(request);
       return right(result);
@@ -67,7 +68,7 @@ class UserOtpRepositoryImpl implements IUserOtpRepository {
   }
 
   @override
-  ResultVoid verifyEmailOtpRepo(VerifyEmailOtpRequest request) async {
+  ResultVoid verifyEmailOtpRepo(VerifyOtpRequest request) async {
     try {
       final result = await _datasource.verifyEmailOtpNew(request);
       return right(result);

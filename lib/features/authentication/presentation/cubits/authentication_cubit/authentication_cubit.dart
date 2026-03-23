@@ -3,14 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/core/common/model/login_user_model.dart';
 import 'package:zheeta/core/common/model/register_user_model.dart';
+import 'package:zheeta/core/error/error.dart';
 import 'package:zheeta/features/authentication/data/requests/change_password_request.dart';
 import 'package:zheeta/features/authentication/data/requests/login_request.dart';
 import 'package:zheeta/features/authentication/data/requests/register_user_request.dart';
 import 'package:zheeta/features/authentication/data/requests/reset_password_request.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
+import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
 import 'package:zheeta/features/authentication/domain/usecases/user_auth/user_auth_usecases.dart';
 import 'package:zheeta/features/authentication/domain/usecases/user_otp/user_otp_usecases.dart';
+import 'package:zheeta/router/app_router.dart';
+import 'package:zheeta/router/app_router.gr.dart';
 
 part 'authentication_state.dart';
 
@@ -46,7 +50,16 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     var result = await loginUser(request);
 
     result.fold(
-      (fail) => emit(AuthenticationErrorState(fail.message)),
+      (fail) {
+        emit(AuthenticationErrorState(fail.message));
+        if (fail is EmailVeirifedError) {
+          router.popAndPush(VerificationRoute(
+            isPhoneNumber: false,
+            phoneNumber: fail.phoneNumber ?? '',
+            email: fail.email ?? '',
+          ));
+        }
+      },
       (success) {
         emit(AuthenticationLoggedInState(success));
       },
@@ -64,8 +77,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
   }
 
-  Future<bool> verifyPhoneOtpCubit(
-      {required VerifyPhoneOtpRequest request}) async {
+  Future<bool> verifyPhoneOtpCubit({required VerifyOtpRequest request}) async {
     emit(AuthenticationLoadingState());
     var result = await verifyPhoneOtp(request);
     bool sendResult = false;
@@ -83,8 +95,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     return sendResult;
   }
 
-  Future<bool> verifyEmailOtpCubit(
-      {required VerifyEmailOtpRequest request}) async {
+  Future<bool> verifyEmailOtpCubit({required VerifyOtpRequest request}) async {
     emit(AuthenticationLoadingState());
     var result = await verifyEmailOtp(request);
     bool sendResult = false;

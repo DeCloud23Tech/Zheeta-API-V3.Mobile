@@ -1,19 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zheeta/core/location/location_cubit.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/app/presentation/cubits/app_cubit/app_cubit.dart';
 import 'package:zheeta/features/app/presentation/cubits/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authenticate_country_cubit/authenticate_country_cubit.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:zheeta/features/buddy_events/presentation/cubits/event_create_cubit/event_create_cubit.dart';
-import 'package:zheeta/features/buddy_events/presentation/cubits/event_cubit/event_cubit.dart';
-import 'package:zheeta/features/buddy_events/presentation/cubits/event_details_cubit/event_details_cubit.dart';
-import 'package:zheeta/features/buddy_events/presentation/cubits/event_search_cubit/event_search_cubit.dart';
 import 'package:zheeta/features/buddy_events/presentation/cubits/event_verification_cubit/event_verification_cubit.dart';
 import 'package:zheeta/features/buddy_events/presentation/cubits/sponsored_boost_cubit/sponsored_boost_cubit.dart';
-import 'package:zheeta/features/connections/presentation/cubits/all_friends_cubit/all_friends_cubit.dart';
 import 'package:zheeta/features/connections/presentation/cubits/block_account_cubit/block_account_cubit.dart';
-import 'package:zheeta/features/connections/presentation/cubits/downline_cubit/downline_cubit.dart';
-import 'package:zheeta/features/connections/presentation/cubits/downline_cubit/user_downline_cubit.dart';
 import 'package:zheeta/features/connections/presentation/cubits/friends_cubit/friends_cubit.dart';
 import 'package:zheeta/features/discover/presentation/cubits/match_criteria_cubit/match_criteria_cubit.dart';
 import 'package:zheeta/features/discover/presentation/cubits/matches_cubit/matches_cubit.dart';
@@ -26,7 +21,6 @@ import 'package:zheeta/features/messages/presentation/cubits/chat_delete_cubit/c
 import 'package:zheeta/features/messages/presentation/cubits/chat_history_cubit/chat_history_cubit.dart';
 import 'package:zheeta/features/messages/presentation/cubits/chat_recipients_cubit/chat_recipients_cubit.dart';
 import 'package:zheeta/features/notification/presentation/cubits/notification_action_cubit/notification_action_cubit.dart';
-import 'package:zheeta/features/notification/presentation/cubits/notification_cubit/notification_cubit.dart';
 import 'package:zheeta/features/payment_and_subscriptions/presentation/cubits/charges_cubit/charges_cubit.dart';
 import 'package:zheeta/features/payment_and_subscriptions/presentation/cubits/payment_cubit/payment_cubit.dart';
 import 'package:zheeta/features/payment_and_subscriptions/presentation/cubits/payout_cubit/payout_cubit.dart';
@@ -48,6 +42,8 @@ class AppBlocsProvider {
         //Missing type annotation. (Documentation)
         BlocProvider(create: (context) => locator<AppCubit>()),
         BlocProvider(create: (context) => locator<BottomNavCubit>()),
+        
+        BlocProvider(create: (context) => locator<LocationCubit>()),
         //
         BlocProvider(create: (context) => locator<AuthenticationCubit>()),
         BlocProvider(create: (context) => locator<AuthenticateCountryCubit>()),

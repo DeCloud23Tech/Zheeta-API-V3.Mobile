@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/core/network/api.dart';
 import 'package:zheeta/features/authentication/data/datasources/i_user_otp_datasource.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
+import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
 
 @prod
@@ -21,7 +22,7 @@ class UserOtpDataSourceImpl implements IUserOtpDataSource {
           contentType: Headers.jsonContentType,
         ),
         data: null);
-    if (response.statusCode == 200) {
+    if ((response.statusCode ?? 0) >= 200 && (response.statusCode ?? 0) < 300) {
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,
@@ -38,7 +39,7 @@ class UserOtpDataSourceImpl implements IUserOtpDataSource {
               contentType: Headers.jsonContentType,
             ),
             data: null);
-    if (response.statusCode == 200) {
+    if ((response.statusCode ?? 0) >= 200 && (response.statusCode ?? 0) < 300) {
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,
@@ -55,7 +56,7 @@ class UserOtpDataSourceImpl implements IUserOtpDataSource {
               contentType: Headers.jsonContentType,
             ),
             data: null);
-    if (response.statusCode == 200) {
+    if ((response.statusCode ?? 0) >= 200 && (response.statusCode ?? 0) < 300) {
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,
@@ -65,13 +66,13 @@ class UserOtpDataSourceImpl implements IUserOtpDataSource {
   }
 
   @override
-  Future<void> verifyEmailOtpNew(VerifyEmailOtpRequest request) async {
-    var response = await _api.dio.post('/userauth/verify-email-otp',
+  Future<void> verifyEmailOtpNew(VerifyOtpRequest request) async {
+    var response = await _api.dio.post('/userauth/validate-otp',
         options: Options(
           contentType: Headers.jsonContentType,
         ),
         data: jsonEncode(request.toJson()));
-    if (response.statusCode == 200) {
+    if ((response.statusCode ?? 0) >= 200 && (response.statusCode ?? 0) < 300) {
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,
@@ -81,13 +82,13 @@ class UserOtpDataSourceImpl implements IUserOtpDataSource {
   }
 
   @override
-  Future<void> verifyPhoneOtpNew(VerifyPhoneOtpRequest request) async {
-    var response = await _api.dio.post('/userauth/verify-phone-otp',
+  Future<void> verifyPhoneOtpNew(VerifyOtpRequest request) async {
+    var response = await _api.dio.post('/userauth/validate-otp',
         options: Options(
           contentType: Headers.jsonContentType,
         ),
         data: jsonEncode(request.toJson()));
-    if (response.statusCode == 200) {
+    if ((response.statusCode ?? 0) >= 200 && (response.statusCode ?? 0) < 300) {
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,

@@ -13,6 +13,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:zheeta/core/common/cubit/maintenance_mode_cubit/maintenance_mode_cubit.dart'
     as _i998;
+import 'package:zheeta/core/location/location_cubit.dart' as _i631;
+import 'package:zheeta/core/location/location_repository.dart' as _i175;
 import 'package:zheeta/core/network/api.dart' as _i850;
 import 'package:zheeta/core/services/agreement_service.dart' as _i387;
 import 'package:zheeta/core/services/deep_link_service.dart' as _i918;
@@ -508,6 +510,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i448.BottomNavCubit(),
       registerFor: {_prod},
     );
+    gh.lazySingleton<_i175.LocationRepository>(
+      () => _i175.LocationRepository(),
+      registerFor: {_prod},
+    );
     gh.singleton<_i398.IUserProfileBoostDataSource>(
       () => _i346.UserProfileBoostDataSourceImpl(gh<_i850.Api>()),
       registerFor: {_prod},
@@ -518,6 +524,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i352.IUserDownlineDataSource>(
       () => _i146.UserDownlineDataSourceImpl(gh<_i850.Api>()),
+      registerFor: {_prod},
+    );
+    gh.lazySingleton<_i631.LocationCubit>(
+      () => _i631.LocationCubit(gh<_i175.LocationRepository>()),
       registerFor: {_prod},
     );
     gh.singleton<_i816.IEventVerificationDataSource>(

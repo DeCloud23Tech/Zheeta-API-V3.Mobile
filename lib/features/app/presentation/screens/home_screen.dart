@@ -9,12 +9,12 @@ import 'package:zheeta/features/app/presentation/cubits/app_cubit/app_cubit.dart
 import 'package:zheeta/features/app/presentation/cubits/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:zheeta/features/app/presentation/widgets/bottom_nav_bar.dart';
 import 'package:zheeta/features/app/presentation/widgets/floating_action_button.dart';
-import 'package:zheeta/features/authentication/presentation/screens/phone_verification_screen.dart';
 import 'package:zheeta/features/buddy_events/presentation/screens/events_feed/event_feed_screen.dart';
 import 'package:zheeta/features/discover/presentation/screens/discover_screen.dart';
 import 'package:zheeta/features/messages/presentation/screens/chat_conversation_screen.dart';
+import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
 import 'package:zheeta/features/profile/presentation/screens/profile/profile_screen.dart';
-import 'package:zheeta/features/splash_screen/presentation/views/welcome.dart';
+import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/enums/icon_type_enum.dart';
 import 'package:zheeta/shared/widgets/drawer.dart';
 import 'package:zheeta/shared/widgets/error_page.dart';
@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final AgreementService _agreementService = locator<AgreementService>();
 
   int index = 0; // This `index` is now managed by BottomNavCubit
+  bool _redirectedToProfileSetup = false;
 
   @override
   void initState() {
@@ -41,6 +42,34 @@ class _HomeScreenState extends State<HomeScreen> {
     appCubit.initializeApp();
     // Call the service method to check and show the dialog
     _agreementService.checkAndShowAgreementDialog(context);
+  }
+
+  void _redirectToProfileSetupIfNeeded(UserProfileModel? profile) {
+    if (_redirectedToProfileSetup) return;
+    _redirectedToProfileSetup = true;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userProfile = profile?.data?.profile;
+      final userCarousels = profile?.data?.userCarousels ?? const [];
+
+      if (userProfile == null) {
+        context.router.replaceAll([const BioDataRoute()]);
+        return;
+      }
+
+      if (userProfile.profilePhotoURL == null) {
+        context.router.replaceAll([const ProfilePhotoRoute()]);
+        return;
+      }
+
+      if (userCarousels.isEmpty) {
+        context.router.replaceAll([const ProfileCarouselRoute()]);
+        return;
+      }
+
+      // If we got here, profile looks complete. Fall back to home.
+      context.router.replaceAll([const HomeRoute()]);
+    });
   }
 
   final appBars = [
@@ -172,43 +201,35 @@ class _HomeScreenState extends State<HomeScreen> {
             onTryAgain: () => appCubit.initializeApp(),
           );
         } else if (state is AppProfile) {
-          // This state usually means profile setup is incomplete, leading to WelcomeScreen
-          return WelcomeScreen(profile: state.profile);
+          // Profile setup is incomplete; route to the next setup step.
+          _redirectToProfileSetupIfNeeded(state.profile);
+          return const LoadingScreen();
         } else if (state is AppLoaded) {
-          bool isVerified = state.profile?.data?.user?.isFullyVerified ?? false;
           return BlocBuilder<BottomNavCubit, int>(
             builder: (context, index) {
               return Scaffold(
                 drawer: const SideDrawer(),
                 backgroundColor: bgColors[index],
-                appBar: isVerified ? appBars[index] : null,
-                body: isVerified
-                    ? Column(
-                        children: [
-                          Expanded(child: pages[index]),
-                          buildBottomNavigationBar(
-                            icons,
-                            context,
-                            (newIndex) {
-                              final bottomNavCubit = locator<BottomNavCubit>();
-                              bottomNavCubit.changeTab(newIndex);
+                appBar: appBars[index],
+                body: Column(
+                  children: [
+                    Expanded(child: pages[index]),
+                    buildBottomNavigationBar(
+                      icons,
+                      context,
+                      (newIndex) {
+                        final bottomNavCubit = locator<BottomNavCubit>();
+                        bottomNavCubit.changeTab(newIndex);
 
-                              // Refresh matches only when switching to tab 0
-                              if (newIndex == 0) {
-                                appCubit.refreshMatches();
-                              }
-                            },
-                          ),
-                        ],
-                      )
-                    : PhoneVerificationScreen(
-                        phoneNumber:
-                            state.profile?.data?.user?.phoneNumber ?? '',
-                        countryCode:
-                            state.profile?.data?.user?.phoneCountryCode ?? '',
-                      ),
-                floatingActionButton:
-                    isVerified ? buildFloatingActionButton(context) : null,
+                        // Refresh matches only when switching to tab 0
+                        if (newIndex == 0) {
+                          appCubit.refreshMatches();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                floatingActionButton: buildFloatingActionButton(context),
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerDocked,
               );

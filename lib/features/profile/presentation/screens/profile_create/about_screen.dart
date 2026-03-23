@@ -14,6 +14,7 @@ import 'package:zheeta/features/authentication/data/models/country_model.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authenticate_country_cubit/authenticate_country_cubit.dart';
 import 'package:zheeta/features/profile/presentation/cubits/profile_create_cubit/profile_create_cubit.dart';
 import 'package:zheeta/features/profile/presentation/cubits/profile_interest_cubit/profile_interest_cubit.dart';
+import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
 import 'package:zheeta/shared/widgets/country_dropdown.dart';
 import 'package:zheeta/shared/widgets/input_field.dart';
@@ -84,7 +85,8 @@ class AboutScreenState extends State<AboutScreen> with Validator {
         if (state is ProfileCreateError) {
           NotifyUser.showSnackBar(state.errorMessage);
         } else if (state is ProfileCreateSuccess) {
-          // context.router.push(ProfilePhotoRoute());
+          if (!mounted) return;
+          context.router.replace(const ProfilePhotoRoute());
         }
       },
       builder: (context, state) {

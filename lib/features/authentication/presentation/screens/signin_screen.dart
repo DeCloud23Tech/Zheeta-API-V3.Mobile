@@ -80,7 +80,7 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
             type: SnackBarType.warning);
       }
 
-      final platform = Platform.isIOS ? 'APNS' : 'FCM';
+      final platform = Platform.isIOS ? 'APNS' : 'GCM';
 
       if (!context.mounted) return;
 

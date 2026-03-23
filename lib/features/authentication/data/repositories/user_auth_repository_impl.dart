@@ -68,6 +68,16 @@ class UserAuthRepositoryImpl implements IUserAuthRepository {
       if (ex.response?.data?["message"] != null) {
         errorMessage = ex.response?.data?["message"];
       }
+      if (ex.response?.data?['data'] != null) {
+        String email = ex.response?.data?['data']['email'] ?? "";
+        String phoneNumber = ex.response?.data?['data']['phoneNumber'] ?? "";
+        return left(EmailVeirifedError(
+            message: errorMessage,
+            statusCode: ex.response!.statusCode!,
+            phoneNumber: phoneNumber,
+            email: email));
+      }
+
       return left(ApiError(
           message: errorMessage, statusCode: ex.response!.statusCode!));
     }

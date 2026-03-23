@@ -185,4 +185,5 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
       ),
     );
   }
+
 }

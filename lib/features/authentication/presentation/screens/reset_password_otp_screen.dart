@@ -1,34 +1,18 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zheeta/core/constants/color.dart';
-import 'package:zheeta/core/constants/constansts.dart';
-import 'package:zheeta/core/constants/strings.dart';
 import 'package:zheeta/core/constants/text_style.dart';
 import 'package:zheeta/core/mixin/validation_mixin.dart';
-import 'package:zheeta/core/services/push_notification_service.dart';
-import 'package:zheeta/core/storage/token_storage/i_token_storage.dart';
-import 'package:zheeta/core/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/core/utils/notify.dart';
-import 'package:zheeta/core/utils/otp_utils.dart';
-import 'package:zheeta/di/di.dart';
-import 'package:zheeta/features/authentication/data/requests/login_request.dart';
 import 'package:zheeta/features/authentication/data/requests/reset_password_request.dart';
-import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
-import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
+import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:zheeta/router/app_router.dart';
 import 'package:zheeta/router/app_router.gr.dart';
-import 'package:zheeta/shared/enums/snackbar_type.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
-import 'package:zheeta/shared/widgets/input_field.dart';
 import 'package:zheeta/shared/widgets/primary_button.dart';
-import 'package:zheeta/shared/widgets/social_button.dart';
-import 'package:zheeta/shared/widgets/transparent_button.dart';
 
 @RoutePage()
 class ResetPasswordOtpScreen extends StatefulWidget {
@@ -55,8 +39,8 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen>
 
   void _handleNext() async {
     if (_formKey.currentState!.validate()) {
-      final data =
-          VerifyEmailOtpRequest(email: widget.email, otp: _otpController.text);
+      final data = VerifyOtpRequest(
+          type: 2, email: widget.email, otp: _otpController.text);
       // Call the verifyEmailOtpCubit method
       final isVerified = await context
           .read<AuthenticationCubit>()

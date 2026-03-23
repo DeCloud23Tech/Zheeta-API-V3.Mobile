@@ -19,6 +19,11 @@ class OtpUtils {
     });
   }
 
+  static void cancelTimer() {
+    _timer?.cancel();
+    _timer = null;
+  }
+
   static void resendOtp({
     required BuildContext context,
     required bool isPhoneNumber,
@@ -27,20 +32,9 @@ class OtpUtils {
     required AuthenticationCubit authCubit,
     required Function(bool) onResent,
   }) async {
-    bool haveResentOtp = false;
-
-    if (isPhoneNumber) {
-      authCubit.sendPhoneVerifyOtpCubit(phone: phoneNumber);
-      haveResentOtp = true;
-    } else {
-      authCubit.sendEmailVerifyOtpCubit(email: email);
-      haveResentOtp = true;
-    }
-
-    if (haveResentOtp) {
-      onResent(true);
-    } else {
-      onResent(false);
-    }
+    final bool haveResentOtp = isPhoneNumber
+        ? await authCubit.sendPhoneVerifyOtpCubit(phone: phoneNumber)
+        : await authCubit.sendEmailVerifyOtpCubit(email: email);
+    onResent(haveResentOtp);
   }
 }

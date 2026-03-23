@@ -10,8 +10,7 @@ import 'package:zheeta/core/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/core/utils/otp_utils.dart';
 import 'package:zheeta/di/di.dart';
-import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
-import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
+import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authentication_cubit/authentication_cubit.dart';
 import 'package:zheeta/router/app_router.dart';
 import 'package:zheeta/router/app_router.gr.dart';
@@ -23,14 +22,14 @@ import 'package:zheeta/shared/widgets/primary_button.dart';
 class VerificationScreen extends StatefulWidget {
   final bool isPhoneNumber;
   final String phoneNumber;
-  final String countryCode;
+  final String? countryCode;
   final String email;
 
   const VerificationScreen({
     super.key,
     required this.isPhoneNumber,
     required this.phoneNumber,
-    required this.countryCode,
+    this.countryCode,
     required this.email,
   });
 
@@ -44,6 +43,7 @@ class _VerificationScreenState extends State<VerificationScreen>
   String _otp = '';
   bool _resendEnabled = true;
   int _countdown = 0;
+  bool _isNavigating = false;
 
   @override
   void initState() {
@@ -60,11 +60,13 @@ class _VerificationScreenState extends State<VerificationScreen>
 
   void _startResendOtpTimer() {
     OtpUtils.startTimer((countdown) {
+      if (!mounted) return;
       setState(() {
         _countdown = countdown;
         _resendEnabled = countdown == 0;
       });
     }, () {
+      if (!mounted) return;
       setState(() {
         _resendEnabled = true;
       });
@@ -88,36 +90,46 @@ class _VerificationScreenState extends State<VerificationScreen>
 
   // Verifies the OTP (email/phone) and navigates accordingly
   Future<void> verifyPhoneOrEmail(BuildContext context) async {
+    if (_isNavigating) return;
     final authCubit = context.read<AuthenticationCubit>();
     bool canGoNext;
 
     if (widget.isPhoneNumber) {
       final data =
-          VerifyPhoneOtpRequest(phoneNumber: widget.phoneNumber, otp: _otp);
+          VerifyOtpRequest(type: 1, phoneNumber: widget.phoneNumber, otp: _otp);
       canGoNext = await authCubit.verifyPhoneOtpCubit(request: data);
     } else {
-      final data = VerifyEmailOtpRequest(email: widget.email, otp: _otp);
+      final data = VerifyOtpRequest(type: 2, email: widget.email, otp: _otp);
       canGoNext = await authCubit.verifyEmailOtpCubit(request: data);
     }
 
     if (canGoNext) {
+      if (!mounted) return;
+      _isNavigating = true;
       if (widget.isPhoneNumber) {
+        final IUserStorage userStorage = locator<IUserStorage>();
+        await userStorage.clear();
+        if (!context.mounted) return;
+        context.router.replaceAll([const VerificationWelcomeRoute()]);
+      } else {
         router.popAndPush(
           VerificationRoute(
-            isPhoneNumber: false,
+            isPhoneNumber: true,
             email: widget.email,
             phoneNumber: widget.phoneNumber,
             countryCode: widget.countryCode,
           ),
         );
-      } else {
-        final IUserStorage userStorage = locator<IUserStorage>();
-        await userStorage.clear();
-        router.pushAndPopUntil(const SignInRoute(), predicate: (_) => false);
       }
     } else {
       NotifyUser.showSnackBar('Invalid OTP. Please try again.');
     }
+  }
+
+  @override
+  void dispose() {
+    OtpUtils.cancelTimer();
+    super.dispose();
   }
 
   @override
@@ -126,6 +138,9 @@ class _VerificationScreenState extends State<VerificationScreen>
       listener: (context, state) {
         if (state is AuthenticationErrorState) {
           NotifyUser.showSnackBar(state.errorMessage);
+        } else if (state is AuthenticationSentEmailOtpState ||
+            state is AuthenticationSentPhoneOtpState) {
+          NotifyUser.showSnackBar('OTP resent successfully.');
         }
       },
       builder: (context, state) {
@@ -166,7 +181,9 @@ class _VerificationScreenState extends State<VerificationScreen>
                                   children: [
                                     TextSpan(
                                       text: widget.isPhoneNumber
-                                          ? '${widget.countryCode}${widget.phoneNumber}'
+                                          ? widget.countryCode != null
+                                              ? '${widget.countryCode}${widget.phoneNumber}'
+                                              : widget.phoneNumber
                                           : widget.email,
                                       style: TextStyle(
                                           color: AppColors.primaryDark),
@@ -198,6 +215,7 @@ class _VerificationScreenState extends State<VerificationScreen>
                           ),
                           cursorColor: AppColors.black,
                           onChanged: (value) {
+                            if (!mounted) return;
                             setState(() {
                               _otp = value;
                             });
@@ -267,15 +285,15 @@ class _VerificationScreenState extends State<VerificationScreen>
                         child: PrimaryButton(
                           invert: true,
                           title: 'Skip',
-                          action: () {
-                            router.popAndPush(
-                              VerificationRoute(
-                                isPhoneNumber: false,
-                                email: widget.email.trim(),
-                                phoneNumber: widget.phoneNumber.trim(),
-                                countryCode: widget.countryCode.trim(),
-                              ),
-                            );
+                          action: () async {
+                            if (_isNavigating) return;
+                            final IUserStorage userStorage =
+                                locator<IUserStorage>();
+                            await userStorage.clear();
+                            if (!context.mounted) return;
+                            _isNavigating = true;
+                            context.router
+                                .replaceAll([const VerificationWelcomeRoute()]);
                           },
                         ),
                       ),

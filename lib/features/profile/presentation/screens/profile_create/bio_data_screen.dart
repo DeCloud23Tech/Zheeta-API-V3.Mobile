@@ -9,6 +9,7 @@ import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authenticate_country_cubit/authenticate_country_cubit.dart';
 import 'package:zheeta/features/profile/presentation/cubits/profile_create_cubit/profile_create_cubit.dart';
+import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
 import 'package:zheeta/shared/widgets/date_picker_field.dart';
 import 'package:zheeta/shared/widgets/input_field.dart';
@@ -57,7 +58,7 @@ class _BioDataScreenState extends State<BioDataScreen> with Validator {
       final authenticateCountryCubit = locator<AuthenticateCountryCubit>();
       authenticateCountryCubit.fetchAllCountries().then((_) {
         if (!mounted) return;
-        // context.router.push(LocationRoute());
+        context.router.push(LocationRoute());
       });
     }
   }
@@ -76,7 +77,22 @@ class _BioDataScreenState extends State<BioDataScreen> with Validator {
               children: [
                 const SizedBox(height: 60),
                 AppBackButton(),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
+                Text(
+                  'Profile setup',
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: AppColors.darkText,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'Provide your full name, Location, display picture, carousels, biography and interests',
+                  style: TextStyle(
+                      color: AppColors.primaryDark,
+                      fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 20),
                 InputField(
                   validator: isValidInput,
                   hintText: 'First Name',
@@ -102,6 +118,12 @@ class _BioDataScreenState extends State<BioDataScreen> with Validator {
                       groupValue: sexSelect,
                       onChanged: (value) => setState(() => sexSelect = value),
                       title: 'Female',
+                    ),
+                    AppRadioButton(
+                      value: "Not Specified",
+                      groupValue: sexSelect,
+                      onChanged: (value) => setState(() => sexSelect = value),
+                      title: "Not Specified",
                     ),
                   ],
                 ),

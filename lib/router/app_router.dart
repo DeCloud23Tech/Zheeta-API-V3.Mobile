@@ -4,7 +4,6 @@ import 'package:zheeta/di/di.dart';
 
 import 'app_guard.dart';
 import 'app_router.gr.dart';
-import 'app_verified_guard.dart';
 
 final router = locator.get<AppRouter>(); // Keep as is, common AutoRoute pattern
 
@@ -22,6 +21,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ResetPasswordRoute.page),
         AutoRoute(page: ResetPasswordOtpRoute.page),
         AutoRoute(page: VerificationRoute.page),
+        AutoRoute(page: VerificationWelcomeRoute.page),
         // No guard here
 
         // Main authenticated flow. All children will implicitly use AppGuard

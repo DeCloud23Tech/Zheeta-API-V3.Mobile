@@ -16,3 +16,5 @@ class VerifyEmailOtpRequest {
 
   Map<String, dynamic> toJson() => _$VerifyEmailOtpRequestToJson(this);
 }
+
+

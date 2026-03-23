@@ -23,6 +23,14 @@ class ApiError extends ZheetaError {
   String toString() => 'ApiError: $message (Status Code: $statusCode)';
 }
 
+class EmailVeirifedError extends ZheetaError {
+  const EmailVeirifedError(
+      {required super.message, super.statusCode, this.email, this.phoneNumber});
+
+  final String? email;
+  final String? phoneNumber;
+}
+
 class StorageError extends ZheetaError {
   const StorageError({required super.message, super.statusCode});
 

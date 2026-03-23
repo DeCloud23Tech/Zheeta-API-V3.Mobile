@@ -1,5 +1,6 @@
 import 'package:zheeta/core/constants/type_def.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
+import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
 
 abstract class IUserOtpRepository {
@@ -7,9 +8,9 @@ abstract class IUserOtpRepository {
 
   ResultVoid sendPhoneVerifyOtpRepo(String phoneNumber);
 
-  ResultVoid verifyPhoneOtpRepo(VerifyPhoneOtpRequest request);
+  ResultVoid verifyPhoneOtpRepo(VerifyOtpRequest request);
 
-  ResultVoid verifyEmailOtpRepo(VerifyEmailOtpRequest request);
+  ResultVoid verifyEmailOtpRepo(VerifyOtpRequest request);
 
   ResultVoid sendPasswordResetOtpRepo(String email);
 }
