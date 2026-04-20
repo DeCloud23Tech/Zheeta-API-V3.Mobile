@@ -60,42 +60,44 @@ class ProfileCarouselScreenState extends State<ProfileCarouselScreen> {
       },
       child: Scaffold(
         backgroundColor: AppColors.primaryDark,
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 60),
-              Row(
-                children: [
-                  AppBackButton(),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Add Carousel Photos',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 28,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 60),
+                Row(
+                  children: [
+                    AppBackButton(),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Add Carousel Photos',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 28,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Select at least 2 pictures for your carousel to help people discover more about you',
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 18.0, color: Colors.white),
-              ),
-              SizedBox(height: 25),
-              ImageSelectionGrid(
-                selectedImages: _selectedImages,
-                onImagesChanged: (images) {
-                  setState(() {
-                    _selectedImages = images;
-                  });
-                },
-              ),
-            ],
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Select at least 2 pictures for your carousel to help people discover more about you',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 18.0, color: Colors.white),
+                ),
+                SizedBox(height: 25),
+                ImageSelectionGrid(
+                  selectedImages: _selectedImages,
+                  onImagesChanged: (images) {
+                    setState(() {
+                      _selectedImages = images;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(
