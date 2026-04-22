@@ -221,10 +221,6 @@ import 'package:zheeta/features/discover/presentation/cubits/nearby_profiles_cub
     as _i445;
 import 'package:zheeta/features/discover/presentation/cubits/nearby_settings_cubit/nearby_settings_cubit.dart'
     as _i485;
-import 'package:zheeta/features/gifts/data/datasources/gift_datasource_impl.dart'
-    as _i536;
-import 'package:zheeta/features/gifts/data/datasources/i_gift_datasource.dart'
-    as _i504;
 import 'package:zheeta/features/gifts/data/repositories/gift_repository_impl.dart'
     as _i479;
 import 'package:zheeta/features/gifts/domain/repositories/gift_repository.dart'
@@ -518,10 +514,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i346.UserProfileBoostDataSourceImpl(gh<_i850.Api>()),
       registerFor: {_prod},
     );
-    gh.singleton<_i504.IGiftDataSource>(
-      () => _i536.GiftDataSourceImpl(gh<_i850.Api>()),
-      registerFor: {_prod},
-    );
     gh.singleton<_i352.IUserDownlineDataSource>(
       () => _i146.UserDownlineDataSourceImpl(gh<_i850.Api>()),
       registerFor: {_prod},
@@ -552,7 +544,7 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {_prod},
     );
     gh.lazySingleton<_i761.IGiftRepository>(
-      () => _i479.GiftDataRepositoryImpl(gh<_i504.IGiftDataSource>()),
+      () => _i479.GiftDataRepositoryImpl(gh<_i850.Api>()),
       registerFor: {_prod},
     );
     gh.singleton<_i615.IChatDataSource>(
