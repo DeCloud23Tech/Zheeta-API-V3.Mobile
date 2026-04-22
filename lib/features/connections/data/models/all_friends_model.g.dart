@@ -7,16 +7,16 @@ part of 'all_friends_model.dart';
 // **************************************************************************
 
 _FriendModel _$FriendModelFromJson(Map<String, dynamic> json) => _FriendModel(
-      userId: json['userId'] as String,
+      userId: json['userAId'] as String? ?? '',
       friendId: json['friendId'] as String,
       friendUsername: json['friendUsername'] as String,
-      friendProfilePicture: json['friendProfilePicture'] as String,
+      friendProfilePicture: json['friendProfilePicture'] as String? ?? '',
       friendBlockStatus: json['friendBlockStatus'] as bool,
     );
 
 Map<String, dynamic> _$FriendModelToJson(_FriendModel instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
+      'userAId': instance.userId,
       'friendId': instance.friendId,
       'friendUsername': instance.friendUsername,
       'friendProfilePicture': instance.friendProfilePicture,

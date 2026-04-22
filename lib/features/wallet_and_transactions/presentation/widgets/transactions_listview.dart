@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/constants/utility.dart';
 import 'package:zheeta/core/utils/extensions/string_extension.dart';
 import 'package:zheeta/features/wallet_and_transactions/data/models/transaction_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,7 +27,7 @@ class TransactionListView extends StatelessWidget {
         final transaction = transactions[index];
         final isCredit = transaction.transactionType == 'Credit';
         final amountColor = isCredit ? AppColors.greenAccent : AppColors.orange;
-
+        final statusColor = Utility.getStatus(transaction.status);
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           child: Row(
@@ -54,13 +55,30 @@ class TransactionListView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      '@${transaction.fromUsername}',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey.shade400,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          '@${transaction.fromUsername}',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade400,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(transaction.status.toUpperCase(),
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: statusColor)),
+                        )
+                      ],
                     ),
                   ],
                 ),

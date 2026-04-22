@@ -259,6 +259,7 @@ class _FriendScreenState extends State<FriendScreen> {
             children: [
               if (!friend.friendBlockStatus)
                 SizedBox(
+                  width: 72,
                   height: 28,
                   child: PrimaryButton(
                     invert: true,
@@ -277,6 +278,7 @@ class _FriendScreenState extends State<FriendScreen> {
               // subtitle: Text('${user.isFullyVerified ?? 'N/A'}'),
 
               SizedBox(
+                width: 110,
                 height: 28,
                 child: PrimaryButton(
                   title: 'View Profile',
@@ -316,6 +318,7 @@ class _FriendScreenState extends State<FriendScreen> {
             ],
           ),
           SizedBox(
+            width: 92,
             height: 28,
             child: PrimaryButton(
               title: 'Unblock',

@@ -15,9 +15,11 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$FriendModel {
+  @JsonKey(name: 'userAId', defaultValue: '')
   String get userId;
   String get friendId;
   String get friendUsername;
+  @JsonKey(defaultValue: '')
   String get friendProfilePicture;
   bool get friendBlockStatus;
 
@@ -65,10 +67,10 @@ abstract mixin class $FriendModelCopyWith<$Res> {
       _$FriendModelCopyWithImpl;
   @useResult
   $Res call(
-      {String userId,
+      {@JsonKey(name: 'userAId', defaultValue: '') String userId,
       String friendId,
       String friendUsername,
-      String friendProfilePicture,
+      @JsonKey(defaultValue: '') String friendProfilePicture,
       bool friendBlockStatus});
 }
 
@@ -119,21 +121,23 @@ class _$FriendModelCopyWithImpl<$Res> implements $FriendModelCopyWith<$Res> {
 @JsonSerializable()
 class _FriendModel implements FriendModel {
   _FriendModel(
-      {required this.userId,
+      {@JsonKey(name: 'userAId', defaultValue: '') required this.userId,
       required this.friendId,
       required this.friendUsername,
-      required this.friendProfilePicture,
+      @JsonKey(defaultValue: '') required this.friendProfilePicture,
       required this.friendBlockStatus});
   factory _FriendModel.fromJson(Map<String, dynamic> json) =>
       _$FriendModelFromJson(json);
 
   @override
+  @JsonKey(name: 'userAId', defaultValue: '')
   final String userId;
   @override
   final String friendId;
   @override
   final String friendUsername;
   @override
+  @JsonKey(defaultValue: '')
   final String friendProfilePicture;
   @override
   final bool friendBlockStatus;
@@ -189,10 +193,10 @@ abstract mixin class _$FriendModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userId,
+      {@JsonKey(name: 'userAId', defaultValue: '') String userId,
       String friendId,
       String friendUsername,
-      String friendProfilePicture,
+      @JsonKey(defaultValue: '') String friendProfilePicture,
       bool friendBlockStatus});
 }
 

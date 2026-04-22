@@ -196,31 +196,13 @@ class _WalletScreenState extends State<WalletScreen> {
   Widget _buildTransactionHeader() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Recent Transactions',
-            style: TextStyle(
-              color: AppColors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-            ),
-          ),
-          // GestureDetector(
-          //   onTap: () {
-          //     // Navigate to full transactions page if needed
-          //   },
-          //   child: const Text(
-          //     'View all',
-          //     style: TextStyle(
-          //       color: AppColors.white,
-          //       fontWeight: FontWeight.w400,
-          //       fontSize: 14,
-          //     ),
-          //   ),
-          // ),
-        ],
+      child: const Text(
+        'Recent Transactions',
+        style: TextStyle(
+          color: AppColors.white,
+          fontWeight: FontWeight.w500,
+          fontSize: 18,
+        ),
       ),
     );
   }
