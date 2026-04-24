@@ -26,19 +26,19 @@ Widget buildProfileCounters(BuildContext context) {
             children: [
               _buildCounter(
                 context,
-                "Friends",
+                "Total Friends",
                 "${data?.profileCounters?.friendsCount ?? 0}",
                 FriendRoute(),
               ),
               _buildCounter(
                 context,
-                "Downlines",
+                "Direct Downlines",
                 "${data?.profileCounters?.downlinesCount ?? 0}",
                 DownlinesRoute(),
               ),
               _buildCounter(
                   context,
-                  "Events",
+                  "Hosted Events",
                   "${data?.profileCounters?.successfulEventCount ?? 0}",
                   MyBuddyEventsRoute()),
             ],

@@ -63,7 +63,7 @@ class FeaturesCard extends StatelessWidget {
                 border: Border.all(color: AppColors.white, width: .8),
               ),
               child: Text(
-                "Features included with Zeeheta $currentPlan",
+                "Features included with Zheeta $currentPlan",
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,

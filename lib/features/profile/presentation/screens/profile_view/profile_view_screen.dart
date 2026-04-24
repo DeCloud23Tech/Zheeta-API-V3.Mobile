@@ -54,6 +54,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
     final double topPadding = MediaQuery.of(context).padding.top;
 
     return Scaffold(
+      backgroundColor: AppColors.inputField,
       body: BlocBuilder<ProfileViewCubit, ProfileViewState>(
         builder: (context, state) {
           if (state is ProfileViewLoading) {
@@ -124,7 +125,8 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
   ) {
     return SliverAppBar(
       elevation: 0,
-      backgroundColor: AppColors.secondaryLight,
+      backgroundColor: AppColors.inputField,
+      surfaceTintColor: AppColors.inputField,
       pinned: true,
       expandedHeight: screenHeight * 0.50,
       collapsedHeight: kToolbarHeight + topPadding,
@@ -185,5 +187,4 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
       ),
     );
   }
-
 }

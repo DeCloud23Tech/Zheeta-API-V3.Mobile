@@ -11,7 +11,8 @@ class PillContainer extends StatelessWidget {
   final Color iconColor;
   final bool hasGradient;
 
-  const PillContainer({super.key,
+  const PillContainer({
+    super.key,
     required this.text,
     this.backgroundColor = Colors.white,
     this.textColor = Colors.pinkAccent,
@@ -25,8 +26,7 @@ class PillContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: padding, vertical: padding / 6),
+      padding: EdgeInsets.symmetric(horizontal: padding, vertical: padding / 6),
       decoration: BoxDecoration(
         color: backgroundColor,
         gradient: hasGradient
@@ -39,6 +39,7 @@ class PillContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null)
             Icon(

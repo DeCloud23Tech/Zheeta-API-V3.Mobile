@@ -23,7 +23,7 @@ Widget buildBottomNavigationBar(List<List<String>> icons, BuildContext context,
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    bottom: 20.0, top: 30.0, left: 5.0, right: 5.0),
+                    bottom: 24.0, top: 34.0, left: 5.0, right: 5.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

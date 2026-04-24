@@ -15,6 +15,8 @@ class PrimaryButton extends StatelessWidget {
   final double fontSize;
   final double height;
   final double borderRadius;
+  final EdgeInsetsGeometry? padding;
+  final MaterialTapTargetSize? tapTargetSize;
 
   const PrimaryButton({
     super.key,
@@ -30,6 +32,8 @@ class PrimaryButton extends StatelessWidget {
     this.fontSize = 17,
     this.height = 48,
     this.borderRadius = 8.0,
+    this.padding,
+    this.tapTargetSize,
   });
 
   @override
@@ -45,13 +49,13 @@ class PrimaryButton extends StatelessWidget {
             invert
                 ? (color ?? AppColors.white)
                 : (disabled
-                    ? AppColors.primaryDark.withOpacity(0.3)
+                    ? AppColors.primaryDark.withValues(alpha: 0.3)
                     : (color ?? AppColors.primaryDark)),
           ),
           overlayColor: WidgetStateProperty.resolveWith(
             (states) {
               if (states.contains(WidgetState.pressed)) {
-                return AppColors.primaryLight.withOpacity(0.5);
+                return AppColors.primaryLight.withValues(alpha: 0.5);
               }
               return null;
             },
@@ -64,6 +68,10 @@ class PrimaryButton extends StatelessWidget {
                   : BorderSide.none,
             ),
           ),
+          padding: padding == null
+              ? null
+              : WidgetStateProperty.all<EdgeInsetsGeometry>(padding!),
+          tapTargetSize: tapTargetSize,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -8,17 +8,28 @@ import 'package:zheeta/router/app_router.gr.dart';
 
 Widget buildFloatingActionButton(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.only(bottom: 20.0),
+    padding: const EdgeInsets.only(bottom: 35.0),
     // Adjust the button's vertical position
-    child: FloatingActionButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(100),
+    child: SizedBox(
+      height: 64,
+      width: 64,
+      child: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+        backgroundColor: Colors.white,
+        onPressed: () {
+          _showCreateNewBottomSheet(context);
+        },
+        child: Transform.scale(
+          scale: 1.22,
+          child: SvgPicture.asset(
+            'assets/images/icons/plus.svg',
+            width: 30,
+            height: 30,
+          ),
+        ),
       ),
-      backgroundColor: Colors.white,
-      onPressed: () {
-        _showCreateNewBottomSheet(context);
-      },
-      child: SvgPicture.asset('assets/images/icons/plus.svg'),
     ),
   );
 }

@@ -23,6 +23,9 @@ abstract class SearchUserByCustomer with _$SearchUserByCustomer {
   factory SearchUserByCustomer({
     String? profileDisplayURL,
     String? username,
+    String? fullName,
+    String? gender,
+    int? age,
     String? userId,
     bool? isFullyVerified,
   }) = _SearchUserByCustomer;

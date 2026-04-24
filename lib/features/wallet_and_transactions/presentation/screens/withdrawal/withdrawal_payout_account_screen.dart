@@ -25,7 +25,7 @@ class WithdrawalPayoutAccountScreen extends StatelessWidget {
         elevation: 0.0,
         leading: AppBackButton(),
         title: Text(
-          'Existing Payout Accounts',
+          'Payout',
           style: TextStyle(
             color: AppColors.grayscale,
             fontSize: 18,
@@ -135,8 +135,7 @@ class WithdrawalPayoutAccountScreen extends StatelessWidget {
                 ),
                 CreateAccountPrompt(
                   onClick: () {
-                    // Handle redirection logic here
-                    context.router.popAndPush(PayoutMenuRoute());
+                    context.router.push(const PayoutCreateAccount());
                   },
                 ),
                 SizedBox(height: 30),

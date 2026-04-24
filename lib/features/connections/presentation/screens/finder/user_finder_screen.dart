@@ -4,17 +4,32 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/constants/debouncer.dart';
 import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/app/presentation/widgets/general_footer_nav.dart';
 import 'package:zheeta/features/profile/domain/usecases/user_search_usecases.dart';
 import 'package:zheeta/features/profile/presentation/cubits/profile_search_cubit/profile_search_cubit.dart';
 import 'package:zheeta/features/profile/presentation/widgets/search_field.dart';
 import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
+import 'package:zheeta/shared/widgets/gender_age.dart';
+import 'package:zheeta/shared/widgets/gender_indicator.dart';
 import 'package:zheeta/shared/widgets/network_image.dart';
 import 'package:zheeta/shared/widgets/primary_button.dart';
 
 @RoutePage()
 class UserFinderScreen extends StatelessWidget {
   const UserFinderScreen({super.key});
+
+  String _formatGender(String? gender) {
+    if (gender == null || gender.trim().isEmpty) return '';
+
+    final normalizedGender = gender.trim().toLowerCase();
+    if (normalizedGender == '1' || normalizedGender == 'm') return 'M';
+    if (normalizedGender == '2' || normalizedGender == 'f') return 'F';
+    if (normalizedGender == 'male') return 'M';
+    if (normalizedGender == 'female') return 'F';
+
+    return gender.trim();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +39,13 @@ class UserFinderScreen extends StatelessWidget {
     final Debouncer debouncer = Debouncer(milliseconds: 400);
 
     return Scaffold(
+      backgroundColor: AppColors.inputField,
+      extendBody: true,
+      bottomNavigationBar: buildGeneralFooterNav(context),
       appBar: AppBar(
         elevation: 0.0,
+        backgroundColor: AppColors.inputField,
+        surfaceTintColor: AppColors.inputField,
         leading: const AppBackButton(),
         title: const Text('User Finder'),
         centerTitle: true,
@@ -87,47 +107,128 @@ class UserFinderScreen extends StatelessWidget {
                     itemCount: searchedUsers.length,
                     itemBuilder: (context, index) {
                       final user = searchedUsers[index];
-                      return ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 8),
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: CustomNetworkImage(
-                            imageUrl: (user.profileDisplayURL != null &&
-                                    user.profileDisplayURL!.isNotEmpty)
-                                ? user.profileDisplayURL!
-                                : null,
-                            errorWidget: (user.profileDisplayURL == null ||
-                                    user.profileDisplayURL!.isEmpty)
-                                ? const Icon(Icons.person, size: 40)
-                                : null,
-                            height: 45,
-                            width: 45,
-                            fit: BoxFit.cover,
-                          ),
+                      final formattedGender = _formatGender(user.gender);
+
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 8,
                         ),
-                        title: Text(
-                          '@${user.username}',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        trailing: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxHeight: 30,
-                            maxWidth: 130,
-                          ),
-                          child: PrimaryButton(
-                            title: 'View Profile',
-                            fontSize: 12,
-                            action: () {
-                              context.router.push(
-                                ProfileViewRoute(
-                                  profileId: user.userId!,
-                                ),
-                              );
-                            },
-                          ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: CustomNetworkImage(
+                                imageUrl: (user.profileDisplayURL != null &&
+                                        user.profileDisplayURL!.isNotEmpty)
+                                    ? user.profileDisplayURL!
+                                    : null,
+                                errorWidget: (user.profileDisplayURL == null ||
+                                        user.profileDisplayURL!.isEmpty)
+                                    ? const Icon(Icons.person, size: 40)
+                                    : null,
+                                height: 52,
+                                width: 52,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '@${user.username ?? ''}',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  if ((user.fullName ?? '').trim().isNotEmpty ||
+                                      (user.isFullyVerified ?? false) ||
+                                      (formattedGender.isNotEmpty &&
+                                          user.age != null))
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 2),
+                                      child: Row(
+                                        children: [
+                                          if ((user.fullName ?? '')
+                                              .trim()
+                                              .isNotEmpty)
+                                            Flexible(
+                                              child: Text(
+                                                user.fullName!.trim(),
+                                                style: const TextStyle(
+                                                  color: AppColors.grayscale,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          if ((user.fullName ?? '')
+                                                  .trim()
+                                                  .isNotEmpty &&
+                                              ((user.isFullyVerified ??
+                                                      false) ||
+                                                  (formattedGender.isNotEmpty &&
+                                                      user.age != null)))
+                                            const SizedBox(width: 6),
+                                          if (user.isFullyVerified ??
+                                              false) ...[
+                                            Image.asset(
+                                              'assets/images/badge.png',
+                                              width: 19,
+                                              height: 19,
+                                            ),
+                                            const SizedBox(width: 6),
+                                          ],
+                                          if (formattedGender.isNotEmpty &&
+                                              user.age != null) ...[
+                                            GenderAgeWidget(
+                                              gender: formattedGender,
+                                              age: user.age!,
+                                            ),
+                                            const SizedBox(width: 6),
+                                            GenderIndicator(
+                                              gender: formattedGender,
+                                            ),
+                                          ],
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            SizedBox(
+                              width: 100,
+                              height: 30,
+                              child: PrimaryButton(
+                                title: 'View Profile',
+                                fontSize: 10.5,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                action: user.userId == null
+                                    ? null
+                                    : () {
+                                        context.router.push(
+                                          ProfileViewRoute(
+                                            profileId: user.userId!,
+                                          ),
+                                        );
+                                      },
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },

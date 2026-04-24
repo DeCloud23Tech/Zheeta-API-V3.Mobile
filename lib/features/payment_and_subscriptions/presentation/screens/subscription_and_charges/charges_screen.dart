@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/app/presentation/widgets/general_footer_nav.dart';
 import 'package:zheeta/features/payment_and_subscriptions/presentation/cubits/charges_cubit/charges_cubit.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
 import 'package:zheeta/shared/widgets/error_page.dart';
@@ -31,6 +32,8 @@ class _ChargeListScreenState extends State<ChargeListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryDark,
+      extendBody: true,
+      bottomNavigationBar: buildGeneralFooterNav(context),
       appBar: AppBar(
         backgroundColor: AppColors.primaryDark,
         elevation: 0.0,

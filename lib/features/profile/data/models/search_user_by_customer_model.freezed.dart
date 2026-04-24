@@ -254,6 +254,9 @@ class __$SearchUserByCustomerListModelCopyWithImpl<$Res>
 mixin _$SearchUserByCustomer {
   String? get profileDisplayURL;
   String? get username;
+  String? get fullName;
+  String? get gender;
+  int? get age;
   String? get userId;
   bool? get isFullyVerified;
 
@@ -277,6 +280,10 @@ mixin _$SearchUserByCustomer {
                 other.profileDisplayURL == profileDisplayURL) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.age, age) || other.age == age) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.isFullyVerified, isFullyVerified) ||
                 other.isFullyVerified == isFullyVerified));
@@ -284,12 +291,12 @@ mixin _$SearchUserByCustomer {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, profileDisplayURL, username, userId, isFullyVerified);
+  int get hashCode => Object.hash(runtimeType, profileDisplayURL, username,
+      fullName, gender, age, userId, isFullyVerified);
 
   @override
   String toString() {
-    return 'SearchUserByCustomer(profileDisplayURL: $profileDisplayURL, username: $username, userId: $userId, isFullyVerified: $isFullyVerified)';
+    return 'SearchUserByCustomer(profileDisplayURL: $profileDisplayURL, username: $username, fullName: $fullName, gender: $gender, age: $age, userId: $userId, isFullyVerified: $isFullyVerified)';
   }
 }
 
@@ -302,6 +309,9 @@ abstract mixin class $SearchUserByCustomerCopyWith<$Res> {
   $Res call(
       {String? profileDisplayURL,
       String? username,
+      String? fullName,
+      String? gender,
+      int? age,
       String? userId,
       bool? isFullyVerified});
 }
@@ -321,6 +331,9 @@ class _$SearchUserByCustomerCopyWithImpl<$Res>
   $Res call({
     Object? profileDisplayURL = freezed,
     Object? username = freezed,
+    Object? fullName = freezed,
+    Object? gender = freezed,
+    Object? age = freezed,
     Object? userId = freezed,
     Object? isFullyVerified = freezed,
   }) {
@@ -333,6 +346,18 @@ class _$SearchUserByCustomerCopyWithImpl<$Res>
           ? _self.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
+      fullName: freezed == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: freezed == gender
+          ? _self.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      age: freezed == age
+          ? _self.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as int?,
       userId: freezed == userId
           ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -351,6 +376,9 @@ class _SearchUserByCustomer implements SearchUserByCustomer {
   _SearchUserByCustomer(
       {this.profileDisplayURL,
       this.username,
+      this.fullName,
+      this.gender,
+      this.age,
       this.userId,
       this.isFullyVerified});
   factory _SearchUserByCustomer.fromJson(Map<String, dynamic> json) =>
@@ -360,6 +388,12 @@ class _SearchUserByCustomer implements SearchUserByCustomer {
   final String? profileDisplayURL;
   @override
   final String? username;
+  @override
+  final String? fullName;
+  @override
+  final String? gender;
+  @override
+  final int? age;
   @override
   final String? userId;
   @override
@@ -390,6 +424,10 @@ class _SearchUserByCustomer implements SearchUserByCustomer {
                 other.profileDisplayURL == profileDisplayURL) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.age, age) || other.age == age) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.isFullyVerified, isFullyVerified) ||
                 other.isFullyVerified == isFullyVerified));
@@ -397,12 +435,12 @@ class _SearchUserByCustomer implements SearchUserByCustomer {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, profileDisplayURL, username, userId, isFullyVerified);
+  int get hashCode => Object.hash(runtimeType, profileDisplayURL, username,
+      fullName, gender, age, userId, isFullyVerified);
 
   @override
   String toString() {
-    return 'SearchUserByCustomer(profileDisplayURL: $profileDisplayURL, username: $username, userId: $userId, isFullyVerified: $isFullyVerified)';
+    return 'SearchUserByCustomer(profileDisplayURL: $profileDisplayURL, username: $username, fullName: $fullName, gender: $gender, age: $age, userId: $userId, isFullyVerified: $isFullyVerified)';
   }
 }
 
@@ -417,6 +455,9 @@ abstract mixin class _$SearchUserByCustomerCopyWith<$Res>
   $Res call(
       {String? profileDisplayURL,
       String? username,
+      String? fullName,
+      String? gender,
+      int? age,
       String? userId,
       bool? isFullyVerified});
 }
@@ -436,6 +477,9 @@ class __$SearchUserByCustomerCopyWithImpl<$Res>
   $Res call({
     Object? profileDisplayURL = freezed,
     Object? username = freezed,
+    Object? fullName = freezed,
+    Object? gender = freezed,
+    Object? age = freezed,
     Object? userId = freezed,
     Object? isFullyVerified = freezed,
   }) {
@@ -448,6 +492,18 @@ class __$SearchUserByCustomerCopyWithImpl<$Res>
           ? _self.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
+      fullName: freezed == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gender: freezed == gender
+          ? _self.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      age: freezed == age
+          ? _self.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as int?,
       userId: freezed == userId
           ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable

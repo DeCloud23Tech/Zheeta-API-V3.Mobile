@@ -10,7 +10,6 @@ import 'package:zheeta/features/connections/presentation/cubits/all_friends_cubi
 import 'package:zheeta/features/connections/presentation/cubits/block_account_cubit/block_account_cubit.dart';
 import 'package:zheeta/features/connections/presentation/cubits/blocked_users_cubit/blocked_users_cubit.dart';
 import 'package:zheeta/features/profile/data/models/blocked_user_model.dart';
-import 'package:zheeta/features/profile/presentation/cubits/profile_cubit/profile_cubit.dart';
 import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
 import 'package:zheeta/shared/widgets/loader.dart';
@@ -235,36 +234,39 @@ class _FriendScreenState extends State<FriendScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 25,
-                backgroundImage: NetworkImage(friend.friendProfilePicture),
-              ),
-              SizedBox(width: 10),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.25,
+          Expanded(
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(friend.friendProfilePicture),
                 ),
-                child: Text(
-                  '@${friend.friendUsername}',
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    '@${friend.friendUsername}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+          SizedBox(width: 6),
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (!friend.friendBlockStatus)
                 SizedBox(
-                  width: 72,
+                  width: 70,
                   height: 28,
                   child: PrimaryButton(
                     invert: true,
                     showBorder: true,
-                    fontSize: 11.5,
+                    fontSize: 11,
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     title: 'Block',
                     action: () {
                       _blockAccountCubit.blockUser(
@@ -274,15 +276,15 @@ class _FriendScreenState extends State<FriendScreen> {
                     },
                   ),
                 ),
-              SizedBox(width: 8),
-              // subtitle: Text('${user.isFullyVerified ?? 'N/A'}'),
-
+              if (!friend.friendBlockStatus) SizedBox(width: 6),
               SizedBox(
-                width: 110,
+                width: 102,
                 height: 28,
                 child: PrimaryButton(
                   title: 'View Profile',
-                  fontSize: 11.5,
+                  fontSize: 10.5,
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   action: () {
                     context.router.push(
                       ProfileViewRoute(
@@ -305,23 +307,34 @@ class _FriendScreenState extends State<FriendScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 25,
-                backgroundImage: NetworkImage(blockedUser.profilePhotoURL),
-              ),
-              SizedBox(width: 10),
-              Text(blockedUser.fullName),
-            ],
+          Expanded(
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(blockedUser.profilePhotoURL),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    blockedUser.fullName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
           ),
+          SizedBox(width: 6),
           SizedBox(
-            width: 92,
+            width: 82,
             height: 28,
             child: PrimaryButton(
               title: 'Unblock',
+              fontSize: 10.5,
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               action: () async {
                 final userId = await TokenUtil.getUserId();
                 if (userId != null) {

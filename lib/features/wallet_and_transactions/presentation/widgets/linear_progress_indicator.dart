@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class LinearProgressTracking extends StatelessWidget {
   final List<double> values; // can be any positive numbers
   final List<Color> colors;
@@ -38,7 +37,7 @@ class _SegmentedProgressPainter extends CustomPainter {
     // --- Normalize values ---
     double total = values.fold(0.0, (a, b) => a + b);
     List<double> normalized =
-    total > 1 ? values.map((v) => v / total).toList() : values;
+        total > 1 ? values.map((v) => v / total).toList() : values;
 
     double startX = 0;
     for (int i = 0; i < normalized.length; i++) {
@@ -59,9 +58,9 @@ class _SegmentedProgressPainter extends CustomPainter {
 
     // --- Grey background if total < 1 ---
     final normalizedTotal =
-    normalized.fold(0.0, (a, b) => a + b).clamp(0.0, 1.0);
+        normalized.fold(0.0, (a, b) => a + b).clamp(0.0, 1.0);
     if (normalizedTotal < 1.0) {
-      paint.color = Colors.grey.shade300;
+      paint.color = const Color(0xFFDADADA);
       final rect = RRect.fromLTRBR(
         startX,
         0,

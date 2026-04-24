@@ -33,6 +33,9 @@ _SearchUserByCustomer _$SearchUserByCustomerFromJson(
     _SearchUserByCustomer(
       profileDisplayURL: json['profileDisplayURL'] as String?,
       username: json['username'] as String?,
+      fullName: json['fullName'] as String?,
+      gender: json['gender'] as String?,
+      age: (json['age'] as num?)?.toInt(),
       userId: json['userId'] as String?,
       isFullyVerified: json['isFullyVerified'] as bool?,
     );
@@ -42,6 +45,9 @@ Map<String, dynamic> _$SearchUserByCustomerToJson(
     <String, dynamic>{
       'profileDisplayURL': instance.profileDisplayURL,
       'username': instance.username,
+      'fullName': instance.fullName,
+      'gender': instance.gender,
+      'age': instance.age,
       'userId': instance.userId,
       'isFullyVerified': instance.isFullyVerified,
     };

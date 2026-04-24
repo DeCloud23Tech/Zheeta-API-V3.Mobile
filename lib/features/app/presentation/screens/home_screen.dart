@@ -7,8 +7,7 @@ import 'package:zheeta/core/services/agreement_service.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/app/presentation/cubits/app_cubit/app_cubit.dart';
 import 'package:zheeta/features/app/presentation/cubits/bottom_nav_cubit/bottom_nav_cubit.dart';
-import 'package:zheeta/features/app/presentation/widgets/bottom_nav_bar.dart';
-import 'package:zheeta/features/app/presentation/widgets/floating_action_button.dart';
+import 'package:zheeta/features/app/presentation/widgets/general_footer_nav.dart';
 import 'package:zheeta/features/buddy_events/presentation/screens/events_feed/event_feed_screen.dart';
 import 'package:zheeta/features/discover/presentation/screens/discover_screen.dart';
 import 'package:zheeta/features/messages/presentation/screens/chat_conversation_screen.dart';
@@ -71,6 +70,13 @@ class _HomeScreenState extends State<HomeScreen> {
       context.router.replaceAll([const HomeRoute()]);
     });
   }
+
+  final pages = [
+    const DiscoverPage(),
+    const EventFeedPage(),
+    const ChatConversationScreen(),
+    const ProfilePage(),
+  ];
 
   final appBars = [
     AppBar(
@@ -169,25 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
     null // For ProfileScreen, no AppBar
   ];
 
-  final pages = [
-    const DiscoverPage(),
-    const EventFeedPage(),
-    const ChatConversationScreen(),
-    const ProfilePage(),
-  ];
-
   final bgColors = [
     AppColors.primaryDark,
     AppColors.primaryDark,
     AppColors.secondaryLight,
     AppColors.secondaryLight,
-  ];
-
-  final icons = [
-    ["Discover", "assets/images/icons/card.svg"],
-    ["Feed", "assets/images/icons/feed.svg"],
-    ["Messages", "assets/images/icons/messages.svg"],
-    ["Profile", "assets/images/icons/user.svg"],
   ];
 
   @override
@@ -211,27 +203,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 drawer: const SideDrawer(),
                 backgroundColor: bgColors[index],
                 appBar: appBars[index],
-                body: Column(
-                  children: [
-                    Expanded(child: pages[index]),
-                    buildBottomNavigationBar(
-                      icons,
-                      context,
-                      (newIndex) {
-                        final bottomNavCubit = locator<BottomNavCubit>();
-                        bottomNavCubit.changeTab(newIndex);
+                extendBody: true,
+                body: pages[index],
+                bottomNavigationBar: buildAppFooterNav(
+                  context,
+                  onItemSelected: (newIndex) {
+                    final bottomNavCubit = locator<BottomNavCubit>();
+                    bottomNavCubit.changeTab(newIndex);
 
-                        // Refresh matches only when switching to tab 0
-                        if (newIndex == 0) {
-                          appCubit.refreshMatches();
-                        }
-                      },
-                    ),
-                  ],
+                    if (newIndex == 0) {
+                      appCubit.refreshMatches();
+                    }
+                  },
                 ),
-                floatingActionButton: buildFloatingActionButton(context),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerDocked,
               );
             },
           );

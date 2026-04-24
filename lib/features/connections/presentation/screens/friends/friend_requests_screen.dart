@@ -5,6 +5,7 @@ import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/core/utils/pagination_controller.dart';
 import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/app/presentation/widgets/general_footer_nav.dart';
 import 'package:zheeta/features/connections/data/requests/friend_request_model.dart';
 import 'package:zheeta/features/connections/data/models/get_pending_friends_model.dart';
 import 'package:zheeta/features/connections/presentation/cubits/friends_cubit/friends_cubit.dart';
@@ -107,6 +108,8 @@ class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
       ],
       child: Scaffold(
         backgroundColor: AppColors.secondaryLight,
+        extendBody: true,
+        bottomNavigationBar: buildGeneralFooterNav(context),
         appBar: AppBar(
           backgroundColor: AppColors.secondaryLight,
           elevation: 0,

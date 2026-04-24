@@ -1,6 +1,6 @@
 // These are strings across the app
 
-const heroTitle = 'Ẹ Kàá bó !';
+const heroTitle = 'Welcome !';
 const heroSubtitle =
     'You are a little step closer to connecting with other africans across the globe, building relationships, socializing & making money in the process.';
 

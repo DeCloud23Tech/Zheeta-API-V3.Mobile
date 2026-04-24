@@ -10,6 +10,7 @@ import 'package:zheeta/features/profile/presentation/widgets/counter.dart';
 import 'package:zheeta/features/profile/presentation/widgets/intrests_tile.dart';
 import 'package:zheeta/features/profile/presentation/widgets/recent-downlines.dart';
 import 'package:zheeta/features/profile/presentation/widgets/tab_button.dart';
+import 'package:zheeta/features/profile/presentation/widgets/basic_profile_section.dart';
 import 'package:zheeta/features/profile/presentation/widgets/user_bio.dart';
 import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/bottom_sheets/reusable_bottom_sheet.dart';
@@ -100,7 +101,20 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
 
   Widget _buildUserHeader() {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          width: 74,
+          height: 74,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              image: NetworkImage(widget.theUser.profile!.profilePhotoURL!),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,13 +238,13 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
         children: [
           buildCounterWidget(
               count: widget.theUser.profileCounters?.friendsCount,
-              label: 'Friends'),
+              label: 'Total Friends'),
           buildCounterWidget(
               count: widget.theUser.profileCounters?.downlinesCount,
-              label: 'Downlines'),
+              label: 'Direct Downlines'),
           buildCounterWidget(
               count: widget.theUser.profileCounters?.successfulEventCount,
-              label: 'Events'),
+              label: 'Hosted Events'),
         ],
       ),
     );
@@ -284,6 +298,7 @@ class _BuildUserInfoState extends State<BuildUserInfo> {
           showFullBio: _showFullBio,
           toggleBio: toggleBio,
         ),
+        BasicProfileSection(user: widget.theUser),
         if (widget.theUser.userDownlines != null)
           RecentDownlinesWidget(
             userDownlines: widget.theUser.userDownlines!,

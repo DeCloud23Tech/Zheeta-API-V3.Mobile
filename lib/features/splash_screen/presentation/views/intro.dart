@@ -100,13 +100,22 @@ class _IntroScreenState extends State<IntroScreen>
     );
 
     return Scaffold(
+      backgroundColor: AppColors.primaryDark,
       body: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          Center(
+          const Positioned.fill(
+            child: ColoredBox(
+              color: AppColors.primaryDark,
+            ),
+          ),
+          Positioned.fill(
             child: FadeTransition(
               opacity: imageFade,
-              child: Image.asset("assets/images/heroo.png"),
+              child: Image.asset(
+                "assets/images/heroo.png",
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Center(

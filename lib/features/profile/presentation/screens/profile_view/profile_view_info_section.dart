@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/utils/extensions/string_extension.dart';
+import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/core/utils/token_utils.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/connections/presentation/cubits/block_account_cubit/block_account_cubit.dart';
@@ -14,6 +15,7 @@ import 'package:zheeta/features/profile/presentation/widgets/counter.dart';
 import 'package:zheeta/features/profile/presentation/widgets/intrests_tile.dart';
 import 'package:zheeta/features/profile/presentation/widgets/recent-downlines.dart';
 import 'package:zheeta/features/profile/presentation/widgets/tab_button.dart';
+import 'package:zheeta/features/profile/presentation/widgets/basic_profile_section.dart';
 import 'package:zheeta/features/profile/presentation/widgets/user_bio.dart';
 import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/bottom_sheets/reusable_bottom_sheet.dart';
@@ -63,6 +65,31 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
   bool _showFullBio = false;
 
   void toggleBio() => setState(() => _showFullBio = !_showFullBio);
+
+  String _shortenCountry(String? country) {
+    final normalizedCountry = country?.trim().toLowerCase() ?? '';
+
+    switch (normalizedCountry) {
+      case 'united states':
+      case 'united states of america':
+        return 'US';
+      case 'united kingdom':
+        return 'UK';
+      case 'united arab emirates':
+      case 'united arab emirate':
+        return 'UAE';
+      default:
+        return country?.trim() ?? '';
+    }
+  }
+
+  String _formatDistance(double distance) {
+    if (distance == distance.roundToDouble()) {
+      return '${distance.toInt()}km Away';
+    }
+
+    return '${distance.toStringAsFixed(1)}km Away';
+  }
 
   @override
   void initState() {
@@ -123,7 +150,18 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
   }
 
   Widget _buildHeader(UserProfileDataModel user) {
+    final city = user.profile?.residentialAddress?.city?.trim() ?? '';
+    final country = _shortenCountry(
+      user.profile?.residentialAddress?.country,
+    );
+    final locationParts = [
+      if (city.isNotEmpty) city,
+      if (country.isNotEmpty) country
+    ];
+    final locationText = locationParts.join(', ');
+
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           width: 74,
@@ -136,96 +174,131 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
             ),
           ),
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: 12),
         Expanded(
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  if (user.user!.isFullyVerified!)
-                    Image.asset('assets/images/badge.png',
-                        width: 19, height: 19),
-                  SubscriptionBadge(
-                      text: user.userSubscription?.name?.trim() ?? ''),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      showCustomModalBottomSheet(
-                        context: context,
-                        titles: ['Report profile', 'Block user'],
-                        icons: [
-                          'assets/images/icons/user-profile.svg',
-                          'assets/images/icons/interests-outline-rounded.svg',
-                        ],
-                        actions: [
-                          () {
-                            // TODO: Add report logic
-                          },
-                          () {
-                            final userId = widget.userId;
-                            final blockId = widget.blockOrUnBlockId;
-                            print(userId);
-                            print(blockId);
-
-                            if (userId != null && blockId != null) {
-                              context
-                                  .read<BlockAccountCubit>()
-                                  .blockUser(userId, blockId);
-                            }
-
-                            // Navigator.of(context).pop(); // close the sheet
-                          },
-                        ],
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: SvgPicture.asset('assets/images/icons/dots.svg',
-                          width: 30),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        if (user.user!.isFullyVerified!)
+                          Image.asset(
+                            'assets/images/badge.png',
+                            width: 19,
+                            height: 19,
+                          ),
+                        SubscriptionBadge(
+                          text: user.userSubscription?.name?.trim() ?? '',
+                          margin: EdgeInsets.zero,
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 6),
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          '@${user.user?.userName ?? ''}',
+                          style: const TextStyle(
+                            color: AppColors.darkText,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          '${user.profile?.firstName ?? ''} ${user.profile?.lastName ?? ''}',
+                          style: const TextStyle(
+                            color: AppColors.grayscaleBody,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        GenderAgeWidget(
+                          gender:
+                              user.profile?.gender?.toString().getFirstLetter ??
+                                  '',
+                          age: user.profile?.age ?? 0,
+                        ),
+                        const SizedBox(width: 8),
+                        GenderIndicator(
+                          gender:
+                              user.profile!.gender.toString().getFirstLetter,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            locationText.isEmpty
+                                ? _formatDistance(widget.profileData.distance)
+                                : '$locationText (${_formatDistance(widget.profileData.distance)})',
+                            style: const TextStyle(
+                              color: AppColors.grayscaleBody,
+                              fontSize: 12,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 5),
-              Text(
-                '@${user.user?.userName ?? ''}',
-                style: const TextStyle(
-                    color: AppColors.darkText,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600),
-              ),
-              Text(
-                '${user.profile?.firstName ?? ''} ${user.profile?.lastName ?? ''}',
-                style: const TextStyle(
-                    color: AppColors.grayscaleBody, fontSize: 12),
-              ),
-              const SizedBox(height: 5),
-              Row(
-                children: [
-                  GenderAgeWidget(
-                    gender:
-                        user.profile?.gender?.toString().getFirstLetter ?? '',
-                    age: user.profile?.age ?? 0,
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () {
+                  showCustomModalBottomSheet(
+                    context: context,
+                    titles: ['Report profile', 'Block user'],
+                    icons: [
+                      'assets/images/icons/user-profile.svg',
+                      'assets/images/icons/interests-outline-rounded.svg',
+                    ],
+                    actions: [
+                      () {
+                        // TODO: Add report logic
+                      },
+                      () {
+                        final userId = widget.userId;
+                        final blockId = widget.blockOrUnBlockId;
+                        print(userId);
+                        print(blockId);
+
+                        if (userId != null && blockId != null) {
+                          context.read<BlockAccountCubit>().blockUser(
+                                userId,
+                                blockId,
+                              );
+                        }
+                      },
+                    ],
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(100),
                   ),
-                  const SizedBox(width: 10),
-                  GenderIndicator(
-                    gender: user.profile!.gender.toString().getFirstLetter,
+                  child: SvgPicture.asset(
+                    'assets/images/icons/dots.svg',
+                    width: 30,
                   ),
-                  const Spacer(),
-                  Text(
-                    '${user.profile?.residentialAddress?.city}, ${user.profile?.residentialAddress?.country}',
-                    style: const TextStyle(
-                        color: AppColors.grayscaleBody, fontSize: 12),
-                  ),
-                  const Spacer(),
-                ],
+                ),
               ),
             ],
           ),
@@ -235,23 +308,35 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
   }
 
   Widget _buildChatButton(ViewProfileModel profileData) {
-    if (!profileData.isFriend) return const SizedBox.shrink();
+    final isDisabled = !profileData.canMessage;
+
     return SizedBox(
       height: 40,
-      child: PrimaryButton(
-        icon: 'assets/images/icons/chat_user.svg',
-        invert: false,
-        title: 'Chat User',
-        action: () async {
-          final userId = await TokenUtil.getUserId();
-          if (!mounted) return;
-          // context.router.push(ChatConversationRoute(
-          //   userName:
-          //   '${widget.theUser.profile!.firstName} ${widget.theUser.profile!.lastName}',
-          //   profileId: widget.profileId,
-          //   currentUserId: userId!,
-          // ));
-        },
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: isDisabled
+            ? () => NotifyUser.showSnackBar(
+                'Upgrade your subscription plan to chat with this User')
+            : null,
+        child: AbsorbPointer(
+          absorbing: isDisabled,
+          child: PrimaryButton(
+            icon: 'assets/images/icons/chat_user.svg',
+            invert: false,
+            disabled: isDisabled,
+            title: 'Chat User',
+            action: () async {
+              final userId = await TokenUtil.getUserId();
+              if (!mounted) return;
+              // context.router.push(ChatConversationRoute(
+              //   userName:
+              //   '${widget.theUser.profile!.firstName} ${widget.theUser.profile!.lastName}',
+              //   profileId: widget.profileId,
+              //   currentUserId: userId!,
+              // ));
+            },
+          ),
+        ),
       ),
     );
   }
@@ -267,12 +352,14 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildCounterWidget(
-              count: user.profileCounters?.friendsCount, label: 'Friends'),
+              count: user.profileCounters?.friendsCount,
+              label: 'Total Friends'),
           buildCounterWidget(
-              count: user.profileCounters?.downlinesCount, label: 'Downlines'),
+              count: user.profileCounters?.downlinesCount,
+              label: 'Direct Downlines'),
           buildCounterWidget(
               count: user.profileCounters?.successfulEventCount,
-              label: 'Events'),
+              label: 'Hosted Events'),
         ],
       ),
     );
@@ -315,6 +402,7 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
           showFullBio: _showFullBio,
           toggleBio: toggleBio,
         ),
+        BasicProfileSection(user: user),
         if (profileData.isFriend)
           Padding(
             padding: const EdgeInsets.only(top: 20),

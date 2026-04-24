@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/core/constants/color.dart';
+import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/core/utils/pagination_controller.dart';
 import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/app/presentation/widgets/general_footer_nav.dart';
 import 'package:zheeta/features/wallet_and_transactions/data/models/transaction_model.dart';
-import 'package:zheeta/features/wallet_and_transactions/data/models/wallet_counters_model.dart';
 import 'package:zheeta/features/wallet_and_transactions/presentation/cubits/transactions_cubit/transactions_cubit.dart';
 import 'package:zheeta/features/wallet_and_transactions/presentation/cubits/wallet_cubit/wallet_cubit.dart';
 import 'package:zheeta/features/wallet_and_transactions/presentation/widgets/balance_card.dart';
@@ -38,15 +39,8 @@ class _WalletScreenState extends State<WalletScreen> {
     transactionsCubit.initWithUserId();
   }
 
-  /// Only calculate silver + gold progress (exclude regulars)
-  List<double> _calculateProgress(WalletCounters counters) {
-    final total = (counters.silverCount + counters.goldCount).toDouble();
-    if (total == 0) return [0.0, 0.0];
-    return [
-      counters.silverCount / total,
-      counters.goldCount / total,
-    ];
-  }
+  // Progress is currently design-driven rather than counter-driven.
+  static const List<double> _walletProgressValues = [0.38, 0.22];
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +48,8 @@ class _WalletScreenState extends State<WalletScreen> {
       appBar: _buildAppBar(),
       drawer: const SideDrawer(),
       backgroundColor: AppColors.primaryDark,
+      extendBody: true,
+      bottomNavigationBar: buildGeneralFooterNav(context),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: RefreshIndicator(
@@ -64,7 +60,7 @@ class _WalletScreenState extends State<WalletScreen> {
           child: ListView(
             children: [
               _buildWalletBalance(),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               _buildWalletActions(),
               const SizedBox(height: 25),
               _buildTransactionSection(),
@@ -112,18 +108,24 @@ class _WalletScreenState extends State<WalletScreen> {
         if (state is WalletLoading) {
           return const BalanceCard(
             balance: 0,
-            silverCount: '0',
-            goldCount: '0',
-            progressValues: [0.0, 0.0],
-            progressColors: [Colors.greenAccent, Colors.orange],
+            // silverCount: '0',
+            // goldCount: '0',
+            progressValues: _walletProgressValues,
+            progressColors: [
+              Color(0xFF4CE5B1),
+              Color(0xFFFF8900),
+            ],
           );
         } else if (state is WalletLoaded) {
           return BalanceCard(
             balance: state.walletCounters.balance,
-            silverCount: state.walletCounters.silverCount.toString(),
-            goldCount: state.walletCounters.goldCount.toString(),
-            progressValues: _calculateProgress(state.walletCounters),
-            progressColors: [Colors.greenAccent, Colors.orange],
+            // silverCount: state.walletCounters.silverCount.toString(),
+            // goldCount: state.walletCounters.goldCount.toString(),
+            progressValues: _walletProgressValues,
+            progressColors: [
+              Color(0xFF4CE5B1),
+              Color(0xFFFF8900),
+            ],
           );
         }
         return const SizedBox();
@@ -139,7 +141,7 @@ class _WalletScreenState extends State<WalletScreen> {
             Icons.add_card_outlined, 'Add Funds', PaymentTypeRoute()),
         _walletActionButton(Icons.wallet, 'Send Coins', SendCoinRoute()),
         _walletActionButton(Icons.account_balance_wallet_outlined,
-            'Payout Accounts', PayoutMenuRoute()),
+            'Payout Accounts', WithdrawalPayoutAccountRoute()),
         _walletActionButton(
             Icons.account_balance, 'Withdraw', WithdrawalPayoutAccountRoute()),
       ],
@@ -197,7 +199,7 @@ class _WalletScreenState extends State<WalletScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: const Text(
-        'Recent Transactions',
+        'Transactions',
         style: TextStyle(
           color: AppColors.white,
           fontWeight: FontWeight.w500,
@@ -211,33 +213,38 @@ class _WalletScreenState extends State<WalletScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Spacer(),
-          ElevatedButton.icon(
-            onPressed: state.currentPage > 1
-                ? () {
-                    final prevPage = state.currentPage - 1;
-                    print(
-                        "[WalletScreen] Prev pressed: Jumping to page $prevPage");
-                    transactionsCubit.jumpToPageDirect(prevPage);
-                  }
-                : null,
-            icon: const Icon(Icons.arrow_circle_left_rounded),
-            label: const Text('Prev'),
+          buildButton(
+            text: 'History',
+            icon: Icons.history,
+            onTap: () =>
+                NotifyUser.showSnackBar('History will be available soon'),
           ),
-          const SizedBox(width: 10),
-          ElevatedButton.icon(
-            onPressed: state.hasMore
-                ? () {
-                    final nextPage = state.currentPage + 1;
-                    print(
-                        "[WalletScreen] Next pressed: Jumping to page $nextPage");
-                    transactionsCubit.jumpToPageDirect(nextPage);
-                  }
-                : null,
-            icon: const Icon(Icons.arrow_circle_right_rounded),
-            label: const Text('Next'),
+          Row(
+            children: [
+              ElevatedButton.icon(
+                onPressed: state.currentPage > 1
+                    ? () {
+                        final prevPage = state.currentPage - 1;
+                        transactionsCubit.jumpToPageDirect(prevPage);
+                      }
+                    : null,
+                icon: const Icon(Icons.arrow_circle_left_rounded),
+                label: const Text('Prev'),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton.icon(
+                onPressed: state.hasMore
+                    ? () {
+                        final nextPage = state.currentPage + 1;
+                        transactionsCubit.jumpToPageDirect(nextPage);
+                      }
+                    : null,
+                icon: const Icon(Icons.arrow_circle_right_rounded),
+                label: const Text('Next'),
+              ),
+            ],
           ),
         ],
       ),

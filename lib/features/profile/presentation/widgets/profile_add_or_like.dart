@@ -57,55 +57,33 @@ class ProfileAddOrLike extends StatelessWidget {
                       child: _buildButton(
                         context,
                         'assets/images/icons/add_friend.svg',
-                        'Send-FR',
+                        'Send Friend Request',
                         isLoading: isSending,
                       ),
                     ),
                   ),
                 ],
-                SizedBox(width: 4),
                 if (!visitProfile!.isFriend) ...[
-                  Expanded(
-                    child: InkWell(
-                      onTap: isSending
-                          ? null
-                          : () {
-                              friendsCubit.sendFriendRequestCubit(
-                                receiverId: visitProfile!.profile.user!.userId!,
-                                type: TypeOfRequest.superLike,
-                              );
-                            },
-                      child: _buildButton(
-                        context,
-                        'assets/images/icons/star.svg',
-                        'Send Super-FR',
-                        isLoading: isSending,
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: InkWell(
+                  //     onTap: isSending
+                  //         ? null
+                  //         : () {
+                  //             friendsCubit.sendFriendRequestCubit(
+                  //               receiverId: visitProfile!.profile.user!.userId!,
+                  //               type: TypeOfRequest.superLike,
+                  //             );
+                  //           },
+                  //     child: _buildButton(
+                  //       context,
+                  //       'assets/images/icons/star.svg',
+                  //       'Send Super-FR',
+                  //       isLoading: isSending,
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(width: 15),
                 ],
-                // if (visitProfile?.isFriend ?? false) ...[
-                //   SizedBox(width: 15),
-                //   Expanded(
-                //     child: _buildButton(
-                //       context,
-                //       null,
-                //       'Unfriend',
-                //     ),
-                //   ),
-                // ],
-                SizedBox(width: 4),
-                // if (visitProfile!.canMessage && visitProfile!.isFriend) ...[
-                //   Expanded(
-                //     child: _buildButton(
-                //       context,
-                //       'assets/images/icons/chat_user.svg',
-                //       'Chat User',
-                //     ),
-                //   ),
-                //   SizedBox(width: 15),
-                // ],
               ],
             ),
           ),

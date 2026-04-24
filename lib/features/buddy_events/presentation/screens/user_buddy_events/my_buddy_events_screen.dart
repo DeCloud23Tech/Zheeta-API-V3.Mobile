@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/app/presentation/widgets/general_footer_nav.dart';
 import 'package:zheeta/features/buddy_events/data/models/created_buddy_event.dart';
 import 'package:zheeta/features/buddy_events/data/models/joined_buddy_event.dart';
 import 'package:zheeta/features/buddy_events/presentation/cubits/event_cubit/created_events_cubit.dart';
@@ -56,6 +57,8 @@ class _MyBuddyEventsScreenState extends State<MyBuddyEventsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryDark,
+      extendBody: true,
+      bottomNavigationBar: buildGeneralFooterNav(context),
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
