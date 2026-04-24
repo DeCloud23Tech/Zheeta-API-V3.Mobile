@@ -9,6 +9,7 @@ import 'package:zheeta/core/mixin/validation_mixin.dart';
 import 'package:zheeta/core/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/core/utils/otp_utils.dart';
+import 'package:zheeta/core/utils/pending_verification_utils.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authentication_cubit/authentication_cubit.dart';
@@ -49,12 +50,12 @@ class _VerificationScreenState extends State<VerificationScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.isPhoneNumber) {
-        // context
-        //     .read<AuthenticationCubit>()
-        //     .sendPhoneVerifyOtpCubit(phone: widget.phoneNumber);
-      }
-      // _startResendOtpTimer();
+      PendingVerificationUtils.save(
+        isPhoneNumber: widget.isPhoneNumber,
+        phoneNumber: widget.phoneNumber,
+        countryCode: widget.countryCode,
+        email: widget.email,
+      );
     });
   }
 
@@ -107,6 +108,7 @@ class _VerificationScreenState extends State<VerificationScreen>
       if (!mounted) return;
       _isNavigating = true;
       if (widget.isPhoneNumber) {
+        await PendingVerificationUtils.clear();
         final IUserStorage userStorage = locator<IUserStorage>();
         await userStorage.clear();
         if (!context.mounted) return;
@@ -287,6 +289,7 @@ class _VerificationScreenState extends State<VerificationScreen>
                           title: 'Skip',
                           action: () async {
                             if (_isNavigating) return;
+                            await PendingVerificationUtils.clear();
                             final IUserStorage userStorage =
                                 locator<IUserStorage>();
                             await userStorage.clear();

@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:geocoding/geocoding.dart';
 
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/location/location_cubit.dart';
@@ -125,10 +126,10 @@ class LocationScreenState extends State<LocationScreen>
       NotifyUser.showSnackBar('City is required');
       return;
     }
-    if ((selectedState).isEmpty) {
-      NotifyUser.showSnackBar('State is required');
-      return;
-    }
+    // if ((selectedState).isEmpty) {
+    //   NotifyUser.showSnackBar('State is required');
+    //   return;
+    // }
     if ((selectedCountry).isEmpty) {
       NotifyUser.showSnackBar('Country is required');
       return;
@@ -145,7 +146,7 @@ class LocationScreenState extends State<LocationScreen>
     profileCreateCubit.updateProfileLocationData(
       address: _address.text,
       city: _city.text,
-      state: selectedState,
+      state: '',
       country: selectedCountry,
       postcode: _postcode.text,
       longitude: _longitude!,
@@ -289,28 +290,28 @@ class LocationScreenState extends State<LocationScreen>
 
                           /// **State Dropdown**
 
-                          DropdownInputField(
-                            value: allStates.contains(selectedState)
-                                ? selectedState
-                                : null,
-                            hintText: 'State',
-                            searchHintText: 'Search states...',
-                            noResultsWidget: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Text(
-                                'No matching states found',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                            validator: isValidInput,
-                            onChanged: (value) {
-                              if (value != null) {
-                                setState(() => selectedState = value);
-                              }
-                            },
-                            items: allStates,
-                          ),
+                          // DropdownInputField(
+                          //   value: allStates.contains(selectedState)
+                          //       ? selectedState
+                          //       : null,
+                          //   hintText: 'State',
+                          //   searchHintText: 'Search states...',
+                          //   noResultsWidget: Padding(
+                          //     padding:
+                          //         const EdgeInsets.symmetric(vertical: 8.0),
+                          //     child: Text(
+                          //       'No matching states found',
+                          //       style: TextStyle(color: Colors.grey),
+                          //     ),
+                          //   ),
+                          //   validator: isValidInput,
+                          //   onChanged: (value) {
+                          //     if (value != null) {
+                          //       setState(() => selectedState = value);
+                          //     }
+                          //   },
+                          //   items: allStates,
+                          // ),
 
                           BlocBuilder<AuthenticateCountryCubit,
                               AuthenticateCountryState>(
@@ -336,7 +337,8 @@ class LocationScreenState extends State<LocationScreen>
                                 width: double.infinity,
                                 child: PrimaryButton(
                                   title: 'Continue',
-                                  state: state is ProfileInterestLoading,
+                                  state: state is ProfileInterestLoading ||
+                                      state is LocationLoading,
                                   action: _saveAndContinue,
                                 ),
                               );

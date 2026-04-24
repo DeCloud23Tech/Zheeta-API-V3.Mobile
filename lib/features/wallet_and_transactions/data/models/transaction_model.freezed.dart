@@ -19,8 +19,11 @@ mixin _$TransactionModel {
   String get userId;
   String get title;
   String get fromUsername;
+  @JsonKey(name: 'coinAmount')
   double get amount;
   String get transactionType;
+  @JsonKey(defaultValue: '')
+  String get status;
   DateTime get lastModifiedDate;
   DateTime get createdDate;
 
@@ -48,6 +51,7 @@ mixin _$TransactionModel {
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.transactionType, transactionType) ||
                 other.transactionType == transactionType) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.lastModifiedDate, lastModifiedDate) ||
                 other.lastModifiedDate == lastModifiedDate) &&
             (identical(other.createdDate, createdDate) ||
@@ -57,11 +61,11 @@ mixin _$TransactionModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, title, fromUsername,
-      amount, transactionType, lastModifiedDate, createdDate);
+      amount, transactionType, status, lastModifiedDate, createdDate);
 
   @override
   String toString() {
-    return 'TransactionModel(id: $id, userId: $userId, title: $title, fromUsername: $fromUsername, amount: $amount, transactionType: $transactionType, lastModifiedDate: $lastModifiedDate, createdDate: $createdDate)';
+    return 'TransactionModel(id: $id, userId: $userId, title: $title, fromUsername: $fromUsername, amount: $amount, transactionType: $transactionType, status: $status, lastModifiedDate: $lastModifiedDate, createdDate: $createdDate)';
   }
 }
 
@@ -76,8 +80,9 @@ abstract mixin class $TransactionModelCopyWith<$Res> {
       String userId,
       String title,
       String fromUsername,
-      double amount,
+      @JsonKey(name: 'coinAmount') double amount,
       String transactionType,
+      @JsonKey(defaultValue: '') String status,
       DateTime lastModifiedDate,
       DateTime createdDate});
 }
@@ -101,6 +106,7 @@ class _$TransactionModelCopyWithImpl<$Res>
     Object? fromUsername = null,
     Object? amount = null,
     Object? transactionType = null,
+    Object? status = null,
     Object? lastModifiedDate = null,
     Object? createdDate = null,
   }) {
@@ -129,6 +135,10 @@ class _$TransactionModelCopyWithImpl<$Res>
           ? _self.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
       lastModifiedDate: null == lastModifiedDate
           ? _self.lastModifiedDate
           : lastModifiedDate // ignore: cast_nullable_to_non_nullable
@@ -149,8 +159,9 @@ class _TransactionModel implements TransactionModel {
       required this.userId,
       required this.title,
       required this.fromUsername,
-      required this.amount,
+      @JsonKey(name: 'coinAmount') required this.amount,
       required this.transactionType,
+      @JsonKey(defaultValue: '') required this.status,
       required this.lastModifiedDate,
       required this.createdDate});
   factory _TransactionModel.fromJson(Map<String, dynamic> json) =>
@@ -165,9 +176,13 @@ class _TransactionModel implements TransactionModel {
   @override
   final String fromUsername;
   @override
+  @JsonKey(name: 'coinAmount')
   final double amount;
   @override
   final String transactionType;
+  @override
+  @JsonKey(defaultValue: '')
+  final String status;
   @override
   final DateTime lastModifiedDate;
   @override
@@ -201,6 +216,7 @@ class _TransactionModel implements TransactionModel {
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.transactionType, transactionType) ||
                 other.transactionType == transactionType) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.lastModifiedDate, lastModifiedDate) ||
                 other.lastModifiedDate == lastModifiedDate) &&
             (identical(other.createdDate, createdDate) ||
@@ -210,11 +226,11 @@ class _TransactionModel implements TransactionModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, title, fromUsername,
-      amount, transactionType, lastModifiedDate, createdDate);
+      amount, transactionType, status, lastModifiedDate, createdDate);
 
   @override
   String toString() {
-    return 'TransactionModel(id: $id, userId: $userId, title: $title, fromUsername: $fromUsername, amount: $amount, transactionType: $transactionType, lastModifiedDate: $lastModifiedDate, createdDate: $createdDate)';
+    return 'TransactionModel(id: $id, userId: $userId, title: $title, fromUsername: $fromUsername, amount: $amount, transactionType: $transactionType, status: $status, lastModifiedDate: $lastModifiedDate, createdDate: $createdDate)';
   }
 }
 
@@ -231,8 +247,9 @@ abstract mixin class _$TransactionModelCopyWith<$Res>
       String userId,
       String title,
       String fromUsername,
-      double amount,
+      @JsonKey(name: 'coinAmount') double amount,
       String transactionType,
+      @JsonKey(defaultValue: '') String status,
       DateTime lastModifiedDate,
       DateTime createdDate});
 }
@@ -256,6 +273,7 @@ class __$TransactionModelCopyWithImpl<$Res>
     Object? fromUsername = null,
     Object? amount = null,
     Object? transactionType = null,
+    Object? status = null,
     Object? lastModifiedDate = null,
     Object? createdDate = null,
   }) {
@@ -283,6 +301,10 @@ class __$TransactionModelCopyWithImpl<$Res>
       transactionType: null == transactionType
           ? _self.transactionType
           : transactionType // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
       lastModifiedDate: null == lastModifiedDate
           ? _self.lastModifiedDate

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as p;
 
@@ -17,6 +18,20 @@ class Utility {
         return MediaType.video;
       default:
         return MediaType.unknown;
+    }
+  }
+
+  static Color getStatus(String transactionStaus) {
+    var normalizedStatus = transactionStaus.toLowerCase();
+    switch (normalizedStatus) {
+      case "completed":
+        return Colors.green;
+      case "processing":
+        return Colors.blue;
+      case "failed":
+        return Colors.red;
+      default:
+        return Colors.blue;
     }
   }
 

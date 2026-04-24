@@ -4,6 +4,7 @@ import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/constants/strings.dart';
 import 'package:zheeta/core/constants/text_style.dart';
 import 'package:zheeta/core/storage/token_storage/i_token_storage.dart';
+import 'package:zheeta/core/utils/pending_verification_utils.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/widgets/primary_button.dart';
@@ -39,6 +40,22 @@ class _IntroScreenState extends State<IntroScreen>
   }
 
   Future<void> _checkForLogin() async {
+    final pendingVerification = await PendingVerificationUtils.read();
+    if (pendingVerification != null) {
+      if (mounted) {
+        context.router.pushAndPopUntil(
+          VerificationRoute(
+            isPhoneNumber: pendingVerification.isPhoneNumber,
+            phoneNumber: pendingVerification.phoneNumber,
+            countryCode: pendingVerification.countryCode,
+            email: pendingVerification.email,
+          ),
+          predicate: (route) => false,
+        );
+      }
+      return;
+    }
+
     final token = await _tokenStorage.read();
     if (token != null) {
       // User is logged in, navigate to HomeRoute

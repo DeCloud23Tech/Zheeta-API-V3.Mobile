@@ -12,8 +12,9 @@ _TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String,
       title: json['title'] as String,
       fromUsername: json['fromUsername'] as String,
-      amount: (json['amount'] as num).toDouble(),
+      amount: (json['coinAmount'] as num).toDouble(),
       transactionType: json['transactionType'] as String,
+      status: json['status'] as String? ?? '',
       lastModifiedDate: DateTime.parse(json['lastModifiedDate'] as String),
       createdDate: DateTime.parse(json['createdDate'] as String),
     );
@@ -24,8 +25,9 @@ Map<String, dynamic> _$TransactionModelToJson(_TransactionModel instance) =>
       'userId': instance.userId,
       'title': instance.title,
       'fromUsername': instance.fromUsername,
-      'amount': instance.amount,
+      'coinAmount': instance.amount,
       'transactionType': instance.transactionType,
+      'status': instance.status,
       'lastModifiedDate': instance.lastModifiedDate.toIso8601String(),
       'createdDate': instance.createdDate.toIso8601String(),
     };

@@ -164,7 +164,7 @@ enum DropdownPosition {
 }
 
 class _DropdownInputFieldState extends State<DropdownInputField> {
-  final TextEditingController _searchController = TextEditingController();
+  // final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   List<String> filteredItems = [];
   OverlayEntry? _overlayEntry;
@@ -176,7 +176,7 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
   void initState() {
     super.initState();
     filteredItems = widget.items;
-    _searchController.addListener(_filterItems);
+    // _searchController.addListener(_filterItems);
     _searchFocusNode.addListener(_onSearchFocusChanged);
     _effectivePosition = widget.dropdownPosition;
   }
@@ -191,30 +191,35 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
 
   @override
   void dispose() {
-    _searchController.dispose();
-    // _searchFocusNode.dispose();
-    // _removeOverlay();
+    // _searchController.removeListener(_filterItems);
+    // _searchController.dispose();
+
+    _searchFocusNode.dispose();
+
+    _removeOverlay(fromDispose: true); // 👈 important
+
     super.dispose();
   }
 
   void _onSearchFocusChanged() {
-    if (!_searchFocusNode.hasFocus && _searchController.text.isEmpty) {
-      _removeOverlay();
-    }
+    // if (!_searchFocusNode.hasFocus && _searchController.text.isEmpty) {
+    //   _removeOverlay();
+    // }
   }
 
   void _filterItems() {
-    final searchText = _searchController.text.toLowerCase();
+    if (!mounted) return;
+
+    //final searchText = _searchController.text.toLowerCase();
+    final searchText = "";
     setState(() {
       if (searchText.isEmpty) {
         filteredItems = widget.items;
       } else {
-        // Split search terms by whitespace
         final searchTerms = searchText.split(' ');
 
         filteredItems = widget.items.where((item) {
           final lowerItem = item.toLowerCase();
-          // Match all search terms (AND logic)
           return searchTerms.every((term) => lowerItem.contains(term));
         }).toList();
       }
@@ -222,6 +227,7 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
   }
 
   void _showOverlay() {
+    if (_overlayEntry != null) return;
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
     final offset = renderBox.localToGlobal(Offset.zero);
@@ -245,8 +251,7 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
     if (_effectivePosition == DropdownPosition.below) {
       verticalOffset = size.height + 5;
     } else {
-      verticalOffset =
-          -MediaQuery.of(context).size.height * .45; // Start above the widget
+      verticalOffset = -200; // Start above the widget
     }
 
     _overlayEntry = OverlayEntry(
@@ -279,9 +284,9 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
                   // Reverse order if showing above
                   if (_effectivePosition == DropdownPosition.above) ...[
                     if (filteredItems.isNotEmpty) _buildListItems(),
-                    if (widget.showSearch) _buildSearchField(),
+                    //if (widget.showSearch) _buildSearchField(),
                   ] else ...[
-                    if (widget.showSearch) _buildSearchField(),
+                    // if (widget.showSearch) _buildSearchField(),
                     if (filteredItems.isNotEmpty) _buildListItems(),
                   ],
                   if (filteredItems.isEmpty) _buildNoResults(),
@@ -305,39 +310,39 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
     return availableSpace.clamp(minHeight, screenHeight * maxHeightFactor);
   }
 
-  Widget _buildSearchField() {
-    return Column(
-      children: [
-        Padding(
-          padding: widget.searchPadding ?? const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _searchController,
-            focusNode: _searchFocusNode,
-            style: widget.searchTextStyle,
-            decoration: InputDecoration(
-              hintText: widget.searchHintText ?? 'Search...',
-              prefixIcon: widget.searchPrefixIcon ?? const Icon(Icons.search),
-              suffixIcon: _searchController.text.isNotEmpty
-                  ? IconButton(
-                      icon: widget.searchSuffixIcon ?? const Icon(Icons.clear),
-                      onPressed: () {
-                        _searchController.clear();
-                        _searchFocusNode.requestFocus();
-                      },
-                    )
-                  : null,
-              border: widget.searchBorder ?? const OutlineInputBorder(),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              isDense: true,
-            ),
-            autofocus: true,
-          ),
-        ),
-        const Divider(height: 1),
-      ],
-    );
-  }
+  // Widget _buildSearchField() {
+  //   return Column(
+  //     children: [
+  //       Padding(
+  //         padding: widget.searchPadding ?? const EdgeInsets.all(8.0),
+  //         child: TextField(
+  //           controller: _searchController,
+  //           focusNode: _searchFocusNode,
+  //           style: widget.searchTextStyle,
+  //           decoration: InputDecoration(
+  //             hintText: widget.searchHintText ?? 'Search...',
+  //             prefixIcon: widget.searchPrefixIcon ?? const Icon(Icons.search),
+  //             suffixIcon: _searchController.text.isNotEmpty
+  //                 ? IconButton(
+  //                     icon: widget.searchSuffixIcon ?? const Icon(Icons.clear),
+  //                     onPressed: () {
+  //                       _searchController.clear();
+  //                       _searchFocusNode.requestFocus();
+  //                     },
+  //                   )
+  //                 : null,
+  //             border: widget.searchBorder ?? const OutlineInputBorder(),
+  //             contentPadding:
+  //                 const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+  //             isDense: true,
+  //           ),
+  //           autofocus: true,
+  //         ),
+  //       ),
+  //       const Divider(height: 1),
+  //     ],
+  //   );
+  // }
 
   Widget _buildListItems() {
     return Expanded(
@@ -393,13 +398,15 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
     );
   }
 
-  void _removeOverlay() {
-    _searchFocusNode.unfocus();
+  void _removeOverlay({bool fromDispose = false}) {
     _overlayEntry?.remove();
     _overlayEntry = null;
-    _searchController.clear();
 
-    if (mounted) {
+    _searchFocusNode.unfocus();
+    //_searchController.clear();
+
+    // 🚫 DO NOT call setState during dispose
+    if (!fromDispose && mounted) {
       setState(() {
         _isDropdownOpen = false;
         filteredItems = widget.items;

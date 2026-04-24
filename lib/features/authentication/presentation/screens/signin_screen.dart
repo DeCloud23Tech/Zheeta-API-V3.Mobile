@@ -13,6 +13,7 @@ import 'package:zheeta/core/services/push_notification_service.dart';
 import 'package:zheeta/core/storage/token_storage/i_token_storage.dart';
 import 'package:zheeta/core/storage/user_storage/i_user_storage.dart';
 import 'package:zheeta/core/utils/notify.dart';
+import 'package:zheeta/core/utils/pending_verification_utils.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/authentication/data/requests/login_request.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authentication_cubit/authentication_cubit.dart';
@@ -44,7 +45,25 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _restorePendingVerificationIfAny();
+    });
     _loadSavedEmail();
+  }
+
+  Future<void> _restorePendingVerificationIfAny() async {
+    final pendingVerification = await PendingVerificationUtils.read();
+    if (pendingVerification == null || !mounted) return;
+
+    context.router.pushAndPopUntil(
+      VerificationRoute(
+        isPhoneNumber: pendingVerification.isPhoneNumber,
+        phoneNumber: pendingVerification.phoneNumber,
+        countryCode: pendingVerification.countryCode,
+        email: pendingVerification.email,
+      ),
+      predicate: (route) => false,
+    );
   }
 
   Future<void> _loadSavedEmail() async {
