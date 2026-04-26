@@ -127,6 +127,7 @@ class _EventFeedPageState extends State<EventFeedPage>
                   bloc: _sponsoredBoostCubit,
                   builder: (context, state) {
                     return SliverAppBar(
+                      automaticallyImplyLeading: false,
                       backgroundColor: AppColors.primaryDark,
                       floating: true,
                       pinned: false,

@@ -38,6 +38,7 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final ValueNotifier<bool> _isPasswordObscure = ValueNotifier(true);
+  bool _rememberMe = false;
 
   final IUserStorage userStorage = locator<IUserStorage>();
   final ITokenStorage storage = locator<ITokenStorage>();
@@ -48,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _restorePendingVerificationIfAny();
     });
-    _loadSavedEmail();
+    _loadSavedCredentials();
   }
 
   Future<void> _restorePendingVerificationIfAny() async {
@@ -66,9 +67,26 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
     );
   }
 
-  Future<void> _loadSavedEmail() async {
+  Future<void> _loadSavedCredentials() async {
+    final rememberedEmail = await userStorage.getRememberedEmail();
+    final rememberedPassword = await userStorage.getRememberedPassword();
+
+    if (rememberedEmail != null &&
+        rememberedEmail.isNotEmpty &&
+        rememberedPassword != null &&
+        rememberedPassword.isNotEmpty) {
+      emailController.text = rememberedEmail;
+      passwordController.text = rememberedPassword;
+      if (mounted) {
+        setState(() {
+          _rememberMe = true;
+        });
+      }
+      return;
+    }
+
     final savedEmail = await userStorage.getEmail();
-    if (savedEmail != null && savedEmail.isNotEmpty) {
+    if (savedEmail != null && savedEmail.isNotEmpty && mounted) {
       emailController.text = savedEmail;
       setState(() {});
     }
@@ -103,8 +121,6 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
 
       if (!context.mounted) return;
 
-      print('teg');
-      print(deviceToken);
       context.read<AuthenticationCubit>().loginUserCubit(
             request: LoginRequest(
               email: emailController.text.trim(),
@@ -123,20 +139,6 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
     );
   }
 
-  Widget _buildSocialButtons() {
-    const double buttonSpacing = 30.0;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        SocialButton(icon: 'assets/images/google.png', width: 50, height: 25),
-        SizedBox(width: buttonSpacing),
-        SocialButton(icon: "assets/images/fb.png", width: 50, height: 25),
-        SizedBox(width: buttonSpacing),
-        SocialButton(icon: "assets/images/twitter.png", width: 50, height: 25),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,6 +151,15 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
           } else if (state is AuthenticationLoggedInState) {
             // Save the user's email (existing logic)
             userStorage.saveEmail(emailController.text);
+
+            if (_rememberMe) {
+              await userStorage.saveRememberedCredentials(
+                email: emailController.text.trim(),
+                password: passwordController.text.trim(),
+              );
+            } else {
+              await userStorage.clearRememberedCredentials();
+            }
 
             // Reset the agreement status so it shows on the next app launch/home screen load
             // if the user has just logged in or signed up.
@@ -185,6 +196,10 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                     hintText: 'Email',
                     validator: validateEmail,
                     controller: emailController,
+                    prefixIcon: const Icon(
+                      Icons.person_outline,
+                      color: AppColors.grey,
+                    ),
                   ),
                   ValueListenableBuilder<bool>(
                     valueListenable: _isPasswordObscure,
@@ -192,6 +207,10 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                       return InputField(
                         hintText: 'Password',
                         password: isObscure,
+                        prefixIcon: const Icon(
+                          Icons.password_outlined,
+                          color: AppColors.grey,
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(isObscure
                               ? Icons.visibility_off
@@ -204,7 +223,41 @@ class _SignInScreenState extends State<SignInScreen> with Validator {
                       );
                     },
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 27,
+                        height: 27,
+                        child: Checkbox(
+                          value: _rememberMe,
+                          activeColor: AppColors.primaryDark,
+                          side: const BorderSide(
+                            color: AppColors.primaryDark,
+                            width: 1.2,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              _rememberMe = value ?? false;
+                            });
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      const Text(
+                        'Remember me',
+                        style: TextStyle(
+                          color: AppColors.grayscale,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 28),
                   BlocBuilder<AuthenticationCubit, AuthenticationState>(
                     builder: (context, state) {
                       return PrimaryButton(

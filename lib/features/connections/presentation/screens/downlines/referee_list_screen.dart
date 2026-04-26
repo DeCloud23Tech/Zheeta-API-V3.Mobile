@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:zheeta/core/utils/extensions/date_time_extension.dart';
 import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/core/constants/color.dart';
@@ -26,6 +25,8 @@ class RefereeListScreen extends StatelessWidget {
         final profile =
             state is ProfileLoadedState ? state.profile?.data : null;
         final downlines = profile?.userDownlines ?? [];
+        final referralCode =
+            profile?.referralInfo?.referralCode ?? 'No referral code available';
         final referralLink =
             profile?.referralInfo?.referralLink ?? 'No referral link available';
         final downlinesCount = profile?.profileCounters?.downlinesCount ?? 0;
@@ -39,10 +40,12 @@ class RefereeListScreen extends StatelessWidget {
               children: [
                 _buildTitleSection(textScale),
                 const SizedBox(height: 20),
-                _buildHowItWorksSection(),
+                _buildHowItWorksSection(context),
                 const SizedBox(height: 20),
-                ReusableCustomContainer(
-                    child: LinkText(linkText: referralLink)),
+                _buildReferralCard(
+                  referralCode: referralCode,
+                  referralLink: referralLink,
+                ),
                 const SizedBox(height: 20),
                 _buildAffiliateUserSection(downlinesCount),
                 const SizedBox(height: 40),
@@ -99,21 +102,28 @@ class RefereeListScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHowItWorksSection() {
-    return ExpansionTile(
-      childrenPadding: const EdgeInsets.all(16),
-      backgroundColor: Colors.transparent,
-      collapsedBackgroundColor: AppColors.secondaryLight,
-      leading: SvgPicture.asset('assets/images/icons/info.svg'),
-      title: const Text(
-        'How it works',
-        style: TextStyle(
-          color: AppColors.primaryDark,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
+  Widget _buildHowItWorksSection(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(
+        dividerColor: Colors.transparent,
       ),
-      children: _buildSteps(),
+      child: ExpansionTile(
+        childrenPadding: const EdgeInsets.all(16),
+        backgroundColor: Colors.transparent,
+        collapsedBackgroundColor: AppColors.secondaryLight,
+        shape: const Border(),
+        collapsedShape: const Border(),
+        leading: SvgPicture.asset('assets/images/icons/info.svg'),
+        title: const Text(
+          'How it works',
+          style: TextStyle(
+            color: AppColors.primaryDark,
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        children: _buildSteps(),
+      ),
     );
   }
 
@@ -174,7 +184,7 @@ class RefereeListScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Affiliate Users / Downline',
+              'Direct Downlines',
               style: TextStyle(
                 color: AppColors.grey,
                 fontSize: 14,
@@ -184,6 +194,57 @@ class RefereeListScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildReferralCard({
+    required String referralCode,
+    required String referralLink,
+  }) {
+    return ReusableCustomContainer(
+      child: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Your Referral Link',
+              style: TextStyle(
+                color: AppColors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            _buildCopyRow(referralLink),
+            const SizedBox(height: 14),
+            const Text(
+              'Referral Code',
+              style: TextStyle(
+                color: AppColors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            _buildCopyRow(referralCode),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCopyRow(String value) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: const Color(0xFFF3D9E4),
+        ),
+      ),
+      child: LinkText(linkText: value),
     );
   }
 

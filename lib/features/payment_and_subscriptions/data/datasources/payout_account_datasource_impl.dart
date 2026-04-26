@@ -156,7 +156,8 @@ class PayoutAccountRepositoryImpl implements IPayoutAccountDataSource {
     );
 
     if (response.statusCode == 200) {
-      return PaymentAccount.fromJson(response.data['data']);
+      final raw = Map<String, dynamic>.from(response.data['data'] ?? {});
+      return PaymentAccount.fromJson(_normalizePaymentAccount(raw));
     } else {
       throw DioException.badResponse(
         statusCode: response.statusCode ?? 400,
@@ -176,7 +177,13 @@ class PayoutAccountRepositoryImpl implements IPayoutAccountDataSource {
 
     if (response.statusCode == 200) {
       List<dynamic> data = response.data['data'] ?? [];
-      return data.map((json) => PaymentAccount.fromJson(json)).toList();
+      return data
+          .map(
+            (json) => PaymentAccount.fromJson(
+              _normalizePaymentAccount(Map<String, dynamic>.from(json)),
+            ),
+          )
+          .toList();
     } else {
       throw DioException.badResponse(
         statusCode: response.statusCode ?? 400,
@@ -289,5 +296,16 @@ class PayoutAccountRepositoryImpl implements IPayoutAccountDataSource {
     );
 
     return response.statusCode == 200 && response.data['success'] == true;
+  }
+
+  Map<String, dynamic> _normalizePaymentAccount(Map<String, dynamic> json) {
+    return {
+      ...json,
+      'countryIso2Code': json['countryIso2Code'] ?? json['countryCode'],
+      'bankName': json['bankName'] ?? json['accountProviderName'],
+      'bankCode': json['bankCode'] ?? json['accountProviderCode'],
+      'mobileMoneyAccount':
+          json['mobileMoneyAccount'] ?? json['accountNumber'],
+    };
   }
 }

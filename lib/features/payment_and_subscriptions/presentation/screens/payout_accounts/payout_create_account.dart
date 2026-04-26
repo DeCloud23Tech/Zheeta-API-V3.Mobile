@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +59,14 @@ class _PayoutCreateAccountState extends State<PayoutCreateAccount>
       appBar: AppBar(
         backgroundColor: AppColors.secondaryLight,
         elevation: 0.0,
-        leading: AppBackButton(),
+        leading: AppBackButton(
+          onTap: () {
+            payoutCubit.fetchAllAccounts();
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).pop();
+            }
+          },
+        ),
         title: Text(
           'New Payout Account',
           style: TextStyle(

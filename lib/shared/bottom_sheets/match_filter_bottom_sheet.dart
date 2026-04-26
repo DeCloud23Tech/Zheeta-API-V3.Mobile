@@ -7,7 +7,6 @@ import 'package:zheeta/core/utils/token_utils.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/authentication/data/models/country_model.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authenticate_country_cubit/authenticate_country_cubit.dart';
-import 'package:zheeta/features/discover/data/requests/match_criteria_request.dart';
 import 'package:zheeta/features/discover/presentation/cubits/match_criteria_cubit/match_criteria_cubit.dart';
 import 'package:zheeta/features/discover/presentation/cubits/matches_cubit/matches_cubit.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
@@ -24,10 +23,9 @@ void matchCriteriaBottomSheetView(BuildContext context) async {
     backgroundColor: Colors.transparent,
     builder: (context) {
       return DraggableScrollableSheet(
-        initialChildSize: 0.9,
-        // 90% of screen height
+        initialChildSize: 0.65,
         minChildSize: 0.5,
-        maxChildSize: 0.95,
+        maxChildSize: 0.65,
         expand: false,
         builder: (_, controller) {
           return Container(
@@ -79,6 +77,17 @@ class MatchCriteriaBottomSheetState extends State<MatchCriteriaBottomSheet>
     if (userId != null) {
       matchCriteriaCubit.getMatchCriteriaCubit(userId: userId!);
     }
+  }
+
+  void _clearFormValues() {
+    setState(() {
+      gender = '';
+      minAge = 18;
+      maxAge = 100;
+      distance = 200;
+      selectedCountry = '';
+      selectedCity = null;
+    });
   }
 
   @override
@@ -134,8 +143,8 @@ class MatchCriteriaBottomSheetState extends State<MatchCriteriaBottomSheet>
             }),
             const SizedBox(height: 10),
             _buildAgeRangeSlider(),
-            const SizedBox(height: 10),
-            _buildDistanceSlider(),
+            // const SizedBox(height: 10),
+            // _buildDistanceSlider(),
             const SizedBox(height: 20),
             buildDropdownField(
               'Country',
@@ -203,7 +212,7 @@ class MatchCriteriaBottomSheetState extends State<MatchCriteriaBottomSheet>
               },
             ),
             const SizedBox(height: 20),
-            _buildApplyButton(),
+            _buildActionButtons(),
             const SizedBox(height: 10),
           ],
         ),
@@ -248,45 +257,44 @@ class MatchCriteriaBottomSheetState extends State<MatchCriteriaBottomSheet>
     );
   }
 
-  Widget _buildDistanceSlider() {
+  Widget _buildActionButtons() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Distance: ${distance.toInt()} km",
-            style: const TextStyle(fontSize: 14)),
-        Slider(
-          value: distance,
-          min: 1,
-          max: 200,
-          divisions: 199,
-          onChanged: (value) => setState(() => distance = value),
+        SizedBox(
+          width: double.infinity,
+          child: PrimaryButton(
+              title: 'Clear',
+              invert: true,
+              showBorder: true,
+              action: _clearFormValues),
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          width: double.infinity,
+          child: Tooltip(
+            message: 'Feature not available yet',
+            child: AbsorbPointer(
+              child: PrimaryButton(
+                title: 'Apply',
+                disabled: true,
+                action: () {},
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Center(
+          child: Text(
+            'Feature not available yet',
+            style: TextStyle(
+              color: AppColors.grey,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
-    );
-  }
-
-  Widget _buildApplyButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: PrimaryButton(
-        title: 'Apply',
-        action: () {
-          if (userId != null) {
-            final request = MatchCriteriaRequest(
-              id: userId,
-              userId: userId,
-              country: selectedCountry,
-              city: selectedCity,
-              gender: gender,
-              minAge: minAge.toInt(),
-              maxAge: maxAge.toInt(),
-              distance: distance.toInt(),
-            );
-            matchCriteriaCubit.updateMatchCriteriaCubit(request: request);
-            Navigator.pop(context);
-          }
-        },
-      ),
     );
   }
 }

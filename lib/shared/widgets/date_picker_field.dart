@@ -7,6 +7,7 @@ class DatePickerField extends StatelessWidget {
   final String hintText;
   final String? Function(String?)? validator;
   final void Function(String)? onDateSelected;
+  final EdgeInsetsGeometry padding;
 
   const DatePickerField({
     super.key,
@@ -14,12 +15,13 @@ class DatePickerField extends StatelessWidget {
     required this.hintText,
     this.validator,
     this.onDateSelected,
+    this.padding = const EdgeInsets.only(top: 10, bottom: 10),
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      padding: padding,
       child: TextFormField(
         validator: validator,
         controller: controller,

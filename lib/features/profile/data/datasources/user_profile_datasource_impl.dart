@@ -2,13 +2,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/core/network/api.dart';
-import 'package:zheeta/features/profile/data/datasources/i_location_datasource.dart';
 import 'package:zheeta/features/profile/data/datasources/i_user_profile_datasource.dart';
-import 'package:zheeta/features/profile/data/models/address_from_location_model.dart';
 import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
 import 'package:zheeta/features/profile/data/models/view_profile_model.dart';
 import 'package:zheeta/features/profile/data/requests/create_user_profile_request.dart';
-import 'package:zheeta/features/profile/data/requests/location_coordinate_from_address_request.dart';
 import 'package:zheeta/features/profile/data/requests/update_user_profile_request.dart';
 
 @prod
@@ -56,9 +53,11 @@ class UserProfileDataSourceImpl implements IUserProfileDataSource {
   // }
 
   @override
-  Future<UserProfileModel?> getSingleUserProfileNew() async {
+  Future<UserProfileModel?> getSingleUserProfileNew({
+    bool isRefresh = false,
+  }) async {
     var response = await _api.dio.get(
-      '/user/get-single-user-profile',
+      '/user/get-single-user-profile?isRefresh=$isRefresh',
       options: Options(
         contentType: Headers.jsonContentType,
       ),

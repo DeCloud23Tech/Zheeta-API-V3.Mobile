@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:zheeta/features/wallet_and_transactions/data/models/pay_out_model.dart';
+import 'package:zheeta/features/wallet_and_transactions/data/models/rate_by_country_model.dart';
 import 'package:zheeta/features/wallet_and_transactions/domain/usecases/withdrawal_usecase/get_rate_by_country_usecase.dart';
 import 'package:zheeta/features/wallet_and_transactions/domain/usecases/withdrawal_usecase/process_payout_usecase.dart';
 

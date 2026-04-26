@@ -8,7 +8,7 @@ part 'bottom_nav_state.dart';
 @prod
 @LazySingleton()
 class BottomNavCubit extends Cubit<int> {
-  BottomNavCubit() : super(0); // Default tab index is 0
+  BottomNavCubit() : super(0); // Default tab index is Feed
 
   void changeTab(int index) {
     emit(index);

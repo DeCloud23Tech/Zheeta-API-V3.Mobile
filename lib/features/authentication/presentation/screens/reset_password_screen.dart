@@ -1,33 +1,17 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zheeta/core/constants/color.dart';
-import 'package:zheeta/core/constants/constansts.dart';
-import 'package:zheeta/core/constants/strings.dart';
 import 'package:zheeta/core/constants/text_style.dart';
 import 'package:zheeta/core/mixin/validation_mixin.dart';
-import 'package:zheeta/core/services/push_notification_service.dart';
-import 'package:zheeta/core/storage/token_storage/i_token_storage.dart';
-import 'package:zheeta/core/storage/user_storage/i_user_storage.dart';
-import 'package:zheeta/core/utils/logout_utils.dart';
 import 'package:zheeta/core/utils/notify.dart';
-import 'package:zheeta/core/utils/otp_utils.dart';
-import 'package:zheeta/di/di.dart';
-import 'package:zheeta/features/authentication/data/requests/login_request.dart';
+import 'package:zheeta/core/utils/pending_verification_utils.dart';
 import 'package:zheeta/features/authentication/data/requests/reset_password_request.dart';
-import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
 import 'package:zheeta/features/authentication/presentation/cubits/authentication_cubit/authentication_cubit.dart';
-import 'package:zheeta/router/app_router.dart';
-import 'package:zheeta/shared/enums/snackbar_type.dart';
+import 'package:zheeta/router/app_router.gr.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
 import 'package:zheeta/shared/widgets/input_field.dart';
 import 'package:zheeta/shared/widgets/primary_button.dart';
-import 'package:zheeta/shared/widgets/social_button.dart';
-import 'package:zheeta/shared/widgets/transparent_button.dart';
 
 @RoutePage()
 class ResetPasswordScreen extends StatefulWidget {
@@ -53,14 +37,25 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
     super.dispose();
   }
 
-  void _handleResetPassword(BuildContext context) {
+  Future<void> _handleResetPassword(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       widget.request.newPassword = passwordController.text;
 
-      context
+      final isReset = await context
           .read<AuthenticationCubit>()
           .resetPasswordCubit(request: widget.request);
+
+      if (!mounted || !isReset) return;
+
+      NotifyUser.showSnackBar('Password reset successfully');
+      await _navigateToSignIn();
     }
+  }
+
+  Future<void> _navigateToSignIn() async {
+    await PendingVerificationUtils.clear();
+    if (!mounted) return;
+    context.router.replaceAll([const SignInRoute()]);
   }
 
   @override
@@ -71,9 +66,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
         listener: (context, state) {
           if (state is AuthenticationErrorState) {
             NotifyUser.showSnackBar(state.errorMessage);
-          } else if (state is AuthenticationLoggedInState) {
-            NotifyUser.showSnackBar('Password reset successfully');
-            logout(context);
           }
         },
         child: Padding(
@@ -123,6 +115,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                         action: () => _handleResetPassword(context),
                       );
                     },
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () => _navigateToSignIn(),
+                      child: const Text(
+                        'Back to Login',
+                        style: TextStyle(
+                          color: AppColors.primaryDark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -19,9 +19,12 @@ class UserProfileRepositoryImpl implements IUserProfileRepository {
   UserProfileRepositoryImpl(this._datasource);
 
   @override
-  ResultFuture<UserProfileModel?> getSingleUserProfileRepo() async {
+  ResultFuture<UserProfileModel?> getSingleUserProfileRepo({
+    bool isRefresh = false,
+  }) async {
     try {
-      final result = await _datasource.getSingleUserProfileNew();
+      final result =
+          await _datasource.getSingleUserProfileNew(isRefresh: isRefresh);
 
       return right(result);
     } on ApiException catch (ex) {

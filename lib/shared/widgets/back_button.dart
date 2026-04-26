@@ -49,6 +49,7 @@ class AppBackButton extends StatelessWidget {
   final Color? buttonColor;
   final Color? iconColor;
   final IconData? icon;
+  final double iconSize;
 
   const AppBackButton({
     super.key,
@@ -56,6 +57,7 @@ class AppBackButton extends StatelessWidget {
     this.buttonColor = AppColors.white,
     this.iconColor = AppColors.grey,
     this.icon = Icons.arrow_back_ios,
+    this.iconSize = 18,
   });
 
   @override
@@ -79,7 +81,8 @@ class AppBackButton extends StatelessWidget {
             child: Padding(
           padding:
               EdgeInsets.only(left: icon == Icons.arrow_back_ios ? 6.0 : 0.0),
-          child: Icon(icon, size: 18, color: iconColor?.withValues(alpha: 0.8)),
+          child: Icon(icon,
+              size: iconSize, color: iconColor?.withValues(alpha: 0.8)),
         )),
       ),
     );

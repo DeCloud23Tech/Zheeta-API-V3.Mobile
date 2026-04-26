@@ -14,8 +14,10 @@ class InputField extends StatefulWidget {
   final VoidCallback? onTap;
   final bool readonly;
   final String? initialValue;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
+  final EdgeInsetsGeometry padding;
 
   const InputField({
     super.key,
@@ -29,8 +31,10 @@ class InputField extends StatefulWidget {
     this.onTap,
     this.readonly = false,
     this.initialValue,
+    this.prefixIcon,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
+    this.padding = const EdgeInsets.only(top: 10, bottom: 10),
   });
 
   @override
@@ -43,7 +47,7 @@ class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      padding: widget.padding,
       child: TextFormField(
         initialValue: widget.initialValue,
         onTap: widget.onTap,
@@ -86,6 +90,7 @@ class _InputFieldState extends State<InputField> {
           hintStyle: TextStyle(
               color: AppColors.grey.withValues(alpha: 0.5), fontSize: 14),
           errorStyle: const TextStyle(color: Colors.red),
+          prefixIcon: widget.prefixIcon,
           suffixIcon: widget.suffixIcon ??
               (widget.password
                   ? InkWell(
@@ -255,46 +260,57 @@ class _DropdownInputFieldState extends State<DropdownInputField> {
     }
 
     _overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        width: size.width,
-        child: CompositedTransformFollower(
-          link: _layerLink,
-          showWhenUnlinked: false,
-          offset: Offset(0, verticalOffset),
-          child: Material(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+      builder: (context) => Stack(
+        children: [
+          Positioned.fill(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: _removeOverlay,
+              child: const SizedBox.expand(),
             ),
-            child: Container(
-              constraints: BoxConstraints(
-                maxHeight: _calculateMaxHeight(
-                    _effectivePosition == DropdownPosition.below
-                        ? spaceBelow
-                        : spaceAbove),
-              ),
-              decoration: BoxDecoration(
-                color: widget.searchBackgroundColor ??
-                    Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Reverse order if showing above
-                  if (_effectivePosition == DropdownPosition.above) ...[
-                    if (filteredItems.isNotEmpty) _buildListItems(),
-                    //if (widget.showSearch) _buildSearchField(),
-                  ] else ...[
-                    // if (widget.showSearch) _buildSearchField(),
-                    if (filteredItems.isNotEmpty) _buildListItems(),
-                  ],
-                  if (filteredItems.isEmpty) _buildNoResults(),
-                ],
+          ),
+          Positioned(
+            width: size.width,
+            child: CompositedTransformFollower(
+              link: _layerLink,
+              showWhenUnlinked: false,
+              offset: Offset(0, verticalOffset),
+              child: Material(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxHeight: _calculateMaxHeight(
+                        _effectivePosition == DropdownPosition.below
+                            ? spaceBelow
+                            : spaceAbove),
+                  ),
+                  decoration: BoxDecoration(
+                    color: widget.searchBackgroundColor ??
+                        Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Reverse order if showing above
+                      if (_effectivePosition == DropdownPosition.above) ...[
+                        if (filteredItems.isNotEmpty) _buildListItems(),
+                        //if (widget.showSearch) _buildSearchField(),
+                      ] else ...[
+                        // if (widget.showSearch) _buildSearchField(),
+                        if (filteredItems.isNotEmpty) _buildListItems(),
+                      ],
+                      if (filteredItems.isEmpty) _buildNoResults(),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
 

@@ -1,7 +1,7 @@
 part of 'withdrawal_cubit.dart';
 
 abstract class WithdrawalState extends Equatable {
-  final double? currentRate; // The current exchange rate
+  final RateByCountry? currentRate; // The current exchange rate and currency
   final PayoutData? lastPayoutData; // The data from the last successful payout
   final String? errorMessage; // To hold an error message
   final bool isLoading; // To indicate if an operation is in progress
@@ -24,7 +24,7 @@ abstract class WithdrawalState extends Equatable {
   // A unified copyWith method for the base state.
   // This allows easy creation of new states from existing ones by modifying specific properties.
   WithdrawalState copyWith({
-    double? currentRate,
+    RateByCountry? currentRate,
     PayoutData? lastPayoutData,
     String? errorMessage,
     bool? isLoading,
@@ -44,7 +44,7 @@ class WithdrawalInitial extends WithdrawalState {
 
   @override
   WithdrawalInitial copyWith({
-    double? currentRate,
+    RateByCountry? currentRate,
     PayoutData? lastPayoutData,
     String? errorMessage,
     bool? isLoading,
@@ -67,7 +67,7 @@ class WithdrawalLoading extends WithdrawalState {
 
   @override
   WithdrawalLoading copyWith({
-    double? currentRate,
+    RateByCountry? currentRate,
     PayoutData? lastPayoutData,
     String? errorMessage,
     bool?
@@ -85,12 +85,12 @@ class WithdrawalLoading extends WithdrawalState {
 // Sets currentRate, clears loading and error.
 class WithdrawalRateLoaded extends WithdrawalState {
   // `rate` is passed as a required parameter to set `currentRate` in the super constructor
-  const WithdrawalRateLoaded(double rate)
+  const WithdrawalRateLoaded(RateByCountry rate)
       : super(currentRate: rate, isLoading: false, errorMessage: null);
 
   @override
   WithdrawalRateLoaded copyWith({
-    double? currentRate,
+    RateByCountry? currentRate,
     PayoutData?
         lastPayoutData, // These are ignored as this state focuses on rate
     String? errorMessage, // These are ignored
@@ -111,7 +111,7 @@ class WithdrawalPayoutSuccess extends WithdrawalState {
 
   @override
   WithdrawalPayoutSuccess copyWith({
-    double? currentRate, // Ignored
+    RateByCountry? currentRate, // Ignored
     PayoutData? lastPayoutData,
     String? errorMessage, // Ignored
     bool? isLoading, // Ignored
@@ -132,7 +132,7 @@ class WithdrawalFailure extends WithdrawalState {
 
   @override
   WithdrawalFailure copyWith({
-    double? currentRate,
+    RateByCountry? currentRate,
     PayoutData? lastPayoutData,
     String? errorMessage,
     bool? isLoading, // Ignored

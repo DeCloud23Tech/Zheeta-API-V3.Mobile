@@ -46,29 +46,27 @@ Future<bool?> locationBottomSheet(BuildContext context) async {
               SizedBox(
                 width: double.infinity,
                 child: PrimaryButton(
-                  // state: state is ProfileLoadingState,
                   title: 'Enable location services',
                   action: () {
-                    // Complete the completer with true when the button is clicked
                     completer.complete(true);
-                    Navigator.of(context).pop(); // Close the bottom sheet
+                    Navigator.of(context).pop();
                   },
                 ),
               ),
               SizedBox(height: 20),
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: PrimaryButton(
-              //     invert: true,
-              //     color: AppColors.secondaryLight,
-              //     title: 'Skip',
-              //     action: () {
-              //       completer.complete(false); // Complete with false if skipped
-              //       Navigator.of(context).pop();
-              //     },
-              //   ),
-              // ),
-              // SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: PrimaryButton(
+                  invert: true,
+                  color: AppColors.secondaryLight,
+                  title: 'Skip',
+                  action: () {
+                    completer.complete(false);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),

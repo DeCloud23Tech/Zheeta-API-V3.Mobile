@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/utils/notify.dart';
 import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/payment_and_subscriptions/data/models/payment_account_model.dart';
 import 'package:zheeta/features/payment_and_subscriptions/presentation/cubits/payout_cubit/payout_cubit.dart';
 import 'package:zheeta/features/wallet_and_transactions/presentation/widgets/create_payout_account_prompt.dart';
 import 'package:zheeta/router/app_router.gr.dart';
@@ -25,7 +26,7 @@ class WithdrawalPayoutAccountScreen extends StatelessWidget {
         elevation: 0.0,
         leading: AppBackButton(),
         title: Text(
-          'Payout',
+          'Existing Payout Accounts',
           style: TextStyle(
             color: AppColors.grayscale,
             fontSize: 18,
@@ -75,60 +76,7 @@ class WithdrawalPayoutAccountScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Card(
-                          color: AppColors.white,
-                          margin: const EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        account.bankName ?? '',
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Wrap(
-                                        spacing: 8,
-                                        runSpacing: 4,
-                                        children: [
-                                          Text(
-                                            account.accountNumber ?? '',
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          Text(
-                                            '${account.lastName} ${account.firstName}',
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Icon(
-                                    Icons.keyboard_arrow_right,
-                                    size: 28,
-                                    color: AppColors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: _WithdrawalPayoutAccountCard(account: account),
                       );
                     },
                   ),
@@ -167,5 +115,116 @@ class WithdrawalPayoutAccountScreen extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class _WithdrawalPayoutAccountCard extends StatelessWidget {
+  final PaymentAccount account;
+
+  const _WithdrawalPayoutAccountCard({required this.account});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    Text(
+                      _displayName(account),
+                      style: const TextStyle(
+                        color: AppColors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF4F5F8),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      child: Text(
+                        _accountType(account),
+                        style: const TextStyle(
+                          color: AppColors.black,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  _detailsLine(account),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: AppColors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 12, top: 6),
+            child: Icon(
+              Icons.keyboard_arrow_right,
+              size: 24,
+              color: AppColors.grey,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _displayName(PaymentAccount account) {
+    return account.bankName ??
+        account.cryptoCoinName ??
+        _accountType(account);
+  }
+
+  String _accountType(PaymentAccount account) {
+    final value = account.payOutType.trim();
+    if (value.isEmpty) return 'Account';
+    final spaced = value
+        .replaceAllMapped(RegExp(r'([a-z])([A-Z])'), (m) => '${m[1]} ${m[2]}')
+        .replaceAll('-', ' ')
+        .trim();
+    if (spaced.isEmpty) return 'Account';
+    return spaced[0].toUpperCase() + spaced.substring(1).toLowerCase();
+  }
+
+  String _detailsLine(PaymentAccount account) {
+    final primaryValue = account.accountNumber ??
+        account.mobileMoneyAccount ??
+        account.paypalAddress ??
+        account.cryptoCoinAddress ??
+        '';
+    final name = '${account.firstName} ${account.lastName}'.trim();
+    if (primaryValue.isEmpty) return name;
+    if (name.isEmpty) return primaryValue;
+    return '$primaryValue   $name';
   }
 }

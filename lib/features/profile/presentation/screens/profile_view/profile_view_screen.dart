@@ -5,6 +5,7 @@ import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/mixin/scroll_listener_mixin.dart';
 import 'package:zheeta/core/mixin/tabstate_mixin.dart';
 import 'package:zheeta/di/di.dart';
+import 'package:zheeta/features/app/presentation/widgets/general_footer_nav.dart';
 import 'package:zheeta/features/connections/presentation/cubits/block_account_cubit/block_account_cubit.dart';
 import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
 import 'package:zheeta/features/profile/data/models/view_profile_model.dart';
@@ -55,6 +56,8 @@ class _ProfileViewScreenState extends State<ProfileViewScreen>
 
     return Scaffold(
       backgroundColor: AppColors.inputField,
+      extendBody: true,
+      bottomNavigationBar: buildGeneralFooterNav(context),
       body: BlocBuilder<ProfileViewCubit, ProfileViewState>(
         builder: (context, state) {
           if (state is ProfileViewLoading) {

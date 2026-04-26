@@ -137,6 +137,11 @@ class _ExampleCardState extends State<ExampleCard> {
                           progress: effectiveSwipeProgress,
                         ),
                       ),
+                      const Positioned(
+                        top: 28,
+                        right: 16,
+                        child: _MatchImageDots(),
+                      ),
                     ],
                   ),
                   GestureDetector(
@@ -307,11 +312,20 @@ class _DiscoverStackCard extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           child: Column(
             children: [
-              CustomNetworkImage(
-                height: imageHeight,
-                width: double.infinity,
-                imageUrl: match.profilePhotoURL,
-                fit: BoxFit.cover,
+              Stack(
+                children: [
+                  CustomNetworkImage(
+                    height: imageHeight,
+                    width: double.infinity,
+                    imageUrl: match.profilePhotoURL,
+                    fit: BoxFit.cover,
+                  ),
+                  const Positioned(
+                    top: 28,
+                    right: 16,
+                    child: _MatchImageDots(),
+                  ),
+                ],
               ),
               Container(
                 height: detailsHeight,
@@ -375,6 +389,39 @@ class _DiscoverStackCard extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _MatchImageDots extends StatelessWidget {
+  const _MatchImageDots();
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: Column(
+        children: List.generate(
+          5,
+          (index) => Container(
+            width: index == 1 ? 8 : 6,
+            height: index == 1 ? 8 : 6,
+            margin: const EdgeInsets.only(bottom: 6),
+            decoration: BoxDecoration(
+              color: index == 1
+                  ? AppColors.white
+                  : AppColors.white.withValues(alpha: 0.38),
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black.withValues(alpha: 0.16),
+                  blurRadius: 4,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

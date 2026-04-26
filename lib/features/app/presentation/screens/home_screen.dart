@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final AppCubit appCubit = locator<AppCubit>();
   final AgreementService _agreementService = locator<AgreementService>();
 
-  int index = 0; // This `index` is now managed by BottomNavCubit
+  int index = 0; // Default tab is Feed; current value is managed by BottomNavCubit
   bool _redirectedToProfileSetup = false;
 
   @override
@@ -72,13 +72,43 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final pages = [
-    const DiscoverPage(),
     const EventFeedPage(),
+    const DiscoverPage(),
     const ChatConversationScreen(),
     const ProfilePage(),
   ];
 
   final appBars = [
+    AppBar(
+      backgroundColor: AppColors.primaryDark,
+      elevation: 0.0,
+      leadingWidth: double.infinity * 0.5,
+      leading: const Padding(
+        padding: EdgeInsets.only(left: 20, top: 10),
+        child: Text(
+          'Feeds',
+          style: TextStyle(
+              color: AppColors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.w600),
+        ),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Row(
+            children: [
+              TopNavBtn(
+                  iconType: IconType.menu,
+                  color: AppColors.primaryLightBackground),
+              TopNavBtn(
+                  iconType: IconType.bell,
+                  color: AppColors.primaryLightBackground),
+            ],
+          ),
+        )
+      ],
+    ),
     AppBar(
       backgroundColor: AppColors.primaryDark,
       elevation: 0.0,
@@ -103,36 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: AppColors.primaryLightBackground),
               TopNavBtn(
                   iconType: IconType.filter,
-                  color: AppColors.primaryLightBackground),
-              TopNavBtn(
-                  iconType: IconType.bell,
-                  color: AppColors.primaryLightBackground),
-            ],
-          ),
-        )
-      ],
-    ),
-    AppBar(
-      backgroundColor: AppColors.primaryDark,
-      elevation: 0.0,
-      leadingWidth: double.infinity * 0.5,
-      leading: const Padding(
-        padding: EdgeInsets.only(left: 20, top: 10),
-        child: Text(
-          'Feeds',
-          style: TextStyle(
-              color: AppColors.white,
-              fontSize: 32,
-              fontWeight: FontWeight.w600),
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: Row(
-            children: [
-              TopNavBtn(
-                  iconType: IconType.menu,
                   color: AppColors.primaryLightBackground),
               TopNavBtn(
                   iconType: IconType.bell,
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     final bottomNavCubit = locator<BottomNavCubit>();
                     bottomNavCubit.changeTab(newIndex);
 
-                    if (newIndex == 0) {
+                    if (newIndex == 1) {
                       appCubit.refreshMatches();
                     }
                   },

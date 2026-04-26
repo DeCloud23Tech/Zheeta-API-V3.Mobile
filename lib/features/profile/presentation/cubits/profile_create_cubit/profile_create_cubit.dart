@@ -77,7 +77,7 @@ class ProfileCreateCubit extends Cubit<ProfileCreateState>
     String? occupation,
     String? originCountry,
     String? originCity,
-    String? language,
+    List<String>? languages,
     String? tagline,
     String? bio,
     List<dynamic>? selectedInterestIds,
@@ -94,7 +94,7 @@ class ProfileCreateCubit extends Cubit<ProfileCreateState>
       if (originCountry != null) 'originCountry': originCountry,
       if (occupation != null) 'occupation': occupation,
       if (originCity != null) 'originCity': originCity,
-      if (language != null) 'language': language,
+      if (languages != null) 'languages': languages,
       if (tagline != null) 'tagline': tagline,
       if (bio != null) 'bio': bio,
     });
@@ -109,7 +109,11 @@ class ProfileCreateCubit extends Cubit<ProfileCreateState>
       lastName: _profileData['lastName'] ?? '',
       dateOfBirth: _profileData['dob'] ?? '',
       gender: _profileData['gender'] == 'Male' ? 1 : 2,
-      languageCSV: [_profileData['language'] ?? ''],
+      languageCSV:
+          (_profileData['languages'] as List<dynamic>? ?? const <dynamic>[])
+              .whereType<String>()
+              .where((language) => language.trim().isNotEmpty)
+              .toList(),
       aboutMe: _profileData['bio'] ?? '',
       bodyType: _profileData['bodyType'] ?? '',
       complexion: _profileData['complexion'] ?? '',

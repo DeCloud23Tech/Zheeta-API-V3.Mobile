@@ -129,7 +129,7 @@ class _GiftShopScreenState extends State<GiftShopScreen> {
                         crossAxisCount: 2,
                         mainAxisSpacing: 18.0,
                         crossAxisSpacing: 18.0,
-                        childAspectRatio: 0.75,
+                        childAspectRatio: 0.68,
                       ),
                       itemCount: displayList.length + (state.hasMore ? 1 : 0),
                       itemBuilder: (context, index) {
@@ -152,21 +152,24 @@ class _GiftShopScreenState extends State<GiftShopScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                CachedNetworkImage(
-                                  imageUrl: gift.imageUrl,
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.38,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.28,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) =>
-                                      const CupertinoActivityIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.image_not_supported),
+                                Expanded(
+                                  child: Center(
+                                    child: CachedNetworkImage(
+                                      imageUrl: gift.imageUrl,
+                                      fit: BoxFit.contain,
+                                      placeholder: (context, url) =>
+                                          const CupertinoActivityIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.image_not_supported),
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
                                   gift.title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     color: AppColors.grayscale,
                                     fontSize: 14,
@@ -182,6 +185,7 @@ class _GiftShopScreenState extends State<GiftShopScreen> {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
+                                const SizedBox(height: 10),
                               ],
                             ),
                           ),

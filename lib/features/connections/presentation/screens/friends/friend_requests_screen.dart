@@ -11,25 +11,8 @@ import 'package:zheeta/features/connections/data/models/get_pending_friends_mode
 import 'package:zheeta/features/connections/presentation/cubits/friends_cubit/friends_cubit.dart';
 import 'package:zheeta/features/connections/presentation/cubits/pending_friends_cubit/pending_friends_cubit.dart';
 import 'package:zheeta/shared/widgets/back_button.dart';
-import 'package:zheeta/shared/widgets/gender_indicator.dart';
 import 'package:zheeta/shared/widgets/loader.dart';
 import 'package:zheeta/shared/widgets/pill_container.dart';
-import 'package:zheeta/shared/widgets/primary_button.dart';
-
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zheeta/core/constants/color.dart';
-import 'package:zheeta/core/utils/notify.dart';
-import 'package:zheeta/core/utils/pagination_controller.dart';
-import 'package:zheeta/di/di.dart';
-import 'package:zheeta/features/connections/data/requests/friend_request_model.dart';
-import 'package:zheeta/features/connections/data/models/get_pending_friends_model.dart';
-import 'package:zheeta/features/connections/presentation/cubits/friends_cubit/friends_cubit.dart';
-import 'package:zheeta/features/connections/presentation/cubits/pending_friends_cubit/pending_friends_cubit.dart';
-import 'package:zheeta/shared/widgets/back_button.dart';
-import 'package:zheeta/shared/widgets/pill_container.dart';
-import 'package:zheeta/shared/widgets/loader.dart';
 import 'package:zheeta/shared/widgets/primary_button.dart';
 
 @RoutePage()
@@ -85,7 +68,6 @@ class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
   void dispose() {
     _scrollController.dispose();
     pendingFriendsCubit.close();
-    friendsCubit.close();
     super.dispose();
   }
 

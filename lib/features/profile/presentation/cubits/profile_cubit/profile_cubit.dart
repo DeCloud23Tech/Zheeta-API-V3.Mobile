@@ -1,10 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:zheeta/core/common/param/pagination_param.dart';
 import 'package:zheeta/features/profile/data/models/blocked_user_model.dart';
 import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
-import 'package:zheeta/features/profile/domain/usecases/user_profile_access_usecases.dart';
 import 'package:zheeta/features/profile/domain/usecases/user_profile_usecases.dart';
 
 part 'profile_state.dart';
@@ -18,7 +16,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.getSingleUserProfile,
   }) : super(const ProfileInitialState());
 
-  Future<UserProfileModel?> getSingleUserProfileCubit() async {
+  Future<UserProfileModel?> getSingleUserProfileCubit({
+    bool isRefresh = false,
+  }) async {
     // When transitioning to ProfileLoadingState, explicitly create a new instance
     // and pass the existing profile and blocked users data from the current state.
     emit(ProfileLoadingState(
@@ -26,7 +26,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     ));
 
     UserProfileModel? userProfile;
-    var result = await getSingleUserProfile();
+    var result = await getSingleUserProfile(
+      GetSingleUserProfileParams(isRefresh: isRefresh),
+    );
     result.fold(
       (fail) {
         emit(ProfileErrorState(

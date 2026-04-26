@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zheeta/core/network/api.dart';
 import 'package:zheeta/features/wallet_and_transactions/data/datasources/i_withdrawal_datasource.dart';
 import 'package:zheeta/features/wallet_and_transactions/data/models/pay_out_model.dart';
+import 'package:zheeta/features/wallet_and_transactions/data/models/rate_by_country_model.dart';
 
 @prod
 @Singleton(as: IWithdrawalDataSource)
@@ -12,7 +13,7 @@ class WithdrawalDataSourceImpl implements IWithdrawalDataSource {
   WithdrawalDataSourceImpl(this._api);
 
   @override
-  Future<double> getRateByCountry({required String countryName}) async {
+  Future<RateByCountry> getRateByCountry({required String countryName}) async {
     var response = await _api.dio.get(
       '/payment/get-rate-by-country',
       queryParameters: {'countryName': countryName},
@@ -21,7 +22,7 @@ class WithdrawalDataSourceImpl implements IWithdrawalDataSource {
       ),
     );
     if (response.statusCode == 200) {
-      return (response.data['data'] as num).toDouble();
+      return RateByCountry.fromJson(response.data['data']);
     } else {
       throw DioException.badResponse(
           statusCode: response.data?['statusCode'] ?? 400,

@@ -9,14 +9,25 @@ import 'package:zheeta/features/profile/domain/repositories/user_profile_reposit
 
 @prod
 @LazySingleton()
-class GetSingleUserProfile extends UsecaseWithoutParams<UserProfileModel?> {
+class GetSingleUserProfile
+    extends UsecaseWithParams<UserProfileModel?, GetSingleUserProfileParams> {
   const GetSingleUserProfile(this._repo);
 
   final IUserProfileRepository _repo;
 
   @override
-  ResultFuture<UserProfileModel?> call() async =>
-      await _repo.getSingleUserProfileRepo();
+  ResultFuture<UserProfileModel?> call(
+    GetSingleUserProfileParams params,
+  ) async =>
+      await _repo.getSingleUserProfileRepo(isRefresh: params.isRefresh);
+}
+
+class GetSingleUserProfileParams {
+  final bool isRefresh;
+
+  const GetSingleUserProfileParams({
+    this.isRefresh = false,
+  });
 }
 
 @prod

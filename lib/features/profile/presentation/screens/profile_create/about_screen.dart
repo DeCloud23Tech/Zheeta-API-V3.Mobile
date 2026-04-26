@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +49,7 @@ class AboutScreenState extends State<AboutScreen> with Validator {
       bio,
       tagline,
       originCity;
-  String? language = 'English';
+  List<String> selectedLanguages = ['English'];
   List<String> interests = [];
   List<dynamic> selectedIds = [];
   String selectedCountry = 'United States';
@@ -58,6 +57,11 @@ class AboutScreenState extends State<AboutScreen> with Validator {
 
   void onDonePressed() {
     if (_formKey.currentState!.validate()) {
+      if (selectedLanguages.isEmpty) {
+        setState(() {});
+        return;
+      }
+
       final selectedReligion = religion == 'Other' ? customReligion : religion;
 
       profileCubit.updateProfileAdditionalData(
@@ -71,7 +75,7 @@ class AboutScreenState extends State<AboutScreen> with Validator {
         occupation: occupation,
         originCountry: selectedCountry,
         originCity: originCity,
-        language: language,
+        languages: selectedLanguages,
         tagline: tagline,
         bio: bio,
       );
@@ -162,13 +166,16 @@ class AboutScreenState extends State<AboutScreen> with Validator {
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w600)),
                     SizedBox(height: 10),
-                    DropdownInputField(
-                      value: language,
-                      items: AppLists.languages,
-                      hintText: 'Select language',
-                      onChanged: (value) => setState(() => language = value),
-                      validator: isValidInput,
-                    ),
+                    _buildLanguageField(),
+                    SizedBox(height: 10),
+                    if (selectedLanguages.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, bottom: 4),
+                        child: Text(
+                          'Please select at least one language',
+                          style: TextStyle(color: AppColors.red, fontSize: 12),
+                        ),
+                      ),
                     SizedBox(height: 10),
                     buildDropdownField(
                       'Origin Country',
@@ -388,6 +395,9 @@ class AboutScreenState extends State<AboutScreen> with Validator {
               groupValue: selectedValue,
               onChanged: onChanged,
               title: value,
+              size: 24,
+              textColor: AppColors.grayscale,
+              textFontWeight: FontWeight.w500,
             );
           }).toList(),
         ),
@@ -423,6 +433,10 @@ class AboutScreenState extends State<AboutScreen> with Validator {
                       value: interestModel.title,
                       isActive: isActive,
                       title: interestModel.title,
+                      size: 24,
+                      useCheckbox: true,
+                      textColor: AppColors.grayscale,
+                      textFontWeight: FontWeight.w500,
                       onChanged: (selectedValue) {
                         if (isActive) {
                           interests.remove(interestModel.title);
@@ -471,5 +485,159 @@ class AboutScreenState extends State<AboutScreen> with Validator {
         ),
       ],
     );
+  }
+
+  Widget _buildLanguageField() {
+    final displayValue = selectedLanguages.join(', ');
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      child: GestureDetector(
+        onTap: _showLanguagePicker,
+        child: InputDecorator(
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: AppColors.white,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: selectedLanguages.isEmpty
+                    ? AppColors.red
+                    : AppColors.grey,
+                width: 0.5,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: selectedLanguages.isEmpty
+                    ? AppColors.red
+                    : AppColors.primaryDark,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: selectedLanguages.isEmpty
+                    ? AppColors.red
+                    : AppColors.grey,
+                width: 0.5,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            suffixIcon: const Icon(
+              Icons.arrow_drop_down,
+              color: Colors.grey,
+            ),
+          ),
+          isEmpty: selectedLanguages.isEmpty,
+          child: Text(
+            selectedLanguages.isEmpty ? 'Select language(s)' : displayValue,
+            style: TextStyle(
+              color: selectedLanguages.isEmpty
+                  ? AppColors.grey.withValues(alpha: 0.5)
+                  : AppColors.black,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showLanguagePicker() async {
+    final initialSelection = List<String>.from(selectedLanguages);
+    final result = await showModalBottomSheet<List<String>>(
+      context: context,
+      backgroundColor: AppColors.secondaryLight,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetContext) {
+        List<String> tempSelection = List<String>.from(initialSelection);
+
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 48,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: AppColors.grey.withValues(alpha: 0.35),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Select language(s)',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.grayscale,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Flexible(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: AppLists.languages.map((language) {
+                            final isSelected = tempSelection.contains(language);
+                            return CheckboxListTile(
+                              contentPadding: EdgeInsets.zero,
+                              controlAffinity: ListTileControlAffinity.leading,
+                              value: isSelected,
+                              activeColor: AppColors.primaryDark,
+                              checkColor: AppColors.white,
+                              title: Text(
+                                language,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.grayscale,
+                                ),
+                              ),
+                              onChanged: (value) {
+                                setModalState(() {
+                                  if (value ?? false) {
+                                    tempSelection.add(language);
+                                  } else {
+                                    tempSelection.remove(language);
+                                  }
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    PrimaryButton(
+                      title: 'Done',
+                      action: () => Navigator.of(sheetContext).pop(tempSelection),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+
+    if (!mounted || result == null) return;
+
+    setState(() {
+      selectedLanguages = result;
+    });
   }
 }

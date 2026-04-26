@@ -4,16 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/utils/extensions/string_extension.dart';
 import 'package:zheeta/core/utils/notify.dart';
-import 'package:zheeta/core/utils/token_utils.dart';
 import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/connections/presentation/cubits/block_account_cubit/block_account_cubit.dart';
+import 'package:zheeta/features/messages/data/models/chat_recipients_model.dart'
+    as chat_model;
 import 'package:zheeta/features/profile/data/models/user_profile_model.dart';
 import 'package:zheeta/features/profile/data/models/view_profile_model.dart';
 import 'package:zheeta/features/profile/presentation/cubits/profile_created_events_cubit/profile_created_events_cubit.dart';
-import 'package:zheeta/features/profile/presentation/cubits/profile_view_cubit/profile_view_cubit.dart';
 import 'package:zheeta/features/profile/presentation/widgets/counter.dart';
 import 'package:zheeta/features/profile/presentation/widgets/intrests_tile.dart';
-import 'package:zheeta/features/profile/presentation/widgets/recent-downlines.dart';
 import 'package:zheeta/features/profile/presentation/widgets/tab_button.dart';
 import 'package:zheeta/features/profile/presentation/widgets/basic_profile_section.dart';
 import 'package:zheeta/features/profile/presentation/widgets/user_bio.dart';
@@ -23,17 +22,11 @@ import 'package:zheeta/shared/widgets/gender_age.dart';
 import 'package:zheeta/shared/widgets/gender_indicator.dart';
 import 'package:zheeta/shared/widgets/primary_button.dart';
 import 'package:zheeta/shared/widgets/subscription_badge.dart';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/utils/pagination_controller.dart';
 import 'package:zheeta/features/buddy_events/data/models/created_buddy_event.dart';
-import 'package:zheeta/features/buddy_events/presentation/cubits/event_cubit/created_events_cubit.dart';
 import 'package:zheeta/features/buddy_events/presentation/widgets/reusable_event_card.dart';
 import 'package:zheeta/shared/widgets/loader.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:zheeta/router/app_router.gr.dart';
 
 class BuildViewUserInfo extends StatefulWidget {
   final UserProfileDataModel theUser;
@@ -273,8 +266,6 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
                       () {
                         final userId = widget.userId;
                         final blockId = widget.blockOrUnBlockId;
-                        print(userId);
-                        print(blockId);
 
                         if (userId != null && blockId != null) {
                           context.read<BlockAccountCubit>().blockUser(
@@ -326,14 +317,31 @@ class _BuildViewUserInfoState extends State<BuildViewUserInfo> {
             disabled: isDisabled,
             title: 'Chat User',
             action: () async {
-              final userId = await TokenUtil.getUserId();
               if (!mounted) return;
-              // context.router.push(ChatConversationRoute(
-              //   userName:
-              //   '${widget.theUser.profile!.firstName} ${widget.theUser.profile!.lastName}',
-              //   profileId: widget.profileId,
-              //   currentUserId: userId!,
-              // ));
+              final viewedProfile = widget.theUser.profile;
+
+              if (viewedProfile?.id == null || viewedProfile!.id!.isEmpty) {
+                NotifyUser.showSnackBar('Unable to open chat for this user');
+                return;
+              }
+
+              final recipient = chat_model.Recipient(
+                userProfile: chat_model.UserProfile(
+                  id: viewedProfile.id!,
+                  firstName: viewedProfile.firstName ?? '',
+                  lastName: viewedProfile.lastName ?? '',
+                  profilePhotoURL: viewedProfile.profilePhotoURL ?? '',
+                  profileStatus: viewedProfile.profileStatus ?? 0,
+                  lastSeenTime:
+                      viewedProfile.lastSeenTime?.toIso8601String() ?? '',
+                  isOnline: viewedProfile.isOnline ?? false,
+                ),
+                lastUnreadMessage: '',
+                lastUnreadMessageTime: DateTime.now(),
+                unreadMessageCount: 0,
+              );
+
+              context.router.push(ChatMessagesRoute(recipient: recipient));
             },
           ),
         ),

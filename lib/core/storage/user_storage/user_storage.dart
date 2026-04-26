@@ -23,6 +23,8 @@ class UserStorage implements IUserStorage {
       'user_storage_first_run_after_install';
   static const String _registeredUserKey = "REGISTERED_USER";
   static const String _userEmailKey = "USER_EMAIL";
+  static const String _rememberedEmailKey = "REMEMBERED_USER_EMAIL";
+  static const String _rememberedPasswordKey = "REMEMBERED_USER_PASSWORD";
 
   @PostConstruct()
   Future<void> init() async {
@@ -38,6 +40,8 @@ class UserStorage implements IUserStorage {
       // Clear specific keys related to user data, or deleteAll if all secure storage should be wiped
       await _storage.delete(key: _registeredUserKey);
       await _storage.delete(key: _userEmailKey);
+      await _storage.delete(key: _rememberedEmailKey);
+      await _storage.delete(key: _rememberedPasswordKey);
       // If you want to wipe ALL secure storage for this app on reinstall, use:
       // await _storage.deleteAll();
       await prefs.setBool(_userStorageFirstRunKey, true); // Mark as run
@@ -85,5 +89,30 @@ class UserStorage implements IUserStorage {
   @override
   Future<String?> getEmail() {
     return _storage.read(key: _userEmailKey);
+  }
+
+  @override
+  Future<void> saveRememberedCredentials({
+    required String email,
+    required String password,
+  }) async {
+    await _storage.write(key: _rememberedEmailKey, value: email);
+    await _storage.write(key: _rememberedPasswordKey, value: password);
+  }
+
+  @override
+  Future<String?> getRememberedEmail() {
+    return _storage.read(key: _rememberedEmailKey);
+  }
+
+  @override
+  Future<String?> getRememberedPassword() {
+    return _storage.read(key: _rememberedPasswordKey);
+  }
+
+  @override
+  Future<void> clearRememberedCredentials() async {
+    await _storage.delete(key: _rememberedEmailKey);
+    await _storage.delete(key: _rememberedPasswordKey);
   }
 }

@@ -24,40 +24,61 @@ class ChatConversationScreen extends StatefulWidget {
 class _ChatConversationScreenState extends State<ChatConversationScreen> {
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
-  List<Recipient> filteredRecipients = [];
-  List<Recipient> allRecipients = [];
 
   @override
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<ChatRecipientsCubit>().refreshChatRecipients();
+    });
   }
 
   void _onSearchChanged() {
     _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 300), _filterRecipients);
+    _debounce = Timer(const Duration(milliseconds: 300), () {
+      if (mounted) setState(() {});
+    });
   }
 
-  void _filterRecipients() {
+  List<Recipient> _filterRecipients(List<Recipient> recipients) {
     final query = _searchController.text.toLowerCase();
 
-    setState(() {
-      if (query.isEmpty) {
-        filteredRecipients = allRecipients;
-      } else {
-        filteredRecipients = allRecipients
-            .where((recipient) =>
-                recipient.userProfile.firstName.toLowerCase().contains(query) ||
-                recipient.userProfile.lastName.toLowerCase().contains(query))
-            .toList();
-      }
-    });
+    if (query.isEmpty) return recipients;
+
+    return recipients
+        .where((recipient) =>
+            recipient.userProfile.firstName.toLowerCase().contains(query) ||
+            recipient.userProfile.lastName.toLowerCase().contains(query))
+        .toList();
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.secondaryLight,
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryDark,
+        surfaceTintColor: AppColors.primaryDark,
+        elevation: 0,
+        title: const Text(
+          'Messages',
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Column(
         children: [
           SearchField(
@@ -77,11 +98,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
                   return Center(child: Text('Error: ${state.error}'));
                 }
 
-                if (allRecipients.isEmpty && state.items.isNotEmpty) {
-                  // keep a copy of all recipients for filtering
-                  allRecipients = state.items;
-                  filteredRecipients = state.items;
-                }
+                final filteredRecipients = _filterRecipients(state.items);
 
                 if (filteredRecipients.isEmpty) {
                   return const Center(
@@ -123,13 +140,9 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
                                   recipientId: recipient.userProfile.id,
                                   senderId: userId ?? ''),
                             );
-
-                        // Optionally remove immediately for UI smoothness
-                        setState(() {
-                          filteredRecipients.removeAt(index);
-                          allRecipients.removeWhere((r) =>
-                              r.userProfile.id == recipient.userProfile.id);
-                        });
+                        context
+                            .read<ChatRecipientsCubit>()
+                            .refreshChatRecipients();
                       },
                       child: ListTile(
                         leading: Stack(

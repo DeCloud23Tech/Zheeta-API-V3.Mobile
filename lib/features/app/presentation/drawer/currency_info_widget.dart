@@ -14,12 +14,25 @@ Widget buildCurrencyInfo(String countryName) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Zheeta Credit Rate in my local Currency",
-          style: TextStyle(
-            color: AppColors.darkText,
-            fontSize: 14,
-            fontWeight: FontWeight.w300,
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              color: AppColors.darkText,
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
+            ),
+            children: [
+              const TextSpan(
+                text: "ZC Rate in my local Currency - ",
+              ),
+              TextSpan(
+                text: countryName,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 10),
@@ -79,7 +92,7 @@ Widget buildCurrencyInfo(String countryName) {
                   builder: (context, state) {
                     if (state is WithdrawalRateLoaded) {
                       return Text(
-                        "$countryName (${state.currentRate?.toStringAsFixed(2)})",
+                        "${state.currentRate?.rate.toStringAsFixed(2)} ${state.currentRate?.currency ?? ''}",
                         style: const TextStyle(
                           color: AppColors.white,
                           fontSize: 16,

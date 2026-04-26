@@ -25,6 +25,10 @@ class _ProfilePageState extends State<ProfilePage>
     with ScrollListenerMixin, TabStateMixin {
   final ProfileCubit profileCubit = locator<ProfileCubit>();
 
+  Future<void> _refreshProfile() async {
+    await profileCubit.getSingleUserProfileCubit(isRefresh: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -36,18 +40,24 @@ class _ProfilePageState extends State<ProfilePage>
           final theUser = state.profile?.data;
           if (theUser == null) return const SizedBox.shrink();
 
-          return CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              buildTopNavigation(theUser, screenHeight),
-              SliverToBoxAdapter(
-                child: BuildUserInfo(theUser: theUser),
-              ),
-            ],
+          return RefreshIndicator(
+            color: AppColors.primaryDark,
+            onRefresh: _refreshProfile,
+            child: CustomScrollView(
+              controller: scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                buildTopNavigation(theUser, screenHeight),
+                SliverToBoxAdapter(
+                  child: BuildUserInfo(theUser: theUser),
+                ),
+              ],
+            ),
           );
         } else {
           return ErrorPage(
-            onTryAgain: () => profileCubit.getSingleUserProfileCubit(),
+            onTryAgain: () =>
+                profileCubit.getSingleUserProfileCubit(isRefresh: true),
           );
         }
       },

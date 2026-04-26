@@ -18,6 +18,12 @@ import 'package:zheeta/shared/widgets/primary_button.dart';
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
 
+  Future<void> _refreshProfile(BuildContext context) async {
+    await context.read<ProfileCubit>().getSingleUserProfileCubit(
+          isRefresh: true,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final profileState = context.watch<ProfileCubit>().state;
@@ -70,56 +76,62 @@ class SideDrawer extends StatelessWidget {
 
               // Scrollable content
               Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  children: [
-                    Center(child: buildMenuItems(context)),
-                    SizedBox(height: verticalSpacing),
-                    SizedBox(
-                      height: buttonHeight,
-                      child: PrimaryButton(
-                        invert: true,
-                        icon: "assets/images/icons/support.svg",
-                        title: 'WhatsApp Support',
-                        fontSize: fontSize,
-                        action: () => customLaunchUrl(
-                          context,
-                          launchWhatsApp,
+                child: RefreshIndicator(
+                  color: AppColors.primaryDark,
+                  onRefresh: () => _refreshProfile(context),
+                  child: ListView(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    children: [
+                      Center(child: buildMenuItems(context)),
+                      SizedBox(height: verticalSpacing),
+                      SizedBox(
+                        height: buttonHeight,
+                        child: PrimaryButton(
+                          invert: true,
+                          icon: "assets/images/icons/support.svg",
+                          title: 'WhatsApp Support',
+                          fontSize: fontSize,
+                          action: () => customLaunchUrl(
+                            context,
+                            launchWhatsApp,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: verticalSpacing),
-                    if (profileState is ProfileLoadedState)
-                      buildCurrencyInfo(countryName ?? ''),
-                    SizedBox(height: verticalSpacing),
-                    SizedBox(
-                      height: buttonHeight,
-                      child: PrimaryButton(
-                        invert: true,
-                        icon: "assets/images/icons/logout.svg",
-                        title: 'Logout',
-                        fontSize: fontSize,
-                        action: () => logout(context),
+                      SizedBox(height: verticalSpacing),
+                      if (profileState is ProfileLoadedState)
+                        buildCurrencyInfo(countryName ?? ''),
+                      SizedBox(height: verticalSpacing),
+                      SizedBox(
+                        height: buttonHeight,
+                        child: PrimaryButton(
+                          invert: true,
+                          icon: "assets/images/icons/logout.svg",
+                          title: 'Logout',
+                          fontSize: fontSize,
+                          action: () => logout(context),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: verticalSpacing * 0.8),
-                    if (profileState is! ProfileLoadedState)
-                      Center(
-                        child: profileState is ProfileLoadingState
-                            ? loadingIndicator()
-                            : SizedBox(
-                                height: buttonHeight,
-                                child: PrimaryButton(
-                                  invert: true,
-                                  title: 'Tap to Refresh Profile',
-                                  fontSize: fontSize,
-                                  action: () => context
-                                      .read<ProfileCubit>()
-                                      .getSingleUserProfileCubit(),
+                      SizedBox(height: verticalSpacing * 0.8),
+                      if (profileState is! ProfileLoadedState)
+                        Center(
+                          child: profileState is ProfileLoadingState
+                              ? loadingIndicator()
+                              : SizedBox(
+                                  height: buttonHeight,
+                                  child: PrimaryButton(
+                                    invert: true,
+                                    title: 'Tap to Refresh Profile',
+                                    fontSize: fontSize,
+                                    action: () => context
+                                        .read<ProfileCubit>()
+                                        .getSingleUserProfileCubit(
+                                          isRefresh: true,
+                                        ),
+                                  ),
                                 ),
-                              ),
-                      ),
-                  ],
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ],

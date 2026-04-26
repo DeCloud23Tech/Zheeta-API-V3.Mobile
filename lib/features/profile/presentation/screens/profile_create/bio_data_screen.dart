@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,18 +91,20 @@ class _BioDataScreenState extends State<BioDataScreen> with Validator {
                       color: AppColors.primaryDark,
                       fontWeight: FontWeight.w500),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 14),
                 InputField(
                   validator: isValidInput,
                   hintText: 'First Name',
+                  padding: const EdgeInsets.only(top: 6, bottom: 6),
                   onChanged: (value) => setState(() => firstName = value),
                 ),
                 InputField(
                   validator: isValidInput,
                   hintText: 'Last Name',
+                  padding: const EdgeInsets.only(top: 6, bottom: 6),
                   onChanged: (value) => setState(() => lastName = value),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -112,29 +113,33 @@ class _BioDataScreenState extends State<BioDataScreen> with Validator {
                       groupValue: sexSelect,
                       onChanged: (value) => setState(() => sexSelect = value),
                       title: 'Male',
+                      size: 25,
                     ),
                     AppRadioButton(
                       value: "Female",
                       groupValue: sexSelect,
                       onChanged: (value) => setState(() => sexSelect = value),
                       title: 'Female',
+                      size: 25,
                     ),
                     AppRadioButton(
                       value: "Not Specified",
                       groupValue: sexSelect,
                       onChanged: (value) => setState(() => sexSelect = value),
                       title: "Not Specified",
+                      size: 25,
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 6),
                 DatePickerField(
                   controller: dobController,
                   hintText: 'Date of Birth (DOB)',
+                  padding: const EdgeInsets.only(top: 6, bottom: 6),
                   validator: (data) =>
                       data?.isEmpty == true ? 'Please select a date' : null,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 18),
                 BlocConsumer<AuthenticateCountryCubit,
                     AuthenticateCountryState>(
                   listener: (context, state) {

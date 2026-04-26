@@ -5,8 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/features/app/presentation/cubits/bottom_nav_cubit/bottom_nav_cubit.dart';
 
-Widget buildBottomNavigationBar(List<List<String>> icons, BuildContext context,
-    Function(int) onItemSelected) {
+Widget buildBottomNavigationBar(
+  List<List<String>> icons,
+  BuildContext context,
+  Function(int) onItemSelected,
+) {
   return BlocBuilder<BottomNavCubit, int>(
     builder: (context, index) {
       return Align(
@@ -29,8 +32,13 @@ Widget buildBottomNavigationBar(List<List<String>> icons, BuildContext context,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: List.generate(
                     icons.length,
-                    (i) =>
-                        _buildNavItem(i, index, icons, context, onItemSelected),
+                    (i) => _buildNavItem(
+                      i,
+                      index,
+                      icons,
+                      context,
+                      onItemSelected,
+                    ),
                   ),
                 ),
               ),
@@ -42,8 +50,13 @@ Widget buildBottomNavigationBar(List<List<String>> icons, BuildContext context,
   );
 }
 
-Widget _buildNavItem(int i, int index, List<List<String>> icons,
-    BuildContext context, Function(int) onItemSelected) {
+Widget _buildNavItem(
+  int i,
+  int index,
+  List<List<String>> icons,
+  BuildContext context,
+  Function(int) onItemSelected,
+) {
   return CupertinoButton(
     padding: EdgeInsets.only(
       left: i == 2 ? 30.0 : 0.0,

@@ -6,6 +6,7 @@ import 'package:zheeta/core/error/error.dart';
 import 'package:zheeta/core/error/exception.dart';
 import 'package:zheeta/features/wallet_and_transactions/data/datasources/i_withdrawal_datasource.dart';
 import 'package:zheeta/features/wallet_and_transactions/data/models/pay_out_model.dart';
+import 'package:zheeta/features/wallet_and_transactions/data/models/rate_by_country_model.dart';
 import 'package:zheeta/features/wallet_and_transactions/domain/repositories/withdrawal_repository.dart';
 
 @prod
@@ -37,7 +38,7 @@ class WithdrawalRepositoryImpl implements IWithdrawalRepository {
   }
 
   @override
-  ResultFuture<double> getRateByCountry({
+  ResultFuture<RateByCountry> getRateByCountry({
     required String countryName,
   }) async {
     try {

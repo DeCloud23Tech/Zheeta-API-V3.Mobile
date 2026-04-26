@@ -8,9 +8,7 @@ import 'package:zheeta/features/authentication/data/requests/change_password_req
 import 'package:zheeta/features/authentication/data/requests/login_request.dart';
 import 'package:zheeta/features/authentication/data/requests/register_user_request.dart';
 import 'package:zheeta/features/authentication/data/requests/reset_password_request.dart';
-import 'package:zheeta/features/authentication/data/requests/verify_email_otp_request.dart';
 import 'package:zheeta/features/authentication/data/requests/verify_otp_request.dart';
-import 'package:zheeta/features/authentication/data/requests/verify_phone_otp_request.dart';
 import 'package:zheeta/features/authentication/domain/usecases/user_auth/user_auth_usecases.dart';
 import 'package:zheeta/features/authentication/domain/usecases/user_otp/user_otp_usecases.dart';
 import 'package:zheeta/router/app_router.dart';
@@ -141,14 +139,22 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
   }
 
-  Future<void> resetPasswordCubit(
+  Future<bool> resetPasswordCubit(
       {required ResetPasswordRequest request}) async {
     emit(AuthenticationLoadingState());
     var result = await resetPassword(request);
+    bool sendResult = false;
     result.fold(
-      (fail) => emit(AuthenticationErrorState(fail.message)),
-      (success) => emit(AuthenticationResetPasswordState()),
+      (fail) {
+        emit(AuthenticationErrorState(fail.message));
+        sendResult = false;
+      },
+      (success) {
+        emit(AuthenticationResetPasswordState());
+        sendResult = true;
+      },
     );
+    return sendResult;
   }
 
   Future<void> sendResetPasswordCubit({required String email}) async {

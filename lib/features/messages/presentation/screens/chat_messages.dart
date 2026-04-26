@@ -126,6 +126,9 @@ class _ChatMessagesScreenState extends State<ChatMessagesScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.primaryDark,
+          surfaceTintColor: AppColors.primaryDark,
+          iconTheme: const IconThemeData(color: AppColors.white),
           title: Row(
             children: [
               CircleAvatar(
@@ -133,12 +136,15 @@ class _ChatMessagesScreenState extends State<ChatMessagesScreen> {
                     NetworkImage(widget.recipient.userProfile.profilePhotoURL),
               ),
               const SizedBox(width: 8),
-              Text(widget.recipient.userProfile.firstName),
+              Text(
+                widget.recipient.userProfile.firstName,
+                style: const TextStyle(color: AppColors.white),
+              ),
             ],
           ),
           actions: [
             PopupMenuButton<String>(
-              icon: const Icon(Icons.more_horiz),
+              icon: const Icon(Icons.more_horiz, color: AppColors.white),
               onSelected: (value) async {
                 if (value == 'report') _reportUser();
                 if (value == 'block') _blockUser();
@@ -196,8 +202,9 @@ class _ChatMessagesScreenState extends State<ChatMessagesScreen> {
                               child: Container(
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color:
-                                      isMe ? Colors.blue : Colors.grey.shade200,
+                                  color: isMe
+                                      ? AppColors.primaryDark
+                                      : Colors.grey.shade200,
                                   borderRadius: BorderRadius.only(
                                     topLeft: const Radius.circular(16),
                                     topRight: const Radius.circular(16),
@@ -328,7 +335,7 @@ class _ChatMessagesScreenState extends State<ChatMessagesScreen> {
         child: Row(
           children: [
             IconButton(
-              icon: const Icon(Icons.image, color: Colors.blue),
+              icon: const Icon(Icons.image, color: AppColors.primaryDark),
               onPressed: _sendMediaMessage,
             ),
             Expanded(
@@ -351,7 +358,7 @@ class _ChatMessagesScreenState extends State<ChatMessagesScreen> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.send, color: Colors.blue),
+              icon: const Icon(Icons.send, color: AppColors.primaryDark),
               onPressed: _sendTextMessage,
             ),
           ],

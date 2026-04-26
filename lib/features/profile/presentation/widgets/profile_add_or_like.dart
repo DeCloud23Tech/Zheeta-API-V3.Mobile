@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zheeta/core/constants/color.dart';
 import 'package:zheeta/core/utils/notify.dart';
-import 'package:zheeta/di/di.dart';
 import 'package:zheeta/features/connections/presentation/cubits/friends_cubit/friends_cubit.dart';
 import 'package:zheeta/features/profile/data/models/view_profile_model.dart';
 import 'package:zheeta/shared/enums/type_of_request.dart';
@@ -18,8 +17,6 @@ class ProfileAddOrLike extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FriendsCubit friendsCubit = locator<FriendsCubit>();
-
     return BlocConsumer<FriendsCubit, FriendsState>(
       listener: (context, state) {
         if (state is FriendRequestSentSuccessState) {
@@ -49,7 +46,7 @@ class ProfileAddOrLike extends StatelessWidget {
                       onTap: isSending
                           ? null
                           : () {
-                              friendsCubit.sendFriendRequestCubit(
+                              context.read<FriendsCubit>().sendFriendRequestCubit(
                                 receiverId: visitProfile!.profile.user!.userId!,
                                 type: TypeOfRequest.friendRequest,
                               );

@@ -9,52 +9,49 @@ class VerificationWelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.primaryLight, AppColors.primaryDark],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 18),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 28),
-                child: Text(
-                  'Welcome',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 68,
-                    fontWeight: FontWeight.w700,
-                    height: 1.0,
-                  ),
+      backgroundColor: AppColors.primaryDark,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 28),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 28),
+              child: Text(
+                'Welcome',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 50,
+                  fontWeight: FontWeight.w700,
+                  height: 1.0,
                 ),
               ),
-              const SizedBox(height: 18),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 28),
+            ),
+            const SizedBox(height: 14),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 28),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 300),
                 child: Text(
                   'Registration completed successfully,\n'
                   'you can now proceed to set up your\n'
                   'user profile.',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 17,
-                    height: 1.55,
+                    fontSize: 14,
+                    height: 1.5,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-              SizedBox(height: screenHeight * 0.03),
-              Expanded(
-                child: Center(
+            ),
+            const SizedBox(height: 18),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Align(
+                  alignment: const Alignment(0, -0.05),
                   child: Image.asset(
                     'assets/images/welcome.png',
                     fit: BoxFit.contain,
@@ -62,35 +59,35 @@ class VerificationWelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 12, 24, 34),
-                child: SizedBox(
-                  height: 72,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      context.router.replaceAll([const SignInRoute()]);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: AppColors.secondaryLight,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(28, 12, 28, 24),
+              child: SizedBox(
+                height: 52,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.router.replaceAll([const SignInRoute()]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: AppColors.secondaryLight,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text(
-                      'Proceed',
-                      style: TextStyle(
-                        color: AppColors.primaryDark,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  child: const Text(
+                    'Proceed',
+                    style: TextStyle(
+                      color: AppColors.primaryDark,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

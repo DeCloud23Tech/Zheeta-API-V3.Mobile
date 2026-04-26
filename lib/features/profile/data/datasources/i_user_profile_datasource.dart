@@ -5,7 +5,7 @@ import 'package:zheeta/features/profile/data/requests/create_user_profile_reques
 import 'package:zheeta/features/profile/data/requests/update_user_profile_request.dart';
 
 abstract class IUserProfileDataSource {
-  Future<UserProfileModel?> getSingleUserProfileNew();
+  Future<UserProfileModel?> getSingleUserProfileNew({bool isRefresh = false});
 
   Future<ViewProfileModel> visitUserProfileNew({required String userId});
 

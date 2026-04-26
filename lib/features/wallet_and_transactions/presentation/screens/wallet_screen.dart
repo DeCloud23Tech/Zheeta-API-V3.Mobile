@@ -140,10 +140,10 @@ class _WalletScreenState extends State<WalletScreen> {
         _walletActionButton(
             Icons.add_card_outlined, 'Add Funds', PaymentTypeRoute()),
         _walletActionButton(Icons.wallet, 'Send Coins', SendCoinRoute()),
-        _walletActionButton(Icons.account_balance_wallet_outlined,
-            'Payout Accounts', WithdrawalPayoutAccountRoute()),
         _walletActionButton(
-            Icons.account_balance, 'Withdraw', WithdrawalPayoutAccountRoute()),
+            Icons.account_balance_wallet_outlined, 'Payout Accounts', const PayoutAccountRoute()),
+        _walletActionButton(
+            Icons.account_balance, 'Withdraw', const WithdrawalPayoutAccountRoute()),
       ],
     );
   }

@@ -7,8 +7,8 @@ import 'package:zheeta/features/app/presentation/widgets/floating_action_button.
 import 'package:zheeta/router/app_router.gr.dart';
 
 const List<List<String>> appFooterIcons = [
-  ['Discover', 'assets/images/icons/card.svg'],
   ['Feed', 'assets/images/icons/feed.svg'],
+  ['Discover', 'assets/images/icons/card.svg'],
   ['Messages', 'assets/images/icons/messages.svg'],
   ['Profile', 'assets/images/icons/user.svg'],
 ];

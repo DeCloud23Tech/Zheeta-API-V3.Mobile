@@ -6,4 +6,11 @@ abstract class IUserStorage {
   Future<void> clear();
   Future<void> saveEmail(String email);
   Future<String?> getEmail();
+  Future<void> saveRememberedCredentials({
+    required String email,
+    required String password,
+  });
+  Future<String?> getRememberedEmail();
+  Future<String?> getRememberedPassword();
+  Future<void> clearRememberedCredentials();
 }

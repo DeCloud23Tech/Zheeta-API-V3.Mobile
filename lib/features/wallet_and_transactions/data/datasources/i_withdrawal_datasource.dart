@@ -1,6 +1,5 @@
-
-
 import 'package:zheeta/features/wallet_and_transactions/data/models/pay_out_model.dart';
+import 'package:zheeta/features/wallet_and_transactions/data/models/rate_by_country_model.dart';
 
 abstract class IWithdrawalDataSource {
   Future<PayoutData> processPayOut({
@@ -8,7 +7,7 @@ abstract class IWithdrawalDataSource {
     required String payOutAccountId,
   });
 
-  Future<double> getRateByCountry({
+  Future<RateByCountry> getRateByCountry({
     required String countryName,
   });
 }

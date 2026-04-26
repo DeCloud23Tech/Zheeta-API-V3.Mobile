@@ -32,7 +32,6 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen>
 
   @override
   void dispose() {
-    _otpController.dispose();
     _otpNotifier.dispose();
     super.dispose();
   }
@@ -40,7 +39,7 @@ class _ResetPasswordOtpScreenState extends State<ResetPasswordOtpScreen>
   void _handleNext() async {
     if (_formKey.currentState!.validate()) {
       final data = VerifyOtpRequest(
-          type: 2, email: widget.email, otp: _otpController.text);
+          type: 3, email: widget.email, otp: _otpController.text);
       // Call the verifyEmailOtpCubit method
       final isVerified = await context
           .read<AuthenticationCubit>()
